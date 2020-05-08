@@ -72,7 +72,12 @@ void	fill_my_command(char **split)
 		{
 			j = 0;
 			while(split[i][j])
-				command_info.string[k++] = split[i][j++];
+			{
+				if (split[i][j] != '"')
+					command_info.string[k++] = split[i][j];
+				j++;
+			}
+			command_info.string[k++] = ' ';
 			i++;
 		}
 		command_info.string[k] = '\0';
