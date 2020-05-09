@@ -1,8 +1,5 @@
 #include "mini_shell.h"
 
-
-
-
 int		mod_strlen(char **s)
 {
 	int i;
@@ -64,22 +61,16 @@ void	fill_my_command(char **split)
 	}
 	if (split[i])
 	{
-		j = i;
-		while (split[j])
-			len += ft_strlen(split[j++]);
+		len = ft_strlen(split[i]);
 		command_info.string = malloc(len + 1);
-		while (split[i])
+		j = 0;
+		while(split[i][j])
 		{
-			j = 0;
-			while(split[i][j])
-			{
-				if (split[i][j] != '"')
-					command_info.string[k++] = split[i][j];
-				j++;
-			}
-			command_info.string[k++] = ' ';
-			i++;
+			command_info.string[k++] = split[i][j];
+			j++;
 		}
+		command_info.string[k++] = ' ';
+		i++;
 		command_info.string[k] = '\0';
 	}
 }
@@ -114,7 +105,7 @@ int 	main()
 		ret = 1;
 		write(1, "chadi@minishell : ", 19);
 		get_next_line(0, &line);
-		split = ft_split(line, ' ');
+		split = mod_split(line, ' ');
 		
 		fill_my_command(split);
 		printf("command : %s\noptions : %s\nstring : %s\n", command_info.command, command_info.options, command_info.string);

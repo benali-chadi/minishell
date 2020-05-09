@@ -28,4 +28,6 @@ typedef struct	s_tests {
 t_command_info	command_info;
 t_tests			tests;
 
+char			**mod_split(char *str, char c);
+
 #endif

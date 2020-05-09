@@ -4,7 +4,7 @@ NAME = minishell
 
 NAMELIB = libft.a
 
-SRC = mini_shell.c gnl/get_next_line.c gnl/get_next_line_utils.c $(NAMELIB)
+SRC = mini_shell.c mod_split.c gnl/get_next_line.c gnl/get_next_line_utils.c $(NAMELIB)
 
 all : $(NAME)
 
