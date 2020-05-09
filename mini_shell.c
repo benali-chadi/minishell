@@ -69,8 +69,6 @@ void	fill_my_command(char **split)
 			command_info.string[k++] = split[i][j];
 			j++;
 		}
-		command_info.string[k++] = ' ';
-		i++;
 		command_info.string[k] = '\0';
 	}
 }
@@ -108,10 +106,12 @@ int 	main()
 		split = mod_split(line, ' ');
 		
 		fill_my_command(split);
-		printf("command : %s\noptions : %s\nstring : %s\n", command_info.command, command_info.options, command_info.string);
+		printf("command : |%s|\noptions : |%s|\nstring : |%s|\n", command_info.command, command_info.options, command_info.string);
 		if (*split)
 			ret = test();
-		if (!ret)
+		if (!tests.cd)
+			chdir(command_info.string);
+		else if (!ret)
 		{
 			f = fork();
 			if (f > 0)
