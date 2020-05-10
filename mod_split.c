@@ -18,7 +18,8 @@ int		num_words(char *str, char c)
 		if (c == ' ' && (*str == '"' || *str == '\''))
 		{
 			g_quotation = 1;
-			words++;
+			if (*(str - 1) != c)
+				words++;
 			break;
 		}
 		str++;
@@ -86,7 +87,7 @@ char	**mod_split(char *str, char c)
 		return (0);
 	while (++i < words)
 	{
-		if (i == words && g_quotation)
+		if (i == words - 1 && g_quotation)
 			g_con = 1;
 		if (!(split[i] = malloc(num_chars(str, c, &k) + 1)))
 			return (free_tab(split, i));

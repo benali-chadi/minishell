@@ -62,6 +62,7 @@ void	fill_my_command(char **split)
 	if (split[i])
 	{
 		len = ft_strlen(split[i]);
+		printf("len : %d\n", len);
 		command_info.string = malloc(len + 1);
 		j = 0;
 		while(split[i][j])
@@ -71,6 +72,32 @@ void	fill_my_command(char **split)
 		}
 		command_info.string[k] = '\0';
 	}
+}
+
+void	echo()
+{
+	int c;
+
+	if (command_info.string != NULL)
+	{
+		while (*command_info.string)
+		{
+			if (*command_info.string == '"' || *command_info.string == '\'')
+				c = *command_info.string;
+			while (*command_info.string && *command_info.string != c)
+			{
+				if (!c && (*command_info.string == '"' || *command_info.string == '\'' ))
+					break;
+				ft_putchar_fd(*command_info.string, 1);
+				command_info.string++;
+			}
+			c = 0;
+			if (*command_info.string)
+				command_info.string++;
+		}
+	}
+	if (command_info.options == NULL)
+	 	ft_putchar_fd('\n', 1);
 }
 
 int		test()
@@ -95,6 +122,7 @@ int 	main()
 	char	*line;
 	char	**split;
 	char	*args[200];
+	char	pwd[100];
 	int		f;
 	int		ret;
 
@@ -104,13 +132,30 @@ int 	main()
 		write(1, "chadi@minishell : ", 19);
 		get_next_line(0, &line);
 		split = mod_split(line, ' ');
-		
 		fill_my_command(split);
+
 		printf("command : |%s|\noptions : |%s|\nstring : |%s|\n", command_info.command, command_info.options, command_info.string);
+		
 		if (*split)
 			ret = test();
+		
 		if (!tests.cd)
-			chdir(command_info.string);
+		{
+			int a = chdir(command_info.string);
+			if (a < 0)
+			{
+				ft_putstr_fd("cd: no such file or directory: ", 1);
+				ft_putstr_fd(command_info.string, 1);
+				ft_putchar_fd('\n', 1);
+			}
+		}
+		else if (!tests.pwd)
+		{
+			ft_putstr_fd(getcwd(pwd, 100), 1);
+			ft_putchar_fd('\n', 1);
+		}
+		else if (!tests.echo)
+			echo();
 		else if (!ret)
 		{
 			f = fork();
