@@ -16,6 +16,7 @@ typedef	struct		s_list_env
 {
 	char				*content;
 	char				*name;
+	char				*name_content;
 	struct s_list_env	*next;
 }					t_list_env;
 
@@ -72,12 +73,14 @@ int				is_alpha_digit(char a);
 /*
 	Linked List
 */
-
-void			add_back(t_list_env **head, char *name, char *content);
+void			ft_export(char *variable);
+void			loop_env(void);
+void			ft_remove_node(char *name);
+void			add_back(t_list_env **head, char *name, char *content, char *name_content);
 t_list_env		*ft_lstlast(t_list_env *lst);
 void			ft_lstadd_front(t_list_env **alst, t_list_env *new);
 void			ft_lstadd_back(t_list_env **alst, t_list_env *new);
-t_list_env		*ft_lstnew(char *name, char *content);
+t_list_env		*ft_lstnew(char *name, char *content, char *name_content);
 
 /*
 	Environment

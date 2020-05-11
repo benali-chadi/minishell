@@ -49,7 +49,7 @@ void		ft_lstadd_back(t_list_env **alst, t_list_env *new)
 //     new->next = NULL;
 // }
 
-t_list_env		*ft_lstnew(char *name, char *content)
+t_list_env		*ft_lstnew(char *name, char *content, char *name_content)
 {
 	t_list_env	*list;
 
@@ -58,13 +58,14 @@ t_list_env		*ft_lstnew(char *name, char *content)
 	{
 		list->content = content;
 		list->name = name;
+		list->name_content = name_content;
 		list->next = NULL;
 		return (list);
 	}
 	return (NULL);
 }
 
-void	add_back(t_list_env **head, char *name, char *content)
+void	add_back(t_list_env **head, char *name, char *content, char *name_content)
 {
-	ft_lstadd_back(head, ft_lstnew(name, content));
+	ft_lstadd_back(head, ft_lstnew(name, content, name_content));
 }

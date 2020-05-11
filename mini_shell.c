@@ -121,6 +121,12 @@ int 	main(int ac, char **av, char **env)
 		}
 		else if (!tests.echo)
 			echo();
+		else if (!tests.env)
+			loop_env();
+		else if (!tests.unset)
+			ft_remove_node(command_info.string);
+		else if (!tests.export_t)
+			ft_export(command_info.string);
 		else if (!ret)
 		{
 			f = fork();
