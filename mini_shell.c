@@ -36,14 +36,10 @@ void	echo()
 	i = 0;
 	g = 0;
 	if (command_info.string != NULL)
-	{
-		while (command_info.string[i]) // "test'test" lkfj 'lkf"lk'
+		while (command_info.string[i])
 		{
 			if (command_info.string[i] == '"' || command_info.string[i] == '\'')
-			{
-				c = command_info.string[i];
-				i++;
-			}	
+				c = command_info.string[i++];
 			else
 				c = 0;
 			while (command_info.string[i] && command_info.string[i] != c)
@@ -61,7 +57,6 @@ void	echo()
 			else
 				g = 0;
 		}
-	}
 	if (command_info.options == NULL)
 	 	ft_putchar_fd('\n', 1);
 }
