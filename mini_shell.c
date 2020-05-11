@@ -15,6 +15,7 @@ void	init_struct()
 	command_info.command = NULL;
 	command_info.options = NULL;
 	command_info.string = NULL;
+	command_info.string_len = 0;
 	tests.echo = 1;
 	tests.cd = 1;
 	tests.env = 1;
@@ -23,55 +24,6 @@ void	init_struct()
 	tests.pwd = 1;
 	tests.unset = 1;
 	tests.ls = 1;
-}
-
-void	fill_my_command(char **split)
-{
-	int i;
-	int j;
-	int k;
-	int len;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	len = 0;
-	if (!*split)
-		return;
-	command_info.command = malloc(ft_strlen(split[0]) + 1);
-
-	while (split[i][j])
-	{
-		command_info.command[j] = split[i][j];
-		j++;
-	}
-	command_info.command[j] = '\0';
-	i++;
-	if (split[i] && split[i][0] == '-')
-	{
-		command_info.options = malloc(ft_strlen(split[i]) + 1);
-		j = 0;
-		while (split[i][j])
-		{
-			command_info.options[j] = split[i][j];
-			j++;
-		}
-		command_info.options[j] = '\0';
-		i++;
-	}
-	if (split[i])
-	{
-		len = ft_strlen(split[i]);
-		printf("len : %d\n", len);
-		command_info.string = malloc(len + 1);
-		j = 0;
-		while(split[i][j])
-		{
-			command_info.string[k++] = split[i][j];
-			j++;
-		}
-		command_info.string[k] = '\0';
-	}
 }
 
 void	echo()
@@ -117,7 +69,7 @@ int		test()
 	return (1);
 }
 
-int 	main()
+int 	main(int ac, char **av, char **env)
 {
 	char	*line;
 	char	**split;
@@ -126,13 +78,17 @@ int 	main()
 	int		f;
 	int		ret;
 
+	(void)ac;
+	(void)av;
+	stock_env(env);
+	variables.num = 0;
 	while (1)
 	{
 		ret = 1;
-		write(1, "chadi@minishell : ", 19);
+		ft_putstr_fd("Chadi&Salah@minishell ", 1);
 		get_next_line(0, &line);
 		split = mod_split(line, ' ');
-		fill_my_command(split);
+		fill_cmd(split);
 
 		printf("command : |%s|\noptions : |%s|\nstring : |%s|\n", command_info.command, command_info.options, command_info.string);
 		

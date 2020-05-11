@@ -1,98 +1,149 @@
-#include "mini_shell.h"
+#include <stdlib.h>
+#include <stdio.h>
 
-int		g_con = 0;
-int		g_quotation = 0;
+int g_one;
+int g_two;
 
-int		num_words(char *str, char c)
-{
-	int words;
-
-	words = 0;
-	if (*str != c && *str != '\0')
-		words++;
-	while (*str)
-	{
-		if (*str == c)
-			if (*(str + 1) != c && *(str + 1) != '\0')
-				words++;
-		if (c == ' ' && (*str == '"' || *str == '\''))
-		{
-			g_quotation = 1;
-			if (*(str - 1) != c)
-				words++;
-			break;
-		}
-		str++;
-	}
-	return (words);
-}
-
-int		num_chars(char *str, int c, int *p)
+static int	ft_countwords(const char *str, char c)
 {
 	int i;
-	int w;
+	int compteur;
 
-	i = *p;
-	while (str[i] == c)
+	g_one = 0;
+	g_two = 0;
+	compteur = 0;
+	i = 0;
+	while (str[i] != '\0')
 	{
-		i++;
-		(*p)++;
-	}
-	while (str[i])
-	{
-		if (str[i] == c && !g_con)
-			break;
-		w++;
-		i++;
-	}
-	return (w);
-}
-
-void		give_value(char *split, char *str, int *p, int c)
-{
-	int j;
-
-	j = -1;
-	while (str[*p] != '\0')
-	{
-		if (str[*p] == c && !g_con)
+			if(str[i] == '"')
+				g_two = 1;
+			if(str[i] == '\'')
+				g_one = 1;
+		while (str[i] == c)
+			i++;
+		if (str[i] == '\0')
 			break ;
-		split[++j] = str[*p];
-		(*p)++;
+		compteur++;
+		while ((g_one == 1 || g_two == 1 || str[i] != c) && str[i] != '\0')
+		{
+			if(str[i] == '"')
+				g_two = (g_two == 1 ? 0 : 1);
+			if(str[i] == '\'')
+				g_one = (g_one == 1 ? 0 : 1);
+			i++;
+		}
+		if (str[i] == '\0')
+			break ;
 	}
-	split[++j] = '\0';
+	return (compteur);
 }
 
-char		**free_tab(char **split, int i)
+static int	ft_countlen(const char *str, char c, int *i)
 {
-	while (i--)
-		free(split[i]);
-	free(split);
-	split = NULL;
-	return (split);
-}
+	int len;
 
-char	**mod_split(char *str, char c)
-{
-	char	**split;
-	int		words;
-	int		i;
-	int		k;
-
-	words = num_words(str, c);
-	g_con = 0;
-	i = -1;
-	k = 0;
-	if (!(split = malloc(sizeof(char *) * (words + 1))))
-		return (0);
-	while (++i < words)
+	g_one = 0;
+	g_two = 0;
+	len = 0;
+	while (str[*i] != '\0')
 	{
-		if (i == words - 1 && g_quotation)
-			g_con = 1;
-		if (!(split[i] = malloc(num_chars(str, c, &k) + 1)))
-			return (free_tab(split, i));
-		give_value(split[i], str, &k, c);
+		if(str[*i] == '"')
+			g_two = 1;
+		if(str[*i] == '\'')
+			g_one = 1;
+		while (str[*i] == c)
+			*i = *i + 1;
+		if (str[*i] == '\0')
+			return (len);
+		while ((g_one == 1 || g_two == 1 || str[*i] != c) && str[*i] != '\0')
+		{
+			if(str[*i] == '"')
+				g_two = (g_two == 1 ? 0 : 1);
+			if(str[*i] == '\'')
+				g_one = (g_one == 1 ? 0 : 1);
+			*i = *i + 1;
+			len++;
+		}
+		return (len);
+		if (str[*i] == '\0')
+			return (len);
 	}
-	split[i] = 0;
-	return(split);
+	return (len);
+}
+
+static char	**result(char **tab, const char *str, char c)
+{
+	int a;
+	int b;
+	int i;
+
+	i = 0;
+	a = 0;
+	g_one = 0;
+	g_two = 0;
+	while (str[i] != '\0')
+	{
+		if(str[i] == '"')
+			g_two = 1;
+		if(str[i] == '\'')
+			g_one = 1;
+		while (str[i] == c)
+			i++;
+		if (str[i] == '\0')
+			break ;
+		b = 0;
+		while ((g_one == 1 || g_two == 1 || str[i] != c ) && str[i] != '\0')
+		{
+			if(str[i] == '"')
+				g_two = (g_two == 1 ? 0 : 1);
+			if(str[i] == '\'')
+				g_one = (g_one == 1 ? 0 : 1);
+			tab[a][b] = str[i];
+			i++;
+			b++;
+		}
+		tab[a][b] = '\0';
+		a++;
+	}
+	tab[a] = 0;
+	return (tab);
+}
+
+static char	**freetab(char **tab, int i)
+{
+	while (i >= 0)
+	{
+		free(tab[i]);
+		i--;
+	}
+	free(tab);
+	return (0);
+}
+
+char		**mod_split(char const *s, char c)
+{
+	int		i;
+	int		casee;
+	char	**tab;
+	int		*p;
+	int		len;
+
+	i = 0;
+	if (s)
+		casee = ft_countwords(s, c);
+	else
+		return (0);
+	if (!(tab = (char **)malloc(sizeof(char*) * (casee + 1))))
+		return (0);
+	casee = 0;
+	p = &casee;
+	while (i < ft_countwords(s, c))
+	{
+		len = ft_countlen(s, c, p);
+		if (!(tab[i] = (char *)malloc(sizeof(char) * (len + 1))))
+			return (freetab(tab, i));
+		i++;
+	}
+	tab = result(tab, s, c);
+	return (tab);
 }
