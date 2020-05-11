@@ -29,23 +29,37 @@ void	init_struct()
 void	echo()
 {
 	int c;
+	int i;
+	int g;
 
+
+	i = 0;
+	g = 0;
 	if (command_info.string != NULL)
 	{
-		while (*command_info.string)
+		while (command_info.string[i]) // "test'test" lkfj 'lkf"lk'
 		{
-			if (*command_info.string == '"' || *command_info.string == '\'')
-				c = *command_info.string;
-			while (*command_info.string && *command_info.string != c)
+			if (command_info.string[i] == '"' || command_info.string[i] == '\'')
 			{
-				if (!c && (*command_info.string == '"' || *command_info.string == '\'' ))
+				c = command_info.string[i];
+				i++;
+			}	
+			else
+				c = 0;
+			while (command_info.string[i] && command_info.string[i] != c)
+			{
+				if (!c && (command_info.string[i] == '"' || command_info.string[i] == '\'' ))
+				{
+					g = 1;
 					break;
-				ft_putchar_fd(*command_info.string, 1);
-				command_info.string++;
+				}
+				ft_putchar_fd(command_info.string[i], 1);
+				i++;
 			}
-			c = 0;
-			if (*command_info.string)
-				command_info.string++;
+			if (command_info.string[i] && !g)
+				i++;
+			else
+				g = 0;
 		}
 	}
 	if (command_info.options == NULL)
@@ -85,7 +99,7 @@ int 	main(int ac, char **av, char **env)
 	while (1)
 	{
 		ret = 1;
-		ft_putstr_fd("Chadi&Salah@minishell ", 1);
+		ft_putstr_fd("CSN@minishell ", 1);
 		get_next_line(0, &line);
 		split = mod_split(line, ' ');
 		fill_cmd(split);
