@@ -42,3 +42,21 @@ void    *ft_realloc(void *ptr, int size)
     free(tmp);
     return(ptr);
 }
+
+void	init_cnt()
+{
+	int i;
+
+	i = 0;
+	while (i < 128)
+		cnt[i++] = 0;
+	cnt['0'] = '\0';
+	cnt['a'] = '\a';
+	cnt['b'] = '\b';
+	cnt['t'] = '\t';
+	cnt['n'] = '\n';
+	cnt['v'] = '\v';
+	cnt['f'] = '\f';
+	cnt['r'] = '\r';
+	cnt['e'] = '\e';
+}

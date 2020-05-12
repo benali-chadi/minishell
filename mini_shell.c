@@ -49,6 +49,17 @@ void	echo()
 					g = 1;
 					break;
 				}
+				if (command_info.string[i] == '\\' && cnt[(int)command_info.string[i + 1]])
+				{
+					if (c)
+					{
+						ft_putchar_fd(cnt[(int)command_info.string[i + 1]], 1);
+						i +=2;
+						continue;
+					}
+					else
+						i++;
+				}
 				ft_putchar_fd(command_info.string[i], 1);
 				i++;
 			}
@@ -90,6 +101,7 @@ int 	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	stock_env(env);
+	init_cnt();
 	variables.num = 0;
 	while (1)
 	{

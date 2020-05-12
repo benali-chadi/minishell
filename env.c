@@ -70,7 +70,7 @@ void	ft_export(char *variable)
 	while(variable[++i] != '=')
 		name[i] = variable[i];
 	name[i] = '\0';
-	content = &variable[i];
+	content = &variable[++i];
 	add_back(&list_env, name, content, variable);
 }
 

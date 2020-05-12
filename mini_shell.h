@@ -55,6 +55,7 @@ t_command_info	command_info;
 t_tests			tests;
 t_list_env		*list_env;
 t_variables		variables;
+char			cnt[128];
 int				g_one;
 int				g_two;
 
@@ -69,6 +70,7 @@ void			*ft_realloc(void *ptr, int size);
 char			*ft_strcpy(char *s1, char *s2);
 int				ft_strcmpr(char *s1, char *s2);
 int				is_alpha_digit(char a);
+void			init_cnt();
 
 /*
 	Linked List
