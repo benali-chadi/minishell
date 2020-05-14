@@ -60,3 +60,11 @@ void	init_cnt()
 	cnt['r'] = '\r';
 	cnt['e'] = '\e';
 }
+
+void	sig_handler(int signum)
+{
+	if (signum == SIGINT)
+		ctrl_c = 1;
+	else if (signum == SIGQUIT)
+		return;
+}	

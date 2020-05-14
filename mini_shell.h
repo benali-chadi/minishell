@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/wait.h>
+#include <signal.h>
 
 /*
 	Envirenment Stucture
@@ -58,6 +59,7 @@ t_variables		variables;
 char			cnt[128];
 int				g_one;
 int				g_two;
+int				ctrl_c;
 
 /*Functions*/
 
@@ -71,6 +73,8 @@ char			*ft_strcpy(char *s1, char *s2);
 int				ft_strcmpr(char *s1, char *s2);
 int				is_alpha_digit(char a);
 void			init_cnt();
+
+void			sig_handler(int signum);
 
 /*
 	Linked List

@@ -16,14 +16,15 @@ void	init_struct()
 	command_info.options = NULL;
 	command_info.string = NULL;
 	command_info.string_len = 0;
-	tests.echo = 1;
-	tests.cd = 1;
-	tests.env = 1;
-	tests.exit = 1;
-	tests.export_t = 1;
-	tests.pwd = 1;
-	tests.unset = 1;
-	tests.ls = 1;
+	tests.echo = 0;
+	tests.cd = 0;
+	tests.env = 0;
+	tests.exit = 0;
+	tests.export_t = 0;
+	tests.pwd = 0;
+	tests.unset = 0;
+	tests.ls = 0;
+	ctrl_c = 0;
 }
 
 void	echo()
@@ -74,19 +75,19 @@ void	echo()
 
 int		test()
 {
-	tests.echo = ft_strncmp(command_info.command, "echo", ft_strlen("echo"));
-	tests.cd = ft_strncmp(command_info.command, "cd", ft_strlen("cd"));
-	tests.env = ft_strncmp(command_info.command, "env", ft_strlen("env"));
-	tests.exit = ft_strncmp(command_info.command, "exit", ft_strlen("exit"));
-	tests.export_t = ft_strncmp(command_info.command, "export", ft_strlen("export"));
-	tests.pwd = ft_strncmp(command_info.command, "pwd", ft_strlen("pwd"));
-	tests.unset = ft_strncmp(command_info.command, "unset", ft_strlen("unset"));
-	tests.ls = ft_strncmp(command_info.command, "ls", ft_strlen("ls"));
+	tests.echo = ft_strcmpr(command_info.command, "echo");
+	tests.cd = ft_strcmpr(command_info.command, "cd");
+	tests.env = ft_strcmpr(command_info.command, "env");
+	tests.exit = ft_strcmpr(command_info.command, "exit");
+	tests.export_t = ft_strcmpr(command_info.command, "export");
+	tests.pwd = ft_strcmpr(command_info.command, "pwd");
+	tests.unset = ft_strcmpr(command_info.command, "unset");
+	tests.ls = ft_strcmpr(command_info.command, "ls");
 
-	if (!tests.echo || !tests.cd || !tests.env || !tests.exit 
-	|| !tests.export_t || !tests.pwd || !tests.unset || !tests.ls)
-		return (0);
-	return (1);
+	if (tests.echo || tests.cd || tests.env || tests.exit 
+	|| tests.export_t || tests.pwd || tests.unset || tests.ls)
+		return (1);
+	return (0);
 }
 
 int 	main(int ac, char **av, char **env)
@@ -100,23 +101,28 @@ int 	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, sig_handler);
 	stock_env(env);
 	init_cnt();
 	variables.num = 0;
 	while (1)
 	{
-		ret = 1;
+		ret = 0;
+		init_struct();
+		if (ctrl_c)
+			continue;
 		ft_putstr_fd("CSN@minishell ", 1);
-		get_next_line(0, &line);
+		if (!(get_next_line(0, &line)))
+			exit(0);
 		split = mod_split(line, ' ');
 		fill_cmd(split);
-
 		printf("command : |%s|\noptions : |%s|\nstring : |%s|\n", command_info.command, command_info.options, command_info.string);
 		
 		if (*split)
 			ret = test();
 		
-		if (!tests.cd)
+		if (tests.cd)
 		{
 			int a = chdir(command_info.string);
 			if (a < 0)
@@ -126,20 +132,22 @@ int 	main(int ac, char **av, char **env)
 				ft_putchar_fd('\n', 1);
 			}
 		}
-		else if (!tests.pwd)
+		else if (tests.pwd)
 		{
 			ft_putstr_fd(getcwd(pwd, 100), 1);
 			ft_putchar_fd('\n', 1);
 		}
-		else if (!tests.echo)
+		else if (tests.echo)
 			echo();
-		else if (!tests.env)
+		else if (tests.env)
 			loop_env();
-		else if (!tests.unset)
+		else if (tests.unset)
 			ft_remove_node(command_info.string);
-		else if (!tests.export_t)
+		else if (tests.export_t)
 			ft_export(command_info.string);
-		else if (!ret)
+		else if (tests.exit)
+			exit(0);
+		else if (ret)
 		{
 			f = fork();
 			if (f > 0)
@@ -165,7 +173,6 @@ int 	main(int ac, char **av, char **env)
 				execve(my_command, args, NULL);
 			}
 		}
-		init_struct();
 		free(line);
 	}
 	free(line);
