@@ -53,7 +53,7 @@ t_list_env		*ft_lstnew(char *name, char *content, char *name_content)
 {
 	t_list_env	*list;
 
-	list = malloc(sizeof(t_list_env));
+	list = m_malloc(sizeof(t_list_env));
 	if (list)
 	{
 		list->content = content;

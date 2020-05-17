@@ -1,5 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
+#include "mini_shell.h"
 
 int g_one;
 int g_two;
@@ -133,14 +132,14 @@ char		**mod_split(char const *s, char c)
 		casee = ft_countwords(s, c);
 	else
 		return (0);
-	if (!(tab = (char **)malloc(sizeof(char*) * (casee + 1))))
+	if (!(tab = (char **)m_malloc(sizeof(char*) * (casee + 1))))
 		return (0);
 	casee = 0;
 	p = &casee;
 	while (i < ft_countwords(s, c))
 	{
 		len = ft_countlen(s, c, p);
-		if (!(tab[i] = (char *)malloc(sizeof(char) * (len + 1))))
+		if (!(tab[i] = (char *)m_malloc(sizeof(char) * (len + 1))))
 			return (freetab(tab, i));
 		i++;
 	}

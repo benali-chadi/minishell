@@ -50,16 +50,11 @@ void	echo()
 					g = 1;
 					break;
 				}
-				if (command_info.string[i] == '\\' && cnt[(int)command_info.string[i + 1]])
+				if (command_info.string[i] == '\\' && (cnt[(int)command_info.string[i + 1]] || command_info.string[i + 1] == '0'))
 				{
-					if (c)
-					{
-						ft_putchar_fd(cnt[(int)command_info.string[i + 1]], 1);
-						i +=2;
-						continue;
-					}
-					else
-						i++;
+					ft_putchar_fd(cnt[(int)command_info.string[i + 1]], 1);
+					i +=2;
+					continue;
 				}
 				ft_putchar_fd(command_info.string[i], 1);
 				i++;
@@ -96,8 +91,7 @@ int 	main(int ac, char **av, char **env)
 	char	**split;
 	char	*args[200];
 	char	pwd[100];
-	int		f;
-	int		ret;
+	// int		f;
 
 	(void)ac;
 	(void)av;
@@ -108,51 +102,58 @@ int 	main(int ac, char **av, char **env)
 	variables.num = 0;
 	while (1)
 	{
-		ret = 0;
 		init_struct();
-		if (ctrl_c)
-			continue;
 		ft_putstr_fd("CSN@minishell ", 1);
+		// if (ctrl_c)
+		// {
+		// 	ft_putchar_fd('\n', 0);
+		// 	continue;
+		// }
 		if (!(get_next_line(0, &line)))
-			exit(0);
+		{
+			to_free();
+			kill(0, SIGTERM);
+		}
 		split = mod_split(line, ' ');
 		fill_cmd(split);
-		printf("command : |%s|\noptions : |%s|\nstring : |%s|\n", command_info.command, command_info.options, command_info.string);
-		
 		if (*split)
-			ret = test();
+			test();
 		
 		if (tests.cd)
 		{
-			int a = chdir(command_info.string);
-			if (a < 0)
+			if (chdir(command_info.string) < 0)
 			{
-				ft_putstr_fd("cd: no such file or directory: ", 1);
+				ft_putstr_fd("cd: can't cd to ", 1);
 				ft_putstr_fd(command_info.string, 1);
 				ft_putchar_fd('\n', 1);
 			}
 		}
-		else if (tests.pwd)
+		f = fork();
+		if (f > 0)
+			wait(NULL);
+		else if(!f)
 		{
-			ft_putstr_fd(getcwd(pwd, 100), 1);
-			ft_putchar_fd('\n', 1);
-		}
-		else if (tests.echo)
-			echo();
-		else if (tests.env)
-			loop_env();
-		else if (tests.unset)
-			ft_remove_node(command_info.string);
-		else if (tests.export_t)
-			ft_export(command_info.string);
-		else if (tests.exit)
-			exit(0);
-		else if (ret)
-		{
-			f = fork();
-			if (f > 0)
-				wait(NULL);
-			else if(f == 0)
+			if (tests.cd)
+				exit(0);
+			else if (tests.pwd)
+			{
+				ft_putstr_fd(getcwd(pwd, 100), 1);
+				ft_putchar_fd('\n', 1);
+			}
+			else if (tests.echo)
+				echo();
+			else if (tests.env)
+				loop_env();
+			else if (tests.unset)
+				ft_remove_node(command_info.string);
+			else if (tests.export_t)
+				ft_export(command_info.string);
+			else if (tests.exit)
+			{
+				to_free();
+				kill(0, SIGTERM);
+			}
+			else
 			{
 				char *bin = "/bin/";
 				char *my_command = ft_strjoin(bin, command_info.command);
@@ -170,11 +171,16 @@ int 	main(int ac, char **av, char **env)
 					args[1] = command_info.string;
 					args[2] = NULL;
 				}
-				execve(my_command, args, NULL);
+				if (execve(my_command, args, NULL) < 0)
+				{
+					ft_putstr_fd(command_info.command, 1);
+					ft_putstr_fd(": command not found\n", 1);
+					exit(-1);
+				}				
 			}
+			exit(0);
 		}
 		free(line);
 	}
-	free(line);
 	return (0);
 }

@@ -31,7 +31,8 @@ void	cat_command_string(char	**args, int i)
 	int k;
 
 	j = 0;
-	command_info.string  = ft_strdup(args[i]);
+	command_info.string = m_malloc(ft_strlen(args[i]) + 1);
+	command_info.string = ft_strcpy(command_info.string, args[i]);
 	while(args[i])
 	{
 		init_one_two();
@@ -43,7 +44,7 @@ void	cat_command_string(char	**args, int i)
 			if((args[i][j] == '$' && args[i][j + 1] && g_one != 1 )|| (args[i][j] == '$' && args[i][j + 1] && g_one == 1 && g_two == 1))
 			{
 				j++;
-				var = malloc(ft_strlen(args[i]));
+				var = m_malloc(ft_strlen(args[i]));
 				k = 0;
 				while(is_alpha_digit(args[i][j]) && args[i][j] != '$' && args[i][j])
 					var[k++] = args[i][j++];
@@ -52,7 +53,7 @@ void	cat_command_string(char	**args, int i)
 				compare_var(var, args[i]);
 				if(args[i][j] == '"' || args[i][j] == '\'')
 					fill_command_string(args[i][j]);
-				free(var);
+				// free(var);
 				printf("|%s|\n", command_info.string);
 			}
 			else
@@ -77,14 +78,14 @@ void	fill_cmd(char **split)
 	i = 0;
 	if (!*split)
 		return;
-	command_info.command = malloc(ft_strlen(split[0]) + 1);
+	command_info.command = m_malloc(ft_strlen(split[0]) + 1);
 
 	ft_strcpy(command_info.command, split[i]);
 	i++;
 
 	if (split[i] && split[i][0] == '-')
 	{
-		command_info.options = malloc(ft_strlen(split[i]) + 1);
+		command_info.options = m_malloc(ft_strlen(split[i]) + 1);
 		ft_strcpy(command_info.options, split[i]);
 		i++;
 	}

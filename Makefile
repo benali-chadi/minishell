@@ -4,12 +4,12 @@ NAME = minishell
 
 NAMELIB = libft.a
 
-SRC = mini_shell.c mod_split.c env.c fill_cmd.c linkedlist.c utils.c gnl/get_next_line.c gnl/get_next_line_utils.c $(NAMELIB)
+SRC = mini_shell.c mod_split.c env.c fill_cmd.c linkedlist.c utils.c to_free.c gnl/get_next_line.c gnl/get_next_line_utils.c $(NAMELIB)
 
 all : $(NAME)
 
 $(NAME) : $(NAMELIB)
-	gcc $(FLAGS) $(SRC) -o $(NAME) -D BUFFER_SIZE=10000
+	gcc $(FLAGS) $(SRC) -o $(NAME) -D BUFFER_SIZE=10000 -fsanitize=address
 
 $(NAMELIB) :
 	make -C libft/

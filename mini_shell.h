@@ -60,6 +60,7 @@ char			cnt[128];
 int				g_one;
 int				g_two;
 int				ctrl_c;
+int				f;
 
 /*Functions*/
 
@@ -76,6 +77,8 @@ void			init_cnt();
 
 void			sig_handler(int signum);
 
+void			*m_malloc(size_t n);
+void			to_free(void);
 /*
 	Linked List
 */
@@ -92,18 +95,18 @@ t_list_env		*ft_lstnew(char *name, char *content, char *name_content);
 	Environment
 */
 
-void	stock_env(char **env);
-void	ft_cpy_env(t_list_env *read_env);
-void	compare_var(char *var, char *arg);
+void			stock_env(char **env);
+void			ft_cpy_env(t_list_env *read_env);
+void			compare_var(char *var, char *arg);
 
 /*
 	Fill The command
 */
 
-void	fill_cmd(char **split);
-void	cat_command_string(char	**args, int i);
-void	change_one_two(char a);
-void	init_one_two();
-void	fill_command_string(char a);
+void			fill_cmd(char **split);
+void			cat_command_string(char	**args, int i);
+void			change_one_two(char a);
+void			init_one_two();
+void			fill_command_string(char a);
 
 #endif

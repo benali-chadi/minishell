@@ -14,7 +14,7 @@ void	stock_env(char **env)
 	{
 		j = 0;
 		name_content = env[i];
-		name = malloc(ft_strlen(env[i]));
+		name = m_malloc(ft_strlen(env[i]));
 		// tmp2 = malloc(ft_strlen(env[i]));
 		while(env[i][j] != '=')
 		{
@@ -66,7 +66,7 @@ void	ft_export(char *variable)
 	char *content;
 
 	i = -1;
-	name = malloc(ft_strlen(variable));
+	name = m_malloc(ft_strlen(variable));
 	while(variable[++i] != '=')
 		name[i] = variable[i];
 	name[i] = '\0';

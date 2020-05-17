@@ -37,9 +37,9 @@ void    *ft_realloc(void *ptr, int size)
     void *tmp;
 
     tmp = ptr;
-    ptr = malloc(size);
+    ptr = m_malloc(size);
     ptr = ft_strcpy(ptr, tmp);
-    free(tmp);
+    // free(tmp);
     return(ptr);
 }
 
@@ -64,7 +64,14 @@ void	init_cnt()
 void	sig_handler(int signum)
 {
 	if (signum == SIGINT)
-		ctrl_c = 1;
+	{
+		// if (!f)
+		// {
+		// 	exit(0);
+		// }
+		// else
+			ft_putstr_fd("\nCSN@minishell ", 1);
+	}
 	else if (signum == SIGQUIT)
 		return;
 }	
