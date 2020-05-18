@@ -89,7 +89,6 @@ int 	main(int ac, char **av, char **env)
 {
 	char	*line;
 	char	**split;
-	// char	*args[200];
 	char	pwd[100];
 	// int		f;
 
@@ -131,7 +130,6 @@ int 	main(int ac, char **av, char **env)
 		else if (tests.exit)
 		{
 			to_free();
-			// kill(0, SIGTERM);
 			exit(0);
 		}
 		else if (tests.pwd)

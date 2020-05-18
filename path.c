@@ -52,7 +52,6 @@ void	find_path(char *var)
 	while (split[i])
 	{
 		command = ft_strjoin(split[i], var);
-		printf("%s\n", command);
 		if (!stat(command, &buf))
 			execute_cmd(command);
 		i++;
