@@ -18,11 +18,7 @@ void	execute_cmd(char *command)
 		args[2] = NULL;
 	}
 	if (execve(command, args, NULL) < 0)
-	{
-		ft_putstr_fd(command_info.command, 1);
-		ft_putstr_fd(": command not found\n", 1);
 		exit(-1);
-	}
 	exit(0);
 }
 
@@ -56,7 +52,11 @@ void	find_path(char *var)
 			execute_cmd(command);
 		i++;
 	}
-	ft_putstr_fd(command_info.command, 1);
-	ft_putstr_fd(": command not found\n", 1);
-	exit(-1);
+	if (command_info.command)
+	{
+		ft_putstr_fd(command_info.command, 1);
+		ft_putstr_fd(": command not found\n", 1);
+		exit(-1);
+	}
+	exit(0);
 }

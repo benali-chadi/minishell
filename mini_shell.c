@@ -102,12 +102,7 @@ int 	main(int ac, char **av, char **env)
 	while (1)
 	{
 		init_struct();
-		ft_putstr_fd("CSN@minishell ", 1);
-		// if (ctrl_c)
-		// {
-		// 	ft_putchar_fd('\n', 0);
-		// 	continue;
-		// }
+		ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m", 1);
 		if (!(get_next_line(0, &line)))
 		{
 			to_free();

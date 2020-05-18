@@ -65,12 +65,7 @@ void	sig_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		// if (!f)
-		// {
-		// 	exit(0);
-		// }
-		// else
-			ft_putstr_fd("\nCSN@minishell ", 1);
+		ft_putstr_fd("\n\033[0;32mCS\033[0;31m@minishell \033[0m", 1);
 	}
 	else if (signum == SIGQUIT)
 		return;
