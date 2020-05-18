@@ -112,7 +112,7 @@ int 	main(int ac, char **av, char **env)
 		if (!(get_next_line(0, &line)))
 		{
 			to_free();
-			kill(0, SIGTERM);
+			exit(0);
 		}
 		split = mod_split(line, ' ');
 		fill_cmd(split);
@@ -127,6 +127,12 @@ int 	main(int ac, char **av, char **env)
 				ft_putstr_fd(command_info.string, 1);
 				ft_putchar_fd('\n', 1);
 			}
+		}
+		else if (tests.exit)
+		{
+			to_free();
+			// kill(0, SIGTERM);
+			exit(0);
 		}
 		f = fork();
 		if (f > 0)
@@ -148,11 +154,6 @@ int 	main(int ac, char **av, char **env)
 				ft_remove_node(command_info.string);
 			else if (tests.export_t)
 				ft_export(command_info.string);
-			else if (tests.exit)
-			{
-				to_free();
-				kill(0, SIGTERM);
-			}
 			else
 			{
 				char *bin = "/bin/";

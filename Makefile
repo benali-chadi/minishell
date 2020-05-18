@@ -9,7 +9,8 @@ SRC = mini_shell.c mod_split.c env.c fill_cmd.c linkedlist.c utils.c to_free.c g
 all : $(NAME)
 
 $(NAME) : $(NAMELIB)
-	gcc $(FLAGS) $(SRC) -o $(NAME) -D BUFFER_SIZE=10000 -fsanitize=address
+	gcc $(FLAGS) $(SRC) -o $(NAME) -D BUFFER_SIZE=10000 
+	# -fsanitize=address
 
 $(NAMELIB) :
 	make -C libft/
