@@ -7,6 +7,8 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/wait.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <signal.h>
 
 /*
@@ -108,5 +110,13 @@ void			cat_command_string(char	**args, int i);
 void			change_one_two(char a);
 void			init_one_two();
 void			fill_command_string(char a);
+
+/*
+	Path
+*/
+
+void			find_path(char *var);
+char			*search_path(void);
+void			execute_cmd(char *command);
 
 #endif

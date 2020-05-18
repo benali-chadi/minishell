@@ -89,7 +89,7 @@ int 	main(int ac, char **av, char **env)
 {
 	char	*line;
 	char	**split;
-	char	*args[200];
+	// char	*args[200];
 	char	pwd[100];
 	// int		f;
 
@@ -134,52 +134,26 @@ int 	main(int ac, char **av, char **env)
 			// kill(0, SIGTERM);
 			exit(0);
 		}
-		f = fork();
-		if (f > 0)
-			wait(NULL);
-		else if(!f)
+		else if (tests.pwd)
 		{
-			if (tests.cd)
-				exit(0);
-			else if (tests.pwd)
-			{
-				ft_putstr_fd(getcwd(pwd, 100), 1);
-				ft_putchar_fd('\n', 1);
-			}
-			else if (tests.echo)
-				echo();
-			else if (tests.env)
-				loop_env();
-			else if (tests.unset)
-				ft_remove_node(command_info.string);
-			else if (tests.export_t)
-				ft_export(command_info.string);
-			else
-			{
-				char *bin = "/bin/";
-				char *my_command = ft_strjoin(bin, command_info.command);
-				printf("%s\n", my_command);
-				if (command_info.options)
-				{
-					args[0] = command_info.command;
-					args[1] = command_info.options;
-					args[2] = command_info.string;
-					args[3] = NULL;
-				}
-				else
-				{
-					args[0] = command_info.command;
-					args[1] = command_info.string;
-					args[2] = NULL;
-				}
-				if (execve(my_command, args, NULL) < 0)
-				{
-					ft_putstr_fd(command_info.command, 1);
-					ft_putstr_fd(": command not found\n", 1);
-					exit(-1);
-				}				
-			}
-			exit(0);
+			ft_putstr_fd(getcwd(pwd, 100), 1);
+			ft_putchar_fd('\n', 1);
+		}
+		else if (tests.echo)
+			echo();
+		else if (tests.env)
+			loop_env();
+		else if (tests.unset)
+			ft_remove_node(command_info.string);
+		else if (tests.export_t)
+			ft_export(command_info.string);
+		else
+		{
+			f = fork();
+			if (f > 0)
+				wait(NULL);
+			else if(!f)
+				find_path(ft_strjoin("/",command_info.command));
 		}
 		free(line);
 	}
