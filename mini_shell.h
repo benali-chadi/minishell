@@ -79,6 +79,11 @@ void			init_cnt();
 
 void			sig_handler(int signum);
 
+char			*search_lgnam();
+
+/*
+	For freeing
+*/
 void			*m_malloc(size_t n);
 void			to_free(void);
 /*

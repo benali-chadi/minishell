@@ -115,6 +115,13 @@ int 	main(int ac, char **av, char **env)
 		
 		if (tests.cd)
 		{
+			if (!command_info.string)
+				command_info.string = search_lgnam();
+			else if (command_info.string[0] == '~')
+			{
+				command_info.string = ft_strjoin(search_lgnam(), command_info.string + 1);
+				printf("%s\n", command_info.string);
+			}
 			if (chdir(command_info.string) < 0)
 			{
 				ft_putstr_fd("cd: can't cd to ", 1);

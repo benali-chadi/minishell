@@ -69,4 +69,18 @@ void	sig_handler(int signum)
 	}
 	else if (signum == SIGQUIT)
 		return;
-}	
+}
+
+char	*search_lgnam()
+{
+	t_list_env	*read_env;
+
+	read_env = list_env;
+	while(read_env)
+	{
+		if(ft_strcmpr(read_env->name, "LOGNAME"))
+			return(ft_strjoin("/home/", read_env->content));
+		read_env = read_env->next;
+	}
+	return (NULL);
+}
