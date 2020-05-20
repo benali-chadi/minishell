@@ -26,14 +26,6 @@ typedef	struct		s_list_env
 /*
 	Command Structures
 */
-
-typedef struct	s_command_info {
-	char		*command;
-	char		*options;
-	char		*string;
-	int			string_len;
-}				t_command_info;
-
 typedef struct	s_tests {
 	int			echo;
 	int			cd;
@@ -45,6 +37,15 @@ typedef struct	s_tests {
 	int			ls;
 }				t_tests;
 
+typedef struct	s_command_info {
+	char					*command;
+	char					*options;
+	char					*string;
+	int						string_len;
+	t_tests					tests;
+	struct s_command_info	*next;
+}				t_command_info;
+
 typedef struct	s_variables {
 	int			num;
 	char		*buffer;
@@ -54,7 +55,8 @@ typedef struct	s_variables {
 	Global Variables
 */
 
-t_command_info	command_info;
+// t_command_info	command_info;
+t_command_info	*commands;
 t_tests			tests;
 t_list_env		*list_env;
 t_variables		variables;
@@ -89,8 +91,9 @@ void			to_free(void);
 /*
 	Linked List
 */
-void			ft_export(char *variable);
-void			loop_env(void);
+
+// For env
+
 void			ft_remove_node(char *name);
 void			add_back(t_list_env **head, char *name, char *content, char *name_content);
 t_list_env		*ft_lstlast(t_list_env *lst);
@@ -98,30 +101,41 @@ void			ft_lstadd_front(t_list_env **alst, t_list_env *new);
 void			ft_lstadd_back(t_list_env **alst, t_list_env *new);
 t_list_env		*ft_lstnew(char *name, char *content, char *name_content);
 
+// for cmd
+
+void				cmd_lstadd_back(t_command_info **commands, t_command_info *new);
+t_command_info		*cmd_lstlast(t_command_info *lst);
+
 /*
 	Environment
 */
 
+void			ft_export(char *variable);
+void			loop_env(void);
 void			stock_env(char **env);
-void			ft_cpy_env(t_list_env *read_env);
-void			compare_var(char *var, char *arg);
+void			ft_cpy_env(t_command_info *cmd, t_list_env *read_env);
+void			compare_var(t_command_info *cmd, char *var, char *arg);
 
 /*
-	Fill The command
+	Commands
 */
 
 void			fill_cmd(char **split);
-void			cat_command_string(char	**args, int i);
+void			cat_command_string(t_command_info *cmd, char **args, int i);
 void			change_one_two(char a);
 void			init_one_two();
-void			fill_command_string(char a);
+void			fill_command_string(t_command_info *cmd, char a);
+void			exec_cmd(void);
+void			test(t_command_info *cmd);
+
+void			echo(t_command_info *cmd);
 
 /*
 	Path
 */
 
-void			find_path(char *var);
+void			find_path(t_command_info *cmd, char *var);
 char			*search_path(void);
-void			execute_cmd(char *command);
+void			execute_cmd(t_command_info *cmd, char *command);
 
 #endif

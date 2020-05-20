@@ -36,14 +36,14 @@ void	stock_env(char **env)
     // }
 }
 
-void	ft_cpy_env(t_list_env *read_env)
+void	ft_cpy_env(t_command_info *cmd, t_list_env *read_env)
 {
 	int e ;
 
 	e = 0;
 	while(read_env->content[e])
-		command_info.string[command_info.string_len++] = read_env->content[e++];
-	command_info.string[command_info.string_len] = '\0';
+		cmd->string[cmd->string_len++] = read_env->content[e++];
+	cmd->string[cmd->string_len] = '\0';
 }
 
 void	loop_env(void)
@@ -98,7 +98,7 @@ void	ft_remove_node(char *name)
 	}
 }
 
-void	compare_var(char *var, char *arg)
+void	compare_var(t_command_info *cmd, char *var, char *arg)
 {
 	// int			i;
 	// int			j;
@@ -110,8 +110,8 @@ void	compare_var(char *var, char *arg)
 	{
 		if(ft_strcmpr(read_env->name, var))
 		{
-			command_info.string  = ft_realloc(command_info.string ,ft_strlen(command_info.string) + ft_strlen(arg) + ft_strlen(read_env->content) + 1 + g_two); // + g_two prsq si kant two mfto7a ("") khas n2aloki liha blastha;
-			ft_cpy_env(read_env);
+			cmd->string  = ft_realloc(cmd->string ,ft_strlen(cmd->string) + ft_strlen(arg) + ft_strlen(read_env->content) + 1 + g_two); // + g_two prsq si kant two mfto7a ("") khas n2aloki liha blastha;
+			ft_cpy_env(cmd, read_env);
 			break;
 		}
 		read_env = read_env->next;

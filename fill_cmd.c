@@ -1,13 +1,13 @@
 #include "mini_shell.h"
 
-void	fill_command_string(char a)
+void	fill_command_string(t_command_info *cmd, char a)
 {
-	command_info.string[command_info.string_len++] = a;
+	cmd->string[cmd->string_len++] = a;
 	if(a == '\'')
 		g_one = g_one == 1 ? 0 : 1;
 	if(a == '"')
 		g_two = g_two == 1 ? 0 : 1;
-	command_info.string[command_info.string_len] = '\0';
+	cmd->string[cmd->string_len] = '\0';
 }
 
 void	init_one_two()
@@ -24,20 +24,20 @@ void	change_one_two(char a)
 		g_one = g_one == 1 ? 0 : 1;
 }
 
-void	cat_command_string(char	**args, int i)
+void	cat_command_string(t_command_info *cmd, char **args, int i)
 {
 	int j;
 	char *var;
 	int k;
 
 	j = 0;
-	command_info.string = m_malloc(ft_strlen(args[i]) + 1);
-	command_info.string = ft_strcpy(command_info.string, args[i]);
+	cmd->string = m_malloc(ft_strlen(args[i]) + 1);
+	cmd->string = ft_strcpy(cmd->string, args[i]);
 	while(args[i])
 	{
 		init_one_two();
 		if(j != 0)    // to not realloc for the first time !
-			command_info.string = ft_realloc(command_info.string, ft_strlen(command_info.string) + ft_strlen(args[i]) + 1);
+			cmd->string = ft_realloc(cmd->string, ft_strlen(cmd->string) + ft_strlen(args[i]) + 1);
 		j = 0;
 		while(args[i][j])
 		{
@@ -50,45 +50,52 @@ void	cat_command_string(char	**args, int i)
 					var[k++] = args[i][j++];
 				var[k] = '\0';
 				printf("var:%s\n", var);
-				compare_var(var, args[i]);
+				compare_var(cmd, var, args[i]);
 				if(args[i][j] == '"' || args[i][j] == '\'')
-					fill_command_string(args[i][j]);
+					fill_command_string(cmd, args[i][j]);
 				// free(var);
-				printf("|%s|\n", command_info.string);
+				printf("|%s|\n", cmd->string);
 			}
 			else
-				fill_command_string(args[i][j]);
+				fill_command_string(cmd, args[i][j]);
 			if(args[i][j] && (args[i][j] != '$' || (g_one == 1 && args[i][j] == '$')))
 				j++;
 		}
 		if(args[i] && args[i + 1])
 		{
-			command_info.string = ft_realloc(command_info.string, ft_strlen(command_info.string) + 2);
-			fill_command_string(' ');
+			cmd->string = ft_realloc(cmd->string, ft_strlen(cmd->string) + 2);
+			fill_command_string(cmd, ' ');
 		}
 		i++;
 	}
-	command_info.string[command_info.string_len++] = '\0';
+	cmd->string[cmd->string_len++] = '\0';
 }
 
 void	fill_cmd(char **split)
 {
+	t_command_info *cmd;
 	int i;
 
 	i = 0;
 	if (!*split)
 		return;
-	command_info.command = m_malloc(ft_strlen(split[0]) + 1);
+	cmd = malloc(sizeof(t_command_info));
+	cmd->command = m_malloc(ft_strlen(split[0]) + 1);
 
-	ft_strcpy(command_info.command, split[i]);
+	ft_strcpy(cmd->command, split[i]);
 	i++;
 
 	if (split[i] && split[i][0] == '-')
 	{
-		command_info.options = m_malloc(ft_strlen(split[i]) + 1);
-		ft_strcpy(command_info.options, split[i]);
+		cmd->options = m_malloc(ft_strlen(split[i]) + 1);
+		ft_strcpy(cmd->options, split[i]);
 		i++;
 	}
+	else
+		cmd->options = NULL;
 	if (split[i])
-        cat_command_string(split, i);
+        cat_command_string(cmd, split, i);
+	test(cmd);
+	// printf("cmd|%s|\topt|%s|\tstr|%s|\n", cmd->command, cmd->options, cmd->string);
+	cmd_lstadd_back(&commands, cmd);
 }
