@@ -18,7 +18,11 @@ void	execute_cmd(t_command_info *cmd, char *command)
 		args[2] = NULL;
 	}
 	if (execve(command, args, NULL) < 0)
+	{
+		ft_putstr_fd(cmd->command, 1);
+		ft_putstr_fd(": command not found\n", 1);
 		exit(-1);
+	}
 	exit(0);
 }
 
@@ -36,7 +40,7 @@ char	*search_path(void)
 	return (NULL);
 }
 
-void	find_path(t_command_info *cmd, char *var)
+void	find_path(t_command_info *cmd, char *var, int p)
 {
 	char	**split;
 	char	*command;
@@ -45,6 +49,8 @@ void	find_path(t_command_info *cmd, char *var)
 
 	split = mod_split(search_path(), ':');
 	i = 0;
+	if (p)
+		execute_cmd(cmd, var);
 	while (split[i])
 	{
 		command = ft_strjoin(split[i], var);
@@ -52,11 +58,7 @@ void	find_path(t_command_info *cmd, char *var)
 			execute_cmd(cmd, command);
 		i++;
 	}
-	if (cmd->command)
-	{
-		ft_putstr_fd(cmd->command, 1);
-		ft_putstr_fd(": command not found\n", 1);
-		exit(-1);
-	}
-	exit(0);
+	ft_putstr_fd(cmd->command, 1);
+	ft_putstr_fd(": command not found\n", 1);
+	exit(-1);
 }

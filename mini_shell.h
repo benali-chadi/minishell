@@ -64,7 +64,6 @@ char			cnt[128];
 int				g_one;
 int				g_two;
 int				ctrl_c;
-int				f;
 
 /*Functions*/
 
@@ -134,7 +133,7 @@ void			echo(t_command_info *cmd);
 	Path
 */
 
-void			find_path(t_command_info *cmd, char *var);
+void			find_path(t_command_info *cmd, char *var, int p);
 char			*search_path(void);
 void			execute_cmd(t_command_info *cmd, char *command);
 

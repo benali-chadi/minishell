@@ -70,18 +70,17 @@ void	echo(t_command_info *cmd)
 
 void		test(t_command_info *cmd)
 {
-	cmd->tests.echo = ft_strcmpr(cmd->command, "echo");
+	cmd->tests.echo = ft_strcmpr(cmd->command, "echo") ||
+	ft_strcmpr(cmd->command, "/bin/echo") ? 1 : 0;
 	cmd->tests.cd = ft_strcmpr(cmd->command, "cd");
-	cmd->tests.env = ft_strcmpr(cmd->command, "env");
+	cmd->tests.env = ft_strcmpr(cmd->command, "env") ||
+	ft_strcmpr(cmd->command, "/usr/bin/env") ? 1 : 0;
 	cmd->tests.exit = ft_strcmpr(cmd->command, "exit");
 	cmd->tests.export_t = ft_strcmpr(cmd->command, "export");
-	cmd->tests.pwd = ft_strcmpr(cmd->command, "pwd");
+	cmd->tests.pwd = ft_strcmpr(cmd->command, "pwd") ||
+	ft_strcmpr(cmd->command, "/bin/pwd") ? 1 : 0;
 	cmd->tests.unset = ft_strcmpr(cmd->command, "unset");
 
-	// if (tests.echo || tests.cd || tests.env || tests.exit 
-	// || tests.export_t || tests.pwd || tests.unset)
-	// 	return (1);
-	// return (0);
 }
 
 int 	main(int ac, char **av, char **env)
@@ -89,9 +88,7 @@ int 	main(int ac, char **av, char **env)
 	char	*line;
 	char	**split;
 	char	**s;
-	// char	pwd[100];
 	int		i;
-	// int		f;
 
 	(void)ac;
 	(void)av;
@@ -119,6 +116,7 @@ int 	main(int ac, char **av, char **env)
 		}
 		
 		exec_cmd();
+
 		free(line);
 	}
 	return (0);

@@ -1,13 +1,34 @@
 #include "mini_shell.h"
 
+char	*check_cmd(char *command, int *p)
+{
+	int		i;
+
+	i = 0;
+	while (command[i])
+	{
+		if (command[i] == '/')
+		{
+			*p = 1;
+			return (command);
+		}
+		i++;
+	}
+	return (ft_strjoin("/", command));
+}
+
 void	exec_cmd(void)
 {
-	t_command_info *cmd;
-	char	pwd[100];
+	t_command_info	*cmd;
+	char			*var;
+	char			pwd[100];
+	int				f;
+	int				p;
 
 	cmd = commands;
 	while (cmd)
 	{
+		p = 0;
 		if (cmd->tests.cd)
 		{
 			if (!cmd->string)
@@ -48,7 +69,10 @@ void	exec_cmd(void)
 			if (f > 0)
 				wait(NULL);
 			else if(!f)
-				find_path(cmd, ft_strjoin("/",cmd->command));
+			{
+				var = check_cmd(cmd->command, &p);
+				find_path(cmd, var, p);
+			}
 		}
 
 		cmd = cmd->next;
