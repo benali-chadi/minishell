@@ -32,10 +32,20 @@ void	echo(t_command_info *cmd)
 	int c;
 	int i;
 	int g;
+	int n;
 
 
 	i = 0;
 	g = 0;
+	n = 0;
+	if (cmd->options && ft_strcmpr(cmd->options, "-n"))
+		n = 1;
+	else if (cmd->options)
+	{
+		while (*cmd->options)
+			ft_putchar_fd(*cmd->options++, 1);
+		ft_putchar_fd(' ', 1);
+	}
 	if (cmd->string != NULL)
 		while (cmd->string[i])
 		{
@@ -64,8 +74,9 @@ void	echo(t_command_info *cmd)
 			else
 				g = 0;
 		}
-	if (cmd->options == NULL)
+	if (!n)
 	 	ft_putchar_fd('\n', 1);
+	
 }
 
 void		test(t_command_info *cmd)
