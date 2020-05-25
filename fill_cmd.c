@@ -71,7 +71,7 @@ void	cat_command_string(t_command_info *cmd, char **args, int i)
 	cmd->string[cmd->string_len++] = '\0';
 }
 
-void	fill_cmd(char **split)
+void	fill_cmd(char **split, int p)
 {
 	t_command_info *cmd;
 	int i;
@@ -96,6 +96,8 @@ void	fill_cmd(char **split)
 	if (split[i])
         cat_command_string(cmd, split, i);
 	test(cmd);
+	if (p)
+		cmd->pipe = 1;
 	// printf("cmd|%s|\topt|%s|\tstr|%s|\n", cmd->command, cmd->options, cmd->string);
 	cmd_lstadd_back(&commands, cmd);
 }

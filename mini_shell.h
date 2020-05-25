@@ -43,6 +43,7 @@ typedef struct	s_command_info {
 	char					*string;
 	int						string_len;
 	t_tests					tests;
+	int						pipe;
 	struct s_command_info	*next;
 }				t_command_info;
 
@@ -119,15 +120,17 @@ void			compare_var(t_command_info *cmd, char *var, char *arg);
 	Commands
 */
 
-void			fill_cmd(char **split);
+void			fill_cmd(char **split, int p);
 void			cat_command_string(t_command_info *cmd, char **args, int i);
 void			change_one_two(char a);
 void			init_one_two();
 void			fill_command_string(t_command_info *cmd, char a);
-void			exec_cmd(void);
+void			exec_cmd(t_command_info *cmd, int pipe);
 void			test(t_command_info *cmd);
 
 void			echo(t_command_info *cmd);
+
+void			ft_pipe(t_command_info *cmd);
 
 /*
 	Path

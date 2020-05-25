@@ -97,9 +97,13 @@ void		test(t_command_info *cmd)
 int 	main(int ac, char **av, char **env)
 {
 	char	*line;
-	char	**split;
-	char	**s;
+	char	**m_split;
+	char	**c_split;
+	char	**p_split;
+	t_command_info	*cmd;
+	// int		f;
 	int		i;
+	int		j;
 
 	(void)ac;
 	(void)av;
@@ -117,16 +121,38 @@ int 	main(int ac, char **av, char **env)
 			to_free();
 			exit(0);
 		}
-		split = mod_split(line, ';');
+		m_split = mod_split(line, ';');
 		i = 0;
-		while (split[i])
+		while (m_split[i])
 		{
-			s = mod_split(split[i], ' ');
-			fill_cmd(s);
+			p_split = mod_split(m_split[i], '|');
+			if (mod_strlen(p_split) > 1)
+			{
+				j = 0;
+				while (p_split[j])
+				{
+					c_split = mod_split(p_split[j], ' ');
+					fill_cmd(c_split, 1);
+					j++;
+				}
+			}
+			else
+			{
+				c_split = mod_split(m_split[i], ' ');
+				fill_cmd(c_split, 0);
+			}
 			i++;
 		}
-		
-		exec_cmd();
+
+		cmd = commands;
+		while (cmd)
+		{
+			if (cmd->pipe)
+				ft_pipe(cmd);
+			else
+				exec_cmd(cmd, 0);
+			cmd = cmd->next;
+		}
 
 		free(line);
 	}
