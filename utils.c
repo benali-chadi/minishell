@@ -49,16 +49,16 @@ void	init_cnt()
 
 	i = 0;
 	while (i < 128)
-		cnt[i++] = 0;
-	cnt['0'] = '\0';
-	cnt['a'] = '\a';
-	cnt['b'] = '\b';
-	cnt['t'] = '\t';
-	cnt['n'] = '\n';
-	cnt['v'] = '\v';
-	cnt['f'] = '\f';
-	cnt['r'] = '\r';
-	cnt['e'] = '\e';
+		utils.cnt[i++] = 0;
+	utils.cnt['0'] = '\0';
+	utils.cnt['a'] = '\a';
+	utils.cnt['b'] = '\b';
+	utils.cnt['t'] = '\t';
+	utils.cnt['n'] = '\n';
+	utils.cnt['v'] = '\v';
+	utils.cnt['f'] = '\f';
+	utils.cnt['r'] = '\r';
+	utils.cnt['e'] = '\e';
 }
 
 void	sig_handler(int signum)

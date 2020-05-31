@@ -47,24 +47,28 @@ typedef struct	s_command_info {
 	struct s_command_info	*next;
 }				t_command_info;
 
-typedef struct	s_variables {
-	int			num;
-	char		*buffer;
-}				t_variables;
+
+/*
+	Utils Structure
+*/
+
+typedef struct	s_utils {
+	char		cnt[128];
+	char		*args[200];
+	int			save_in;
+	int			save_out;
+}				t_utils;
+
 
 /*
 	Global Variables
 */
 
-// t_command_info	command_info;
 t_command_info	*commands;
-t_tests			tests;
 t_list_env		*list_env;
-t_variables		variables;
-char			cnt[128];
+t_utils			utils;
 int				g_one;
 int				g_two;
-int				ctrl_c;
 
 /*Functions*/
 

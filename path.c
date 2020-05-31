@@ -2,22 +2,20 @@
 
 void	execute_cmd(t_command_info *cmd, char *command)
 {
-	char	*args[200];
-
 	if (cmd->options)
 	{
-		args[0] = cmd->command;
-		args[1] = cmd->options;
-		args[2] = cmd->string;
-		args[3] = NULL;
+		utils.args[0] = cmd->command;
+		utils.args[1] = cmd->options;
+		utils.args[2] = cmd->string;
+		utils.args[3] = NULL;
 	}
 	else
 	{
-		args[0] = cmd->command;
-		args[1] = cmd->string;
-		args[2] = NULL;
+		utils.args[0] = cmd->command;
+		utils.args[1] = cmd->string;
+		utils.args[2] = NULL;
 	}
-	if (execve(command, args, NULL) < 0)
+	if (execve(command, utils.args, NULL) < 0)
 	{
 		ft_putstr_fd(cmd->command, 1);
 		ft_putstr_fd(": command not found\n", 1);

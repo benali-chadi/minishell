@@ -24,7 +24,6 @@ void	init_struct()
 	// tests.export_t = 0;
 	// tests.pwd = 0;
 	// tests.unset = 0;
-	// ctrl_c = 0;
 }
 
 void	echo(t_command_info *cmd)
@@ -60,9 +59,9 @@ void	echo(t_command_info *cmd)
 					g = 1;
 					break;
 				}
-				if (cmd->string[i] == '\\' && (cnt[(int)cmd->string[i + 1]] || cmd->string[i + 1] == '0'))
+				if (cmd->string[i] == '\\' && (utils.cnt[(int)cmd->string[i + 1]] || cmd->string[i + 1] == '0'))
 				{
-					ft_putchar_fd(cnt[(int)cmd->string[i + 1]], 1);
+					ft_putchar_fd(utils.cnt[(int)cmd->string[i + 1]], 1);
 					i +=2;
 					continue;
 				}
@@ -111,7 +110,6 @@ int 	main(int ac, char **av, char **env)
 	signal(SIGQUIT, sig_handler);
 	stock_env(env);
 	init_cnt();
-	variables.num = 0;
 	while (1)
 	{
 		init_struct();
@@ -148,7 +146,10 @@ int 	main(int ac, char **av, char **env)
 		while (cmd)
 		{
 			if (cmd->pipe)
+			{
 				ft_pipe(cmd);
+				cmd = cmd->next;
+			}
 			else
 				exec_cmd(cmd, 0);
 			cmd = cmd->next;

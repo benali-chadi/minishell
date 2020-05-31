@@ -7,11 +7,11 @@ void	ft_pipe(t_command_info *cmd)
 	int f_p;
 
 	f = fork();
-	if (f == 0)
+	if (!f)
 	{
 		pipe(fd);
 		f_p = fork();
-		if (f_p == 0)
+		if (!f_p)
 		{
 			cmd = cmd->next;
 			dup2(fd[0], 0);
