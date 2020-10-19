@@ -1,35 +1,66 @@
 #include "mini_shell.h"
 
-void	ft_pipe(t_command_info *cmd)
+void	ft_pipe(t_command_info *cmd, int n)
 {
 	int fd[2];
 	int f;
-	int f_p;
+	int i = 0;
+	int in = 0;
+	int out;
 
-	f = fork();
-	if (!f)
+	while (i < n - 1)
 	{
 		pipe(fd);
-		f_p = fork();
-		if (!f_p)
+		out = fd[1];
+
+		if ((f = fork()) == 0)
 		{
-			cmd = cmd->next;
-			dup2(fd[0], 0);
-			close(fd[1]);
+			if (in != 0)
+			{
+				dup2(in, 0);
+				close(in);
+			}
+			if (out != 1)
+			{
+				dup2 (out, 1);
+				close (out);
+			}
 			exec_cmd(cmd, 1);
-			exit(1);
 		}
 		else
-		{
-			dup2(fd[1], 1);
-			close(fd[0]);
-			exec_cmd(cmd, 1);
-			exit(1);
-		}
-		exit(1);
+			wait(NULL);
+		close(fd[1]);
+		in = fd[0];
+
+		cmd = cmd->next;
+		i++;
+		// if (!f)
+		// {
+		// 	// pipe(fd);
+		// 	f_p = fork();
+		// 	if (!f_p)
+		// 	{
+		// 		cmd = cmd->next;
+		// 		dup2(fd[0], 0);
+		// 		// close(fd[1]);
+		// 		exec_cmd(cmd, 1);
+		// 		exit(1);
+		// 	}
+		// 	else
+		// 	{
+		// 		dup2(fd[1], 1);
+		// 		// close(fd[0]);
+		// 		exec_cmd(cmd, 1);
+		// 		exit(1);
+		// 	}
+		// 	exit(1);
+		// }
+		// else
+		// 	wait(NULL);
 	}
-	else
-		wait(NULL);
+	if (in != 0)
+		dup2(in, 0);
+	exec_cmd(cmd, 1);
 }
 char	*check_cmd(char *command, int *p)
 {

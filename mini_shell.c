@@ -93,6 +93,27 @@ void		test(t_command_info *cmd)
 
 }
 
+int		**allocate_fd(int j)
+{
+	int i;
+	int **fd;
+
+	i = 0;
+	fd = malloc(j * sizeof(int *));
+	while (i < j)
+	{
+		fd[i] = malloc(2 * sizeof(int));
+		i++;
+	}
+	i = 0;
+	while (i < j)
+	{
+		pipe(fd[i]);
+		i++;
+	}
+	return (fd);
+}
+
 int 	main(int ac, char **av, char **env)
 {
 	char	*line;
@@ -103,6 +124,7 @@ int 	main(int ac, char **av, char **env)
 	// int		f;
 	int		i;
 	int		j;
+	// int **fd;
 
 	(void)ac;
 	(void)av;
@@ -110,6 +132,7 @@ int 	main(int ac, char **av, char **env)
 	signal(SIGQUIT, sig_handler);
 	stock_env(env);
 	init_cnt();
+	j = 0;
 	while (1)
 	{
 		init_struct();
@@ -143,12 +166,15 @@ int 	main(int ac, char **av, char **env)
 		}
 
 		cmd = commands;
+		// if (j)
+		// 	fd = allocate_fd(j);
+		
 		while (cmd)
 		{
 			if (cmd->pipe)
 			{
-				ft_pipe(cmd);
-				cmd = cmd->next;
+					ft_pipe(cmd, j);
+					// cmd = cmd->next;
 			}
 			else
 				exec_cmd(cmd, 0);
