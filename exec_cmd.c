@@ -7,66 +7,68 @@ void	ft_pipe(t_command_info *cmd, int n)
 	int i = 0;
 	int in = 0;
 	int out;
+	int f2;
 
-	while (i < n - 1)
+	if ((f2 = fork()) == 0)
 	{
-		pipe(fd);
-		out = fd[1];
-
-		if ((f = fork()) == 0)
+		while (i < n - 1)
 		{
-<<<<<<< HEAD
-			cmd = cmd->next;
-			dup2(fd[0], 0);
-			// close(fd[1]);
-=======
-			if (in != 0)
-			{
-				dup2(in, 0);
-				close(in);
-			}
-			if (out != 1)
-			{
-				dup2 (out, 1);
-				close (out);
-			}
->>>>>>> c3ac1dca44a64e0b9559af72a4a93a98ab08437f
-			exec_cmd(cmd, 1);
-		}
-		else
-			wait(NULL);
-		close(fd[1]);
-		in = fd[0];
+			pipe(fd);
+			out = fd[1];
 
-		cmd = cmd->next;
-		i++;
-		// if (!f)
-		// {
-		// 	// pipe(fd);
-		// 	f_p = fork();
-		// 	if (!f_p)
-		// 	{
-		// 		cmd = cmd->next;
-		// 		dup2(fd[0], 0);
-		// 		// close(fd[1]);
-		// 		exec_cmd(cmd, 1);
-		// 		exit(1);
-		// 	}
-		// 	else
-		// 	{
-		// 		dup2(fd[1], 1);
-		// 		// close(fd[0]);
-		// 		exec_cmd(cmd, 1);
-		// 		exit(1);
-		// 	}
-		// 	exit(1);
-		// }
-		// else
-		// 	wait(NULL);
+			if ((f = fork()) == 0)
+			{
+				if (in != 0)
+				{
+					dup2(in, 0);
+					close(in);
+				}
+				if (out != 1)
+				{
+					dup2 (out, 1);
+					close (out);
+				}
+				exec_cmd(cmd, 1);
+				// exit(1);
+			}
+			else
+				wait(NULL);
+			close(fd[1]);
+			in = fd[0];
+
+			cmd = cmd->next;
+			i++;
+			// if (!f)
+			// {
+			// 	// pipe(fd);
+			// 	f_p = fork();
+			// 	if (!f_p)
+			// 	{
+			// 		cmd = cmd->next;
+			// 		dup2(fd[0], 0);
+			// 		// close(fd[1]);
+			// 		exec_cmd(cmd, 1);
+			// 		exit(1);
+			// 	}
+			// 	else
+			// 	{
+			// 		dup2(fd[1], 1);
+			// 		// close(fd[0]);
+			// 		exec_cmd(cmd, 1);
+			// 		exit(1);
+			// 	}
+			// 	exit(1);
+			// }
+			// else
+			// 	wait(NULL);
+		}
+		if (in != 0)
+			dup2(in, 0);
+		exec_cmd(cmd, 1);
+		// exit(1);
 	}
-	if (in != 0)
-		dup2(in, 0);
-	exec_cmd(cmd, 1);
+	else
+		while (wait(NULL) != -1);
 }
 char	*check_cmd(char *command, int *p)
 {

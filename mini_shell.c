@@ -128,14 +128,13 @@ int 	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
+	init_cnt();
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 	stock_env(env);
-	init_cnt();
 	j = 0;
 	while (1)
 	{
-		init_struct();
 		ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m", 1);
 		if (!(get_next_line(0, &line)))
 		{
@@ -146,6 +145,7 @@ int 	main(int ac, char **av, char **env)
 		i = 0;
 		while (m_split[i])
 		{
+			init_struct();
 			p_split = mod_split(m_split[i], '|');
 			if (mod_strlen(p_split) > 1)
 			{
@@ -162,33 +162,25 @@ int 	main(int ac, char **av, char **env)
 				c_split = mod_split(m_split[i], ' ');
 				fill_cmd(c_split, 0);
 			}
-			i++;
-		}
-
-		cmd = commands;
-		// if (j)
-		// 	fd = allocate_fd(j);
+			cmd = commands;
 		
-		while (cmd)
-		{
+		// while (cmd)
+		// {
 			if (cmd->pipe)
 			{
-<<<<<<< HEAD
-				while (--j)
-				{
-					ft_pipe(cmd);
-					cmd = cmd->next;
-				}
-				// exec_cmd(cmd, 0);
-=======
+				// while (--j)
+				// {
 					ft_pipe(cmd, j);
-					// cmd = cmd->next;
->>>>>>> c3ac1dca44a64e0b9559af72a4a93a98ab08437f
+				// 	cmd = cmd->next;
+				// }
+				// exec_cmd(cmd, 0);
 			}
 			else
 				exec_cmd(cmd, 0);
-			cmd = cmd->next;
+			i++;
+		// }
 		}
+
 
 		free(line);
 	}
