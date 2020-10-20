@@ -147,8 +147,12 @@ int 	main(int ac, char **av, char **env)
 		{
 			if (cmd->pipe)
 			{
-				ft_pipe(cmd);
-				cmd = cmd->next;
+				while (--j)
+				{
+					ft_pipe(cmd);
+					cmd = cmd->next;
+				}
+				// exec_cmd(cmd, 0);
 			}
 			else
 				exec_cmd(cmd, 0);

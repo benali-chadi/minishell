@@ -15,14 +15,14 @@ void	ft_pipe(t_command_info *cmd)
 		{
 			cmd = cmd->next;
 			dup2(fd[0], 0);
-			close(fd[1]);
+			// close(fd[1]);
 			exec_cmd(cmd, 1);
 			exit(1);
 		}
 		else
 		{
 			dup2(fd[1], 1);
-			close(fd[0]);
+			// close(fd[0]);
 			exec_cmd(cmd, 1);
 			exit(1);
 		}
