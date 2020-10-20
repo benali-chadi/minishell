@@ -134,7 +134,7 @@ void			test(t_command_info *cmd);
 
 void			echo(t_command_info *cmd);
 
-void			ft_pipe(t_command_info *cmd);
+void			ft_pipe(t_command_info *cmd, int n);
 
 /*
 	Path

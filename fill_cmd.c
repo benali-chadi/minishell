@@ -96,8 +96,7 @@ void	fill_cmd(char **split, int p)
 	if (split[i])
         cat_command_string(cmd, split, i);
 	test(cmd);
-	if (p)
-		cmd->pipe = 1;
+	cmd->pipe = p;
 	// printf("cmd|%s|\topt|%s|\tstr|%s|\n", cmd->command, cmd->options, cmd->string);
 	cmd_lstadd_back(&commands, cmd);
 }

@@ -13,7 +13,7 @@ SRC = mini_shell.c mod_split.c \
 all : $(NAME)
 
 $(NAME) : $(NAMELIB)
-	gcc $(FLAGS) $(SRC) -o $(NAME) -D BUFFER_SIZE=10000 
+	gcc $(FLAGS) $(SRC) -o $(NAME) -D BUFFER_SIZE=10000 -g
 	# -fsanitize=address
 
 $(NAMELIB) :
