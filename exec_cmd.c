@@ -19,17 +19,11 @@ void	ft_pipe(t_command_info *cmd, int n)
 			if ((f = fork()) == 0)
 			{
 				if (in != 0)
-				{
 					dup2(in, 0);
-					close(in);
-				}
 				if (out != 1)
-				{
 					dup2 (out, 1);
-					close (out);
-				}
+				
 				exec_cmd(cmd, 1);
-				// exit(1);
 			}
 			else
 				wait(NULL);
@@ -38,34 +32,10 @@ void	ft_pipe(t_command_info *cmd, int n)
 
 			cmd = cmd->next;
 			i++;
-			// if (!f)
-			// {
-			// 	// pipe(fd);
-			// 	f_p = fork();
-			// 	if (!f_p)
-			// 	{
-			// 		cmd = cmd->next;
-			// 		dup2(fd[0], 0);
-			// 		// close(fd[1]);
-			// 		exec_cmd(cmd, 1);
-			// 		exit(1);
-			// 	}
-			// 	else
-			// 	{
-			// 		dup2(fd[1], 1);
-			// 		// close(fd[0]);
-			// 		exec_cmd(cmd, 1);
-			// 		exit(1);
-			// 	}
-			// 	exit(1);
-			// }
-			// else
-			// 	wait(NULL);
 		}
 		if (in != 0)
 			dup2(in, 0);
 		exec_cmd(cmd, 1);
-		// exit(1);
 	}
 	else
 		while (wait(NULL) != -1);
