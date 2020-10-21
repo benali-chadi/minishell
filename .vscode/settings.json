@@ -5,6 +5,7 @@
 		"mutex": "cpp",
 		"optional": "cpp",
 		"unordered_map": "cpp",
-		"vector": "cpp"
+		"vector": "cpp",
+		"utility": "c"
 	}
 }
