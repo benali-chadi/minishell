@@ -13,17 +13,6 @@ int		mod_strlen(char **s)
 void	init_struct()
 {
 	commands = NULL;
-	// command_info.command = NULL;
-	// command_info.options = NULL;
-	// command_info.string = NULL;
-	// command_info.string_len = 0;
-	// tests.echo = 0;
-	// tests.cd = 0;
-	// tests.env = 0;
-	// tests.exit = 0;
-	// tests.export_t = 0;
-	// tests.pwd = 0;
-	// tests.unset = 0;
 }
 
 void	echo(t_command_info *cmd)
@@ -121,10 +110,8 @@ int 	main(int ac, char **av, char **env)
 	char	**c_split;
 	char	**p_split;
 	t_command_info	*cmd;
-	// int		f;
 	int		i;
 	int		j;
-	// int **fd;
 
 	(void)ac;
 	(void)av;
@@ -141,6 +128,7 @@ int 	main(int ac, char **av, char **env)
 			to_free();
 			exit(0);
 		}
+		
 		m_split = mod_split(line, ';');
 		i = 0;
 		while (m_split[i])
@@ -163,24 +151,13 @@ int 	main(int ac, char **av, char **env)
 				fill_cmd(c_split, 0);
 			}
 			cmd = commands;
-		
-		// while (cmd)
-		// {
+
 			if (cmd->pipe)
-			{
-				// while (--j)
-				// {
 					ft_pipe(cmd, j);
-				// 	cmd = cmd->next;
-				// }
-				// exec_cmd(cmd, 0);
-			}
 			else
 				exec_cmd(cmd, 0);
 			i++;
-		// }
 		}
-
 
 		free(line);
 	}

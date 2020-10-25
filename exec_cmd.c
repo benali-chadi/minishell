@@ -6,7 +6,6 @@ void	ft_pipe(t_command_info *cmd, int n)
 	int f;
 	int i = 0;
 	int in = 0;
-	int out;
 	int f2;
 
 	if ((f2 = fork()) == 0)
@@ -14,19 +13,16 @@ void	ft_pipe(t_command_info *cmd, int n)
 		while (i < n - 1)
 		{
 			pipe(fd);
-			out = fd[1];
 
 			if ((f = fork()) == 0)
 			{
 				if (in != 0)
 					dup2(in, 0);
-				if (out != 1)
-					dup2 (out, 1);
+				dup2(fd[1], 1);
 				
 				exec_cmd(cmd, 1);
 			}
-			else
-				wait(NULL);
+			wait(NULL);
 			close(fd[1]);
 			in = fd[0];
 
@@ -37,8 +33,7 @@ void	ft_pipe(t_command_info *cmd, int n)
 			dup2(in, 0);
 		exec_cmd(cmd, 1);
 	}
-	else
-		while (wait(NULL) != -1);
+	while (wait(NULL) != -1);
 }
 char	*check_cmd(char *command, int *p)
 {
@@ -61,55 +56,63 @@ void	exec_cmd(t_command_info *cmd, int pipe)
 {
 	char			*var;
 	char			pwd[100];
-	int				f;
+	// int				f;
+	int				f2;
 	int				p;
 
 	p = 0;
-	if (cmd->tests.cd)
-	{
-		if (!cmd->string)
-			cmd->string = search_lgnam();
-		else if (cmd->string[0] == '~')
-			cmd->string = ft_strjoin(search_lgnam(), cmd->string + 1);
-		if (chdir(cmd->string) < 0)
-		{
-			ft_putstr_fd("cd: can't cd to ", 1);
-			ft_putstr_fd(cmd->string, 1);
-			ft_putchar_fd('\n', 1);
-		}
-	}
-	else if (cmd->tests.exit)
+	if (cmd->tests.exit)
 	{
 		to_free();
 		exit(0);
 	}
-	else if (cmd->tests.pwd)
+	if ((f2 = fork()) == 0)
 	{
-		ft_putstr_fd(getcwd(pwd, 100), 1);
-		ft_putchar_fd('\n', 1);
+		if (cmd->tests.cd)
+		{
+			if (!cmd->string)
+				cmd->string = search_lgnam();
+			else if (cmd->string[0] == '~')
+				cmd->string = ft_strjoin(search_lgnam(), cmd->string + 1);
+			if (chdir(cmd->string) < 0)
+			{
+				ft_putstr_fd("cd: can't cd to ", 1);
+				ft_putstr_fd(cmd->string, 1);
+				ft_putchar_fd('\n', 1);
+			}
+		}
+		else if (cmd->tests.pwd)
+		{
+			ft_putstr_fd(getcwd(pwd, 100), 1);
+			ft_putchar_fd('\n', 1);
+		}
+		else if (cmd->tests.echo)
+			echo(cmd);
+		else if (cmd->tests.env)
+			loop_env();
+		else if (cmd->tests.unset)
+			ft_remove_node(cmd->string);
+		else if (cmd->tests.export_t)
+			ft_export(cmd->string);
+		exit(1);
 	}
-	else if (cmd->tests.echo)
-		echo(cmd);
-	else if (cmd->tests.env)
-		loop_env();
-	else if (cmd->tests.unset)
-		ft_remove_node(cmd->string);
-	else if (cmd->tests.export_t)
-		ft_export(cmd->string);
-	else if (pipe)
+	wait(NULL);
+	if (pipe && ft_strcmpr(cmd->command, "grep"))
 	{
 		var = check_cmd(cmd->command, &p);
 		find_path(cmd, var, p);
 	}
-	else
-	{
-		f = fork();
-		if (f > 0)
-			wait(NULL);
-		else if(!f)
-		{
-			var = check_cmd(cmd->command, &p);
-			find_path(cmd, var, p);
-		}
-	}
+	// else
+	// {
+	// 	f = fork();
+	// 	if (f > 0)
+	// 		wait(NULL);
+	// 	else if(!f)
+	// 	{
+	// 		var = check_cmd(cmd->command, &p);
+	// 		find_path(cmd, var, p);
+	// 	}
+	// }
+		// exit(1);
+	// wait(NULL);
 }
