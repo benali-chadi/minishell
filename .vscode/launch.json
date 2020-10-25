@@ -8,9 +8,11 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug",
-			"program": "${workspaceFolder}/minishell",
+			// "program": "${workspaceFolder}/minishell",
+			"program": "/Users/cbenali-/Desktop/a.out",
 			"args": [],
-			"cwd": "${workspaceFolder}"
+			// "cwd": "${workspaceFolder}"
+			"cwd": "/Users/cbenali-/Desktop"
 		}
 	]
 }

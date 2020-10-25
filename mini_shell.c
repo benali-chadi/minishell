@@ -10,22 +10,6 @@ int		mod_strlen(char **s)
 	return(i);
 }
 
-void	init_struct()
-{
-	commands = NULL;
-	// command_info.command = NULL;
-	// command_info.options = NULL;
-	// command_info.string = NULL;
-	// command_info.string_len = 0;
-	// tests.echo = 0;
-	// tests.cd = 0;
-	// tests.env = 0;
-	// tests.exit = 0;
-	// tests.export_t = 0;
-	// tests.pwd = 0;
-	// tests.unset = 0;
-}
-
 void	echo(t_command_info *cmd)
 {
 	int c;
@@ -121,21 +105,18 @@ int 	main(int ac, char **av, char **env)
 	char	**c_split;
 	char	**p_split;
 	t_command_info	*cmd;
-	// int		f;
 	int		i;
 	int		j;
-	// int **fd;
 
 	(void)ac;
 	(void)av;
+	init_cnt();
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 	stock_env(env);
-	init_cnt();
 	j = 0;
 	while (1)
 	{
-		init_struct();
 		ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m", 1);
 		if (!(get_next_line(0, &line)))
 		{
@@ -146,6 +127,7 @@ int 	main(int ac, char **av, char **env)
 		i = 0;
 		while (m_split[i])
 		{
+			commands = NULL;
 			p_split = mod_split(m_split[i], '|');
 			if (mod_strlen(p_split) > 1)
 			{
@@ -162,24 +144,15 @@ int 	main(int ac, char **av, char **env)
 				c_split = mod_split(m_split[i], ' ');
 				fill_cmd(c_split, 0);
 			}
+			cmd = commands;
+		
+			if (cmd->pipe)
+				ft_pipe(cmd, j);
+			else
+				exec_cmd(cmd, 0);
 			i++;
 		}
 
-		cmd = commands;
-		// if (j)
-		// 	fd = allocate_fd(j);
-		
-		while (cmd)
-		{
-			if (cmd->pipe)
-			{
-					ft_pipe(cmd, j);
-					// cmd = cmd->next;
-			}
-			else
-				exec_cmd(cmd, 0);
-			cmd = cmd->next;
-		}
 
 		free(line);
 	}

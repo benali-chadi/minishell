@@ -49,12 +49,12 @@ void	cat_command_string(t_command_info *cmd, char **args, int i)
 				while(is_alpha_digit(args[i][j]) && args[i][j] != '$' && args[i][j])
 					var[k++] = args[i][j++];
 				var[k] = '\0';
-				printf("var:%s\n", var);
+				// printf("var:%s\n", var);
 				compare_var(cmd, var, args[i]);
 				if(args[i][j] == '"' || args[i][j] == '\'')
 					fill_command_string(cmd, args[i][j]);
 				// free(var);
-				printf("|%s|\n", cmd->string);
+				// printf("|%s|\n", cmd->string);
 			}
 			else
 				fill_command_string(cmd, args[i][j]);
@@ -97,6 +97,5 @@ void	fill_cmd(char **split, int p)
         cat_command_string(cmd, split, i);
 	test(cmd);
 	cmd->pipe = p;
-	// printf("cmd|%s|\topt|%s|\tstr|%s|\n", cmd->command, cmd->options, cmd->string);
 	cmd_lstadd_back(&commands, cmd);
 }

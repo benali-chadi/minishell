@@ -2,129 +2,42 @@
 
 void	ft_pipe(t_command_info *cmd, int n)
 {
-    // pid_t   pid;
-    // pid = fork();
-
-	// if (!pid)
-	// {
-	// 	while (n)
-	// 	{
-	// 		int		in;
-	// 		int     fd_tab[2];
-    // 		pipe(fd_tab);
-	// 		in = 0;
-
-    // 		if (pid == 0)
-    // 		{
-    // 		    if (n == 3)
-    // 		        dup2(fd_tab[1], 1);
-    // 		    else if (n == 2)
-    // 		    {
-    // 		        dup2(in, 0);
-    // 		        dup2(fd_tab[1], 1);
-    // 		    }
-    // 		    else
-    // 		        dup2(in, 0);
-	// 			exec_cmd(cmd, 1);
-    // 		}
-    // 		if (in != 0)
-    // 		    close(in);
-    // 		close(fd_tab[1]);
-    // 		if (n == 1)
-    // 		    close(fd_tab[0]);
-    // 			in = fd_tab[0];
-	// 		n--;
-	// 	}
-	// }
-	// else
-	// 	for (size_t i = 0; i < 3; i++)
-	// 	{
-	// 		wait(NULL);
-	// 	}
-	
-
 	int fd[2];
 	int f;
 	int i = 0;
 	int in = 0;
-	int out;
+	int f2;
 
-	pid_t f2 = fork();
-	if (!f2)
-	{
+	if ((f2 = fork()) == 0)
+	{		
 		while (i < n - 1)
 		{
 			pipe(fd);
-			out = fd[1];
 			if ((f = fork()) == 0)
 			{
 				if (in != 0)
-				{
 					dup2(in, 0);
-					// close(in);
-				}
-				if (out != 1)
-				{
-					dup2(out, 1);
-					// close(out);
-				}
+				close(in);
+				dup2(fd[1], 1);
+				close(fd[1]);
+
 				exec_cmd(cmd, 1);
-				exit(1);
 			}
-			// close(in);
-			// close(out);
 
-			// else
-			// 	wait(NULL);
+			wait(NULL);
 
-			close(out);
+			close(fd[1]);
 			in = fd[0];
+
 			cmd = cmd->next;
 			i++;
-	// 		// if (!f)
-	// 		// {
-	// 		// 	// pipe(fd);
-	// 		// 	f_p = fork();
-	// 		// 	if (!f_p)
-	// 		// 	{
-	// 		// 		cmd = cmd->next;
-	// 		// 		dup2(fd[0], 0);
-	// 		// 		// close(fd[1]);
-	// 		// 		exec_cmd(cmd, 1);
-	// 		// 		exit(1);
-	// 		// 	}
-	// 		// 	else
-	// 		// 	{
-	// 		// 		dup2(fd[1], 1);
-	// 		// 		// close(fd[0]);
-	// 		// 		exec_cmd(cmd, 1);
-	// 		// 		exit(1);
-	// 		// 	}
-	// 		// 	exit(1);
-	// 		// }
-	// 		// else
-	// 		// 	wait(NULL);
-			if (i == n-1)
-			{
-				dup2(1, out);
-			}
 		}
 		if (in != 0)
 			dup2(in, 0);
 		exec_cmd(cmd, 1);
-
-		printf("out : %d, in : %d\n", out, in);
-		// close(fd[1]);
-		exit(1);
 	}
-	// else
-	// {
-		while (wait(NULL) != -1 || errno != ECHILD)
-		// while (waitpid(f2, NULL, 0) == -1)
-			printf("Waiting for children||pipe||\n");
-
-	// }
 	
+	while (wait(NULL) != -1);
 }
 
 char	*check_cmd(char *command, int *p)
@@ -160,9 +73,9 @@ void	exec_cmd(t_command_info *cmd, int pipe)
 			cmd->string = ft_strjoin(search_lgnam(), cmd->string + 1);
 		if (chdir(cmd->string) < 0)
 		{
-			ft_putstr_fd("cd: can't cd to ", 1);
-			ft_putstr_fd(cmd->string, 1);
-			ft_putchar_fd('\n', 1);
+			ft_putstr_fd("cd: can't cd to ", 2);
+			ft_putstr_fd(cmd->string, 2);
+			ft_putchar_fd('\n', 2);
 		}
 	}
 	else if (cmd->tests.exit)
