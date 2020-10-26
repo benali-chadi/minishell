@@ -71,6 +71,7 @@ t_list_env		*list_env;
 t_utils			utils;
 int				g_one;
 int				g_two;
+// int				fd[1000][2];
 
 /*Functions*/
 

@@ -10,6 +10,11 @@ int		mod_strlen(char **s)
 	return(i);
 }
 
+void	init_struct()
+{
+	commands = NULL;
+}
+
 void	echo(t_command_info *cmd)
 {
 	int c;
@@ -123,6 +128,7 @@ int 	main(int ac, char **av, char **env)
 			to_free();
 			exit(0);
 		}
+		
 		m_split = mod_split(line, ';');
 		i = 0;
 		while (m_split[i])
@@ -145,14 +151,16 @@ int 	main(int ac, char **av, char **env)
 				fill_cmd(c_split, 0);
 			}
 			cmd = commands;
-		
+
 			if (cmd->pipe)
-				ft_pipe(cmd, j);
+					ft_pipe(cmd, j);
 			else
+			{
+				// printf("ok\n");
 				exec_cmd(cmd, 0);
+			}
 			i++;
 		}
-
 
 		free(line);
 	}

@@ -21,7 +21,7 @@ void	execute_cmd(t_command_info *cmd, char *command)
 		ft_putstr_fd(": command not found\n", 1);
 		exit(-1);
 	}
-	exit(0);
+	// exit(0);
 }
 
 char	*search_path(void)
