@@ -4,23 +4,11 @@ int		test_cmds(t_command_info *cmd)
 {
 	char pwd[100];
 
-	if (cmd->tests.cd)
-	{
-		if (!cmd->string)
-			cmd->string = search_lgnam();
-		else if (cmd->string[0] == '~')
-			cmd->string = ft_strjoin(search_lgnam(), cmd->string + 1);
-		if (chdir(cmd->string) < 0)
-		{
-			ft_putstr_fd("cd: can't cd to ", 1);
-			ft_putstr_fd(cmd->string, 1);
-			ft_putchar_fd('\n', 1);
-		}
-	}
-	else if (cmd->tests.pwd)
+	if (cmd->tests.pwd)
 	{
 		ft_putstr_fd(getcwd(pwd, 100), 1);
 		ft_putchar_fd('\n', 1);
+		exit(1);
 	}
 	else if (cmd->tests.echo)
 		echo(cmd);
@@ -32,45 +20,49 @@ int		test_cmds(t_command_info *cmd)
 		ft_export(cmd->string);
 	else
 		return (0);
+	exit(1);
 	return (1);
 }
 
-void	ft_pipe(t_command_info *cmd, int n)
+void	close_all(int last)
 {
-	int fd[2];
-	int f;
-	int i = 0;
-	int in = 0;
-	int f2;
+	int i;
 
-	if ((f2 = fork()) == 0)
+	i = 0;
+	while (i < last)
 	{
-		int out = dup(STDOUT_FILENO);
-		while (i < n - 1)
-		{
-			pipe(fd);
-			dup2(fd[1], STDOUT_FILENO);
-
-			if (test_cmds(cmd));
-			else if ((f = fork()) == 0)
-			{
-				if (in != 0)
-					dup2(in, 0);
-				exec_cmd(cmd, 1);
-			}
-			close(fd[1]);
-
-			in = fd[0];
-			cmd = cmd->next;
-			i++;
-		}
-		if (in != 0)
-			dup2(in, 0);
-		dup2(out, STDOUT_FILENO);
-		close(out);
-		exec_cmd(cmd, 1);
+		close(fd[i][0]);
+		close(fd[i][1]);
+		i++;
 	}
-	while (wait(NULL) != -1);
+}
+
+void	ft_pipe(t_command_info *cmd, int n, int last)
+{
+	int f;
+	int in;
+	char *var;
+	int p = 0;
+	
+	in = n == 0 ? 0 : fd[n-1][0];
+
+	pipe(fd[n]);
+	if ((f = fork()) == 0)
+	{
+		if (in != 0)
+			dup2(in, STDIN_FILENO);
+			
+		if (n != last - 1 && n != last)
+			dup2(fd[n][1], STDOUT_FILENO);
+		
+		if (test_cmds(cmd));
+		else
+		{
+			var = check_cmd(cmd->command, &p);
+			find_path(cmd, var, p);
+		}
+	}
+	close(fd[n][1]);
 }
 
 char	*check_cmd(char *command, int *p)
@@ -90,34 +82,26 @@ char	*check_cmd(char *command, int *p)
 	return (ft_strjoin("/", command));
 }
 
-void	exec_cmd(t_command_info *cmd, int pipe)
+void	exec_cmd(t_command_info *cmd, int i, int last)
 {
-	char			*var;
-	int				f;
-	int				p;
-
-	p = 0;
 	if (cmd->tests.exit)
 	{
 		to_free();
 		exit(0);
 	}
-	if (test_cmds(cmd))
-		return;
-	else if (pipe)
+	else if (cmd->tests.cd)
 	{
-		var = check_cmd(cmd->command, &p);
-		find_path(cmd, var, p);
-	}
-	else
-	{
-		f = fork();
-		if (f > 0)
-			wait(NULL);
-		else if(!f)
+		if (!cmd->string)
+			cmd->string = search_lgnam();
+		else if (cmd->string[0] == '~')
+			cmd->string = ft_strjoin(search_lgnam(), cmd->string + 1);
+		if (chdir(cmd->string) < 0)
 		{
-			var = check_cmd(cmd->command, &p);
-			find_path(cmd, var, p);
+			ft_putstr_fd("cd: can't cd to ", 1);
+			ft_putstr_fd(cmd->string, 1);
+			ft_putchar_fd('\n', 1);
 		}
 	}
+
+	ft_pipe(cmd, i, last);
 }

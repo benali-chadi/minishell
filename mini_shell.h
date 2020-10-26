@@ -71,7 +71,7 @@ t_list_env		*list_env;
 t_utils			utils;
 int				g_one;
 int				g_two;
-// int				fd[1000][2];
+int				fd[1000][2];
 
 /*Functions*/
 
@@ -132,12 +132,17 @@ void			cat_command_string(t_command_info *cmd, char **args, int i);
 void			change_one_two(char a);
 void			init_one_two();
 void			fill_command_string(t_command_info *cmd, char a);
-void			exec_cmd(t_command_info *cmd, int pipe);
+void			exec_cmd(t_command_info *cmd, int i, int last);
 void			test(t_command_info *cmd);
 
 void			echo(t_command_info *cmd);
 
-void			ft_pipe(t_command_info *cmd, int n);
+void			ft_pipe(t_command_info *cmd, int n, int last);
+
+char			*check_cmd(char *command, int *p);
+
+void			close_all(int last);
+
 
 /*
 	Path

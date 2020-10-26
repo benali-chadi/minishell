@@ -107,8 +107,8 @@ int 	main(int ac, char **av, char **env)
 {
 	char	*line;
 	char	**m_split;
-	char	**c_split;
 	char	**p_split;
+	char	**c_split;
 	t_command_info	*cmd;
 	int		i;
 	int		j;
@@ -135,9 +135,9 @@ int 	main(int ac, char **av, char **env)
 		{
 			commands = NULL;
 			p_split = mod_split(m_split[i], '|');
+			j = 0;
 			if (mod_strlen(p_split) > 1)
 			{
-				j = 0;
 				while (p_split[j])
 				{
 					c_split = mod_split(p_split[j], ' ');
@@ -152,13 +152,15 @@ int 	main(int ac, char **av, char **env)
 			}
 			cmd = commands;
 
-			if (cmd->pipe)
-					ft_pipe(cmd, j);
-			else
+			int k = 0;
+			while(cmd != NULL)
 			{
-				// printf("ok\n");
-				exec_cmd(cmd, 0);
+				exec_cmd(cmd, k, j);
+				cmd = cmd->next;
+				k++;
 			}
+			while (wait(NULL) != -1);
+			close_all(j);
 			i++;
 		}
 
