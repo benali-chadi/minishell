@@ -21,7 +21,6 @@ int		test_cmds(t_command_info *cmd)
 	else
 		return (0);
 	exit(1);
-	return (1);
 }
 
 void	close_all(int last)
@@ -37,7 +36,7 @@ void	close_all(int last)
 	}
 }
 
-void	ft_pipe(t_command_info *cmd, int n, int last)
+void	ft_fork(t_command_info *cmd, int n, int last)
 {
 	int f;
 	int in;
@@ -103,5 +102,5 @@ void	exec_cmd(t_command_info *cmd, int i, int last)
 		}
 	}
 
-	ft_pipe(cmd, i, last);
+	ft_fork(cmd, i, last);
 }

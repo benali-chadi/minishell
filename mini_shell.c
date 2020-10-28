@@ -159,8 +159,8 @@ int 	main(int ac, char **av, char **env)
 				cmd = cmd->next;
 				k++;
 			}
-			while (wait(NULL) != -1);
 			close_all(j);
+			while (wait(NULL) != -1);
 			i++;
 		}
 

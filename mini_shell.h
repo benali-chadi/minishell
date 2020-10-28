@@ -137,7 +137,7 @@ void			test(t_command_info *cmd);
 
 void			echo(t_command_info *cmd);
 
-void			ft_pipe(t_command_info *cmd, int n, int last);
+void			ft_fork(t_command_info *cmd, int n, int last);
 
 char			*check_cmd(char *command, int *p);
 
