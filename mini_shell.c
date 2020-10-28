@@ -120,6 +120,7 @@ int 	main(int ac, char **av, char **env)
 	signal(SIGQUIT, sig_handler);
 	stock_env(env);
 	j = 0;
+	
 	while (1)
 	{
 		ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m", 1);
@@ -137,21 +138,19 @@ int 	main(int ac, char **av, char **env)
 			p_split = mod_split(m_split[i], '|');
 			j = 0;
 			if (mod_strlen(p_split) > 1)
-			{
 				while (p_split[j])
 				{
 					c_split = mod_split(p_split[j], ' ');
 					fill_cmd(c_split, 1);
 					j++;
 				}
-			}
 			else
 			{
 				c_split = mod_split(m_split[i], ' ');
 				fill_cmd(c_split, 0);
 			}
 			cmd = commands;
-
+			fd = malloc(j * sizeof(int *));
 			int k = 0;
 			while(cmd != NULL)
 			{
@@ -159,11 +158,11 @@ int 	main(int ac, char **av, char **env)
 				cmd = cmd->next;
 				k++;
 			}
-			close_all(j);
 			while (wait(NULL) != -1);
 			i++;
 		}
-
+		if (*fd)
+			free(fd);
 		free(line);
 	}
 	return (0);

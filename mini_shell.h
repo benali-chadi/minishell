@@ -71,7 +71,7 @@ t_list_env		*list_env;
 t_utils			utils;
 int				g_one;
 int				g_two;
-int				fd[1000][2];
+int				(*fd)[2];
 
 /*Functions*/
 
@@ -94,6 +94,7 @@ char			*search_lgnam();
 	For freeing
 */
 void			*m_malloc(size_t n);
+void			m_free(void *elm);
 void			to_free(void);
 /*
 	Linked List

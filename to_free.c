@@ -14,6 +14,12 @@ void	*m_malloc(size_t n)
 		return (tmp);
 }
 
+void	m_free(void *elm)
+{
+	free(elm);
+	g_all--;
+}
+
 void	to_free(void)
 {
 		int i;

@@ -66,9 +66,16 @@ void	ft_export(char *variable)
 	char *content;
 
 	i = -1;
+	if (!variable)
+	{
+		loop_env();
+		return;
+	}
 	name = m_malloc(ft_strlen(variable));
-	while(variable[++i] != '=')
+	while(variable[++i] != '=' && variable[i])
 		name[i] = variable[i];
+	if (variable[i] != '=')
+		return;
 	name[i] = '\0';
 	content = &variable[++i];
 	add_back(&list_env, name, content, variable);
@@ -80,6 +87,8 @@ void	ft_remove_node(char *name)
 	t_list_env *prev;
 	read_list = list_env;
 
+	if (!name)
+		return;
 	if(read_list != NULL && ft_strcmpr(read_list->name, name))
 	{
 		list_env = read_list->next;

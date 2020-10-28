@@ -4,6 +4,24 @@ int		test_cmds(t_command_info *cmd)
 {
 	char pwd[100];
 
+	if (cmd->tests.exit)
+	{
+		to_free();
+		exit(0);
+	}
+	else if (cmd->tests.cd)
+	{
+		if (!cmd->string)
+			cmd->string = search_lgnam();
+		else if (cmd->string[0] == '~')
+			cmd->string = ft_strjoin(search_lgnam(), cmd->string + 1);
+		if (chdir(cmd->string) < 0)
+		{
+			ft_putstr_fd("cd: can't cd to ", 1);
+			ft_putstr_fd(cmd->string, 1);
+			ft_putchar_fd('\n', 1);
+		}
+	}
 	if (cmd->tests.pwd)
 	{
 		ft_putstr_fd(getcwd(pwd, 100), 1);
@@ -14,13 +32,10 @@ int		test_cmds(t_command_info *cmd)
 		echo(cmd);
 	else if (cmd->tests.env)
 		loop_env();
-	else if (cmd->tests.unset)
-		ft_remove_node(cmd->string);
-	else if (cmd->tests.export_t)
-		ft_export(cmd->string);
 	else
 		return (0);
-	exit(1);
+	return (1);
+	// exit(1);
 }
 
 void	close_all(int last)
@@ -52,7 +67,9 @@ void	ft_fork(t_command_info *cmd, int n, int last)
 			dup2(in, STDIN_FILENO);
 			
 		if (n != last - 1 && n != last)
+		{
 			dup2(fd[n][1], STDOUT_FILENO);
+		}
 		
 		if (test_cmds(cmd));
 		else
@@ -60,8 +77,13 @@ void	ft_fork(t_command_info *cmd, int n, int last)
 			var = check_cmd(cmd->command, &p);
 			find_path(cmd, var, p);
 		}
+		exit(1);
 	}
-	close(fd[n][1]);
+
+	if (n == last - 1 || n == last)
+		close_all(last);
+	else
+		close(fd[n][1]);
 }
 
 char	*check_cmd(char *command, int *p)
@@ -101,6 +123,10 @@ void	exec_cmd(t_command_info *cmd, int i, int last)
 			ft_putchar_fd('\n', 1);
 		}
 	}
-
-	ft_fork(cmd, i, last);
+	else if (cmd->tests.export_t)
+		ft_export(cmd->string);
+	else if (cmd->tests.unset)
+		ft_remove_node(cmd->string);
+	else
+		ft_fork(cmd, i, last);
 }
