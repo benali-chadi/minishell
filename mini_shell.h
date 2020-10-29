@@ -46,8 +46,10 @@ typedef struct	s_command_info {
 	int						string_len;
 	t_tests					tests;
 	int						pipe;
-	char					redirection[3];
-	char					*file_name;
+	int						in_red;
+	int						out_red;
+	char					*in_file_name;
+	char					*out_file_name;
 	struct s_command_info	*next;
 }				t_command_info;
 

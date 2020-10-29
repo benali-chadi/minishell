@@ -30,12 +30,27 @@ void	redirection(t_command_info *cmd, char **args, int *i)
 	int k;
 
 	j = 0;
-	while(args[*i][j] && (args[*i][j] == '<' || args[*i][j] == '>' || ft_strcmpr(args[*i], ">>")))
+	if (args[*i][j] == '>')
 	{
-		cmd->redirection[j] = args[*i][j];
+		cmd->out_red = 1;
+		j++;
+		// while(args[*i][j] && (args[*i][j] == '>' || ft_strcmpr(args[*i], ">>")))
+		// {
+		// 	cmd->out_red[j] = args[*i][j];
+		// 	j++;
+		// }
+		// cmd->out_red[j] = '\0';
+	}
+	else if (ft_strcmpr(args[*i], ">>"))
+	{
+		cmd->out_red = 1;
+		j += 2;
+	}
+	else if (args[*i][j] == '<')
+	{
+		cmd->in_red = 1;
 		j++;
 	}
-	cmd->redirection[j] = '\0';
 	if ((size_t)j >= ft_strlen(args[*i]))
 	{
 		printf("ok\n");
@@ -46,8 +61,8 @@ void	redirection(t_command_info *cmd, char **args, int *i)
 	k = 0;
 	while (args[*i][j])
 	{
-		cmd->file_name[k++] = args[*i][j];
-		j++;
+		cmd->file_name[k++] = args[*i][j++];
+		// j++;
 	}
 	cmd->file_name[k] = '\0';
 	(*i)++;
@@ -114,6 +129,10 @@ void	fill_cmd(char **split, int p)
 	if (!*split)
 		return;
 	cmd = malloc(sizeof(t_command_info));
+	cmd->in_red = 0;
+	cmd->out_red = 0;
+	cmd->in_file_name = NULL;
+	cmd->out_file_name = NULL;
 	
 	if (split[i][0] == '<' || split[i][0] == '>' || ft_strcmpr(split[i], ">>"))
 		redirection(cmd, split, &i);
