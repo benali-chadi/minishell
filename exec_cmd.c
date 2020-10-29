@@ -4,24 +4,24 @@ int		test_cmds(t_command_info *cmd)
 {
 	char pwd[100];
 
-	if (cmd->tests.exit)
-	{
-		to_free();
-		exit(0);
-	}
-	else if (cmd->tests.cd)
-	{
-		if (!cmd->string)
-			cmd->string = search_lgnam();
-		else if (cmd->string[0] == '~')
-			cmd->string = ft_strjoin(search_lgnam(), cmd->string + 1);
-		if (chdir(cmd->string) < 0)
-		{
-			ft_putstr_fd("cd: can't cd to ", 1);
-			ft_putstr_fd(cmd->string, 1);
-			ft_putchar_fd('\n', 1);
-		}
-	}
+	// if (cmd->tests.exit)
+	// {
+	// 	to_free();
+	// 	exit(0);
+	// }
+	// else if (cmd->tests.cd)
+	// {
+	// 	if (!cmd->string)
+	// 		cmd->string[0] = search_lgnam();
+	// 	else if (cmd->string[0][0] == '~')
+	// 		cmd->string[0] = ft_strjoin(search_lgnam(), cmd->string + 1);
+	// 	if (chdir(cmd->string[0]) < 0)
+	// 	{
+	// 		ft_putstr_fd("cd: can't cd to ", 1);
+	// 		ft_putstr_fd(cmd->string, 1);
+	// 		ft_putchar_fd('\n', 1);
+	// 	}
+	// }
 	if (cmd->tests.pwd)
 	{
 		ft_putstr_fd(getcwd(pwd, 100), 1);
@@ -82,9 +82,7 @@ void	ft_fork(t_command_info *cmd, int n, int last)
 			dup2(fd[n][1], 1);
 		}
 		else if (n != last - 1 && n != last)
-		{
 			dup2(fd[n][1], STDOUT_FILENO);
-		}
 		
 		if (test_cmds(cmd));
 		else
@@ -127,21 +125,21 @@ void	exec_cmd(t_command_info *cmd, int i, int last)
 	}
 	else if (cmd->tests.cd)
 	{
-		if (!cmd->string)
-			cmd->string = search_lgnam();
-		else if (cmd->string[0] == '~')
-			cmd->string = ft_strjoin(search_lgnam(), cmd->string + 1);
-		if (chdir(cmd->string) < 0)
+		if (!cmd->string[0])
+			cmd->string[0] = search_lgnam();
+		else if (cmd->string[0][0] == '~')
+			cmd->string[0] = ft_strjoin(search_lgnam(), (*cmd->string) + 1);
+		if (chdir(cmd->string[0]) < 0)
 		{
 			ft_putstr_fd("cd: can't cd to ", 1);
-			ft_putstr_fd(cmd->string, 1);
+			ft_putstr_fd(cmd->string[0], 1);
 			ft_putchar_fd('\n', 1);
 		}
 	}
 	else if (cmd->tests.export_t)
-		ft_export(cmd->string);
+		ft_export(cmd);
 	else if (cmd->tests.unset)
-		ft_remove_node(cmd->string);
+		ft_remove_node(cmd);
 	else
 		ft_fork(cmd, i, last);
 }

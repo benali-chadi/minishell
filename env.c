@@ -36,14 +36,18 @@ void	stock_env(char **env)
     // }
 }
 
-void	ft_cpy_env(t_command_info *cmd, t_list_env *read_env)
+void	ft_cpy_env(char **string, t_list_env *read_env, int *len)
 {
 	int e ;
 
 	e = 0;
+	// printf("char=%c\n", (*string)[(*len)-1]);
 	while(read_env->content[e])
-		cmd->string[cmd->string_len++] = read_env->content[e++];
-	cmd->string[cmd->string_len] = '\0';
+	{
+		*(string[(*len)]) = read_env->content[e++];
+		(*len)++; 
+	}
+	*(string[*len]) = '\0';
 }
 
 void	loop_env(void)
@@ -59,68 +63,80 @@ void	loop_env(void)
 	}
 }
 
-void	ft_export(char *variable)
+void	ft_export(t_command_info *cmd)
 {
-	int i;
 	char *name;
 	char *content;
+	int i;
+	int j;
 
 	i = -1;
-	if (!variable)
+	if (!cmd->string[0])
 	{
 		loop_env();
 		return;
 	}
-	name = m_malloc(ft_strlen(variable));
-	while(variable[++i] != '=' && variable[i])
-		name[i] = variable[i];
-	if (variable[i] != '=')
-		return;
-	name[i] = '\0';
-	content = &variable[++i];
-	add_back(&list_env, name, content, variable);
+	while (cmd->string[++i])
+	{
+		j = -1;
+		name = m_malloc(ft_strlen(cmd->string[i]));
+		while(cmd->string[i][++j] != '=' && cmd->string[i][j])
+			name[j] = cmd->string[i][j];
+		if (cmd->string[i][j] != '=')
+			return;
+		name[j] = '\0';
+		content = &cmd->string[i][++j];
+		add_back(&list_env, name, content, cmd->string[i]);
+	}
 }
 
-void	ft_remove_node(char *name)
+void	ft_remove_node(t_command_info *cmd)
 {
 	t_list_env *read_list;
 	t_list_env *prev;
-	read_list = list_env;
+	int i;
 
-	if (!name)
+	read_list = list_env;
+	i = 0;
+	if (!cmd->string[i])
 		return;
-	if(read_list != NULL && ft_strcmpr(read_list->name, name))
+	while (cmd->string[i])
 	{
-		list_env = read_list->next;
-		free(read_list);
-		return;
-	}
-	while(read_list && !ft_strcmpr(name, read_list->name))
-	{
-		prev = read_list;
-		read_list = read_list->next;
-	}
-	if(read_list != NULL)
-	{
-		prev->next = read_list->next;
-		free(read_list);
+		if (read_list != NULL && ft_strcmpr(read_list->name, cmd->string[i]))
+		{
+			list_env = read_list->next;
+			free(read_list);
+			return;
+		}
+		while (read_list && !ft_strcmpr(cmd->string[i], read_list->name))
+		{
+			prev = read_list;
+			read_list = read_list->next;
+		}
+		if (read_list != NULL)
+		{
+			prev->next = read_list->next;
+			free(read_list);
+		}
+		i++;
 	}
 }
 
-void	compare_var(t_command_info *cmd, char *var, char *arg)
+void	compare_var(char **string, char *var, char *arg, int *len)
 {
-	// int			i;
-	// int			j;
 	t_list_env	*read_env;
 
 	read_env = list_env;
-	// i = 0;
+	// (void)arg;
+
 	while(read_env)
 	{
 		if(ft_strcmpr(read_env->name, var))
 		{
-			cmd->string  = ft_realloc(cmd->string ,ft_strlen(cmd->string) + ft_strlen(arg) + ft_strlen(read_env->content) + 1 + g_two); // + g_two prsq si kant two mfto7a ("") khas n2aloki liha blastha;
-			ft_cpy_env(cmd, read_env);
+			int size = ft_strlen(*string) + ft_strlen(read_env->content) + ft_strlen(arg) + 1 + g_two;
+			printf("size=%d\n", size);
+			*string  = ft_realloc(*string , size); // + g_two prsq si kant two mfto7a ("") khas n2aloki liha blastha;
+			ft_cpy_env(string, read_env, len);
 			break;
 		}
 		read_env = read_env->next;

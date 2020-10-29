@@ -2,18 +2,33 @@
 
 void	execute_cmd(t_command_info *cmd, char *command)
 {
+	int i;
+	int j;
+
 	if (cmd->options)
 	{
 		utils.args[0] = cmd->command;
 		utils.args[1] = cmd->options;
-		utils.args[2] = cmd->string;
-		utils.args[3] = NULL;
+		i = 2;
+		j = -1;
+		while(cmd->string[++j])
+		{
+			utils.args[i] = cmd->string[j];
+			i++;
+		}
+		utils.args[i] = NULL;
 	}
 	else
 	{
 		utils.args[0] = cmd->command;
-		utils.args[1] = cmd->string;
-		utils.args[2] = NULL;
+		i = 1;
+		j = -1;
+		while (cmd->string[++j])
+		{
+			utils.args[i] = cmd->string[j];
+			i++;
+		}
+		utils.args[i] = NULL;
 	}
 	if (execve(command, utils.args, NULL) < 0)
 	{

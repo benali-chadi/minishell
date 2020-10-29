@@ -42,7 +42,7 @@ typedef struct	s_tests {
 typedef struct	s_command_info {
 	char					*command;
 	char					*options;
-	char					*string;
+	char					*string[200];
 	int						string_len;
 	t_tests					tests;
 	int						pipe;
@@ -104,7 +104,7 @@ void			to_free(void);
 
 // For env
 
-void			ft_remove_node(char *name);
+void			ft_remove_node(t_command_info *cmd);
 void			add_back(t_list_env **head, char *name, char *content, char *name_content);
 t_list_env		*ft_lstlast(t_list_env *lst);
 void			ft_lstadd_front(t_list_env **alst, t_list_env *new);
@@ -120,11 +120,11 @@ t_command_info		*cmd_lstlast(t_command_info *lst);
 	Environment
 */
 
-void			ft_export(char *variable);
+void			ft_export(t_command_info *cmd);
 void			loop_env(void);
 void			stock_env(char **env);
-void			ft_cpy_env(t_command_info *cmd, t_list_env *read_env);
-void			compare_var(t_command_info *cmd, char *var, char *arg);
+void			ft_cpy_env(char **string, t_list_env *read_env, int *len);
+void			compare_var(char **string, char *var, char *arg, int *len);
 
 /*
 	Commands
@@ -134,7 +134,7 @@ void			fill_cmd(char **split, int p);
 void			cat_command_string(t_command_info *cmd, char **args, int i);
 void			change_one_two(char a);
 void			init_one_two();
-void			fill_command_string(t_command_info *cmd, char a);
+void			fill_command_string(t_command_info *cmd, char a, int i);
 void			exec_cmd(t_command_info *cmd, int i, int last);
 void			test(t_command_info *cmd);
 
@@ -146,6 +146,7 @@ char			*check_cmd(char *command, int *p);
 
 void			close_all(int last);
 
+void			redirection(t_command_info *cmd, char **args, int *i);
 
 /*
 	Path
