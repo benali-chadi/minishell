@@ -63,22 +63,22 @@ void	ft_fork(t_command_info *cmd, int n, int last)
 	pipe(fd[n]);
 	if ((f = fork()) == 0)
 	{
-		if (ft_strcmpr(cmd->redirection, "<"))
+		if (cmd->in_red > 0)
 		{
-			in = open(cmd->file_name, O_RDONLY);
+			in = open(cmd->in_file_name, O_RDONLY);
 			dup2(in, STDIN_FILENO);
 		}
 		else if (in != 0)
 			dup2(in, STDIN_FILENO);
 		
-		if (ft_strcmpr(cmd->redirection, ">"))
+		if (cmd->out_red == 1)
 		{
-			fd[n][1] = open(cmd->file_name, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+			fd[n][1] = open(cmd->out_file_name, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 			dup2(fd[n][1], 1);
 		}
-		else if (ft_strcmpr(cmd->redirection, ">>"))
+		else if (cmd->out_red == 2)
 		{
-			fd[n][1] = open(cmd->file_name, O_CREAT | O_WRONLY | O_APPEND, 0666);
+			fd[n][1] = open(cmd->out_file_name, O_CREAT | O_WRONLY | O_APPEND, 0666);
 			dup2(fd[n][1], 1);
 		}
 		else if (n != last - 1 && n != last)

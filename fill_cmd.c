@@ -28,43 +28,42 @@ void	redirection(t_command_info *cmd, char **args, int *i)
 {
 	int j;
 	int k;
+	int red;
 
 	j = 0;
-	if (args[*i][j] == '>')
+	if (args[*i][j] == '>' || ft_strcmpr(args[*i], ">>"))
 	{
-		cmd->out_red = 1;
-		j++;
-		// while(args[*i][j] && (args[*i][j] == '>' || ft_strcmpr(args[*i], ">>")))
-		// {
-		// 	cmd->out_red[j] = args[*i][j];
-		// 	j++;
-		// }
-		// cmd->out_red[j] = '\0';
+		cmd->out_red = ft_strcmpr(args[*i], ">>") ? 2 : 1;
+		j += cmd->out_red;
+		red = 1;
 	}
-	else if (ft_strcmpr(args[*i], ">>"))
-	{
-		cmd->out_red = 1;
-		j += 2;
-	}
-	else if (args[*i][j] == '<')
+	else
 	{
 		cmd->in_red = 1;
 		j++;
+		red = 0;
 	}
 	if ((size_t)j >= ft_strlen(args[*i]))
 	{
-		printf("ok\n");
 		(*i)++;
 		j = 0;
 	}
-	cmd->file_name = malloc(ft_strlen(args[*i]) + 1);
-	k = 0;
-	while (args[*i][j])
+	if (red == 1)
 	{
-		cmd->file_name[k++] = args[*i][j++];
-		// j++;
+		cmd->out_file_name = malloc(ft_strlen(args[*i]) + 1);
+		k = 0;
+		while (args[*i][j])
+			cmd->out_file_name[k++] = args[*i][j++];
+		cmd->out_file_name[k] = '\0';
 	}
-	cmd->file_name[k] = '\0';
+	else
+	{
+		cmd->in_file_name = malloc(ft_strlen(args[*i]) + 1);
+		k = 0;
+		while (args[*i][j])
+			cmd->in_file_name[k++] = args[*i][j++];
+		cmd->in_file_name[k] = '\0';
+	}
 	(*i)++;
 	if (!args[*i])
 		return;
