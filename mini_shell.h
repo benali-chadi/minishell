@@ -26,7 +26,7 @@ typedef	struct		s_list_env
 }					t_list_env;
 
 /*
-	Command Structures
+	Commands Structures
 */
 typedef struct	s_tests {
 	int			echo;
@@ -46,6 +46,8 @@ typedef struct	s_command_info {
 	int						string_len;
 	t_tests					tests;
 	int						pipe;
+	char					redirection[3];
+	char					*file_name;
 	struct s_command_info	*next;
 }				t_command_info;
 

@@ -150,7 +150,7 @@ int 	main(int ac, char **av, char **env)
 				fill_cmd(c_split, 0);
 			}
 			cmd = commands;
-			fd = malloc(j * sizeof(int *));
+			fd = malloc(j * sizeof(int *) + 1);
 			int k = 0;
 			while(cmd != NULL)
 			{

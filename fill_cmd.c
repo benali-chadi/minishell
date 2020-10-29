@@ -31,6 +31,20 @@ void	cat_command_string(t_command_info *cmd, char **args, int i)
 	int k;
 
 	j = 0;
+	if (args[i] && (args[i][j] == '<' || args[i][j] == '>' || ft_strcmpr(args[i], ">>")))
+	{
+		// int j = 0;
+		while(args[i][j])
+		{
+			cmd->redirection[j] = args[i][j];
+			j++;
+		}
+		cmd->redirection[j] = '\0';
+		i++;
+		cmd->file_name = malloc(ft_strlen(args[i]) + 1);
+		ft_strcpy(cmd->file_name, args[i]);
+		return;
+	}
 	cmd->string = m_malloc(ft_strlen(args[i]) + 1);
 	cmd->string = ft_strcpy(cmd->string, args[i]);
 	while(args[i])
@@ -41,6 +55,8 @@ void	cat_command_string(t_command_info *cmd, char **args, int i)
 		j = 0;
 		while(args[i][j])
 		{
+			if (args[i] && (args[i][j] == '<' || args[i][j] == '>' || ft_strcmpr(args[i], ">>")))
+				break;
 			if((args[i][j] == '$' && args[i][j + 1] && g_one != 1 )|| (args[i][j] == '$' && args[i][j + 1] && g_one == 1 && g_two == 1))
 			{
 				j++;
@@ -61,6 +77,8 @@ void	cat_command_string(t_command_info *cmd, char **args, int i)
 			if(args[i][j] && (args[i][j] != '$' || (g_one == 1 && args[i][j] == '$')))
 				j++;
 		}
+		if (args[i] && (args[i][j] == '<' || args[i][j] == '>' || ft_strcmpr(args[i], ">>")))
+			break;
 		if(args[i] && args[i + 1])
 		{
 			cmd->string = ft_realloc(cmd->string, ft_strlen(cmd->string) + 2);
@@ -68,7 +86,20 @@ void	cat_command_string(t_command_info *cmd, char **args, int i)
 		}
 		i++;
 	}
-	cmd->string[cmd->string_len++] = '\0';
+	cmd->string[cmd->string_len] = '\0';
+	if (args[i] && (args[i][j] == '<' || args[i][j] == '>' || ft_strcmpr(args[i], ">>")))
+	{
+		// int j = 0;
+		while(args[i][j])
+		{
+			cmd->redirection[j] = args[i][j];
+			j++;
+		}
+		cmd->redirection[j] = '\0';
+		i++;
+		cmd->file_name = malloc(ft_strlen(args[i]) + 1);
+		ft_strcpy(cmd->file_name, args[i]);
+	}
 }
 
 void	fill_cmd(char **split, int p)
@@ -95,6 +126,19 @@ void	fill_cmd(char **split, int p)
 		cmd->options = NULL;
 	if (split[i])
         cat_command_string(cmd, split, i);
+	// if (split[i] && (split[i][0] == '<' || split[i][0] == '>' || ft_strcmpr(split[i], ">>")))
+	// {
+	// 	int j = 0;
+	// 	while(split[i][j])
+	// 	{
+	// 		cmd->redirection[j] = split[i][j];
+	// 		j++;
+	// 	}
+	// 	cmd->redirection[j] = '\0';
+	// 	i++;
+	// 	cmd->file_name = malloc(ft_strlen(split[i]) + 1);
+	// 	ft_strcpy(cmd->file_name, split[i]);
+	// }
 	test(cmd);
 	cmd->pipe = p;
 	cmd_lstadd_back(&commands, cmd);
