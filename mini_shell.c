@@ -116,6 +116,7 @@ int 	main(int ac, char **av, char **env)
 	t_command_info	*cmd;
 	int		i;
 	int		j;
+	int		br;
 
 	(void)ac;
 	(void)av;
@@ -138,23 +139,31 @@ int 	main(int ac, char **av, char **env)
 		i = 0;
 		while (m_split[i])
 		{
+			br = 0;
 			commands = NULL;
+			fd = NULL;
 			p_split = mod_split(m_split[i], '|');
 			j = 0;
 			if (mod_strlen(p_split) > 1)
+			{
 				while (p_split[j])
 				{
 					c_split = mod_split(p_split[j], ' ');
-					fill_cmd(c_split, 1);
+					if ((br = fill_cmd(c_split, 1)) < 0)
+						break;
 					j++;
 				}
+				if (br < 0)
+					break;
+			}
 			else
 			{
 				c_split = mod_split(m_split[i], ' ');
-				fill_cmd(c_split, 0);
+				if (fill_cmd(c_split, 0) < 0)
+					break;
 			}
 			cmd = commands;
-			fd = malloc(j * sizeof(int *) + 1);
+			fd = m_malloc(j * sizeof(int *) + 1);
 			int k = 0;
 			while(cmd != NULL)
 			{
@@ -165,8 +174,11 @@ int 	main(int ac, char **av, char **env)
 			while (wait(NULL) != -1);
 			i++;
 		}
-		if (*fd)
-			free(fd);
+		// if (*fd)
+		// {
+		// 	printf("fd\n");
+		// 	free(fd);
+		// }
 		free(line);
 	}
 	return (0);

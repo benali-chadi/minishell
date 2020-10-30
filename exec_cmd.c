@@ -57,28 +57,33 @@ void	ft_fork(t_command_info *cmd, int n, int last)
 	int in;
 	char *var;
 	int p = 0;
+	int i;
 	
 	in = n == 0 ? 0 : fd[n-1][0];
+	i = 0;
 
 	pipe(fd[n]);
 	if ((f = fork()) == 0)
 	{
-		if (cmd->in_red > 0)
+		if (cmd->reds.in_num > 0)
 		{
-			in = open(cmd->in_file_name, O_RDONLY);
+			while (i < cmd->reds.in_num)
+				in = open(cmd->reds.in_file_name[i++], O_RDONLY);
 			dup2(in, STDIN_FILENO);
 		}
 		else if (in != 0)
 			dup2(in, STDIN_FILENO);
 		
-		if (cmd->out_red == 1)
+		if (cmd->reds.out_num > 0)
 		{
-			fd[n][1] = open(cmd->out_file_name, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-			dup2(fd[n][1], 1);
-		}
-		else if (cmd->out_red == 2)
-		{
-			fd[n][1] = open(cmd->out_file_name, O_CREAT | O_WRONLY | O_APPEND, 0666);
+			i = 0;
+			while (i < cmd->reds.out_num)
+			{
+				if (ft_strcmpr(cmd->reds.out[i].sym, ">>"))
+					fd[n][1] = open(cmd->reds.out[i++].file_name, O_CREAT | O_WRONLY | O_APPEND, 0666);
+				else
+					fd[n][1] = open(cmd->reds.out[i++].file_name, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+			}
 			dup2(fd[n][1], 1);
 		}
 		else if (n != last - 1 && n != last)

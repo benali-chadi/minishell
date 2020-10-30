@@ -39,6 +39,22 @@ typedef struct	s_tests {
 	int			ls;
 }				t_tests;
 
+typedef struct	s_out
+{
+	char		sym[3];
+	char		*file_name;
+}				t_out;
+
+
+typedef struct	s_redirection
+{
+	char		*in_file_name[100];
+	t_out		out[100];
+	int			in_num;
+	int			out_num;
+}				t_redirection;
+
+
 typedef struct	s_command_info {
 	char					*command;
 	char					*options;
@@ -46,10 +62,11 @@ typedef struct	s_command_info {
 	int						string_len;
 	t_tests					tests;
 	int						pipe;
-	int						in_red;
-	int						out_red;
-	char					*in_file_name;
-	char					*out_file_name;
+	// int						in_red;
+	// int						out_red;
+	// char					*in_file_name;
+	// char					*out_file_name;
+	t_redirection			reds;
 	struct s_command_info	*next;
 }				t_command_info;
 
@@ -132,8 +149,8 @@ void			compare_var(char **string, char *var, char *arg, int *len);
 	Commands
 */
 
-void			fill_cmd(char **split, int p);
-void			cat_command_string(t_command_info *cmd, char **args, int i);
+int				fill_cmd(char **split, int p);
+int				cat_command_string(t_command_info *cmd, char **args, int i);
 void			change_one_two(char a);
 void			init_one_two();
 void			fill_command_string(t_command_info *cmd, char a, int i);
@@ -148,7 +165,7 @@ char			*check_cmd(char *command, int *p);
 
 void			close_all(int last);
 
-void			redirection(t_command_info *cmd, char **args, int *i);
+int				redirection(t_command_info *cmd, char **args, int *i);
 
 /*
 	Path
