@@ -31,9 +31,9 @@ int		redirection(t_command_info *cmd, char **args, int *i)
 	int red;
 
 	j = 0;
-	if (args[*i][j] == '>' || ft_strcmpr(args[*i], ">>"))
+	if (args[*i][j] == '>')
 	{
-		while (args[*i][j] && (args[*i][j] != '>' || !ft_strcmpr(args[*i], ">>")))
+		while (args[*i][j] && args[*i][j] == '>')
 		{
 			cmd->reds.out[cmd->reds.out_num].sym[j] = args[*i][j];
 			j++;
@@ -94,7 +94,7 @@ int		cat_command_string(t_command_info *cmd, char **args, int i)
 	while(args[i])
 	{	
 		j = 0;
-		if (args[i] && (args[i][j] == '<' || args[i][j] == '>' || ft_strcmpr(args[i], ">>")))
+		if (args[i] && (args[i][j] == '<' || args[i][j] == '>'))
 			if (redirection(cmd, args, &i) < 0)
 				return (-1);
 		if (!args[i])
@@ -148,7 +148,7 @@ int		fill_cmd(char **split, int p)
 	cmd->reds.in_num = 0;
 	cmd->reds.out_num = 0;
 	
-	if (split[i][0] == '<' || split[i][0] == '>' || ft_strcmpr(split[i], ">>"))
+	if (split[i][0] == '<' || split[i][0] == '>')
 		if (redirection(cmd, split, &i) < 0)
 			return (-1);
 	
