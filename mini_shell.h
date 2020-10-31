@@ -142,8 +142,8 @@ t_command_info		*cmd_lstlast(t_command_info *lst);
 void			ft_export(t_command_info *cmd);
 void			loop_env(void);
 void			stock_env(char **env);
-void			ft_cpy_env(char **string, t_list_env *read_env, int *len);
-void			compare_var(char **string, char *var, char *arg, int *len);
+void			compare_var(t_command_info *cmd, char *var, char *arg, int s);
+void			ft_cpy_env(t_command_info *cmd, t_list_env *read_env, int s);
 
 /*
 	Commands

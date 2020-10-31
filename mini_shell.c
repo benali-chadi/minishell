@@ -133,8 +133,7 @@ int 	main(int ac, char **av, char **env)
 		{
 			to_free();
 			exit(0);
-		}
-		
+		}	
 		m_split = mod_split(line, ';');
 		i = 0;
 		while (m_split[i])

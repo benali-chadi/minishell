@@ -101,9 +101,9 @@ int		cat_command_string(t_command_info *cmd, char **args, int i)
 			break;
 		init_one_two();
 		cmd->string[s] = m_malloc(ft_strlen(args[i]) + 1);
+		cmd->string[s] = ft_strcpy(cmd->string[s], args[i]);
 		cmd->string_len = 0;
 		// j = 0;
-		
 		while(args[i][j])
 		{
 			if((args[i][j] == '$' && args[i][j + 1] && g_one != 1 )|| (args[i][j] == '$' && args[i][j + 1] && g_one == 1 && g_two == 1))
@@ -114,8 +114,9 @@ int		cat_command_string(t_command_info *cmd, char **args, int i)
 				while(is_alpha_digit(args[i][j]) && args[i][j] != '$' && args[i][j])
 					var[k++] = args[i][j++];
 				var[k] = '\0';
-
-				compare_var(&cmd->string[s], var, args[i], &cmd->string_len);
+				//printf("var: |%s|\n", var);
+				compare_var(cmd, var, args[i], s);
+				//compare_var(&cmd->string[s], var, args[i], &cmd->string_len);
 				if(args[i][j] == '"' || args[i][j] == '\'')
 					fill_command_string(cmd, args[i][j], s);
 			}

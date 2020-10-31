@@ -36,20 +36,6 @@ void	stock_env(char **env)
     // }
 }
 
-void	ft_cpy_env(char **string, t_list_env *read_env, int *len)
-{
-	int e ;
-
-	e = 0;
-	// printf("char=%c\n", (*string)[(*len)-1]);
-	while(read_env->content[e])
-	{
-		*(string[(*len)]) = read_env->content[e++];
-		(*len)++; 
-	}
-	*(string[*len]) = '\0';
-}
-
 void	loop_env(void)
 {
 	t_list_env *tmp;
@@ -122,21 +108,30 @@ void	ft_remove_node(t_command_info *cmd)
 	}
 }
 
-void	compare_var(char **string, char *var, char *arg, int *len)
+void	ft_cpy_env(t_command_info *cmd, t_list_env *read_env, int s)
 {
+	int e ;
+
+	e = 0;
+	while(read_env->content[e])
+		cmd->string[s][cmd->string_len++] = read_env->content[e++];
+	cmd->string[s][cmd->string_len] = '\0';
+}
+
+void	compare_var(t_command_info *cmd, char *var, char *arg, int s)
+{
+	// int			i;
+	// int			j;
 	t_list_env	*read_env;
 
 	read_env = list_env;
-	// (void)arg;
-
+	// i = 0;
 	while(read_env)
 	{
 		if(ft_strcmpr(read_env->name, var))
 		{
-			int size = ft_strlen(*string) + ft_strlen(read_env->content) + ft_strlen(arg) + 1 + g_two;
-			printf("size=%d\n", size);
-			*string  = ft_realloc(*string , size); // + g_two prsq si kant two mfto7a ("") khas n2aloki liha blastha;
-			ft_cpy_env(string, read_env, len);
+			cmd->string[s]  = ft_realloc(cmd->string[s] ,ft_strlen(cmd->string[s]) + ft_strlen(arg) + ft_strlen(read_env->content) + 1 + g_two); // + g_two prsq si kant two mfto7a ("") khas n2aloki liha blastha;
+			ft_cpy_env(cmd, read_env, s);
 			break;
 		}
 		read_env = read_env->next;
