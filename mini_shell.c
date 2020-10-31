@@ -64,8 +64,9 @@ void	echo(t_command_info *cmd)
 			else
 				g = 0;
 		}
-		ft_putchar_fd(' ', 1);
 		i++;
+		if (cmd->string[i])
+			ft_putchar_fd(' ', 1);
 	}
 	if (!n)
 	 	ft_putchar_fd('\n', 1);
