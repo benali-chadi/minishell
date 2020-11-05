@@ -9,13 +9,15 @@ SRC = mini_shell.c mod_split.c \
 	env.c env_linkedlist.c \
 	fill_cmd.c cmd_linkd_lst.c exec_cmd.c\
 	path.c utils.c to_free.c \
-	gnl/get_next_line.c gnl/get_next_line_utils.c $(NAMELIB)
+	gnl.c $(NAMELIB)
+	# gnl/get_next_line.c gnl/get_next_line_utils.c $(NAMELIB)
 
 all : $(NAME)
 
 $(NAME) : $(NAMELIB)
-	gcc $(FLAGS) $(SRC) -o $(NAME) -D BUFFER_SIZE=10000 -g
+	gcc $(FLAGS) $(SRC) -o $(NAME) 
 	# -fsanitize=address
+	# -D BUFFER_SIZE=10000 -g
 
 $(NAMELIB) :
 	make -C libft/

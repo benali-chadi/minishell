@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/27 22:48:02 by cbenali-          #+#    #+#             */
-/*   Updated: 2019/11/07 16:02:47 by cbenali-         ###   ########.fr       */
+/*   Updated: 2020/11/03 19:45:36 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "../mini_shell.h"
 
 char	*ft_stock(char **line, char *buff, int i)
 {
@@ -101,6 +102,7 @@ int		get_next_line(int fd, char **line)
 	while ((i = read(fd, buff, BUFFER_SIZE)))
 		if (ret_line(line, &str, buff, i))
 			return (1);
+	ft_putstr_fd("exit", 1);
 	free(buff);
 	buff = NULL;
 	return (0);

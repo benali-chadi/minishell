@@ -127,19 +127,28 @@ int 	main(int ac, char **av, char **env)
 	signal(SIGQUIT, sig_handler);
 	stock_env(env);
 	j = 0;
+	utils.env = env;
 	
 	while (1)
 	{
 		ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m", 1);
-		if (!(get_next_line(0, &line)))
+		if (!(gnl(0, &line)))
 		{
 			to_free();
 			exit(0);
-		}	
+		}
+		if (line[0] == ';')
+		{
+			ft_putstr_fd("syntax error near unexpected token `;'\n", 2);
+			free(line);
+			line = NULL;
+			continue;
+		}
 		m_split = mod_split(line, ';');
 		i = 0;
 		while (m_split[i])
 		{
+			g_status = 1;
 			br = 0;
 			commands = NULL;
 			fd = NULL;
@@ -173,14 +182,11 @@ int 	main(int ac, char **av, char **env)
 				k++;
 			}
 			while (wait(NULL) != -1);
+			g_status = 0;
 			i++;
 		}
-		// if (*fd)
-		// {
-		// 	printf("fd\n");
-		// 	free(fd);
-		// }
 		free(line);
+		line = NULL;
 	}
 	return (0);
 }

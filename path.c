@@ -30,10 +30,10 @@ void	execute_cmd(t_command_info *cmd, char *command)
 		}
 		utils.args[i] = NULL;
 	}
-	if (execve(command, utils.args, NULL) < 0)
+	if (execve(command, utils.args, utils.env) < 0)
 	{
 		ft_putstr_fd(cmd->command, 1);
-		ft_putstr_fd(": command not found\n", 1);
+		ft_putstr_fd(": command not found\n", 2);
 		exit(-1);
 	}
 }

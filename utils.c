@@ -65,10 +65,22 @@ void	sig_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		ft_putstr_fd("\n\033[0;32mCS\033[0;31m@minishell \033[0m", 1);
+		if (!g_status)
+			ft_putstr_fd("\n\033[0;32mCS\033[0;31m@minishell \033[0m", 0);
+		else
+		{
+			ft_putstr_fd("\n", 0);
+			g_status = 0;
+		}
+		return;
 	}
 	else if (signum == SIGQUIT)
-		return;
+	{
+		if (g_status)
+			ft_putstr_fd("Quit: 3\n", 1);
+		else
+			ft_putstr_fd("\b\b", 1);
+	}
 }
 
 char	*search_lgnam()
