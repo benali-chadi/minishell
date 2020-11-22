@@ -27,7 +27,7 @@ char	*ft_strcpy(char *s1, char *s2)
 
 int		is_alpha_digit(char a)
 {
-	if ((a <= 'Z' && a >= 'A') || (a <= 'z' && a >= 'a' )|| (a <= '9' && a >= '0'))
+	if ((a <= 'Z' && a >= 'A') || (a <= 'z' && a >= 'a' )|| (a <= '9' && a >= '0') || a == '?')
 		return (1);
 	return(0);
 }

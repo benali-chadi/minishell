@@ -114,9 +114,14 @@ int		cat_command_string(t_command_info *cmd, char **args, int i)
 				while(is_alpha_digit(args[i][j]) && args[i][j] != '$' && args[i][j])
 					var[k++] = args[i][j++];
 				var[k] = '\0';
-				//printf("var: |%s|\n", var);
-				compare_var(cmd, var, args[i], s);
-				//compare_var(&cmd->string[s], var, args[i], &cmd->string_len);
+				if(ft_strcmpr(var, "?"))
+				{
+					cmd->string[s]  = ft_realloc(cmd->string[s] ,ft_strlen(cmd->string[s]) + ft_strlen(args[i]) + (2) + 1 + g_two);
+					cmd->string[s][cmd->string_len++] = 'H';
+					cmd->string[s][cmd->string_len++] = '\0';			
+				}
+				else
+					compare_var(cmd, var, args[i], s);
 				if(args[i][j] == '"' || args[i][j] == '\'')
 					fill_command_string(cmd, args[i][j], s);
 			}
@@ -126,6 +131,7 @@ int		cat_command_string(t_command_info *cmd, char **args, int i)
 				j++;
 		}
 		cmd->string[s][cmd->string_len] = '\0';
+		//printf("cmd->string[s] is:[%s]\n", cmd->string[s]);
 		s++;
 		i++;
 	}
