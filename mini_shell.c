@@ -183,6 +183,8 @@ int 	main(int ac, char **av, char **env)
 			}
 			while (wait(&g_return) != -1);
 			g_return =  WEXITSTATUS(g_return);
+			if (g_return == 255)
+				g_return = 127; 
 			g_status = 0;
 			i++;
 		}
