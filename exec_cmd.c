@@ -26,7 +26,7 @@ int		test_cmds(t_command_info *cmd)
 	{
 		ft_putstr_fd(getcwd(pwd, 100), 1);
 		ft_putchar_fd('\n', 1);
-		exit(1);
+		// exit(1);
 	}
 	else if (cmd->tests.echo)
 		echo(cmd);
@@ -95,7 +95,7 @@ void	ft_fork(t_command_info *cmd, int n, int last)
 			var = check_cmd(cmd->command, &p);
 			find_path(cmd, var, p);
 		}
-		exit(1);
+		exit(0);
 	}
 
 	if (n == last - 1 || n == last)

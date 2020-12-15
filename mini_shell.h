@@ -92,7 +92,8 @@ int				g_q;
 int				g_one;
 int				g_two;
 int				g_status;
-
+int				g_return;
+char			*g_str_return;
 /*Functions*/
 
 /*

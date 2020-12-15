@@ -116,8 +116,14 @@ int		cat_command_string(t_command_info *cmd, char **args, int i)
 				var[k] = '\0';
 				if(ft_strcmpr(var, "?"))
 				{
-					cmd->string[s]  = ft_realloc(cmd->string[s] ,ft_strlen(cmd->string[s]) + ft_strlen(args[i]) + (2) + 1 + g_two);
-					cmd->string[s][cmd->string_len++] = 'H';
+					g_str_return = ft_itoa(g_return);
+					cmd->string[s]  = ft_realloc(cmd->string[s] ,ft_strlen(cmd->string[s]) + ft_strlen(args[i]) + ft_strlen(g_str_return) + 1 + g_two);
+					k = 0;
+					while(g_str_return[k])
+					{
+						cmd->string[s][cmd->string_len++] = g_str_return[k];
+						k++;
+					}
 					cmd->string[s][cmd->string_len++] = '\0';			
 				}
 				else

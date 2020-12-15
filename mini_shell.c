@@ -181,7 +181,8 @@ int 	main(int ac, char **av, char **env)
 				cmd = cmd->next;
 				k++;
 			}
-			while (wait(NULL) != -1);
+			while (wait(&g_return) != -1);
+			g_return =  WEXITSTATUS(g_return);
 			g_status = 0;
 			i++;
 		}
