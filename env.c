@@ -2,7 +2,7 @@
 
 void	stock_env(char **env)
 {
-	list_env  = NULL;
+	g_list_env  = NULL;
 	int i;
 	char *name;
 	char *content;
@@ -23,17 +23,8 @@ void	stock_env(char **env)
 		}
 		name[j] = '\0';
 		content = &env[i][j] + 1;
-		add_back(&list_env, name, content, name_content);
+		add_back(&g_list_env, name, content, name_content);
 		i++;
-		// list_env = ft_lstnew(str);
-	}
-	// t_list_env *read;
-	// read = list_env;
-    // while(read)
-    // {
-        // printf("name_content = %s\n%s\n%s\n", read->name_content,  read->name,  read->content);
-        // read = read->next;
-    // }
 }
 
 void	loop_env(void)

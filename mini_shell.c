@@ -12,7 +12,7 @@ int		mod_strlen(char **s)
 
 void	init_struct()
 {
-	commands = NULL;
+	g_commands = NULL;
 }
 
 void	echo(t_command_info *cmd)
@@ -48,12 +48,12 @@ void	echo(t_command_info *cmd)
 				if (!c && (cmd->string[i][j] == '"' || cmd->string[i][j] == '\'' ))
 				{
 					g = 1;
-					break;
+					break ;
 				}
 				if (cmd->string[i][j] == '\\' && (utils.cnt[(int)cmd->string[i][j + 1]] || cmd->string[i][j + 1] == '0'))
 				{
 					ft_putchar_fd(utils.cnt[(int)cmd->string[i][j + 1]], 1);
-					j +=2;
+					j += 2;
 					continue;
 				}
 				ft_putchar_fd(cmd->string[i][j], 1);
@@ -109,7 +109,7 @@ int		**allocate_fd(int j)
 	return (fd);
 }
 
-int 	main(int ac, char **av, char **env)
+int		main(int ac, char **av, char **env)
 {
 	char	*line;
 	char	**m_split;
@@ -127,8 +127,7 @@ int 	main(int ac, char **av, char **env)
 	signal(SIGQUIT, sig_handler);
 	stock_env(env);
 	j = 0;
-	utils.env = env;
-	
+	g_utils.env = env;
 	while (1)
 	{
 		ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m", 1);
@@ -150,8 +149,8 @@ int 	main(int ac, char **av, char **env)
 		{
 			g_status = 1;
 			br = 0;
-			commands = NULL;
-			fd = NULL;
+			g_commands = NULL;
+			g_fd = NULL;
 			p_split = mod_split(m_split[i], '|');
 			j = 0;
 			if (mod_strlen(p_split) > 1)
@@ -172,8 +171,8 @@ int 	main(int ac, char **av, char **env)
 				if (fill_cmd(c_split, 0) < 0)
 					break;
 			}
-			cmd = commands;
-			fd = m_malloc(j * sizeof(int *) + 1);
+			cmd = g_commands;
+			g_fd = m_malloc(j * sizeof(int *) + 1);
 			int k = 0;
 			while(cmd != NULL)
 			{

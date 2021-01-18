@@ -7,30 +7,30 @@ void	execute_cmd(t_command_info *cmd, char *command)
 
 	if (cmd->options)
 	{
-		utils.args[0] = cmd->command;
-		utils.args[1] = cmd->options;
+		g_utils.args[0] = cmd->command;
+		g_utils.args[1] = cmd->options;
 		i = 2;
 		j = -1;
-		while(cmd->string[++j])
+		while (cmd->string[++j])
 		{
-			utils.args[i] = cmd->string[j];
+			g_utils.args[i] = cmd->string[j];
 			i++;
 		}
-		utils.args[i] = NULL;
+		g_utils.args[i] = NULL;
 	}
 	else
 	{
-		utils.args[0] = cmd->command;
+		g_utils.args[0] = cmd->command;
 		i = 1;
 		j = -1;
 		while (cmd->string[++j])
 		{
-			utils.args[i] = cmd->string[j];
+			g_utils.args[i] = cmd->string[j];
 			i++;
 		}
-		utils.args[i] = NULL;
+		g_utils.args[i] = NULL;
 	}
-	if (execve(command, utils.args, utils.env) < 0)
+	if (execve(command, g_utils.args, g_utils.env) < 0)
 	{
 		ft_putstr_fd(cmd->command, 1);
 		ft_putstr_fd(": command not found\n", 2);
@@ -42,11 +42,11 @@ char	*search_path(void)
 {
 	t_list_env	*read_env;
 
-	read_env = list_env;
-	while(read_env)
+	read_env = g_list_env;
+	while (read_env)
 	{
-		if(ft_strcmpr(read_env->name, "PATH"))
-			return(read_env->content);	
+		if (ft_strcmpr(read_env->name, "PATH"))
+			return (read_env->content);
 		read_env = read_env->next;
 	}
 	return (NULL);

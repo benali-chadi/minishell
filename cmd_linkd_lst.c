@@ -8,7 +8,7 @@ t_command_info		*cmd_lstlast(t_command_info *lst)
 	if (tmp)
 		while (tmp->next)
 			tmp = tmp->next;
-	return(tmp);
+	return (tmp);
 }
 
 void				cmd_lstadd_back(t_command_info **commands, t_command_info *new)

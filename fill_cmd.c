@@ -85,59 +85,58 @@ int		redirection(t_command_info *cmd, char **args, int *i)
 
 int		cat_command_string(t_command_info *cmd, char **args, int i)
 {
-	int j;
-	char *var;
-	int k;
-	int s;
+	char	*var;
+	int		j;
+	int		k;
+	int		s;
 
 	s = 0;
-	while(args[i])
-	{	
+	while (args[i])
+	{
 		j = 0;
 		if (args[i] && (args[i][j] == '<' || args[i][j] == '>'))
 			if (redirection(cmd, args, &i) < 0)
 				return (-1);
 		if (!args[i])
-			break;
+			break ;
 		init_one_two();
 		cmd->string[s] = m_malloc(ft_strlen(args[i]) + 1);
 		cmd->string[s] = ft_strcpy(cmd->string[s], args[i]);
 		cmd->string_len = 0;
 		// j = 0;
-		while(args[i][j])
+		while (args[i][j])
 		{
-			if((args[i][j] == '$' && args[i][j + 1] && g_one != 1 )|| (args[i][j] == '$' && args[i][j + 1] && g_one == 1 && g_two == 1))
+			if ((args[i][j] == '$' && args[i][j + 1] && g_one != 1 ) || (args[i][j] == '$' && args[i][j + 1] && g_one == 1 && g_two == 1))
 			{
 				j++;
 				var = m_malloc(ft_strlen(args[i]));
 				k = 0;
-				while(is_alpha_digit(args[i][j]) && args[i][j] != '$' && args[i][j])
+				while (is_alpha_digit(args[i][j]) && args[i][j] != '$' && args[i][j])
 					var[k++] = args[i][j++];
 				var[k] = '\0';
-				if(ft_strcmpr(var, "?"))
+				if (ft_strcmpr(var, "?"))
 				{
 					g_str_return = ft_itoa(g_return);
-					cmd->string[s]  = ft_realloc(cmd->string[s] ,ft_strlen(cmd->string[s]) + ft_strlen(args[i]) + ft_strlen(g_str_return) + 1 + g_two);
+					cmd->string[s] = ft_realloc(cmd->string[s] ,ft_strlen(cmd->string[s]) + ft_strlen(args[i]) + ft_strlen(g_str_return) + 1 + g_two);
 					k = 0;
-					while(g_str_return[k])
+					while (g_str_return[k])
 					{
 						cmd->string[s][cmd->string_len++] = g_str_return[k];
 						k++;
 					}
-					cmd->string[s][cmd->string_len++] = '\0';			
+					cmd->string[s][cmd->string_len++] = '\0';
 				}
 				else
 					compare_var(cmd, var, args[i], s);
-				if(args[i][j] == '"' || args[i][j] == '\'')
+				if (args[i][j] == '"' || args[i][j] == '\'')
 					fill_command_string(cmd, args[i][j], s);
 			}
 			else
 				fill_command_string(cmd, args[i][j], s);
-			if(args[i][j] && (args[i][j] != '$' || (g_one == 1 && args[i][j] == '$')))
+			if (args[i][j] && (args[i][j] != '$' || (g_one == 1 && args[i][j] == '$')))
 				j++;
 		}
 		cmd->string[s][cmd->string_len] = '\0';
-		//printf("cmd->string[s] is:[%s]\n", cmd->string[s]);
 		s++;
 		i++;
 	}
@@ -183,6 +182,6 @@ int		fill_cmd(char **split, int p)
 
 	test(cmd);
 	cmd->pipe = p;
-	cmd_lstadd_back(&commands, cmd);
+	cmd_lstadd_back(&g_commands, cmd);
 	return (1);
 }

@@ -3,11 +3,11 @@ FLAGS = -Wall -Wextra -Werror -g
 
 NAME = minishell
 
-NAMELIB = libft.a
+NAMELIB = libftprintf.a
 
 SRC = mini_shell.c mod_split.c \
 	env.c env_linkedlist.c \
-	fill_cmd.c cmd_linkd_lst.c exec_cmd.c\
+	fill_cmd.c cmd_linkd_lst.c exec_cmd.c cmd_utils.c\
 	path.c utils.c to_free.c \
 	gnl.c $(NAMELIB)
 	# gnl/get_next_line.c gnl/get_next_line_utils.c $(NAMELIB)
@@ -20,15 +20,15 @@ $(NAME) : $(NAMELIB)
 	# -D BUFFER_SIZE=10000 -g
 
 $(NAMELIB) :
-	make -C libft/
-	mv libft/$(NAMELIB) .
+	make -C ft_printf/
+	mv ft_printf/$(NAMELIB) .
 
 clean :
-	make clean -C libft/
+	make clean -C ft_printf/
 	rm -f *.a
 
 fclean : clean
-	make fclean -C libft/
+	make fclean -C ft_printf/
 	rm -f *.a
 	rm -f $(NAME)
 
