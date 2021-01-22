@@ -8,7 +8,7 @@ void	*m_malloc(size_t n)
 		void            *tmp;
 
 		if (!(tmp = malloc(n)))
-				return (NULL);
+			return (NULL);
 		g_alloc[g_all] = tmp;
 		g_all++;
 		return (tmp);

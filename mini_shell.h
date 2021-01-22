@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/18 19:17:15 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/01/19 18:19:08 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,13 @@ typedef struct				s_command_info {
 
 typedef struct				s_utils
 {
+	char					*line;
+	char					**m_split;
+	char					**p_split;
+	char					**c_split;
+	t_command_info			*cmd;
 	char					cnt[128];
 	char					*args[200];
-	int						save_in;
-	int						save_out;
 	char					**env;
 }							t_utils;
 
@@ -117,6 +120,7 @@ char						*g_str_return;
 int							gnl(int fd, char **line);
 
 char						**mod_split(char const *s, char c);
+int							mod_strlen(char **s);
 void						*ft_realloc(void *ptr, int size);
 char						*ft_strcpy(char *s1, char *s2);
 int							ft_strcmpr(char *s1, char *s2);
@@ -177,7 +181,6 @@ void						ft_cpy_env(t_command_info *cmd,
 int							fill_cmd(char **split, int p);
 int							cat_command_string(t_command_info *cmd,
 							char **args, int i);
-void						change_one_two(char a);
 void						init_one_two();
 void						fill_command_string(t_command_info *cmd,
 							char a, int i);

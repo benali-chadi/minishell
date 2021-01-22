@@ -1,50 +1,83 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fill_cmd.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/19 17:11:55 by cbenali-          #+#    #+#             */
+/*   Updated: 2021/01/19 18:09:37 by cbenali-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "mini_shell.h"
 
 void	fill_command_string(t_command_info *cmd, char a, int i)
 {
 	cmd->string[i][cmd->string_len++] = a;
-	if(a == '\'')
+	if (a == '\'')
 		g_one = g_one == 1 ? 0 : 1;
-	if(a == '"')
+	if (a == '"')
 		g_two = g_two == 1 ? 0 : 1;
-	// cmd->string[i][cmd->string_len] = '\0';
 }
 
-void	init_one_two()
+void	init_one_two(void)
 {
 	g_one = 0;
 	g_two = 0;
 }
 
-void	change_one_two(char a)
+void	red_file_names(t_command_info *cmd, char *args, int red, int j)
 {
-	if (a == '"')	
-		g_two = g_two == 1 ? 0 : 1;
-	if (a == '\'')	
-		g_one = g_one == 1 ? 0 : 1;
+	int k;
+
+	if (red == 1)
+	{
+		cmd->reds.out[cmd->reds.out_num].file_name =
+		m_malloc(ft_strlen(args) + 1);
+		k = 0;
+		while (args[j])
+			cmd->reds.out[cmd->reds.out_num].file_name[k++] = args[j++];
+		cmd->reds.out[cmd->reds.out_num].file_name[k] = '\0';
+		cmd->reds.out_num++;
+	}
+	else
+	{
+		cmd->reds.in_file_name[cmd->reds.in_num] =
+		m_malloc(ft_strlen(args) + 1);
+		k = 0;
+		while (args[j])
+			cmd->reds.in_file_name[cmd->reds.in_num][k++] = args[j++];
+		cmd->reds.in_file_name[cmd->reds.in_num][k] = '\0';
+		cmd->reds.in_num++;
+	}
+}
+
+void	red_helper(t_command_info *cmd, char *arg, int *j, int *red)
+{
+	if (arg[*j] == '>')
+	{
+		while (arg[*j] && arg[*j] == '>')
+		{
+			cmd->reds.out[cmd->reds.out_num].sym[*j] = arg[*j];
+			(*j)++;
+		}
+		*red = 1;
+	}
+	else
+	{
+		(*j)++;
+		*red = 0;
+	}
 }
 
 int		redirection(t_command_info *cmd, char **args, int *i)
 {
 	int j;
-	int k;
 	int red;
 
 	j = 0;
-	if (args[*i][j] == '>')
-	{
-		while (args[*i][j] && args[*i][j] == '>')
-		{
-			cmd->reds.out[cmd->reds.out_num].sym[j] = args[*i][j];
-			j++;
-		}
-		red = 1;
-	}
-	else
-	{
-		j++;
-		red = 0;
-	}
+	red_helper(cmd, args[*i], &j, &red);
 	if ((size_t)j >= ft_strlen(args[*i]))
 	{
 		(*i)++;
@@ -55,29 +88,12 @@ int		redirection(t_command_info *cmd, char **args, int *i)
 		ft_putstr_fd("syntax error near unexpected token `newline'\n", 1);
 		return (-1);
 	}
-	if (red == 1)
-	{
-		cmd->reds.out[cmd->reds.out_num].file_name = malloc(ft_strlen(args[*i]) + 1);
-		k = 0;
-		while (args[*i][j])
-			cmd->reds.out[cmd->reds.out_num].file_name[k++] = args[*i][j++];
-		cmd->reds.out[cmd->reds.out_num].file_name[k] = '\0';
-		cmd->reds.out_num++;
-	}
-	else
-	{
-		cmd->reds.in_file_name[cmd->reds.in_num] = malloc(ft_strlen(args[*i]) + 1);
-		k = 0;
-		while (args[*i][j])
-			cmd->reds.in_file_name[cmd->reds.in_num][k++] = args[*i][j++];
-		cmd->reds.in_file_name[cmd->reds.in_num][k] = '\0';
-		cmd->reds.in_num++;
-	}
+	red_file_names(cmd, args[*i], red, j);
 	(*i)++;
 	if (!args[*i])
 		return (1);
 	j = 0;
-	if (args[*i] && (args[*i][j] == '<' || args[*i][j] == '>' || ft_strcmpr(args[*i], ">>")))
+	if (args[*i] && (args[*i][j] == '<' || args[*i][j] == '>'))
 		if (!redirection(cmd, args, i))
 			return (-1);
 	return (1);

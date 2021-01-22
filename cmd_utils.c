@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 18:49:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/18 18:50:06 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/01/19 15:14:39 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	close_all(int last)
 	i = 0;
 	while (i < last)
 	{
-		close(fd[i][0]);
-		close(fd[i][1]);
+		close(g_fd[i][0]);
+		close(g_fd[i][1]);
 		i++;
 	}
 }

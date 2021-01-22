@@ -25,13 +25,14 @@ void	stock_env(char **env)
 		content = &env[i][j] + 1;
 		add_back(&g_list_env, name, content, name_content);
 		i++;
+	}
 }
 
 void	loop_env(void)
 {
 	t_list_env *tmp;
 
-	tmp = list_env;
+	tmp = g_list_env;
 	while(tmp)
 	{
 		ft_putstr_fd(tmp->name_content, 1);
@@ -63,7 +64,7 @@ void	ft_export(t_command_info *cmd)
 			return;
 		name[j] = '\0';
 		content = &cmd->string[i][++j];
-		add_back(&list_env, name, content, cmd->string[i]);
+		add_back(&g_list_env, name, content, cmd->string[i]);
 	}
 }
 
@@ -73,7 +74,7 @@ void	ft_remove_node(t_command_info *cmd)
 	t_list_env *prev;
 	int i;
 
-	read_list = list_env;
+	read_list = g_list_env;
 	i = 0;
 	if (!cmd->string[i])
 		return;
@@ -81,7 +82,7 @@ void	ft_remove_node(t_command_info *cmd)
 	{
 		if (read_list != NULL && ft_strcmpr(read_list->name, cmd->string[i]))
 		{
-			list_env = read_list->next;
+			g_list_env = read_list->next;
 			free(read_list);
 			return;
 		}
@@ -115,7 +116,7 @@ void	compare_var(t_command_info *cmd, char *var, char *arg, int s)
 	// int			j;
 	t_list_env	*read_env;
 
-	read_env = list_env;
+	read_env = g_list_env;
 	// i = 0;
 	while(read_env)
 	{
