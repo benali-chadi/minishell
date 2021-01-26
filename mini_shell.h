@@ -105,9 +105,12 @@ int							(*g_fd)[2];
 int							g_q;
 int							g_one;
 int							g_two;
+int							g_var_one;
+int							g_var_two;
 int							g_status;
 int							g_return;
 char						*g_str_return;
+int							g_join_red;
 
 /*
 	**Functions

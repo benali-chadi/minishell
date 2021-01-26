@@ -1,34 +1,34 @@
 #include "mini_shell.h"
 
-int g_one;
-int g_two;
+int g_var_one;
+int g_var_two;
 
-static int	ft_countwords(const char *str, char c)
+static int	ft_countwords(const char *str, char *c)
 {
 	int i;
 	int compteur;
 
-	g_one = 0;
-	g_two = 0;
+	g_var_one = 0;
+	g_var_two = 0;
 	compteur = 0;
 	i = 0;
 	while (str[i] != '\0')
 	{
 			if(str[i] == '"')
-				g_two = 1;
+				g_var_two = 1;
 			if(str[i] == '\'')
-				g_one = 1;
-		while (str[i] == c)
+				g_var_one = 1;
+		while (ft_strchr(c, str[i]))
 			i++;
 		if (str[i] == '\0')
 			break ;
 		compteur++;
-		while ((g_one == 1 || g_two == 1 || str[i] != c) && str[i] != '\0')
+		while ((g_var_one == 1 || g_var_two == 1 || !ft_strchr(c, str[i])) && str[i] != '\0')
 		{
 			if(str[i] == '"')
-				g_two = (g_two == 1 ? 0 : 1);
+				g_var_two = (g_var_two == 1 ? 0 : 1);
 			if(str[i] == '\'')
-				g_one = (g_one == 1 ? 0 : 1);
+				g_var_one = (g_var_one == 1 ? 0 : 1);
 			i++;
 		}
 		if (str[i] == '\0')
@@ -37,29 +37,29 @@ static int	ft_countwords(const char *str, char c)
 	return (compteur);
 }
 
-static int	ft_countlen(const char *str, char c, int *i)
+static int	ft_countlen(const char *str, char *c, int *i)
 {
 	int len;
 
-	g_one = 0;
-	g_two = 0;
+	g_var_one = 0;
+	g_var_two = 0;
 	len = 0;
 	while (str[*i] != '\0')
 	{
 		if(str[*i] == '"')
-			g_two = 1;
+			g_var_two = 1;
 		if(str[*i] == '\'')
-			g_one = 1;
-		while (str[*i] == c)
+			g_var_one = 1;
+		while (ft_strchr(c, str[*i]))
 			*i = *i + 1;
 		if (str[*i] == '\0')
 			return (len);
-		while ((g_one == 1 || g_two == 1 || str[*i] != c) && str[*i] != '\0')
+		while ((g_var_one == 1 || g_var_two == 1 || !ft_strchr(c, str[*i])) && str[*i] != '\0')
 		{
 			if(str[*i] == '"')
-				g_two = (g_two == 1 ? 0 : 1);
+				g_var_two = (g_var_two == 1 ? 0 : 1);
 			if(str[*i] == '\'')
-				g_one = (g_one == 1 ? 0 : 1);
+				g_var_one = (g_var_one == 1 ? 0 : 1);
 			*i = *i + 1;
 			len++;
 		}
@@ -67,10 +67,17 @@ static int	ft_countlen(const char *str, char c, int *i)
 		if (str[*i] == '\0')
 			return (len);
 	}
-	return (len);
+	return (len + 10);
 }
 
-static char	**result(char **tab, const char *str, char c)
+int			ft_stock_red(char **tab, int a, char o)
+{
+	if(g_var_one == 0 && g_var_two == 0)
+		tab[a][g_join_red++] = o;
+	return(g_join_red);
+}
+
+static char	**result(char **tab, const char *str, char *c)
 {
 	int a;
 	int b;
@@ -78,29 +85,31 @@ static char	**result(char **tab, const char *str, char c)
 
 	i = 0;
 	a = 0;
-	g_one = 0;
-	g_two = 0;
-	while (str[i] != '\0')
+	g_var_one = 0;
+	g_var_two = 0;
+	while (str[i] != '\0' && ((g_join_red = 0) >= 0))
 	{
 		if(str[i] == '"')
-			g_two = 1;
+			g_var_two = 1;
 		if(str[i] == '\'')
-			g_one = 1;
-		while (str[i] == c)
+			g_var_one = 1;
+		b = 0;
+		while (ft_strchr(c, str[i]) && ((b = ft_stock_red(tab, a, str[i])) >= 0))
 			i++;
+		printf("b=[%d]\n",  b);
 		if (str[i] == '\0')
 			break ;
-		b = 0;
-		while ((g_one == 1 || g_two == 1 || str[i] != c ) && str[i] != '\0')
+		while ((g_var_one == 1 || g_var_two == 1 || !ft_strchr(c, str[i]) ) && str[i] != '\0')
 		{
 			if(str[i] == '"')
-				g_two = (g_two == 1 ? 0 : 1);
+				g_var_two = (g_var_two == 1 ? 0 : 1);
 			if(str[i] == '\'')
-				g_one = (g_one == 1 ? 0 : 1);
+				g_var_one = (g_var_one == 1 ? 0 : 1);
 			tab[a][b] = str[i];
 			i++;
 			b++;
 		}
+		//printf("---a=[%d]|b=[%d]---\n", a, b);
 		tab[a][b] = '\0';
 		a++;
 	}
@@ -119,7 +128,7 @@ static char	**freetab(char **tab, int i)
 	return (0);
 }
 
-char		**mod_split(char const *s, char c)
+char		**mod_split_red(char const *s, char *c)
 {
 	int		i;
 	int		casee;
@@ -128,6 +137,7 @@ char		**mod_split(char const *s, char c)
 	int		len;
 
 	i = 0;
+	g_join_red = 0;
 	if (s)
 		casee = ft_countwords(s, c);
 	else
@@ -151,8 +161,8 @@ char		**mod_split(char const *s, char c)
 // {
 // 	char **tab;
 
-// 	char *str = "salah0eddi0ne'0'mhah";
-// 	tab = mod_split(str, '0');
+// 	char *str = ">123<5<<67>>8'>'99";
+// 	tab = mod_split_red(str, "><");
 // 	int i;
 
 // 	i = 0;

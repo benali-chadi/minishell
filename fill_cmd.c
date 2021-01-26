@@ -195,7 +195,6 @@ int		fill_cmd(char **split, int p)
 	if (split[i])
         if (cat_command_string(cmd, split, i) < 0)
 			return (-1);
-
 	test(cmd);
 	cmd->pipe = p;
 	cmd_lstadd_back(&g_commands, cmd);
