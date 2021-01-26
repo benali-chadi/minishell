@@ -98,6 +98,7 @@ typedef struct				s_utils
 	**Global Variables
 */
 
+t_command_info 				*g_cmd;
 t_command_info				*g_commands;
 t_list_env					*g_list_env;
 t_utils						g_utils;
@@ -111,7 +112,8 @@ int							g_status;
 int							g_return;
 char						*g_str_return;
 int							g_join_red;
-
+char						*g_str_var;
+int							g_var_k;
 /*
 	**Functions
 */
@@ -172,21 +174,17 @@ t_command_info				*cmd_lstlast(t_command_info *lst);
 void						ft_export(t_command_info *cmd);
 void						loop_env(void);
 void						stock_env(char **env);
-void						compare_var(t_command_info *cmd, char *var,
-							char *arg, int s);
-void						ft_cpy_env(t_command_info *cmd,
-							t_list_env *read_env, int s);
+void						compare_var(char *var, char *arg, int s);
+void						ft_cpy_env(t_list_env *read_env, int s);
 
 /*
 	**Commands
 */
 
 int							fill_cmd(char **split, int p);
-int							cat_command_string(t_command_info *cmd,
-							char **args, int i);
+int							cat_command_string(char **args, int i);
 void						init_one_two();
-void						fill_command_string(t_command_info *cmd,
-							char a, int i);
+void						fill_command_string(char a, int i);
 
 void						exec_cmd(t_command_info *cmd, int i, int last);
 void						test(t_command_info *cmd);
@@ -199,8 +197,7 @@ char						*check_cmd(char *command, int *p);
 
 void						close_all(int last);
 
-int							redirection(t_command_info *cmd,
-							char **args, int *i);
+int							redirection(char **args, int *i);
 
 /*
 	**Path

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_cmd.c                                         :+:      :+:    :+:   */
+/*   fill_g_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,9 +12,9 @@
 
 #include "mini_shell.h"
 
-void	fill_command_string(t_command_info *cmd, char a, int i)
+void	fill_command_string(char a, int i)
 {
-	cmd->string[i][cmd->string_len++] = a;
+	g_cmd->string[i][g_cmd->string_len++] = a;
 	if (a == '\'')
 		g_one = g_one == 1 ? 0 : 1;
 	if (a == '"')
@@ -27,39 +27,39 @@ void	init_one_two(void)
 	g_two = 0;
 }
 
-void	red_file_names(t_command_info *cmd, char *args, int red, int j)
+void	red_file_names(char *args, int red, int j)
 {
 	int k;
 
 	if (red == 1)
 	{
-		cmd->reds.out[cmd->reds.out_num].file_name =
+		g_cmd->reds.out[g_cmd->reds.out_num].file_name =
 		m_malloc(ft_strlen(args) + 1);
 		k = 0;
 		while (args[j])
-			cmd->reds.out[cmd->reds.out_num].file_name[k++] = args[j++];
-		cmd->reds.out[cmd->reds.out_num].file_name[k] = '\0';
-		cmd->reds.out_num++;
+			g_cmd->reds.out[g_cmd->reds.out_num].file_name[k++] = args[j++];
+		g_cmd->reds.out[g_cmd->reds.out_num].file_name[k] = '\0';
+		g_cmd->reds.out_num++;
 	}
 	else
 	{
-		cmd->reds.in_file_name[cmd->reds.in_num] =
+		g_cmd->reds.in_file_name[g_cmd->reds.in_num] =
 		m_malloc(ft_strlen(args) + 1);
 		k = 0;
 		while (args[j])
-			cmd->reds.in_file_name[cmd->reds.in_num][k++] = args[j++];
-		cmd->reds.in_file_name[cmd->reds.in_num][k] = '\0';
-		cmd->reds.in_num++;
+			g_cmd->reds.in_file_name[g_cmd->reds.in_num][k++] = args[j++];
+		g_cmd->reds.in_file_name[g_cmd->reds.in_num][k] = '\0';
+		g_cmd->reds.in_num++;
 	}
 }
 
-void	red_helper(t_command_info *cmd, char *arg, int *j, int *red)
+void	red_helper(char *arg, int *j, int *red)
 {
 	if (arg[*j] == '>')
 	{
 		while (arg[*j] && arg[*j] == '>')
 		{
-			cmd->reds.out[cmd->reds.out_num].sym[*j] = arg[*j];
+			g_cmd->reds.out[g_cmd->reds.out_num].sym[*j] = arg[*j];
 			(*j)++;
 		}
 		*red = 1;
@@ -71,13 +71,13 @@ void	red_helper(t_command_info *cmd, char *arg, int *j, int *red)
 	}
 }
 
-int		redirection(t_command_info *cmd, char **args, int *i)
+int		redirection(char **args, int *i)
 {
 	int j;
 	int red;
 
 	j = 0;
-	red_helper(cmd, args[*i], &j, &red);
+	red_helper(args[*i], &j, &red);
 	if ((size_t)j >= ft_strlen(args[*i]))
 	{
 		(*i)++;
@@ -88,115 +88,131 @@ int		redirection(t_command_info *cmd, char **args, int *i)
 		ft_putstr_fd("syntax error near unexpected token `newline'\n", 1);
 		return (-1);
 	}
-	red_file_names(cmd, args[*i], red, j);
+	red_file_names(args[*i], red, j);
 	(*i)++;
 	if (!args[*i])
 		return (1);
 	j = 0;
 	if (args[*i] && (args[*i][j] == '<' || args[*i][j] == '>'))
-		if (!redirection(cmd, args, i))
+		if (!redirection(args, i))
 			return (-1);
 	return (1);
 }
-
-int		cat_command_string(t_command_info *cmd, char **args, int i)
+int		first_condition(int j, char **args, int i, int *s)
 {
-	char	*var;
-	int		j;
-	int		k;
-	int		s;
-
-	s = 0;
-	while (args[i])
-	{
-		j = 0;
-		if (args[i] && (args[i][j] == '<' || args[i][j] == '>'))
-			if (redirection(cmd, args, &i) < 0)
-				return (-1);
-		if (!args[i])
-			break ;
-		init_one_two();
-		cmd->string[s] = m_malloc(ft_strlen(args[i]) + 1);
-		cmd->string[s] = ft_strcpy(cmd->string[s], args[i]);
-		cmd->string_len = 0;
-		// j = 0;
-		while (args[i][j])
-		{
-			if ((args[i][j] == '$' && args[i][j + 1] && g_one != 1 ) || (args[i][j] == '$' && args[i][j + 1] && g_one == 1 && g_two == 1))
+			j++;
+			g_str_var = m_malloc(ft_strlen(args[i]));
+			g_var_k = 0;
+			while(is_alpha_digit(args[i][j]) && args[i][j] != '$' && args[i][j])
+				g_str_var[g_var_k++] = args[i][j++];
+			g_str_var[g_var_k] = '\0';
+			if(ft_strcmpr(g_str_var, "?"))
 			{
-				j++;
-				var = m_malloc(ft_strlen(args[i]));
-				k = 0;
-				while (is_alpha_digit(args[i][j]) && args[i][j] != '$' && args[i][j])
-					var[k++] = args[i][j++];
-				var[k] = '\0';
-				if (ft_strcmpr(var, "?"))
+				g_str_return = ft_itoa(g_return);
+				g_cmd->string[*s]  = ft_realloc(g_cmd->string[*s] 
+					,ft_strlen(g_cmd->string[*s]) + ft_strlen(args[i]) + 
+						ft_strlen(g_str_return) + 1 + g_two);
+				g_var_k = 0;
+				while(g_str_return[g_var_k])
 				{
-					g_str_return = ft_itoa(g_return);
-					cmd->string[s] = ft_realloc(cmd->string[s] ,ft_strlen(cmd->string[s]) + ft_strlen(args[i]) + ft_strlen(g_str_return) + 1 + g_two);
-					k = 0;
-					while (g_str_return[k])
-					{
-						cmd->string[s][cmd->string_len++] = g_str_return[k];
-						k++;
-					}
-					cmd->string[s][cmd->string_len++] = '\0';
+					g_cmd->string[*s][g_cmd->string_len++] = g_str_return[g_var_k];
+					g_var_k++;
 				}
-				else
-					compare_var(cmd, var, args[i], s);
-				if (args[i][j] == '"' || args[i][j] == '\'')
-					fill_command_string(cmd, args[i][j], s);
+				g_cmd->string[*s][g_cmd->string_len++] = '\0';			
 			}
 			else
-				fill_command_string(cmd, args[i][j], s);
-			if (args[i][j] && (args[i][j] != '$' || (g_one == 1 && args[i][j] == '$')))
-				j++;
+			compare_var(g_str_var, args[i], *s);
+			return(j);
+}
+
+void		to_while(char **args, int i,int *s)
+{
+
+	int j;
+	//char *var;
+	j = 0;
+
+	while(args[i][j])
+	{
+		if((args[i][j] == '$' && args[i][j + 1] && g_one != 1 )|| (args[i][j] == '$' && args[i][j + 1] && g_one == 1 && g_two == 1))
+		{	
+			j = first_condition(j, args, i, s);
+			if(args[i][j] == '"' || args[i][j] == '\'')
+				fill_command_string(args[i][j], *s);
 		}
-		cmd->string[s][cmd->string_len] = '\0';
+		else
+			fill_command_string(args[i][j], *s);
+		if(args[i][j] && (args[i][j] != '$' || (g_one == 1 && args[i][j] == '$')))
+			j++;
+	}
+	g_cmd->string[*s][g_cmd->string_len] = '\0';
+	printf("g_cmd->string[s] is:[%s]\n", g_cmd->string[*s]);
+}
+
+int		cat_command_string(char **args, int i)
+{
+	int j;
+	int s;
+
+	s = 0;
+	while(args[i])
+	{	
+		j = 0;
+		if (args[i] && (args[i][j] == '<' || args[i][j] == '>'))
+			if (redirection(args, &i) < 0)
+				return (-1);
+		if (!args[i])
+			break;
+		init_one_two();
+		g_cmd->string[s] = m_malloc(ft_strlen(args[i]) + 1);
+		g_cmd->string[s] = ft_strcpy(g_cmd->string[s], args[i]);
+		g_cmd->string_len = 0;
+		printf("g_cmd->string[s] is:[%s]\n", g_cmd->string[s]);
+		to_while(args, i, &s);
 		s++;
 		i++;
 	}
-	cmd->string[s] = NULL;
+	g_cmd->string[s] = NULL;
 	return (1);
 }
 
 int		fill_cmd(char **split, int p)
 {
-	t_command_info *cmd;
 	int i;
 
 	i = 0;
 	if (!*split)
 		return (0);
-	cmd = malloc(sizeof(t_command_info));
+	g_cmd = malloc(sizeof(t_command_info));
 	
 	// initializing reds
 	
-	cmd->reds.in_num = 0;
-	cmd->reds.out_num = 0;
+	g_cmd->reds.in_num = 0;
+	g_cmd->reds.out_num = 0;
 	
 	if (split[i][0] == '<' || split[i][0] == '>')
-		if (redirection(cmd, split, &i) < 0)
+		if (redirection(split, &i) < 0)
 			return (-1);
 	
-	cmd->command = m_malloc(ft_strlen(split[i]) + 1);
+	g_cmd->command = m_malloc(ft_strlen(split[i]) + 1);
 
-	ft_strcpy(cmd->command, split[i]);
+	ft_strcpy(g_cmd->command, split[i]);
 	i++;
 
 	if (split[i] && split[i][0] == '-')
 	{
-		cmd->options = m_malloc(ft_strlen(split[i]) + 1);
-		ft_strcpy(cmd->options, split[i]);
+		g_cmd->options = m_malloc(ft_strlen(split[i]) + 1);
+		ft_strcpy(g_cmd->options, split[i]);
 		i++;
 	}
 	else
-		cmd->options = NULL;
+		g_cmd->options = NULL;
 	if (split[i])
-        if (cat_command_string(cmd, split, i) < 0)
+        if (cat_command_string(split, i) < 0)
 			return (-1);
-	test(cmd);
-	cmd->pipe = p;
-	cmd_lstadd_back(&g_commands, cmd);
+
+	test(g_cmd);
+	g_cmd->pipe = p;
+	cmd_lstadd_back(&g_commands, g_cmd);
 	return (1);
 }
