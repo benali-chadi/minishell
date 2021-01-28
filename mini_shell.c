@@ -77,31 +77,31 @@ void	fill_and_execute(void)
 	g_utils.line = NULL;
 }
 
-int		main(int ac, char **av, char **env)
-{
-	(void)ac;
-	(void)av;
-	init_cnt();
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
-	stock_env(env);
-	g_utils.env = env;
-	while (1)
-	{
-		ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m", 1);
-		if (!(gnl(0, &g_utils.line)))
-		{
-			to_free();
-			exit(0);
-		}
-		if (g_utils.line[0] == ';')
-		{
-			ft_putstr_fd("syntax error near unexpected token `;'\n", 2);
-			free(g_utils.line);
-			g_utils.line = NULL;
-			continue;
-		}
-		fill_and_execute();
-	}
-	return (0);
-}
+// int		main(int ac, char **av, char **env)
+// {
+// 	(void)ac;
+// 	(void)av;
+// 	init_cnt();
+// 	signal(SIGINT, sig_handler);
+// 	signal(SIGQUIT, sig_handler);
+// 	stock_env(env);
+// 	g_utils.env = env;
+// 	while (1)
+// 	{
+// 		ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m", 1);
+// 		if (!(gnl(0, &g_utils.line)))
+// 		{
+// 			to_free();
+// 			exit(0);
+// 		}
+// 		if (g_utils.line[0] == ';')
+// 		{
+// 			ft_putstr_fd("syntax error near unexpected token `;'\n", 2);
+// 			free(g_utils.line);
+// 			g_utils.line = NULL;
+// 			continue;
+// 		}
+// 		fill_and_execute();
+// 	}
+// 	return (0);
+// }
