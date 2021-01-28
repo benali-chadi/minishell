@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/19 18:19:08 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/01/28 15:45:58 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int							g_var_k;
 int							gnl(int fd, char **line);
 
 char						**mod_split(char const *s, char c);
+char						**mod_split_red(char const *s, char *c);
 int							mod_strlen(char **s);
 void						*ft_realloc(void *ptr, int size);
 char						*ft_strcpy(char *s1, char *s2);
@@ -182,9 +183,11 @@ void						ft_cpy_env(t_list_env *read_env, int s);
 */
 
 int							fill_cmd(char **split, int p);
-int							cat_command_string(char **args, int i);
+int							cat_command_string(char **args, int *s);
 void						init_one_two();
 void						fill_command_string(char a, int i);
+int							first_condition(int j, char **args, int i, int *s);
+void						to_while(char **args, int i, int *s);
 
 void						exec_cmd(t_command_info *cmd, int i, int last);
 void						test(t_command_info *cmd);
@@ -197,7 +200,13 @@ char						*check_cmd(char *command, int *p);
 
 void						close_all(int last);
 
-int							redirection(char **args, int *i);
+/*
+	**Redirection
+*/
+
+int							redirection(char **args, int i);
+void						red_helper(char *arg, int *j, int *red);
+void						red_file_names(char *args, int red, int j);
 
 /*
 	**Path

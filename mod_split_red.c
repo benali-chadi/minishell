@@ -96,7 +96,6 @@ static char	**result(char **tab, const char *str, char *c)
 		b = 0;
 		while (ft_strchr(c, str[i]) && ((b = ft_stock_red(tab, a, str[i])) >= 0))
 			i++;
-		printf("b=[%d]\n",  b);
 		if (str[i] == '\0')
 			break ;
 		while ((g_var_one == 1 || g_var_two == 1 || !ft_strchr(c, str[i]) ) && str[i] != '\0')
@@ -109,7 +108,6 @@ static char	**result(char **tab, const char *str, char *c)
 			i++;
 			b++;
 		}
-		//printf("---a=[%d]|b=[%d]---\n", a, b);
 		tab[a][b] = '\0';
 		a++;
 	}
@@ -156,18 +154,3 @@ char		**mod_split_red(char const *s, char *c)
 	tab = result(tab, s, c);
 	return (tab);
 }
-
-// int main()
-// {
-// 	char **tab;
-
-// 	char *str = ">123<5<<67>>8'>'99";
-// 	tab = mod_split_red(str, "><");
-// 	int i;
-
-// 	i = 0;
-// 	while(tab[i])
-// 	{
-// 		printf("[%s]\n" ,tab[i++]);
-// 	}
-// }

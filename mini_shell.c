@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/19 18:32:11 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/01/28 15:12:53 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,6 @@ void	execute(int j)
 	k = 0;
 	while (g_utils.cmd != NULL)
 	{
-		printf("args:\n");
-		int i = 0;
-		while (g_utils.cmd->string[i])
-			printf("%s\n", g_utils.cmd->string[i++]);
 		exec_cmd(g_utils.cmd, k, j);
 		g_utils.cmd = g_utils.cmd->next;
 		k++;
