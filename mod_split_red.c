@@ -1,19 +1,35 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mod_split_red.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 16:01:00 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/28 16:01:01 by cbenali-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "mini_shell.h"
 
 int g_var_one;
 int g_var_two;
+
+int		check_quots(const char *str, int i)
+{
+	if(str[i] == '"')
+		g_var_two = 1;
+	if(str[i] == '\'')
+		g_var_one = 1;
+	return(1);
+}
+
+int		re_check_quots(const char *str, int i)
+{
+	if (str[i] == '"')
+	{
+		if (g_var_two == 1)
+			g_var_two = 0;
+		else
+			g_var_two = 1;
+	}
+	if(str[i] == '\'')
+	{
+		if (g_var_one == 1)
+			g_var_one = 0;
+		else
+			g_var_one = 1;
+	}
+	return(1);
+}
 
 static int	ft_countwords(const char *str, char *c)
 {
@@ -24,25 +40,16 @@ static int	ft_countwords(const char *str, char *c)
 	g_var_two = 0;
 	compteur = 0;
 	i = 0;
-	while (str[i] != '\0')
+	while (str[i] != '\0' && check_quots(str, i))
 	{
-			if(str[i] == '"')
-				g_var_two = 1;
-			if(str[i] == '\'')
-				g_var_one = 1;
 		while (ft_strchr(c, str[i]))
 			i++;
 		if (str[i] == '\0')
 			break ;
 		compteur++;
-		while ((g_var_one == 1 || g_var_two == 1 || !ft_strchr(c, str[i])) && str[i] != '\0')
-		{
-			if(str[i] == '"')
-				g_var_two = (g_var_two == 1 ? 0 : 1);
-			if(str[i] == '\'')
-				g_var_one = (g_var_one == 1 ? 0 : 1);
+		while ((g_var_one == 1 || g_var_two == 1 || !ft_strchr(c, str[i]))
+			&& str[i] != '\0' && re_check_quots(str, i))
 			i++;
-		}
 		if (str[i] == '\0')
 			break ;
 	}
@@ -56,22 +63,15 @@ static int	ft_countlen(const char *str, char *c, int *i)
 	g_var_one = 0;
 	g_var_two = 0;
 	len = 0;
-	while (str[*i] != '\0')
+	while (str[*i] != '\0' && check_quots(str, *i))
 	{
-		if(str[*i] == '"')
-			g_var_two = 1;
-		if(str[*i] == '\'')
-			g_var_one = 1;
 		while (ft_strchr(c, str[*i]))
 			*i = *i + 1;
 		if (str[*i] == '\0')
 			return (len);
-		while ((g_var_one == 1 || g_var_two == 1 || !ft_strchr(c, str[*i])) && str[*i] != '\0')
+		while ((g_var_one == 1 || g_var_two == 1 || !ft_strchr(c, str[*i])) 
+			&& str[*i] != '\0' && re_check_quots(str, *i))
 		{
-			if(str[*i] == '"')
-				g_var_two = (g_var_two == 1 ? 0 : 1);
-			if(str[*i] == '\'')
-				g_var_one = (g_var_one == 1 ? 0 : 1);
 			*i = *i + 1;
 			len++;
 		}
@@ -99,27 +99,16 @@ static char	**result(char **tab, const char *str, char *c)
 	a = 0;
 	g_var_one = 0;
 	g_var_two = 0;
-	while (str[i] != '\0' && ((g_join_red = 0) >= 0))
+	while (str[i] != '\0' && ((g_join_red = 0) >= 0) && check_quots(str, i))
 	{
-		if(str[i] == '"')
-			g_var_two = 1;
-		if(str[i] == '\'')
-			g_var_one = 1;
 		b = 0;
 		while (ft_strchr(c, str[i]) && ((b = ft_stock_red(tab, a, str[i])) >= 0))
 			i++;
 		if (str[i] == '\0')
 			break ;
-		while ((g_var_one == 1 || g_var_two == 1 || !ft_strchr(c, str[i]) ) && str[i] != '\0')
-		{
-			if(str[i] == '"')
-				g_var_two = (g_var_two == 1 ? 0 : 1);
-			if(str[i] == '\'')
-				g_var_one = (g_var_one == 1 ? 0 : 1);
-			tab[a][b] = str[i];
-			i++;
-			b++;
-		}
+		while ((g_var_one == 1 || g_var_two == 1 || !ft_strchr(c, str[i])) 
+			&& str[i] != '\0' && re_check_quots(str, i))
+			tab[a][b++] = str[i++];
 		tab[a][b] = '\0';
 		a++;
 	}
@@ -165,4 +154,19 @@ char		**mod_split_red(char const *s, char *c)
 	}
 	tab = result(tab, s, c);
 	return (tab);
+}
+
+int main()
+{
+	char **tab;
+
+	char *str = ">123<5<<67>>8'>'99";
+	tab = mod_split_red(str, "><");
+	int i;
+
+	i = 0;
+	while(tab[i])
+	{
+		printf("[%s]\n" ,tab[i++]);
+	}
 }
