@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:00:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/28 16:00:58 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/01/29 15:23:16 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ char	*search_path(void)
 
 void	find_path(t_command_info *cmd, char *var, int p)
 {
-	char	**split;
-	char	*command;
-	struct stat buf;
-	int		i;
+	char		**split;
+	char		*command;
+	struct stat	buf;
+	int			i;
 
 	split = mod_split(search_path(), ':');
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:51 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/28 15:59:53 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/01/29 15:15:13 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ t_list_env		*ft_lstlast(t_list_env *lst)
 	return (loop);
 }
 
-
-void		ft_lstadd_front(t_list_env **alst, t_list_env *new)
+void			ft_lstadd_front(t_list_env **alst, t_list_env *new)
 {
 	if (new)
 	{
@@ -33,7 +32,7 @@ void		ft_lstadd_front(t_list_env **alst, t_list_env *new)
 	}
 }
 
-void		ft_lstadd_back(t_list_env **alst, t_list_env *new)
+void			ft_lstadd_back(t_list_env **alst, t_list_env *new)
 {
 	t_list_env	*temp;
 
@@ -49,17 +48,6 @@ void		ft_lstadd_back(t_list_env **alst, t_list_env *new)
 		new->next = NULL;
 	}
 }
-
-// void		ft_lstadd_back(t_list_env **alst, t_list_env *new)
-// {
-//     t_list_env *tmp;
-
-//     tmp = *alst;
-//     while(tmp->next)
-//         tmp = tmp->next;
-//     tmp->next = new;
-//     new->next = NULL;
-// }
 
 t_list_env		*ft_lstnew(char *name, char *content, char *name_content)
 {
@@ -77,7 +65,8 @@ t_list_env		*ft_lstnew(char *name, char *content, char *name_content)
 	return (NULL);
 }
 
-void	add_back(t_list_env **head, char *name, char *content, char *name_content)
+void			add_back(t_list_env **head, char *name,
+				char *content, char *name_content)
 {
 	ft_lstadd_back(head, ft_lstnew(name, content, name_content));
 }

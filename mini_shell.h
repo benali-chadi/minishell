@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/28 15:45:58 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/01/29 15:22:09 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct				s_utils
 	**Global Variables
 */
 
-t_command_info 				*g_cmd;
+t_command_info				*g_cmd;
 t_command_info				*g_commands;
 t_list_env					*g_list_env;
 t_utils						g_utils;
