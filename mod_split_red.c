@@ -156,17 +156,17 @@ char		**mod_split_red(char const *s, char *c)
 	return (tab);
 }
 
-int main()
-{
-	char **tab;
+// int main()
+// {
+// 	char **tab;
 
-	char *str = ">123<5<<67>>8'>'99";
-	tab = mod_split_red(str, "><");
-	int i;
+// 	char *str = ">123<5<<67>>8'>'99";
+// 	tab = mod_split_red(str, "><");
+// 	int i;
 
-	i = 0;
-	while(tab[i])
-	{
-		printf("[%s]\n" ,tab[i++]);
-	}
-}
+// 	i = 0;
+// 	while(tab[i])
+// 	{
+// 		printf("[%s]\n" ,tab[i++]);
+// 	}
+// }
