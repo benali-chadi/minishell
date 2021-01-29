@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:00:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/29 15:23:16 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/01/29 15:37:38 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,22 @@ void	execute_cmd(t_command_info *cmd, char *command)
 		g_utils.args[0] = cmd->command;
 		g_utils.args[1] = cmd->options;
 		i = 2;
-		j = -1;
-		while (cmd->string[++j])
-		{
-			g_utils.args[i] = cmd->string[j];
-			i++;
-		}
+		j = 0;
+		while (cmd->string[j])
+			g_utils.args[i++] = cmd->string[j++];
 		g_utils.args[i] = NULL;
 	}
 	else
 	{
 		g_utils.args[0] = cmd->command;
 		i = 1;
-		j = -1;
-		while (cmd->string[++j])
-		{
-			g_utils.args[i] = cmd->string[j];
-			i++;
-		}
+		j = 0;
+		while (cmd->string[j])
+			g_utils.args[i++] = cmd->string[j++];
 		g_utils.args[i] = NULL;
 	}
 	if (execve(command, g_utils.args, g_utils.env) < 0)
-	{
-		ft_putstr_fd(cmd->command, 1);
-		ft_putstr_fd(": command not found\n", 2);
 		exit(-1);
-	}
 }
 
 char	*search_path(void)
