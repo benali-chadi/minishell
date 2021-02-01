@@ -6,11 +6,26 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:08:59 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/29 18:45:49 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/01 15:04:49 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+int		sing_or_doub_q(char *str, int *k, int quote, char q)
+{
+	if (quote == 0 && q == '\'')
+		return (1);
+	else if (quote == 0 && q == '"')
+		return (2);
+	else if ((quote == 2 && q == '"') || (quote == 1 && q == '\''))
+		return (0);
+	else
+	{
+		str[(*k)++] = q;
+		return (quote);
+	}
+}
 
 char	*clean_command(char *command)
 {
@@ -25,24 +40,8 @@ char	*clean_command(char *command)
 	str = m_malloc(ft_strlen(command));
 	while (command[i])
 	{
-		if (command[i] == '\'')
-		{
-			if (quote == 0)
-				quote = 1;
-			else if (quote == 1)
-				quote = 0;
-			else
-				str[k++] = command[i];
-		}
-		else if (command[i] == '"')
-		{
-			if (quote == 0)
-				quote = 2;
-			else if (quote == 2)
-				quote = 0;
-			else
-				str[k++] = command[i];
-		}
+		if (command[i] == '\'' || command[i] == '"')
+			quote = sing_or_doub_q(str, &k, quote, command[i]);
 		else
 			str[k++] = command[i];
 		i++;
