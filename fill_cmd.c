@@ -12,6 +12,15 @@
 
 #include "mini_shell.h"
 
+void	fill_command(char a)
+{
+	str_command[command_len++] = a;
+	if (a == '\'')
+		g_one = g_one == 1 ? 0 : 1;
+	if (a == '"')
+		g_two = g_two == 1 ? 0 : 1;
+}
+
 int		sing_or_doub_q(char *str, int *k, int quote, char q)
 {
 	if (quote == 0 && q == '\'')
@@ -27,7 +36,7 @@ int		sing_or_doub_q(char *str, int *k, int quote, char q)
 	}
 }
 
-char	*clean_command(char *command)
+char	*clean_command_2(char *command)
 {
 	char	*str;
 	int		quote;
@@ -49,6 +58,56 @@ char	*clean_command(char *command)
 	return (str);
 }
 
+char	*clean_command_1(char *command)
+{
+	char	*var;
+	int		quote;
+	int		i;
+	int		k;
+	int		j;
+
+	j = 0;
+	i = 0;
+	k = 0;
+	quote = 0;
+	str_command = m_malloc(ft_strlen(command) + 1);
+	ft_strcpy(str_command, command);
+	init_one_two();
+	command_len = 0;
+	while (command[i])
+	{
+		if ((command[i] == '$' && command[i + 1] && g_one != 1) ||
+		(command[i] == '$' && command[i + 1] && g_one == 1 && g_two == 1))
+		{
+			i++;
+			var = m_malloc(ft_strlen(command));
+			k = 0;
+			while(is_alpha_digit(command[i]) && command[i] != '$' && command[i])
+				var[k++] = command[i++];
+			var[k] = '\0';
+			if (ft_strcmpr(var, "?"))
+			{
+				g_str_return = ft_itoa(g_return);
+				str_command = ft_realloc(str_command, ft_strlen(str_command) + ft_strlen(command) + ft_strlen(g_str_return) + 1 + g_two);
+				k = 0;
+				while(g_str_return[k])
+					str_command[command_len++] = g_str_return[k++];
+				str_command[command_len] = '\0';
+			}
+			else
+			{
+				compare_var_command(var, command);
+			}
+		}
+		else
+			fill_command(command[i]);
+		if (command[i] && (command[i] != '$' || (g_one == 1 && command[i] == '$')))
+				i++;
+	}
+	i = 0;
+	return(clean_command_2(str_command));
+}
+
 int		fill_cmd_helper(char **split)
 {
 	char	**args;
@@ -66,7 +125,7 @@ int		fill_cmd_helper(char **split)
 		i++;
 	}
 	g_cmd->command = m_malloc(ft_strlen(split[i]) + 1);
-	ft_strcpy(g_cmd->command, clean_command(split[i]));
+	ft_strcpy(g_cmd->command, clean_command_1(split[i]));
 	i++;
 	if (split[i] && split[i][0] == '-')
 	{

@@ -82,7 +82,7 @@ void		ft_fork(t_command_info *cmd, int n, int last)
 
 void		exec_cmd(t_command_info *cmd, int i, int last)
 {
-	if (cmd->tests.exit)
+	if (cmd->tests.exit && !cmd->pipe)
 	{
 		to_free();
 		exit(0);

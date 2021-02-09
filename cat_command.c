@@ -32,7 +32,7 @@ int		first_condition(int j, char **args, int i, int *s)
 	j++;
 	g_str_var = m_malloc(ft_strlen(args[i]));
 	g_var_k = 0;
-	while (is_alpha_digit(args[i][j]) && args[i][j] != '$' && args[i][j])
+	while (args[i][j] != ' ' && args[i][j] != '\t' && args[i][j] != '$' && args[i][j])
 		g_str_var[g_var_k++] = args[i][j++];
 	g_str_var[g_var_k] = '\0';
 	if (ft_strcmpr(g_str_var, "?"))

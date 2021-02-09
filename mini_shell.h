@@ -114,6 +114,8 @@ char						*g_str_return;
 int							g_join_red;
 char						*g_str_var;
 int							g_var_k;
+char						*str_command;
+int							command_len;
 /*
 	**Functions
 */
@@ -177,7 +179,9 @@ void						loop_env(void);
 void						stock_env(char **env);
 void						compare_var(char *var, char *arg, int s);
 void						ft_cpy_env(t_list_env *read_env, int s);
-
+void						compare_var_command(char *var, char *command);
+void						ft_cpy_env_command(t_list_env *read_env);
+int							check_var(char *var);
 /*
 	**Commands
 */

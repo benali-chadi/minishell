@@ -72,7 +72,7 @@ void	find_path(t_command_info *cmd, char *var, int p)
 			execute_cmd(cmd, command);
 		i++;
 	}
-	ft_putstr_fd(cmd->command, 1);
-	ft_putstr_fd(": command not found\n", 1);
+	if (!ft_strcmpr(cmd->command, "exit"))
+		ft_printf("%s: command not found\n", cmd->command);
 	exit(-1);
 }
