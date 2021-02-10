@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cat_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:21:41 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/28 15:51:32 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/10 19:00:15 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ int		first_condition(int j, char **args, int i, int *s)
 	j++;
 	g_str_var = m_malloc(ft_strlen(args[i]));
 	g_var_k = 0;
-	while (args[i][j] != ' ' && args[i][j] != '\t' && args[i][j] != '$' && args[i][j])
+	while (args[i][j] != ' ' && args[i][j] != '\t'
+		&& args[i][j] != '$' && args[i][j] &&
+			args[i][j] != '"' && args[i][j] != '\'')
 		g_str_var[g_var_k++] = args[i][j++];
 	g_str_var[g_var_k] = '\0';
 	if (ft_strcmpr(g_str_var, "?"))

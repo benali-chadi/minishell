@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:08:59 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/01 15:04:49 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/10 18:46:27 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	fill_command(char a)
 {
-	str_command[command_len++] = a;
+	g_str_command[g_command_len++] = a;
 	if (a == '\'')
 		g_one = g_one == 1 ? 0 : 1;
 	if (a == '"')
@@ -56,56 +56,6 @@ char	*clean_command_2(char *command)
 		i++;
 	}
 	return (str);
-}
-
-char	*clean_command_1(char *command)
-{
-	char	*var;
-	int		quote;
-	int		i;
-	int		k;
-	int		j;
-
-	j = 0;
-	i = 0;
-	k = 0;
-	quote = 0;
-	str_command = m_malloc(ft_strlen(command) + 1);
-	ft_strcpy(str_command, command);
-	init_one_two();
-	command_len = 0;
-	while (command[i])
-	{
-		if ((command[i] == '$' && command[i + 1] && g_one != 1) ||
-		(command[i] == '$' && command[i + 1] && g_one == 1 && g_two == 1))
-		{
-			i++;
-			var = m_malloc(ft_strlen(command));
-			k = 0;
-			while(is_alpha_digit(command[i]) && command[i] != '$' && command[i])
-				var[k++] = command[i++];
-			var[k] = '\0';
-			if (ft_strcmpr(var, "?"))
-			{
-				g_str_return = ft_itoa(g_return);
-				str_command = ft_realloc(str_command, ft_strlen(str_command) + ft_strlen(command) + ft_strlen(g_str_return) + 1 + g_two);
-				k = 0;
-				while(g_str_return[k])
-					str_command[command_len++] = g_str_return[k++];
-				str_command[command_len] = '\0';
-			}
-			else
-			{
-				compare_var_command(var, command);
-			}
-		}
-		else
-			fill_command(command[i]);
-		if (command[i] && (command[i] != '$' || (g_one == 1 && command[i] == '$')))
-				i++;
-	}
-	i = 0;
-	return(clean_command_2(str_command));
 }
 
 int		fill_cmd_helper(char **split)

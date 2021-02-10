@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:00:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/29 15:37:38 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/10 17:03:36 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@ void	execute_cmd(t_command_info *cmd, char *command)
 
 	if (cmd->options)
 	{
-		g_utils.args[0] = cmd->command;
-		g_utils.args[1] = cmd->options;
+		g_utils.args[0] = clean_command_2(cmd->command);
+		g_utils.args[1] = clean_command_2(cmd->options);
 		i = 2;
 		j = 0;
 		while (cmd->string[j])
-			g_utils.args[i++] = cmd->string[j++];
+			g_utils.args[i++] = clean_command_2(cmd->string[j++]);
 		g_utils.args[i] = NULL;
 	}
 	else
 	{
-		g_utils.args[0] = cmd->command;
+		g_utils.args[0] = clean_command_2(cmd->command);
 		i = 1;
 		j = 0;
 		while (cmd->string[j])
-			g_utils.args[i++] = cmd->string[j++];
+			g_utils.args[i++] = clean_command_2(cmd->string[j++]);
 		g_utils.args[i] = NULL;
 	}
 	if (execve(command, g_utils.args, g_utils.env) < 0)
