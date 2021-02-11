@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/01 15:11:59 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/11 19:21:14 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,19 @@ int		main(int ac, char **av, char **env)
 	g_utils.env = env;
 	while (1)
 	{
-		ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m", 1);
-		if (!(gnl(0, &g_utils.line)))
+		if (ac > 1)
 		{
-			to_free();
-			exit(0);
+			g_utils.line = m_malloc(ft_strlen(av[2]) + 1);
+			ft_strcpy(g_utils.line, av[2]);
+		}
+		else
+		{
+			ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m", 1);
+			if (!(gnl(0, &g_utils.line)))
+			{
+				to_free();
+				exit(0);
+			}
 		}
 		if (g_utils.line[0] == ';')
 		{
@@ -102,6 +110,8 @@ int		main(int ac, char **av, char **env)
 			continue;
 		}
 		fill_and_execute();
+		if (ac > 1)
+			return (0);
 	}
 	return (0);
 }
