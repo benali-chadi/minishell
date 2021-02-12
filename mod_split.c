@@ -17,8 +17,8 @@ int			ft_countwords(const char *str, char c)
 	int i;
 	int compteur;
 
-	g_one = 0;
-	g_two = 0;
+	g_var_one = 0;
+	g_var_two = 0;
 	compteur = 0;
 	i = 0;
 	while (str[i] != '\0' && check_quots(str, i))
@@ -28,7 +28,7 @@ int			ft_countwords(const char *str, char c)
 		if (str[i] == '\0')
 			break ;
 		compteur++;
-		while ((g_one == 1 || g_two == 1 || str[i] != c)
+		while ((g_var_one == 1 || g_var_two  == 1 || str[i] != c)
 			&& str[i] != '\0' && re_check_quots(str, i))
 			i++;
 		if (str[i] == '\0')
@@ -41,8 +41,8 @@ int			ft_countlen(const char *str, char c, int *i)
 {
 	int len;
 
-	g_one = 0;
-	g_two = 0;
+	g_var_one = 0;
+	g_var_two = 0;
 	len = 0;
 	while (str[*i] != '\0' && check_quots(str, *i))
 	{
@@ -50,7 +50,7 @@ int			ft_countlen(const char *str, char c, int *i)
 			*i = *i + 1;
 		if (str[*i] == '\0')
 			return (len);
-		while ((g_one == 1 || g_two == 1 || str[*i] != c)
+		while ((g_var_one == 1 || g_var_two == 1 || str[*i] != c)
 			&& str[*i] != '\0' && re_check_quots(str, *i))
 		{
 			*i = *i + 1;
@@ -71,8 +71,8 @@ char		**result(char **tab, const char *str, char c)
 
 	i = 0;
 	a = 0;
-	g_one = 0;
-	g_two = 0;
+	g_var_one = 0;
+	g_var_two = 0;
 	while (str[i] != '\0' && check_quots(str, i))
 	{
 		while (str[i] == c)
@@ -80,7 +80,7 @@ char		**result(char **tab, const char *str, char c)
 		if (str[i] == '\0')
 			break ;
 		b = 0;
-		while ((g_one == 1 || g_two == 1 || str[i] != c)
+		while ((g_var_one == 1 || g_var_two == 1 || str[i] != c)
 			&& str[i] != '\0' && re_check_quots(str, i))
 			tab[a][b++] = str[i++];
 		tab[a][b] = '\0';
