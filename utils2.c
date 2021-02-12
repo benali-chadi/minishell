@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:08 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/28 16:01:09 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/12 16:39:46 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,33 @@ void	init_cnt()
 	g_utils.cnt['e'] = '\e';
 }
 
+int		cmpr_maj(char *s1, char *s2)
+{
+	int i;
+
+	i = 0;
+	while (s1[i] || s2[i])
+	{
+		if (s1[i] != s2[i])
+		{
+			if (ft_abs(s1[i] - s2[i]) != 32)
+				return(0);
+		}
+		i++;
+	}
+	return (1);
+}
+
 void	test(t_command_info *cmd)
 {
-	cmd->tests.echo = ft_strcmpr(cmd->command, "echo") ||
-	ft_strcmpr(cmd->command, "/bin/echo") ? 1 : 0;
-	cmd->tests.cd = ft_strcmpr(cmd->command, "cd");
-	cmd->tests.env = ft_strcmpr(cmd->command, "env") ||
-	ft_strcmpr(cmd->command, "/usr/bin/env") ? 1 : 0;
-	cmd->tests.exit = ft_strcmpr(cmd->command, "exit");
-	cmd->tests.export_t = ft_strcmpr(cmd->command, "export");
-	cmd->tests.pwd = ft_strcmpr(cmd->command, "pwd") ||
-	ft_strcmpr(cmd->command, "/bin/pwd") ? 1 : 0;
-	cmd->tests.unset = ft_strcmpr(cmd->command, "unset");
+	cmd->tests.echo = cmpr_maj(cmd->command, "echo") ||
+	cmpr_maj(cmd->command, "/bin/echo") ? 1 : 0;
+	cmd->tests.cd = cmpr_maj(cmd->command, "cd");
+	cmd->tests.env = cmpr_maj(cmd->command, "env") ||
+	cmpr_maj(cmd->command, "/usr/bin/env") ? 1 : 0;
+	cmd->tests.exit = cmpr_maj(cmd->command, "exit");
+	cmd->tests.export_t = cmpr_maj(cmd->command, "export");
+	cmd->tests.pwd = cmpr_maj(cmd->command, "pwd") ||
+	cmpr_maj(cmd->command, "/bin/pwd") ? 1 : 0;
+	cmd->tests.unset = cmpr_maj(cmd->command, "unset");
 }

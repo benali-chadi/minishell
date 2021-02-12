@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/11 19:21:14 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/12 18:15:26 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,24 @@ void	fill_and_execute(void)
 	g_utils.line = NULL;
 }
 
+int		check_semicolon(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
+		i++;
+	if (str[i] == ';')
+	{
+		ft_putstr_fd("minishell: syntax error near ", 2);
+		ft_putstr_fd("unexpected token `;'\n", 2);
+		free(g_utils.line);
+		g_utils.line = NULL;
+		return (1);
+	}
+	return (0);
+}
+
 int		main(int ac, char **av, char **env)
 {
 	(void)ac;
@@ -102,13 +120,8 @@ int		main(int ac, char **av, char **env)
 				exit(0);
 			}
 		}
-		if (g_utils.line[0] == ';')
-		{
-			ft_putstr_fd("syntax error near unexpected token `;'\n", 2);
-			free(g_utils.line);
-			g_utils.line = NULL;
-			continue;
-		}
+		if (check_semicolon(g_utils.line))
+			continue ;
 		fill_and_execute();
 		if (ac > 1)
 			return (0);

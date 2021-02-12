@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/10 18:50:39 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/12 16:40:44 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <signal.h>
 # include <errno.h>
 # include <fcntl.h>
+# define ft_abs(x) x < 0 ? -x : x
 
 /*
 	**Envirenment Stucture
@@ -125,6 +126,8 @@ int							g_cmd_k;
 /*
 	**Utils
 */
+int							is_min(char a);
+int							is_maj(char a);
 char						*clean_command_1(char *command);
 char						*clean_command_2(char *command);
 int							gnl(int fd, char **line);

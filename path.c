@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:00:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/10 17:03:36 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/12 17:23:47 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ void	find_path(t_command_info *cmd, char *var, int p)
 		i++;
 	}
 	if (!ft_strcmpr(cmd->command, "exit"))
-		ft_printf("%s: command not found\n", cmd->command);
+		ft_printf("minishell: %s: command not found\n", cmd->command);
 	exit(-1);
 }
