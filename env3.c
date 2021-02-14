@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_utils.c                                        :+:      :+:    :+:   */
+/*   env3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/12 16:08:03 by smhah             #+#    #+#             */
-/*   Updated: 2021/02/12 16:22:13 by smhah            ###   ########.fr       */
+/*   Created: 2021/02/14 15:57:58 by smhah             #+#    #+#             */
+/*   Updated: 2021/02/14 15:58:32 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "mini_shell.h"
 
-int		is_min(char a)
+int		ft_print_error(char a, t_command_info *cmd, int i)
 {
-	if (a > 'a' && a < 'z')
+	if (a == '=' || (a >= '0' && a <= '9'))
+	{
+		ft_printf("minishell: export: `%s': ", cmd->string[i]);
+		ft_printf("not a valid identifier\n");
+		g_return = 1;
 		return (1);
-	return (0);
-}
-
-int		is_maj(char a)
-{
-	if (a > 'A' && a < 'Z')
-		return (1);
+	}
 	return (0);
 }

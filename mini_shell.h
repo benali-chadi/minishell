@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/12 16:40:44 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/14 16:00:09 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ char						*g_str_command;
 int							g_command_len;
 char						*g_var_cmd;
 int							g_cmd_k;
+int							g_returned;
 /*
 	**Functions
 */
@@ -126,6 +127,7 @@ int							g_cmd_k;
 /*
 	**Utils
 */
+int							ft_print_error(char a, t_command_info *cmd, int i);
 int							is_min(char a);
 int							is_maj(char a);
 char						*clean_command_1(char *command);
@@ -186,7 +188,7 @@ t_command_info				*cmd_lstlast(t_command_info *lst);
 */
 
 void						ft_export(t_command_info *cmd);
-void						loop_env(void);
+int							loop_env(void);
 void						stock_env(char **env);
 void						compare_var(char *var, char *arg, int s);
 void						ft_cpy_env(t_list_env *read_env, int s);

@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/12 18:15:26 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/13 12:43:10 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	execute(int j)
 	}
 	while (wait(&g_return) != -1)
 		;
-	g_return = WEXITSTATUS(g_return);
+	if (g_returned)
+		g_return = WEXITSTATUS(g_return);
 	if (g_return == 255)
 		g_return = 127;
 }

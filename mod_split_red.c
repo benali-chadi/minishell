@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:03:11 by smhah             #+#    #+#             */
-/*   Updated: 2021/02/10 15:42:38 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/13 11:17:22 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**result_red(char **tab, const char *str, char *c)
 	a = 0;
 	g_var_one = 0;
 	g_var_two = 0;
-	while (str[i] != '\0' && ((g_join_red = 0) >= 0) && check_quots(str, i))
+	while (str[i] != '\0' && ((g_join_red = 0) >= 0))
 	{
 		b = 0;
 		while (ft_strchr(c, str[i]) &&

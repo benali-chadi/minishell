@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   to_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:10 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/28 15:59:11 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/14 16:02:38 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ int		g_all = 0;
 
 void	*m_malloc(size_t n)
 {
-		void            *tmp;
+	void *tmp;
 
-		if (!(tmp = malloc(n)))
-			return (NULL);
-		g_alloc[g_all] = tmp;
-		g_all++;
-		return (tmp);
+	if (!(tmp = malloc(n)))
+		return (NULL);
+	g_alloc[g_all] = tmp;
+	g_all++;
+	return (tmp);
 }
 
 void	m_free(void *elm)
@@ -34,9 +34,9 @@ void	m_free(void *elm)
 
 void	to_free(void)
 {
-		int i;
+	int i;
 
-		i = -1;
-		while (++i < g_all)
-				free(g_alloc[i]);
+	i = -1;
+	while (++i < g_all)
+		free(g_alloc[i]);
 }

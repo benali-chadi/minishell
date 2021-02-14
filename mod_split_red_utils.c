@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:04:04 by smhah             #+#    #+#             */
-/*   Updated: 2021/02/10 15:28:23 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/13 11:28:10 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,17 @@ int			ft_countwords_red(const char *str, char *c)
 	g_var_two = 0;
 	compteur = 0;
 	i = 0;
-	while (str[i] != '\0' && check_quots(str, i))
+	while (str[i] != '\0')
 	{
 		while (ft_strchr(c, str[i]))
 			i++;
 		if (str[i] == '\0')
 			break ;
 		compteur++;
-		while ((g_var_one == 1 || g_var_two == 1 || !ft_strchr(c, str[i]))
-			&& str[i] != '\0' && re_check_quots(str, i))
+		while ((g_var_one == 1 || g_var_two == 1 || !ft_strchr(c, str[i])) && str[i] != '\0' && re_check_quots(str, i))
+		{
 			i++;
+		}
 		if (str[i] == '\0')
 			break ;
 	}
@@ -72,7 +73,7 @@ int			ft_countlen_red(const char *str, char *c, int *i)
 	g_var_one = 0;
 	g_var_two = 0;
 	len = 0;
-	while (str[*i] != '\0' && check_quots(str, *i))
+	while (str[*i] != '\0')
 	{
 		while (ft_strchr(c, str[*i]))
 			*i = *i + 1;

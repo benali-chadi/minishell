@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:03 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/10 15:37:38 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/13 11:18:00 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			ft_countwords(const char *str, char c)
 	g_var_two = 0;
 	compteur = 0;
 	i = 0;
-	while (str[i] != '\0' && check_quots(str, i))
+	while (str[i] != '\0')
 	{
 		while (str[i] == c)
 			i++;
@@ -44,7 +44,7 @@ int			ft_countlen(const char *str, char c, int *i)
 	g_var_one = 0;
 	g_var_two = 0;
 	len = 0;
-	while (str[*i] != '\0' && check_quots(str, *i))
+	while (str[*i] != '\0')
 	{
 		while (str[*i] == c)
 			*i = *i + 1;
@@ -73,7 +73,7 @@ char		**result(char **tab, const char *str, char c)
 	a = 0;
 	g_var_one = 0;
 	g_var_two = 0;
-	while (str[i] != '\0' && check_quots(str, i))
+	while (str[i] != '\0')
 	{
 		while (str[i] == c)
 			i++;

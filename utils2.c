@@ -6,11 +6,11 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:08 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/12 16:39:46 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/14 15:57:00 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "mini_shell.h"
+#include "mini_shell.h"
 
 void	sig_handler(int signum)
 {
@@ -23,7 +23,7 @@ void	sig_handler(int signum)
 			ft_putstr_fd("\n", 0);
 			g_status = 0;
 		}
-		return;
+		return ;
 	}
 	else if (signum == SIGQUIT)
 	{
@@ -34,21 +34,21 @@ void	sig_handler(int signum)
 	}
 }
 
-char	*search_lgnam()
+char	*search_lgnam(void)
 {
 	t_list_env	*read_env;
 
 	read_env = g_list_env;
-	while(read_env)
+	while (read_env)
 	{
-		if(ft_strcmpr(read_env->name, "LOGNAME"))
-			return(ft_strjoin("/home/", read_env->content));
+		if (ft_strcmpr(read_env->name, "LOGNAME"))
+			return (ft_strjoin("/home/", read_env->content));
 		read_env = read_env->next;
 	}
 	return (NULL);
 }
 
-void	init_cnt()
+void	init_cnt(void)
 {
 	int i;
 
@@ -64,6 +64,7 @@ void	init_cnt()
 	g_utils.cnt['f'] = '\f';
 	g_utils.cnt['r'] = '\r';
 	g_utils.cnt['e'] = '\e';
+	g_returned = 0;
 }
 
 int		cmpr_maj(char *s1, char *s2)
@@ -76,7 +77,7 @@ int		cmpr_maj(char *s1, char *s2)
 		if (s1[i] != s2[i])
 		{
 			if (ft_abs(s1[i] - s2[i]) != 32)
-				return(0);
+				return (0);
 		}
 		i++;
 	}
