@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:12:31 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/19 18:14:31 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/01 15:50:41 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		ft_strcmpr(char *s1, char *s2)
 	while (s1[i] || s2[i])
 	{
 		if (s1[i] != s2[i])
-			return(0);
+			return (0);
 		i++;
 	}
 	return (1);
@@ -39,7 +39,8 @@ char	*ft_strcpy(char *s1, char *s2)
 
 int		is_alpha_digit(char a)
 {
-	if ((a <= 'Z' && a >= 'A') || (a <= 'z' && a >= 'a' )|| (a <= '9' && a >= '0') || a == '?')
+	if ((a <= 'Z' && a >= 'A') || (a <= 'z' && a >= 'a') ||
+	(a <= '9' && a >= '0') || a == '?')
 		return (1);
 	return (0);
 }
@@ -61,5 +62,5 @@ int		mod_strlen(char **s)
 	i = 0;
 	while (s[i])
 		i++;
-	return(i);
+	return (i);
 }

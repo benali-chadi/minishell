@@ -6,11 +6,11 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:08 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/28 16:01:09 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/01 15:51:22 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "mini_shell.h"
+#include "mini_shell.h"
 
 void	sig_handler(int signum)
 {
@@ -23,7 +23,7 @@ void	sig_handler(int signum)
 			ft_putstr_fd("\n", 0);
 			g_status = 0;
 		}
-		return;
+		return ;
 	}
 	else if (signum == SIGQUIT)
 	{
@@ -34,21 +34,21 @@ void	sig_handler(int signum)
 	}
 }
 
-char	*search_lgnam()
+char	*search_lgnam(void)
 {
 	t_list_env	*read_env;
 
 	read_env = g_list_env;
-	while(read_env)
+	while (read_env)
 	{
-		if(ft_strcmpr(read_env->name, "LOGNAME"))
-			return(ft_strjoin("/home/", read_env->content));
+		if (ft_strcmpr(read_env->name, "LOGNAME"))
+			return (ft_strjoin("/home/", read_env->content));
 		read_env = read_env->next;
 	}
 	return (NULL);
 }
 
-void	init_cnt()
+void	init_cnt(void)
 {
 	int i;
 
