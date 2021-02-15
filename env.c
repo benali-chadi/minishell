@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:54 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/14 15:57:53 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/15 18:48:21 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_export(t_command_info *cmd)
 			continue ;
 		name[j] = '\0';
 		content = &cmd->string[i][++j];
-		if (check_var(name))
+		if (check_var(name, content, cmd->string[i]))
 			add_back(&g_list_env, clean_command_2(name),
 				clean_command_2(content), cmd->string[i]);
 	}
