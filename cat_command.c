@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:21:41 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/28 15:51:32 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/15 18:41:16 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ int		first_condition(int j, char **args, int i, int *s)
 	j++;
 	g_str_var = m_malloc(ft_strlen(args[i]));
 	g_var_k = 0;
-	while (is_alpha_digit(args[i][j]) && args[i][j] != '$' && args[i][j])
+	while (args[i][j] != ' ' && args[i][j] != '\t'
+		&& args[i][j] != '$' && args[i][j] &&
+			args[i][j] != '"' && args[i][j] != '\'')
 		g_str_var[g_var_k++] = args[i][j++];
 	g_str_var[g_var_k] = '\0';
 	if (ft_strcmpr(g_str_var, "?"))
@@ -87,8 +89,9 @@ int		cat_command_string(char **args, int *s)
 	{
 		j = 0;
 		if (args[i] && (args[i][j] == '<' || args[i][j] == '>'))
-			if (redirection(args, 0) < 0)
+			if (redirection(args, i) < 0)
 				return (-1);
+			
 		while (args[i] && (args[i][j] == '<' || args[i][j] == '>'))
 			i++;
 		if (!args[i])

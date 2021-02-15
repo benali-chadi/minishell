@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/01 15:11:59 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/15 18:29:26 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,15 @@ void	execute(int j)
 	k = 0;
 	while (g_utils.cmd != NULL)
 	{
+		printf("in_num=%d\tout_num=%d\n", g_utils.cmd->reds.in_num, g_utils.cmd->reds.out_num);
 		exec_cmd(g_utils.cmd, k, j);
 		g_utils.cmd = g_utils.cmd->next;
 		k++;
 	}
 	while (wait(&g_return) != -1)
 		;
-	g_return = WEXITSTATUS(g_return);
+	if (g_returned)
+		g_return = WEXITSTATUS(g_return);
 	if (g_return == 255)
 		g_return = 127;
 }
@@ -77,6 +79,24 @@ void	fill_and_execute(void)
 	g_utils.line = NULL;
 }
 
+int		check_semicolon(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
+		i++;
+	if (str[i] == ';')
+	{
+		ft_putstr_fd("minishell: syntax error near ", 2);
+		ft_putstr_fd("unexpected token `;'\n", 2);
+		free(g_utils.line);
+		g_utils.line = NULL;
+		return (1);
+	}
+	return (0);
+}
+
 int		main(int ac, char **av, char **env)
 {
 	(void)ac;
@@ -88,20 +108,25 @@ int		main(int ac, char **av, char **env)
 	g_utils.env = env;
 	while (1)
 	{
-		ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m", 1);
-		if (!(gnl(0, &g_utils.line)))
+		if (ac > 1)
 		{
-			to_free();
-			exit(0);
+			g_utils.line = m_malloc(ft_strlen(av[2]) + 1);
+			ft_strcpy(g_utils.line, av[2]);
 		}
-		if (g_utils.line[0] == ';')
+		else
 		{
-			ft_putstr_fd("syntax error near unexpected token `;'\n", 2);
-			free(g_utils.line);
-			g_utils.line = NULL;
-			continue;
+			ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m", 1);
+			if (!(gnl(0, &g_utils.line)))
+			{
+				to_free();
+				exit(0);
+			}
 		}
+		if (check_semicolon(g_utils.line))
+			continue ;
 		fill_and_execute();
+		if (ac > 1)
+			return (0);
 	}
 	return (0);
 }

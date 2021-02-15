@@ -3,75 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   mod_split.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:03 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/28 16:01:04 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/13 11:18:00 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-int g_one;
-int g_two;
-
-static int	ft_countwords(const char *str, char c)
+int			ft_countwords(const char *str, char c)
 {
 	int i;
 	int compteur;
 
-	g_one = 0;
-	g_two = 0;
+	g_var_one = 0;
+	g_var_two = 0;
 	compteur = 0;
 	i = 0;
 	while (str[i] != '\0')
 	{
-			if(str[i] == '"')
-				g_two = 1;
-			if(str[i] == '\'')
-				g_one = 1;
 		while (str[i] == c)
 			i++;
 		if (str[i] == '\0')
 			break ;
 		compteur++;
-		while ((g_one == 1 || g_two == 1 || str[i] != c) && str[i] != '\0')
-		{
-			if(str[i] == '"')
-				g_two = (g_two == 1 ? 0 : 1);
-			if(str[i] == '\'')
-				g_one = (g_one == 1 ? 0 : 1);
+		while ((g_var_one == 1 || g_var_two  == 1 || str[i] != c)
+			&& str[i] != '\0' && re_check_quots(str, i))
 			i++;
-		}
 		if (str[i] == '\0')
 			break ;
 	}
 	return (compteur);
 }
 
-static int	ft_countlen(const char *str, char c, int *i)
+int			ft_countlen(const char *str, char c, int *i)
 {
 	int len;
 
-	g_one = 0;
-	g_two = 0;
+	g_var_one = 0;
+	g_var_two = 0;
 	len = 0;
 	while (str[*i] != '\0')
 	{
-		if(str[*i] == '"')
-			g_two = 1;
-		if(str[*i] == '\'')
-			g_one = 1;
 		while (str[*i] == c)
 			*i = *i + 1;
 		if (str[*i] == '\0')
 			return (len);
-		while ((g_one == 1 || g_two == 1 || str[*i] != c) && str[*i] != '\0')
+		while ((g_var_one == 1 || g_var_two == 1 || str[*i] != c)
+			&& str[*i] != '\0' && re_check_quots(str, *i))
 		{
-			if(str[*i] == '"')
-				g_two = (g_two == 1 ? 0 : 1);
-			if(str[*i] == '\'')
-				g_one = (g_one == 1 ? 0 : 1);
 			*i = *i + 1;
 			len++;
 		}
@@ -82,7 +63,7 @@ static int	ft_countlen(const char *str, char c, int *i)
 	return (len);
 }
 
-static char	**result(char **tab, const char *str, char c)
+char		**result(char **tab, const char *str, char c)
 {
 	int a;
 	int b;
@@ -90,29 +71,18 @@ static char	**result(char **tab, const char *str, char c)
 
 	i = 0;
 	a = 0;
-	g_one = 0;
-	g_two = 0;
+	g_var_one = 0;
+	g_var_two = 0;
 	while (str[i] != '\0')
 	{
-		if(str[i] == '"')
-			g_two = 1;
-		if(str[i] == '\'')
-			g_one = 1;
 		while (str[i] == c)
 			i++;
 		if (str[i] == '\0')
 			break ;
 		b = 0;
-		while ((g_one == 1 || g_two == 1 || str[i] != c ) && str[i] != '\0')
-		{
-			if(str[i] == '"')
-				g_two = (g_two == 1 ? 0 : 1);
-			if(str[i] == '\'')
-				g_one = (g_one == 1 ? 0 : 1);
-			tab[a][b] = str[i];
-			i++;
-			b++;
-		}
+		while ((g_var_one == 1 || g_var_two == 1 || str[i] != c)
+			&& str[i] != '\0' && re_check_quots(str, i))
+			tab[a][b++] = str[i++];
 		tab[a][b] = '\0';
 		a++;
 	}
@@ -120,7 +90,7 @@ static char	**result(char **tab, const char *str, char c)
 	return (tab);
 }
 
-static char	**freetab(char **tab, int i)
+char		**freetab(char **tab, int i)
 {
 	while (i >= 0)
 	{
@@ -158,18 +128,3 @@ char		**mod_split(char const *s, char c)
 	tab = result(tab, s, c);
 	return (tab);
 }
-
-// int main()
-// {
-// 	char **tab;
-
-// 	char *str = "salah0eddi0ne'0'mhah";
-// 	tab = mod_split(str, '0');
-// 	int i;
-
-// 	i = 0;
-// 	while(tab[i])
-// 	{
-// 		printf("[%s]\n" ,tab[i++]);
-// 	}
-// }

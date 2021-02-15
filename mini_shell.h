@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/29 15:22:09 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/14 16:00:09 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <signal.h>
 # include <errno.h>
 # include <fcntl.h>
+# define ft_abs(x) x < 0 ? -x : x
 
 /*
 	**Envirenment Stucture
@@ -70,7 +71,7 @@ typedef struct				s_redirection
 typedef struct				s_command_info {
 	char					*command;
 	char					*options;
-	char					*string[200];
+	char					*string[10000];
 	int						string_len;
 	t_tests					tests;
 	int						pipe;
@@ -114,6 +115,11 @@ char						*g_str_return;
 int							g_join_red;
 char						*g_str_var;
 int							g_var_k;
+char						*g_str_command;
+int							g_command_len;
+char						*g_var_cmd;
+int							g_cmd_k;
+int							g_returned;
 /*
 	**Functions
 */
@@ -121,9 +127,18 @@ int							g_var_k;
 /*
 	**Utils
 */
-
+int							ft_print_error(char a, t_command_info *cmd, int i);
+int							is_min(char a);
+int							is_maj(char a);
+char						*clean_command_1(char *command);
+char						*clean_command_2(char *command);
 int							gnl(int fd, char **line);
-
+int							check_quots(const char *str, int i);
+int							re_check_quots(const char *str, int i);
+int							ft_countlen_red(const char *str, char *c, int *i);
+int							ft_countwords_red(const char *str, char *c);
+char						**freetab(char **tab, int i);
+char						**result_red(char **tab, const char *str, char *c);
 char						**mod_split(char const *s, char c);
 char						**mod_split_red(char const *s, char *c);
 int							mod_strlen(char **s);
@@ -132,7 +147,7 @@ char						*ft_strcpy(char *s1, char *s2);
 int							ft_strcmpr(char *s1, char *s2);
 int							is_alpha_digit(char a);
 void						init_cnt();
-
+void						fill_command(char a);
 void						sig_handler(int signum);
 
 char						*search_lgnam();
@@ -173,11 +188,13 @@ t_command_info				*cmd_lstlast(t_command_info *lst);
 */
 
 void						ft_export(t_command_info *cmd);
-void						loop_env(void);
+int							loop_env(void);
 void						stock_env(char **env);
 void						compare_var(char *var, char *arg, int s);
 void						ft_cpy_env(t_list_env *read_env, int s);
-
+void						compare_var_command(char *var, char *command);
+void						ft_cpy_env_command(t_list_env *read_env);
+int							check_var(char *var);
 /*
 	**Commands
 */

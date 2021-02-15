@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:14 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/08 15:42:43 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/15 18:41:41 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		redirection(char **args, int i)
 	red_helper(args[i], &j, &red);
 	if ((size_t)j >= ft_strlen(args[i]))
 	{
-		(i)++;
+		i++;
 		j = 0;
 	}
 	if (!args[i])
@@ -74,7 +74,7 @@ int		redirection(char **args, int i)
 		return (-1);
 	}
 	red_file_names(args[i], red, j);
-	(i)++;
+	i++;
 	if (!args[i])
 		return (1);
 	j = 0;
