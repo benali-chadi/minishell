@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/15 19:40:52 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/16 15:33:28 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int							ft_countlen_red(const char *str, char *c, int *i);
 int							ft_countwords_red(const char *str, char *c);
 char						**freetab(char **tab, int i);
 char						**result_red(char **tab, const char *str, char *c);
-char						**mod_split(char const *s, char c);
+char						**mod_split(char const *s, char c, int end);
 char						**mod_split_red(char const *s, char *c);
 int							mod_strlen(char **s);
 void						*ft_realloc(void *ptr, int size);

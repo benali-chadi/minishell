@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:03 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/13 11:18:00 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/16 16:52:58 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char		**freetab(char **tab, int i)
 	return (0);
 }
 
-char		**mod_split(char const *s, char c)
+char		**mod_split(char const *s, char c, int end)
 {
 	int		i;
 	int		casee;
@@ -110,6 +110,7 @@ char		**mod_split(char const *s, char c)
 	int		len;
 
 	i = 0;
+	(void)end;
 	if (s)
 		casee = ft_countwords(s, c);
 	else
