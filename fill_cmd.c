@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:08:59 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/14 16:01:13 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/15 19:31:51 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,13 @@ int		fill_cmd_helper(char **split)
 	while (split[i] && (split[i][0] == '<' || split[i][0] == '>'))
 	{
 		args = mod_split_red(split[i], "><");
+		if (mod_strlen(args) < 2 && split[i + 1] && split[i + 1][0] != '>' && split[i + 1][0] != '<')
+		{
+			args[0] = ft_strjoin(args[0], split[i + 1]);
+			i++;
+		}
+		else if (split[i + 1] && (split[i][0] == '>' || split[i][0] == '<') && (split[i + 1][0] == '>' || split[i + 1][0] == '<'))
+			ft_printf("minishell: syntax error near unexpected token `%c'\n", split[i + 1][0]);
 		if (redirection(args, 0) < 0)
 			return (-1);
 		i++;
@@ -100,6 +107,15 @@ int		fill_cmd(char **split, int p)
 	while (split[i])
 	{
 		args = mod_split_red(split[i], "><");
+		if (mod_strlen(args) < 2 && split[i + 1] && split[i + 1][0] != '>' && split[i + 1][0] != '<')
+		{
+			args[0] = ft_strjoin(args[0], split[i + 1]);
+			i++;
+		}
+		else if (split[i + 1] && (split[i][0] == '>' || split[i][0] == '<') && (split[i + 1][0] == '>' || split[i + 1][0] == '<'))
+		{
+			ft_printf("minishell: syntax error near unexpected token `%c'\n", split[i + 1][0]);
+		}
 		if (cat_command_string(args, &s) < 0)
 			return (-1);
 		i++;

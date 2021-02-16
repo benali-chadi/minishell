@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/15 18:47:38 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/15 19:40:52 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,7 @@ void						close_all(int last);
 */
 
 int							redirection(char **args, int i);
-void						red_helper(char *arg, int *j, int *red);
+int							red_helper(char *arg, int *j, int *red);
 void						red_file_names(char *args, int red, int j);
 
 /*

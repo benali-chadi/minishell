@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:14 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/14 16:16:22 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/15 19:42:17 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,26 @@ void	red_file_names(char *args, int red, int j)
 	}
 }
 
-void	red_helper(char *arg, int *j, int *red)
+int		red_helper(char *arg, int *j, int *red)
 {
+	int cnt;
+
+	cnt = 0;
 	if (arg[*j] == '>')
 	{
 		while (arg[*j] && arg[*j] == '>')
 		{
+			if (cnt > 1)
+			{
+				if (arg[*j + 1] && arg[*j + 1] == '>')
+					ft_printf("minishell: syntax error near unexpected token `>>'\n");
+				else
+					ft_printf("minishell: syntax error near unexpected token `>'\n");
+				return (0);
+			}
 			g_cmd->reds.out[g_cmd->reds.out_num].sym[*j] = arg[*j];
 			(*j)++;
+			cnt++;
 		}
 		*red = 1;
 	}
@@ -54,6 +66,7 @@ void	red_helper(char *arg, int *j, int *red)
 		(*j)++;
 		*red = 0;
 	}
+	return (1);
 }
 
 int		redirection(char **args, int i)
@@ -62,10 +75,11 @@ int		redirection(char **args, int i)
 	int red;
 
 	j = 0;
-	red_helper(args[i], &j, &red);
+	if (!red_helper(args[i], &j, &red))
+		return (-1);
 	if ((size_t)j >= ft_strlen(args[i]))
 	{
-		(i)++;
+		i++;
 		j = 0;
 	}
 	if (!args[i])
@@ -74,7 +88,7 @@ int		redirection(char **args, int i)
 		return (-1);
 	}
 	red_file_names(args[i], red, j);
-	(i)++;
+	i++;
 	if (!args[i])
 		return (1);
 	j = 0;

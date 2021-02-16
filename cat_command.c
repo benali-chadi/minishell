@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cat_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:21:41 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/10 19:00:15 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/15 18:41:16 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,9 @@ int		cat_command_string(char **args, int *s)
 	{
 		j = 0;
 		if (args[i] && (args[i][j] == '<' || args[i][j] == '>'))
-			if (redirection(args, 0) < 0)
+			if (redirection(args, i) < 0)
 				return (-1);
+			
 		while (args[i] && (args[i][j] == '<' || args[i][j] == '>'))
 			i++;
 		if (!args[i])
