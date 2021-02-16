@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:08 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/15 18:01:17 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/16 17:13:05 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	init_cnt(void)
 	g_utils.cnt['r'] = '\r';
 	g_utils.cnt['e'] = '\e';
 	g_returned = 0;
+	g_count_end = 0;
 }
 
 int		cmpr_maj(char *s1, char *s2)

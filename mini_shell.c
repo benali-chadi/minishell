@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/16 15:50:03 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/16 18:15:22 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		fill(int *j, int i)
 	{
 		while (g_utils.p_split[*j])
 		{
-			g_utils.c_split = mod_split(g_utils.p_split[*j], ' ', 0);
+			g_utils.c_split = mod_split(g_utils.p_split[*j], ' ');
 			if (fill_cmd(g_utils.c_split, 1) < 0)
 				return (0);
 			(*j)++;
@@ -26,7 +26,7 @@ int		fill(int *j, int i)
 	}
 	else
 	{
-		g_utils.c_split = mod_split(g_utils.m_split[i], ' ', 0);
+		g_utils.c_split = mod_split(g_utils.m_split[i], ' ');
 		if (fill_cmd(g_utils.c_split, 0) < 0)
 			return (0);
 	}
@@ -54,16 +54,16 @@ void	execute(int j)
 		g_return = 127;
 }
 
-void	fill_and_execute(void)
+int		fill_and_execute(void)
 {
 	int		i;
 	int		j;
 
-	g_utils.m_split = mod_split(g_utils.line, ';', 1);
-	
-	int pp = 0;
-	while (g_utils.m_split[pp] != NULL)
-		ft_printf("|%s|\n", g_utils.m_split[pp++]);
+	if (!(g_utils.m_split = mod_split(g_utils.line, ';')))
+		return (0);
+	// int pp = 0;
+	// while (g_utils.m_split[pp] != NULL)
+	// 	ft_printf("|%s|\n", g_utils.m_split[pp++]);
 	i = 0;
 	while (g_utils.m_split[i])
 	{
@@ -71,15 +71,14 @@ void	fill_and_execute(void)
 		g_commands = NULL;
 		g_fd = NULL;
 		j = 0;
-		g_utils.p_split = mod_split(g_utils.m_split[i], '|', 0);
+		g_utils.p_split = mod_split(g_utils.m_split[i], '|');
 		if (!fill(&j, i))
 			break ;
 		execute(j);
 		g_status = 0;
 		i++;
 	}
-	free(g_utils.line);
-	g_utils.line = NULL;
+	return (1);
 }
 
 int		check_semicolon(char *str)
@@ -128,8 +127,8 @@ int		main(int ac, char **av, char **env)
 		if (check_semicolon(g_utils.line))
 			continue ;
 		fill_and_execute();
-		if (ac > 1)
-			return (0);
+		free(g_utils.line);
+		g_utils.line = NULL;
 	}
 	return (0);
 }
