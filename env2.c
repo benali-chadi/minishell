@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 15:54:19 by smhah             #+#    #+#             */
-/*   Updated: 2021/02/14 15:55:50 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/15 18:46:28 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,22 @@ void	ft_cpy_env_command(t_list_env *read_env)
 	g_str_command[g_command_len] = '\0';
 }
 
-int		check_var(char *var)
+int		check_var(char *name, char *content, char *name_content)
 {
 	t_list_env	*read_env;
 
 	read_env = g_list_env;
 	while (read_env)
 	{
-		if (ft_strcmpr(read_env->name, var))
-			return (0);
+		if (ft_strcmpr(read_env->name, name))
+		{
+			if (!ft_strcmpr(read_env->name_content, name_content))
+			{
+				ft_strcpy(read_env->content, content);
+				ft_strcpy(read_env->name_content, name_content);
+				return (0);
+			}
+		}
 		read_env = read_env->next;
 	}
 	return (1);

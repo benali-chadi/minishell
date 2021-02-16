@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:08:59 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/15 18:41:23 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/16 16:53:14 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int		fill_cmd_helper(char **split)
 			args[0] = ft_strjoin(args[0], split[i + 1]);
 			i++;
 		}
+		else if (split[i + 1] && (split[i][0] == '>' || split[i][0] == '<') && (split[i + 1][0] == '>' || split[i + 1][0] == '<'))
+			ft_printf("minishell: syntax error near unexpected token `%c'\n", split[i + 1][0]);
 		if (redirection(args, 0) < 0)
 			return (-1);
 		i++;
@@ -109,6 +111,10 @@ int		fill_cmd(char **split, int p)
 		{
 			args[0] = ft_strjoin(args[0], split[i + 1]);
 			i++;
+		}
+		else if (split[i + 1] && (split[i][0] == '>' || split[i][0] == '<') && (split[i + 1][0] == '>' || split[i + 1][0] == '<'))
+		{
+			ft_printf("minishell: syntax error near unexpected token `%c'\n", split[i + 1][0]);
 		}
 		if (cat_command_string(args, &s) < 0)
 			return (-1);
