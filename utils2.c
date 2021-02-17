@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:08 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/15 18:01:17 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/17 15:41:02 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	sig_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
+		free(g_utils.line);
+		g_utils.line = NULL;
 		if (!g_status)
 			ft_putstr_fd("\n\033[0;32mCS\033[0;31m@minishell \033[0m", 0);
 		else
@@ -65,6 +67,7 @@ void	init_cnt(void)
 	g_utils.cnt['r'] = '\r';
 	g_utils.cnt['e'] = '\e';
 	g_returned = 0;
+	g_count_end = 0;
 }
 
 int		cmpr_maj(char *s1, char *s2)

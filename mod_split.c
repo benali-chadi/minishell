@@ -6,13 +6,34 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:03 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/16 16:52:58 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/17 12:02:29 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-int			ft_countwords(const char *str, char c)
+int			skip_repeat(char *str, int *i, char c)
+{
+	int repeat;
+
+	repeat = 0;
+	while (str[*i] == c)
+	{
+		if (c == ';')
+		{
+			repeat++;
+			if (repeat > 1)
+			{
+				ft_printf("minishell: syntax error near unexpected token `;;'\n");
+				return (0);
+			}
+		}
+		*i += 1;
+	}
+	return (1);
+}
+
+int			ft_countwords(char *str, char c)
 {
 	int i;
 	int compteur;
@@ -23,12 +44,12 @@ int			ft_countwords(const char *str, char c)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		while (str[i] == c)
-			i++;
+		if (!skip_repeat(str, &i, c))
+			return (-1);
 		if (str[i] == '\0')
 			break ;
 		compteur++;
-		while ((g_var_one == 1 || g_var_two  == 1 || str[i] != c)
+		while ((g_var_one == 1 || g_var_two == 1 || str[i] != c)
 			&& str[i] != '\0' && re_check_quots(str, i))
 			i++;
 		if (str[i] == '\0')
@@ -101,7 +122,7 @@ char		**freetab(char **tab, int i)
 	return (0);
 }
 
-char		**mod_split(char const *s, char c, int end)
+char		**mod_split(char *s, char c)
 {
 	int		i;
 	int		casee;
@@ -110,18 +131,17 @@ char		**mod_split(char const *s, char c, int end)
 	int		len;
 
 	i = 0;
-	(void)end;
+	casee = 0;
 	if (s)
 		casee = ft_countwords(s, c);
-	else
+	if (!s || casee < 0)
 		return (0);
 	if (!(tab = (char **)m_malloc(sizeof(char*) * (casee + 1))))
 		return (0);
 	casee = 0;
 	p = &casee;
-	while (i < ft_countwords(s, c))
+	while (i < ft_countwords(s, c) && (len = ft_countlen(s, c, p)))
 	{
-		len = ft_countlen(s, c, p);
 		if (!(tab[i] = (char *)m_malloc(sizeof(char) * (len + 1))))
 			return (freetab(tab, i));
 		i++;

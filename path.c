@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:00:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/16 16:52:41 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/16 17:36:43 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	find_path(t_command_info *cmd, char *var, int p)
 	struct stat	buf;
 	int			i;
 
-	split = mod_split(search_path(), ':', 1);
+	split = mod_split(search_path(), ':');
 	i = 0;
 	if (p)
 		execute_cmd(cmd, var);
