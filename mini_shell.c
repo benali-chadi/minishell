@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/16 18:15:22 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/17 15:26:45 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,29 @@ void	execute(int j)
 		g_return = 127;
 }
 
+int		check_white_spaces(void)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (g_utils.m_split[i] != NULL)
+	{
+		j = 0;
+		while (g_utils.m_split[i][j] == ' ' || g_utils.m_split[i][j] == '\t')
+		{
+			j++;
+		}
+		if (g_utils.m_split[i][j] == '\0')
+		{
+			ft_printf("ERROR\n");
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
 int		fill_and_execute(void)
 {
 	int		i;
@@ -61,9 +84,8 @@ int		fill_and_execute(void)
 
 	if (!(g_utils.m_split = mod_split(g_utils.line, ';')))
 		return (0);
-	// int pp = 0;
-	// while (g_utils.m_split[pp] != NULL)
-	// 	ft_printf("|%s|\n", g_utils.m_split[pp++]);
+	if (!check_white_spaces())
+		return (0);
 	i = 0;
 	while (g_utils.m_split[i])
 	{

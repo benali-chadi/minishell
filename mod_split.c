@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:03 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/16 18:23:40 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/17 12:02:29 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int			skip_repeat(char *str, int *i, char c)
 			repeat++;
 			if (repeat > 1)
 			{
+				ft_printf("minishell: syntax error near unexpected token `;;'\n");
 				return (0);
 			}
 		}
@@ -45,12 +46,6 @@ int			ft_countwords(char *str, char c)
 	{
 		if (!skip_repeat(str, &i, c))
 			return (-1);
-		// while (str[i] == c)
-		// {
-		// 	if (c == ';' && !check_end())
-		// 		return (-1);
-		// 	i++;
-		// }
 		if (str[i] == '\0')
 			break ;
 		compteur++;
@@ -138,14 +133,9 @@ char		**mod_split(char *s, char c)
 	i = 0;
 	casee = 0;
 	if (s)
-	{
 		casee = ft_countwords(s, c);
-	}
-	// printf("line:%s\n", s);
 	if (!s || casee < 0)
-	{
 		return (0);
-	}
 	if (!(tab = (char **)m_malloc(sizeof(char*) * (casee + 1))))
 		return (0);
 	casee = 0;
