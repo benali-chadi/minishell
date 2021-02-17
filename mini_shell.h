@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/17 18:56:03 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/17 19:40:00 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ char						*g_var_cmd;
 int							g_cmd_k;
 int							g_returned;
 int							g_count_end;
+char                        g_case_index[10000];
 /*
 	**Functions
 */
