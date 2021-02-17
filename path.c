@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:00:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/16 17:36:43 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/17 18:56:14 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	find_path(t_command_info *cmd, char *var, int p)
 {
 	char		**split;
 	char		*command;
-	struct stat	buf;
+	// struct stat	buf;
 	int			i;
 
 	split = mod_split(search_path(), ':');
@@ -68,7 +68,7 @@ void	find_path(t_command_info *cmd, char *var, int p)
 	while (split[i])
 	{
 		command = ft_strjoin(split[i], var);
-		if (!stat(command, &buf))
+		if (!stat(command, &g_utils.buf))
 			execute_cmd(cmd, command);
 		i++;
 	}

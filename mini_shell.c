@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/17 15:40:50 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/17 18:59:34 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int		main(int ac, char **av, char **env)
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 	stock_env(env);
+	g_utils.out = open("/dev/tty", O_WRONLY);
 	g_utils.env = env;
 	while (1)
 	{
@@ -139,9 +140,10 @@ int		main(int ac, char **av, char **env)
 		}
 		else
 		{
-			ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m", 1);
+			ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m", g_utils.out);
 			if (!(gnl(0, &g_utils.line)))
 			{
+				close(g_utils.out);
 				to_free();
 				exit(0);
 			}

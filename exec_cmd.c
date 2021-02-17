@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:32:40 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/19 17:45:42 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/17 18:31:10 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void		exec_cmd(t_command_info *cmd, int i, int last)
 	if (cmd->tests.exit && !cmd->pipe)
 	{
 		to_free();
+		close(g_utils.out);
 		exit(0);
 	}
 	else if (cmd->tests.cd)
