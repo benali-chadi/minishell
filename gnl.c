@@ -6,12 +6,12 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:19 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/17 19:01:03 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/18 17:59:01 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-#define BUFFER_SIZE 10000
+#define BUFFER_SIZE 1
 
 char	*ft_stock(char **line, char *buff, int i)
 {
@@ -49,13 +49,10 @@ int		gnl(int fd, char **line)
 	int		j;
 
 	i = 0;
-	fstat(0, &g_utils.buf);
 	if (!(buf = malloc(BUFFER_SIZE + 1)))
 		return (-1);
 	while ((i = read(fd, buf, BUFFER_SIZE)) || *line)
 	{
-		if (!i && g_utils.buf.st_size)
-			return (1);
 		buf[i] = '\0';
 		j = 0;
 		while (buf[j] && buf[j] != '\n')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mod_split_red.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:03:11 by smhah             #+#    #+#             */
-/*   Updated: 2021/02/13 11:17:22 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/18 17:10:50 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int			ft_stock_red(char **tab, int a, char o)
 	return (g_join_red);
 }
 
-char	**result_red(char **tab, const char *str, char *c)
+char		**result_red(char **tab, const char *str, char *c)
 {
 	int a;
 	int b;

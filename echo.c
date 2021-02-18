@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 15:02:50 by smhah             #+#    #+#             */
-/*   Updated: 2021/02/14 15:04:37 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/18 17:48:18 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int		check_quotes_two(void)
 
 int		ft_continue(int *force, int i, int j, t_command_info *cmd)
 {
-	if (cmd->string[i][j] == '\\' && *force != 1)
+	if (cmd->string[i][j] == '\\' && *force != 1
+	&& g_var_one != 1 && g_var_two != 1)
 	{
 		*force = 1;
 		return (1);

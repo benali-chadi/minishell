@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:14 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/15 19:42:17 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/18 17:28:41 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,19 @@ void	red_file_names(char *args, int red, int j)
 	}
 }
 
+int		for_norme(int cnt, char c)
+{
+	if (cnt > 1)
+	{
+		if (c == '>')
+			ft_printf("minishell: syntax error near unexpected token `>>'\n");
+		else
+			ft_printf("minishell: syntax error near unexpected token `>'\n");
+		return (0);
+	}
+	return (1);
+}
+
 int		red_helper(char *arg, int *j, int *red)
 {
 	int cnt;
@@ -47,14 +60,8 @@ int		red_helper(char *arg, int *j, int *red)
 	{
 		while (arg[*j] && arg[*j] == '>')
 		{
-			if (cnt > 1)
-			{
-				if (arg[*j + 1] && arg[*j + 1] == '>')
-					ft_printf("minishell: syntax error near unexpected token `>>'\n");
-				else
-					ft_printf("minishell: syntax error near unexpected token `>'\n");
+			if (!for_norme(cnt, arg[*j + 1]))
 				return (0);
-			}
 			g_cmd->reds.out[g_cmd->reds.out_num].sym[*j] = arg[*j];
 			(*j)++;
 			cnt++;

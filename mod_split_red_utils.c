@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mod_split_red_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:04:04 by smhah             #+#    #+#             */
-/*   Updated: 2021/02/13 11:28:10 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/18 17:10:34 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int			ft_countwords_red(const char *str, char *c)
 		if (str[i] == '\0')
 			break ;
 		compteur++;
-		while ((g_var_one == 1 || g_var_two == 1 || !ft_strchr(c, str[i])) && str[i] != '\0' && re_check_quots(str, i))
+		while ((g_var_one == 1 || g_var_two == 1 ||
+		!ft_strchr(c, str[i])) && str[i] != '\0' && re_check_quots(str, i))
 		{
 			i++;
 		}

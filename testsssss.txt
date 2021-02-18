@@ -1,1 +1,6 @@
 echo "hello 'ilias'""\""
+
+mod_spilt
+mini_shell
+fill_cmd
+redirection

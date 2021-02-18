@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/17 19:43:15 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/18 18:02:37 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,29 +52,6 @@ void	execute(int j)
 		g_return = WEXITSTATUS(g_return);
 	if (g_return == 255)
 		g_return = 127;
-}
-
-int     check_white_spaces(void)
-{
-    int i;
-    int j;
-    i = 0;
-    while (g_utils.m_split[i] != NULL)
-    {
-        j = 0;
-        while (g_utils.m_split[i][j] == ' ' || g_utils.m_split[i][j] == '\t')
-        {
-            j++;
-        }
-        if ((g_utils.m_split[i][j] == '\0' && g_utils.m_split[i + 1]) || (g_utils.m_split[i][j] == '\0' && g_case_index[i + 1] == '1' && i > 0))
-        {
-            ft_printf("minishell: syntax error near unexpected token `;;'\n");
-			g_case_index[i + 1] = 0;
-            return (0);
-        }
-        i++;
-    }
-    return (1);
 }
 
 int		fill_and_execute(void)
@@ -125,28 +102,20 @@ int		main(int ac, char **av, char **env)
 {
 	(void)ac;
 	(void)av;
-	init_cnt();
+	init_stuff(env);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 	stock_env(env);
-	g_utils.out = open("/dev/tty", O_WRONLY);
-	g_utils.env = env;
 	while (1)
 	{
-		if (ac > 1)
+		if (!g_utils.buf.st_size)
+			ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m",
+			g_utils.out);
+		if (!(gnl(0, &g_utils.line)))
 		{
-			g_utils.line = m_malloc(ft_strlen(av[2]) + 1);
-			ft_strcpy(g_utils.line, av[2]);
-		}
-		else
-		{
-			ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m", g_utils.out);
-			if (!(gnl(0, &g_utils.line)))
-			{
-				close(g_utils.out);
-				to_free();
-				exit(0);
-			}
+			close(g_utils.out);
+			to_free();
+			exit(0);
 		}
 		if (check_semicolon(g_utils.line))
 			continue ;

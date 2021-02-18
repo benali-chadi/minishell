@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:03 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/17 19:39:29 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/18 17:21:53 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int			skip_repeat(char *str, int *i, char c)
 			repeat++;
 			if (repeat > 1)
 			{
-				ft_printf("minishell: syntax error near unexpected token `;;'\n");
+				ft_printf("minishell: syntax error near unexpected token `;;'\n"
+);
 				return (0);
 			}
 		}
@@ -99,11 +100,11 @@ char		**result(char **tab, const char *str, char c)
 		while (str[i] == c)
 			i++;
 		if (str[i] == '\0')
-        {
-            g_case_index[a] = '1';
-            g_case_index[a + 1] = '\0';
-            break ;
-        }
+		{
+			g_case_index[a] = '1';
+			g_case_index[a + 1] = '\0';
+			break ;
+		}
 		g_case_index[a] = '0';
 		b = 0;
 		while ((g_var_one == 1 || g_var_two == 1 || str[i] != c)

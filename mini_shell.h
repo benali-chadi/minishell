@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/17 19:40:00 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/18 18:01:16 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ char						*clean_command_1(char *command);
 char						*clean_command_2(char *command);
 int							gnl(int fd, char **line);
 int							check_quots(const char *str, int i);
+int							check_white_spaces(void);
 int							re_check_quots(const char *str, int i);
 int							ft_countlen_red(const char *str, char *c, int *i);
 int							ft_countwords_red(const char *str, char *c);
@@ -150,7 +151,7 @@ void						*ft_realloc(void *ptr, int size);
 char						*ft_strcpy(char *s1, char *s2);
 int							ft_strcmpr(char *s1, char *s2);
 int							is_alpha_digit(char a);
-void						init_cnt();
+void						init_stuff(char **env);
 void						fill_command(char a);
 void						sig_handler(int signum);
 

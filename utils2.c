@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:08 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/17 19:07:57 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/18 18:01:11 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	sig_handler(int signum)
 		free(g_utils.line);
 		g_utils.line = NULL;
 		if (!g_status)
-			ft_putstr_fd("\n\033[0;32mCS\033[0;31m@minishell \033[0m", g_utils.out);
+			ft_putstr_fd("\n\033[0;32mCS\033[0;31m@minishell \033[0m",
+			g_utils.out);
 		else
 		{
 			ft_putstr_fd("\n", 0);
@@ -50,7 +51,7 @@ char	*search_lgnam(void)
 	return (NULL);
 }
 
-void	init_cnt(void)
+void	init_stuff(char **env)
 {
 	int i;
 
@@ -68,6 +69,9 @@ void	init_cnt(void)
 	g_utils.cnt['e'] = '\e';
 	g_returned = 0;
 	g_count_end = 0;
+	fstat(0, &g_utils.buf);
+	g_utils.out = open("/dev/tty", O_WRONLY);
+	g_utils.env = env;
 }
 
 int		cmpr_maj(char *s1, char *s2)
