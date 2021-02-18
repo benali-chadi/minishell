@@ -3,36 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mod_split.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:03 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/18 17:21:53 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/18 21:42:13 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
-int			skip_repeat(char *str, int *i, char c)
-{
-	int repeat;
-
-	repeat = 0;
-	while (str[*i] == c)
-	{
-		if (c == ';')
-		{
-			repeat++;
-			if (repeat > 1)
-			{
-				ft_printf("minishell: syntax error near unexpected token `;;'\n"
-);
-				return (0);
-			}
-		}
-		*i += 1;
-	}
-	return (1);
-}
 
 int			ft_countwords(char *str, char c)
 {
@@ -99,12 +77,8 @@ char		**result(char **tab, const char *str, char c)
 	{
 		while (str[i] == c)
 			i++;
-		if (str[i] == '\0')
-		{
-			g_case_index[a] = '1';
-			g_case_index[a + 1] = '\0';
+		if (str[i] == '\0' && stock_index(a))
 			break ;
-		}
 		g_case_index[a] = '0';
 		b = 0;
 		while ((g_var_one == 1 || g_var_two == 1 || str[i] != c)

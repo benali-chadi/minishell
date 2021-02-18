@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/18 18:01:16 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/18 21:42:57 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,8 @@ int							ft_countwords_red(const char *str, char *c);
 char						**freetab(char **tab, int i);
 char						**result_red(char **tab, const char *str, char *c);
 char						**mod_split(char *s, char c);
+int							skip_repeat(char *str, int *i, char c);
+int							stock_index(int a);
 char						**mod_split_red(char const *s, char *c);
 int							mod_strlen(char **s);
 void						*ft_realloc(void *ptr, int size);
