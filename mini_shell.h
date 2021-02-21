@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/18 21:42:57 by macbook          ###   ########.fr       */
+/*   Updated: 2021/02/21 17:17:25 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int							ft_print_error(char a, t_command_info *cmd, int i);
 int							is_min(char a);
 int							is_maj(char a);
 char						*clean_command_1(char *command);
-char						*clean_command_2(char *command);
+char						*new_clean_command(char *str);
 int							gnl(int fd, char **line);
 int							check_quots(const char *str, int i);
 int							check_white_spaces(void);
@@ -155,8 +155,9 @@ int							ft_strcmpr(char *s1, char *s2);
 int							is_alpha_digit(char a);
 void						init_stuff(char **env);
 void						fill_command(char a);
+int							sing_or_doub_q(char *str,
+							int *k, int quote, char q);
 void						sig_handler(int signum);
-
 char						*search_lgnam();
 
 /*

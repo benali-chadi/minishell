@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:54 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/15 18:48:21 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/21 18:18:09 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ void	ft_export(t_command_info *cmd)
 		name[j] = '\0';
 		content = &cmd->string[i][++j];
 		if (check_var(name, content, cmd->string[i]))
-			add_back(&g_list_env, clean_command_2(name),
-				clean_command_2(content), cmd->string[i]);
+			add_back(&g_list_env, new_clean_command(name),
+				new_clean_command(content), new_clean_command(cmd->string[i]));
 	}
 }
 
@@ -102,13 +102,13 @@ void	ft_remove_node(t_command_info *cmd)
 		if (ft_print_error(cmd->string[i][0], cmd, i))
 			continue ;
 		if (read_list != NULL &&
-			ft_strcmpr(clean_command_2(cmd->string[i]), read_list->name))
+			ft_strcmpr(new_clean_command(cmd->string[i]), read_list->name))
 		{
 			g_list_env = read_list->next;
 			continue ;
 		}
 		while (read_list &&
-			!ft_strcmpr(clean_command_2(cmd->string[i]), read_list->name))
+			!ft_strcmpr(new_clean_command(cmd->string[i]), read_list->name))
 			ft_next_node(&read_list, &prev);
 		if (read_list != NULL)
 			prev->next = read_list->next;
