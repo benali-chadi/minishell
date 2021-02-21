@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 15:54:19 by smhah             #+#    #+#             */
-/*   Updated: 2021/02/21 19:15:08 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/21 19:32:56 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ int		check_var(char *name, char *content, char *name_content)
 			{
 				ft_strcpy(read_env->content, clean_cmd(content));
 				ft_strcpy(read_env->name_content, clean_cmd(name_content));
-				return (0);
 			}
+			return (0);
 		}
 		read_env = read_env->next;
 	}

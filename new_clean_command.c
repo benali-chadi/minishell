@@ -89,7 +89,6 @@ char	*clean_cmd(char *str)
 		force = 0;
 	}
 	str2[j] = '\0';
-	printf("|%s|\n", str2);
 	if (g_var_one == 1 || g_var_two == 1)
 		printf("CHNO KATKHWER\n");
 	return (str2);
