@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:00:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/21 17:04:17 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/21 19:15:08 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@ void	execute_cmd(t_command_info *cmd, char *command)
 
 	if (cmd->options)
 	{
-		g_utils.args[0] = new_clean_command(cmd->command);
-		g_utils.args[1] = new_clean_command(cmd->options);
+		g_utils.args[0] = clean_cmd(cmd->command);
+		g_utils.args[1] = clean_cmd(cmd->options);
 		i = 2;
 		j = 0;
 		while (cmd->string[j])
-			g_utils.args[i++] = new_clean_command(cmd->string[j++]);
+			g_utils.args[i++] = clean_cmd(cmd->string[j++]);
 		g_utils.args[i] = NULL;
 	}
 	else
 	{
-		g_utils.args[0] = new_clean_command(cmd->command);
+		g_utils.args[0] = clean_cmd(cmd->command);
 		i = 1;
 		j = 0;
 		while (cmd->string[j])
-			g_utils.args[i++] = new_clean_command(cmd->string[j++]);
+			g_utils.args[i++] = clean_cmd(cmd->string[j++]);
 		g_utils.args[i] = NULL;
 	}
 	if (execve(command, g_utils.args, g_utils.env) < 0)

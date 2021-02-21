@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_clean_command.c                                :+:      :+:    :+:   */
+/*   clean_cmd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -68,7 +68,7 @@ int		ft_continue1(int *force, int i, char *str)
 	return (0);
 }
 
-char	*new_clean_command(char *str)
+char	*clean_cmd(char *str)
 {
 	int		i;
 	int		j;

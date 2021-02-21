@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/21 17:17:25 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/21 19:15:08 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int							ft_print_error(char a, t_command_info *cmd, int i);
 int							is_min(char a);
 int							is_maj(char a);
 char						*clean_command_1(char *command);
-char						*new_clean_command(char *str);
+char						*clean_cmd(char *str);
 int							gnl(int fd, char **line);
 int							check_quots(const char *str, int i);
 int							check_white_spaces(void);

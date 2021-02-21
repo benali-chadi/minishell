@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:46:33 by smhah             #+#    #+#             */
-/*   Updated: 2021/02/21 17:04:17 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/21 19:15:08 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,5 @@ char	*clean_command_1(char *command)
 	init_one_two();
 	g_command_len = 0;
 	to_while_cmd(command, i);
-	return (new_clean_command(g_str_command));
+	return (clean_cmd(g_str_command));
 }
