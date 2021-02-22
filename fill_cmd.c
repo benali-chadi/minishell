@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:08:59 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/19 18:53:24 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/22 18:26:05 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ int		check_end_2(char **args, char **split, int *i, int *s)
 	a2 = '\0';
 	if (split[*i + 1])
 		a2 = split[*i + 1][0];
-	if (mod_strlen(args) < 2 && split[*i + 1] && a2 != '>' && a2 != '<')
+	if (mod_strlen(args) < 2 && split[*i + 1] && a2 != '>' && a2 != '<'
+	&& (a1 == '>' || a1 == '<'))
 	{
 		args[0] = ft_strjoin(args[0], split[*i + 1]);
 		*i = *i + 1;

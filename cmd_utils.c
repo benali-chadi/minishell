@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 18:49:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/19 15:14:39 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/22 15:56:03 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		test_cmds(t_command_info *cmd)
 	else if (cmd->tests.echo)
 		echo(cmd);
 	else if (cmd->tests.env)
-		loop_env();
+		loop_env(0);
 	else
 		return (0);
 	return (1);
