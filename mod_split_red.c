@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mod_split_red.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:03:11 by smhah             #+#    #+#             */
-/*   Updated: 2021/02/18 17:10:50 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/23 16:21:01 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ char		**mod_split_red(char const *s, char *c)
 		casee = ft_countwords_red(s, c);
 	else
 		return (0);
-	if (!(tab = (char **)m_malloc(sizeof(char*) * (casee + 1))))
+	if (!(tab = (char **)m_malloc(sizeof(char*) * (casee + 1) + 100)))
 		return (0);
 	casee = 0;
 	p = &casee;
 	while (i < ft_countwords_red(s, c))
 	{
 		len = ft_countlen_red(s, c, p);
-		if (!(tab[i] = (char *)m_malloc(sizeof(char) * (len + 1))))
+		if (!(tab[i] = (char *)m_malloc(sizeof(char) * (len + 100))))
 			return (freetab(tab, i));
 		i++;
 	}

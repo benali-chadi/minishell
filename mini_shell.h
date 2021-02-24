@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/21 19:15:08 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/23 11:56:14 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ char                        g_case_index[10000];
 int							ft_print_error(char a, t_command_info *cmd, int i);
 int							is_min(char a);
 int							is_maj(char a);
+int							is_digit(char a);
 char						*clean_command_1(char *command);
 char						*clean_cmd(char *str);
 int							gnl(int fd, char **line);

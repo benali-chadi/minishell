@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cat_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:21:41 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/18 17:07:16 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/24 17:23:03 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,43 @@ int		first_condition(int j, char **args, int i, int *s)
 	return (j);
 }
 
+int		condition1(char a1, char a2)
+{
+	if ((a1 == '$' && a2 && g_one != 1 && !is_digit(a2) && a2 != '.') ||
+		(a1 == '$' && a2 && g_one == 1
+			&& g_two == 1 && !is_digit(a2) && a2 != '.'))
+		return (1);
+	return (0);
+}
+
+int		check_first_char(char **args, int *i, int *j)
+{
+	char a1;
+	char a2;
+
+	a1 = args[*i][*j];
+	a2 = '\0';
+	if (args[*i][*j + 1])
+		a2 = args[*i][*j + 1];
+	if (condition1(a1, a2))
+		return (1);
+	else if ((a1 == '$' && a2 && g_one != 1 && is_digit(a2) && a2 != '.') ||
+		(a1 == '$' && a2 && g_one == 1
+			&& g_two == 1 && is_digit(a2) && a2 != '.'))
+	{
+		*j = *j + 2;
+		return (2);
+	}
+	else if ((a1 == '$' && a2 && g_one != 1 && !is_digit(a2) && a2 == '.') ||
+		(a1 == '$' && a2 && g_one == 1 &&
+			g_two == 1 && !is_digit(a2) && a2 == '.'))
+	{
+		fill_command_string(a1, *i);
+		*j = *j + 1;
+	}
+	return (0);
+}
+
 void	to_while(char **args, int i, int *s)
 {
 	int j;
@@ -63,13 +100,14 @@ void	to_while(char **args, int i, int *s)
 	j = 0;
 	while (args[i][j])
 	{
-		if ((args[i][j] == '$' && args[i][j + 1] && g_one != 1) ||
-		(args[i][j] == '$' && args[i][j + 1] && g_one == 1 && g_two == 1))
+		if (check_first_char(args, &i, &j) == 1)
 		{
 			j = first_condition(j, args, i, s);
 			if (args[i][j] == '"' || args[i][j] == '\'')
 				fill_command_string(args[i][j], *s);
 		}
+		else if (check_first_char(args, &i, &j) == 2)
+			fill_command_string(args[i][j], *s);
 		else
 			fill_command_string(args[i][j], *s);
 		if (args[i][j] && (args[i][j] != '$' ||
