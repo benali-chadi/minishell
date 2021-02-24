@@ -6,11 +6,11 @@
 #    By: smhah <smhah@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/28 16:00:43 by cbenali-          #+#    #+#              #
-#    Updated: 2021/02/23 17:17:34 by smhah            ###   ########.fr        #
+#    Updated: 2021/02/24 17:25:14 by smhah            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS = -Wall -Wextra -Werror -g 
+FLAGS = -Wall -Wextra -Werror -g
 
 NAME = minishell
 

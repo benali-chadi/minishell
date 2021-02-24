@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:00:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/21 19:15:08 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/22 15:33:20 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,12 @@ void	find_path(t_command_info *cmd, char *var, int p)
 	split = mod_split(search_path(), ':');
 	i = 0;
 	if (p)
+	{
+		if (stat(cmd->command, &g_utils.buf))
+			ft_printf("minishell: %s: No such file or directory\n",
+			cmd->command);
 		execute_cmd(cmd, var);
+	}
 	while (split[i])
 	{
 		command = ft_strjoin(split[i], var);

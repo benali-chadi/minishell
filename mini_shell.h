@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/23 11:56:14 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/24 17:25:19 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ t_command_info				*cmd_lstlast(t_command_info *lst);
 */
 
 void						ft_export(t_command_info *cmd);
-int							loop_env(void);
+int							loop_env(int e);
 void						stock_env(char **env);
 void						compare_var(char *var, char *arg, int s);
 void						ft_cpy_env(t_list_env *read_env, int s);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:54 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/21 19:33:08 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/22 18:40:29 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,17 @@ void	stock_env(char **env)
 	}
 }
 
-int		loop_env(void)
+int		loop_env(int e)
 {
 	t_list_env *tmp;
 
 	tmp = g_list_env;
 	while (tmp)
 	{
-		ft_putstr_fd(tmp->name_content, 1);
-		ft_putchar_fd('\n', 1);
+		if (e)
+			ft_printf("declare -x %s\n", tmp->name_content);
+		else if (tmp->content)
+			ft_printf("%s\n", tmp->name_content);
 		tmp = tmp->next;
 	}
 	return (1);
@@ -61,20 +63,20 @@ void	ft_export(t_command_info *cmd)
 	int		j;
 
 	i = -1;
-	if (!cmd->string[0] && loop_env())
+	if (!cmd->string[0] && loop_env(1))
 		return ;
 	while (cmd->string[++i])
 	{
 		j = -1;
+		// printf("cmd = %s\n", cmd->string[i]);
 		if (ft_print_error(cmd->string[i][0], cmd, i))
 			continue ;
-		name = m_malloc(ft_strlen(cmd->string[i]));
+		name = m_malloc(ft_strlen(cmd->string[i]) + 1);
 		while (cmd->string[i][++j] != '=' && cmd->string[i][j])
 			name[j] = cmd->string[i][j];
-		if (cmd->string[i][j] != '=')
-			continue ;
 		name[j] = '\0';
-		content = &cmd->string[i][++j];
+		content = cmd->string[i][j] == '=' ? &cmd->string[i][++j] : NULL;
+		// printf("%s\n", cmd->string[i]);
 		if (check_var(name, content, cmd->string[i]))
 			add_back(&g_list_env, clean_cmd(name),
 				clean_cmd(content), clean_cmd(cmd->string[i]));

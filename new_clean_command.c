@@ -74,7 +74,8 @@ char	*clean_cmd(char *str)
 	int		j;
 	int		force;
 	char	*str2;
-
+	if (!str)
+		return NULL;
 	str2 = malloc(ft_strlen(str) + 1);
 	i = -1;
 	g_var_one = 0;
