@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/24 17:25:19 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/25 18:30:47 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # include <signal.h>
 # include <errno.h>
 # include <fcntl.h>
-# define ft_abs(x) x < 0 ? -x : x
 
 /*
 	**Envirenment Stucture
@@ -123,7 +122,7 @@ char						*g_var_cmd;
 int							g_cmd_k;
 int							g_returned;
 int							g_count_end;
-char                        g_case_index[10000];
+char						g_case_index[10000];
 /*
 	**Functions
 */
@@ -203,7 +202,8 @@ void						compare_var(char *var, char *arg, int s);
 void						ft_cpy_env(t_list_env *read_env, int s);
 void						compare_var_command(char *var, char *command);
 void						ft_cpy_env_command(t_list_env *read_env);
-int							check_var(char *name, char *content, char *name_content);
+int							check_var(char *name, char *content,
+char *name_content);
 /*
 	**Commands
 */

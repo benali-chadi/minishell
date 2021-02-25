@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:08:59 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/24 17:25:09 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/25 18:28:06 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		fill_cmd_helper(char **split)
 	int		i;
 
 	i = 0;
-	g_cmd = malloc(sizeof(t_command_info));
+	g_cmd = m_malloc(sizeof(t_command_info));
 	g_cmd->reds.in_num = 0;
 	g_cmd->reds.out_num = 0;
 	while (split[i] && (split[i][0] == '<' || split[i][0] == '>'))

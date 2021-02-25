@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_cmd.c                                :+:      :+:    :+:			  */
+/*   new_clean_command.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/21 11:10:26 by smhah             #+#    #+#             */
-/*   Updated: 2021/02/21 18:06:35 by smhah            ###   ########.fr       */
+/*   Created: 2021/02/25 18:29:26 by cbenali-          #+#    #+#             */
+/*   Updated: 2021/02/25 18:29:34 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,10 @@ char	*clean_cmd(char *str)
 	int		j;
 	int		force;
 	char	*str2;
+
 	if (!str)
-		return NULL;
-	str2 = malloc(ft_strlen(str) + 1);
+		return (NULL);
+	str2 = m_malloc(ft_strlen(str) + 1);
 	i = -1;
 	g_var_one = 0;
 	g_var_two = 0;
@@ -91,6 +92,6 @@ char	*clean_cmd(char *str)
 	}
 	str2[j] = '\0';
 	if (g_var_one == 1 || g_var_two == 1)
-		printf("CHNO KATKHWER\n");
+		ft_printf("CHNO KATKHWER\n");
 	return (str2);
 }

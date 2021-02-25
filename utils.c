@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:12:31 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/23 11:47:21 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/25 18:31:35 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,4 @@ void	*ft_realloc(void *ptr, int size)
 	ptr = m_malloc(size);
 	ptr = ft_strcpy(ptr, tmp);
 	return (ptr);
-}
-
-int		mod_strlen(char **s)
-{
-	int i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
 }

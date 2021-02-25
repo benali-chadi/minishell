@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:08 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/18 18:01:11 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/25 18:34:55 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,15 @@ void	init_stuff(char **env)
 int		cmpr_maj(char *s1, char *s2)
 {
 	int i;
+	int diff;
 
 	i = 0;
 	while (s1[i] || s2[i])
 	{
 		if (s1[i] != s2[i])
 		{
-			if (ft_abs(s1[i] - s2[i]) != 32)
+			diff = s1[i] - s2[i];
+			if (diff != 32 || diff != -32)
 				return (0);
 		}
 		i++;

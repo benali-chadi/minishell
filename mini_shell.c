@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/22 18:17:59 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/25 18:28:14 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ void	execute(int j)
 	}
 	while (wait(&g_return) != -1)
 		;
-	if (g_returned)
+	if (g_return)
 		g_return = WEXITSTATUS(g_return);
+	if (g_return == 256)
+		g_return = 1;
 	if (g_return == 255)
 		g_return = 127;
 }
@@ -72,7 +74,7 @@ int		fill_and_execute(void)
 		j = 0;
 		g_utils.p_split = mod_split(g_utils.m_split[i], '|');
 		if (!fill(&j, i))
-			break ;
+			return (-1);
 		execute(j);
 		g_status = 0;
 		i++;
@@ -119,7 +121,8 @@ int		main(int ac, char **av, char **env)
 		}
 		if (check_semicolon(g_utils.line))
 			continue ;
-		fill_and_execute();
+		if (fill_and_execute() < 0)
+			g_return = 258;
 		free(g_utils.line);
 		g_utils.line = NULL;
 	}

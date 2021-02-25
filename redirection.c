@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:14 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/19 17:14:45 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/25 18:29:04 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 void	red_file_names(char *args, int red, int j)
 {
-	int k;
+	int		k;
+	char	*str;
 
 	if (red == 1)
 	{
 		g_cmd->reds.out[g_cmd->reds.out_num].file_name =
-		m_malloc(ft_strlen(args) + 1);
-		k = 0;
-		while (args[j])
-			g_cmd->reds.out[g_cmd->reds.out_num].file_name[k++] = args[j++];
+		m_malloc(ft_strlen(&args[j]));
+		str = clean_cmd(&args[j]);
+		k = -1;
+		while (str[++k])
+			g_cmd->reds.out[g_cmd->reds.out_num].file_name[k] = str[k];
 		g_cmd->reds.out[g_cmd->reds.out_num].file_name[k] = '\0';
 		g_cmd->reds.out_num++;
 	}
@@ -46,6 +48,7 @@ int		for_norme(int cnt, char c)
 			ft_printf("minishell: syntax error near unexpected token `>>'\n");
 		else
 			ft_printf("minishell: syntax error near unexpected token `>'\n");
+		g_return = 258;
 		return (0);
 	}
 	return (1);
