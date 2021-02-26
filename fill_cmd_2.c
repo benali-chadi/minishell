@@ -3,22 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:46:33 by smhah             #+#    #+#             */
-/*   Updated: 2021/02/25 18:09:38 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/26 19:26:51 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+int		check_special_char(char a)
+{
+	if (!is_alpha_digit(a) && a != '_' && a != '\''
+		&& a != '\"' && a != '$' && a != '\\' && (g_next = a))
+		return (1);
+	return (0);
+}
 
 int		first_condition_cmd(int i, char *command)
 {
 	i++;
 	g_var_cmd = m_malloc(ft_strlen(command));
 	g_cmd_k = 0;
-	while (command[i] != ' ' && command[i] != '\t' && command[i] != '$'
-		&& command[i] != '"' && command[i] != '\'' && command[i])
+	while (command[i] && (is_alpha_digit(command[i]) || command[i] == '_'))
 		g_var_cmd[g_cmd_k++] = command[i++];
 	g_var_cmd[g_cmd_k] = '\0';
 	if (ft_strcmpr(g_var_cmd, "?"))
@@ -32,7 +39,13 @@ int		first_condition_cmd(int i, char *command)
 		g_str_command[g_command_len] = '\0';
 	}
 	else
+	{
+		if (check_special_char(command[i]))
+			g_print_next = 1;
 		compare_var_command(g_var_cmd, command);
+		if (g_print_next)
+			fill_command(g_next);
+	}
 	return (i);
 }
 
@@ -43,6 +56,7 @@ void	to_while_cmd(char *command, int i)
 		if ((command[i] == '$' && command[i + 1] && g_one != 1) ||
 		(command[i] == '$' && command[i + 1] && g_one == 1 && g_two == 1))
 		{
+			g_print_next = 0;
 			i = first_condition_cmd(i, command);
 			if (command[i] == '"' || command[i] == '\'')
 				fill_command(command[i]);

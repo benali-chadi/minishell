@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:21:41 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/24 17:25:34 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/26 19:22:13 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,11 @@ void	init_one_two(void)
 
 int		first_condition(int j, char **args, int i, int *s)
 {
+	g_print_next = 0;
 	j++;
 	g_str_var = m_malloc(ft_strlen(args[i]));
 	g_var_k = 0;
-	while (args[i][j] != ' ' && args[i][j] != '\t'
-		&& args[i][j] != '$' && args[i][j] &&
-			args[i][j] != '"' && args[i][j] != '\'')
+	while (args[i][j] && (is_alpha_digit(args[i][j]) || args[i][j] == '_'))
 		g_str_var[g_var_k++] = args[i][j++];
 	g_str_var[g_var_k] = '\0';
 	if (ft_strcmpr(g_str_var, "?"))
@@ -52,7 +51,13 @@ int		first_condition(int j, char **args, int i, int *s)
 		g_cmd->string[*s][g_cmd->string_len++] = '\0';
 	}
 	else
+	{
+		if (check_special_char(args[i][j]))
+			g_print_next = 1;
 		compare_var(g_str_var, args[i], *s);
+		if (g_print_next)
+			fill_command_string(g_next, *s);
+	}
 	return (j);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/25 18:30:47 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/26 19:21:17 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,8 @@ int							g_cmd_k;
 int							g_returned;
 int							g_count_end;
 char						g_case_index[10000];
+int							g_print_next;
+char						g_next;
 /*
 	**Functions
 */
@@ -130,6 +132,7 @@ char						g_case_index[10000];
 /*
 	**Utils
 */
+int							check_special_char(char a);
 int							ft_print_error(char a, t_command_info *cmd, int i);
 int							is_min(char a);
 int							is_maj(char a);
