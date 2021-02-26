@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mod_split_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:31:56 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/25 18:31:57 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/26 21:29:29 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,28 @@ int			skip_repeat(char *str, int *i, char c)
 	repeat = 0;
 	while (str[*i] == c)
 	{
+		if (str[*i - 1] == '|' && str[*i + 1] == '|' && str[*i + 2] == '|')
+		{
+			if(c == '|')
+			{
+				ft_printf("minishell: syntax error near unexpected token `||'\n");
+				return (0);
+			}
+		}
+		if(str[*i - 1] == '|') 
+		{
+			if(c == '|')
+			{
+				ft_printf("minishell: syntax error near unexpected token `|'\n");
+				return (0);
+			}
+		}
 		if (c == ';')
 		{
 			repeat++;
 			if (repeat > 1)
 			{
-				ft_printf("minishell: syntax error near unexpected token `;;'\n"
-);
+				ft_printf("minishell: syntax error near unexpected token `;;'\n");
 				return (0);
 			}
 		}

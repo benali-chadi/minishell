@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mod_split_red.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:03:11 by smhah             #+#    #+#             */
-/*   Updated: 2021/02/23 16:21:01 by smhah            ###   ########.fr       */
+/*   Updated: 2021/02/26 21:38:15 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char		**result_red(char **tab, const char *str, char *c)
 			i++;
 		if (str[i] == '\0')
 			break ;
-		while ((g_var_one == 1 || g_var_two == 1 || !ft_strchr(c, str[i]))
+		while ((g_var_one == 1 || g_var_two == 1 || str[i - 1] == '\\' || !ft_strchr(c, str[i]))
 			&& str[i] != '\0' && re_check_quots(str, i))
 			tab[a][b++] = str[i++];
 		tab[a][b] = '\0';

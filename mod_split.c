@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:03 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/18 21:42:13 by macbook          ###   ########.fr       */
+/*   Updated: 2021/02/26 21:36:18 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int			ft_countwords(char *str, char c)
 		if (str[i] == '\0')
 			break ;
 		compteur++;
-		while ((g_var_one == 1 || g_var_two == 1 || str[i] != c)
+		while ((g_var_one == 1 || g_var_two == 1 || str[i] != c || str[i - 1] == '\\')
 			&& str[i] != '\0' && re_check_quots(str, i))
 			i++;
 		if (str[i] == '\0')
@@ -50,7 +50,7 @@ int			ft_countlen(const char *str, char c, int *i)
 			*i = *i + 1;
 		if (str[*i] == '\0')
 			return (len);
-		while ((g_var_one == 1 || g_var_two == 1 || str[*i] != c)
+		while ((g_var_one == 1 || g_var_two == 1 || str[*i - 1] == '\\' || str[*i] != c)
 			&& str[*i] != '\0' && re_check_quots(str, *i))
 		{
 			*i = *i + 1;
@@ -81,7 +81,7 @@ char		**result(char **tab, const char *str, char c)
 			break ;
 		g_case_index[a] = '0';
 		b = 0;
-		while ((g_var_one == 1 || g_var_two == 1 || str[i] != c)
+		while ((g_var_one == 1 || g_var_two == 1 || str[i - 1] == '\\' || str[i] != c)
 			&& str[i] != '\0' && re_check_quots(str, i))
 			tab[a][b++] = str[i++];
 		tab[a][b] = '\0';

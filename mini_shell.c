@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/25 18:28:14 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/02/26 21:21:48 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int		fill_and_execute(void)
 		g_fd = NULL;
 		j = 0;
 		g_utils.p_split = mod_split(g_utils.m_split[i], '|');
+		if (!g_utils.p_split)
+			return (0);
 		if (!fill(&j, i))
 			return (-1);
 		execute(j);
