@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:14 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/25 18:29:04 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/03/01 17:22:34 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ void	red_file_names(char *args, int red, int j)
 	{
 		g_cmd->reds.in_file_name[g_cmd->reds.in_num] =
 		m_malloc(ft_strlen(args) + 1);
-		k = 0;
-		while (args[j])
-			g_cmd->reds.in_file_name[g_cmd->reds.in_num][k++] = args[j++];
+		str = clean_cmd(&args[j]);
+		k = -1;
+		while (str[++k])
+			g_cmd->reds.in_file_name[g_cmd->reds.in_num][k] = str[k];
 		g_cmd->reds.in_file_name[g_cmd->reds.in_num][k] = '\0';
 		g_cmd->reds.in_num++;
 	}

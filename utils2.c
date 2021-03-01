@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:08 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/25 18:34:55 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/03/01 17:19:01 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ char	*search_lgnam(void)
 	read_env = g_list_env;
 	while (read_env)
 	{
-		if (ft_strcmpr(read_env->name, "LOGNAME"))
-			return (ft_strjoin("/home/", read_env->content));
+		if (ft_strcmpr(read_env->name, "USER"))
+			return (ft_strjoin("/Users/", read_env->content));
 		read_env = read_env->next;
 	}
 	return (NULL);
