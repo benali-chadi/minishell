@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/26 19:21:17 by smhah            ###   ########.fr       */
+/*   Updated: 2021/03/02 19:07:37 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 	**Envirenment Stucture
 */
 
-typedef	struct				s_list_env
+typedef struct s_list_env
 {
 	char					*content;
 	char					*name;
@@ -41,7 +41,7 @@ typedef	struct				s_list_env
 /*
 	**Commands Structures
 */
-typedef struct				s_tests
+typedef struct s_tests
 {
 	int						echo;
 	int						cd;
@@ -53,13 +53,13 @@ typedef struct				s_tests
 	int						ls;
 }							t_tests;
 
-typedef struct				s_out
+typedef struct s_out
 {
 	char					sym[3];
 	char					*file_name;
 }							t_out;
 
-typedef struct				s_redirection
+typedef struct s_redirection
 {
 	char					*in_file_name[100];
 	t_out					out[100];
@@ -67,10 +67,11 @@ typedef struct				s_redirection
 	int						out_num;
 }							t_redirection;
 
-typedef struct				s_command_info {
+typedef struct s_command_info {
 	char					*command;
 	char					*options;
 	char					*string[10000];
+	int						indice[10000];
 	int						string_len;
 	t_tests					tests;
 	int						pipe;
@@ -82,7 +83,7 @@ typedef struct				s_command_info {
 	**Utils Structure
 */
 
-typedef struct				s_utils
+typedef struct s_utils
 {
 	char					*line;
 	char					**m_split;
@@ -104,7 +105,7 @@ t_command_info				*g_cmd;
 t_command_info				*g_commands;
 t_list_env					*g_list_env;
 t_utils						g_utils;
-int							(*g_fd)[2];
+int (*g_fd)[2];
 int							g_q;
 int							g_one;
 int							g_two;
@@ -159,9 +160,9 @@ int							is_alpha_digit(char a);
 void						init_stuff(char **env);
 void						fill_command(char a);
 int							sing_or_doub_q(char *str,
-							int *k, int quote, char q);
+								int *k, int quote, char q);
 void						sig_handler(int signum);
-char						*search_lgnam();
+char						*search_lgnam(void);
 
 /*
 	**For freeing
@@ -179,19 +180,19 @@ void						to_free(void);
 
 void						ft_remove_node(t_command_info *cmd);
 void						add_back(t_list_env **head, char *name,
-							char *content, char *name_content);
+								char *content, char *name_content);
 t_list_env					*ft_lstlast(t_list_env *lst);
 void						ft_lstadd_front(t_list_env **alst, t_list_env *new);
 void						ft_lstadd_back(t_list_env **alst, t_list_env *new);
 t_list_env					*ft_lstnew(char *name, char *content,
-							char *name_content);
+								char *name_content);
 
 /*
 	**cmd
 */
 
 void						cmd_lstadd_back(t_command_info **commands,
-							t_command_info *new);
+								t_command_info *new);
 t_command_info				*cmd_lstlast(t_command_info *lst);
 
 /*
@@ -206,14 +207,14 @@ void						ft_cpy_env(t_list_env *read_env, int s);
 void						compare_var_command(char *var, char *command);
 void						ft_cpy_env_command(t_list_env *read_env);
 int							check_var(char *name, char *content,
-char *name_content);
+								char *name_content);
 /*
 	**Commands
 */
 
 int							fill_cmd(char **split, int p);
 int							cat_command_string(char **args, int *s);
-void						init_one_two();
+void						init_one_two(void);
 void						fill_command_string(char a, int i);
 int							first_condition(int j, char **args, int i, int *s);
 void						to_while(char **args, int i, int *s);

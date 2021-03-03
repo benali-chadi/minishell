@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:32:40 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/24 18:51:14 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/03/02 19:24:54 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 
 static void	red_out(t_command_info *cmd, int n)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < cmd->reds.out_num)
 	{
 		if (ft_strcmpr(cmd->reds.out[i].sym, ">>"))
 			g_fd[n][1] = open(cmd->reds.out[i++].file_name,
-			O_CREAT | O_WRONLY | O_APPEND, 0666);
+					O_CREAT | O_WRONLY | O_APPEND, 0666);
 		else
 			g_fd[n][1] = open(cmd->reds.out[i++].file_name,
-			O_CREAT | O_WRONLY | O_TRUNC, 0666);
+					O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	}
 	dup2(g_fd[n][1], 1);
 }
 
-void		pipe_or_red(t_command_info *cmd, int *in, int n, int last)
+void	pipe_or_red(t_command_info *cmd, int *in, int n, int last)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (cmd->reds.in_num > 0)
@@ -52,7 +52,7 @@ void		pipe_or_red(t_command_info *cmd, int *in, int n, int last)
 		dup2(g_fd[n][1], STDOUT_FILENO);
 }
 
-void		ft_fork(t_command_info *cmd, int n, int last)
+void	ft_fork(t_command_info *cmd, int n, int last)
 {
 	int		f;
 	int		in;
@@ -60,7 +60,10 @@ void		ft_fork(t_command_info *cmd, int n, int last)
 	int		p;
 
 	p = 0;
-	in = n == 0 ? 0 : g_fd[n - 1][0];
+	if (!n)
+		in = 0;
+	else
+		n = g_fd[n - 1][0];
 	pipe(g_fd[n]);
 	if ((f = fork()) == 0)
 	{
@@ -80,7 +83,7 @@ void		ft_fork(t_command_info *cmd, int n, int last)
 		close(g_fd[n][1]);
 }
 
-void		exec_cmd(t_command_info *cmd, int i, int last)
+void	exec_cmd(t_command_info *cmd, int i, int last)
 {
 	if (cmd->tests.exit && !cmd->pipe)
 	{

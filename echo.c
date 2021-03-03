@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 15:02:50 by smhah             #+#    #+#             */
-/*   Updated: 2021/02/24 17:28:29 by smhah            ###   ########.fr       */
+/*   Updated: 2021/03/02 17:52:07 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int		ft_continue(int *force, int i, int j, t_command_info *cmd)
 void	echo(t_command_info *cmd)
 {
 	int i;
-	int j;
 	int force;
 
 	i = -1;
@@ -71,19 +70,13 @@ void	echo(t_command_info *cmd)
 	force = 0;
 	while (cmd->string[++i])
 	{
-		j = -1;
-		while (cmd->string[i][++j])
-		{
-			if (ft_continue(&force, i, j, cmd))
-				continue ;
-			ft_printf("%c", cmd->string[i][j]);
-			force = 0;
-		}
+		if(!cmd->indice[i])
+			ft_printf("%s", clean_cmd(cmd->string[i]));
+		else
+			ft_printf("%s", cmd->string[i]);
 		if (cmd->string[i + 1])
 			ft_printf(" ");
 	}
 	if (!cmd->options || !ft_strcmpr(cmd->options, "-n"))
 		ft_printf("\n");
-	if (g_var_one == 1 || g_var_two == 1)
-		ft_printf("CHNO KATKHWER\n");
 }

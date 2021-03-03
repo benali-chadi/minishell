@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:54 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/25 18:27:17 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/03/02 17:05:25 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,15 @@ void	ft_export(t_command_info *cmd)
 		if (ft_print_error(cmd->string[i][0], cmd, i))
 			continue ;
 		name = m_malloc(ft_strlen(cmd->string[i]) + 1);
+		cmd->string[i] = clean_cmd(cmd->string[i]);
 		while (cmd->string[i][++j] != '=' && cmd->string[i][j])
 			name[j] = cmd->string[i][j];
 		name[j] = '\0';
 		content = cmd->string[i][j] == '=' ? &cmd->string[i][++j] : NULL;
+		printf("nameis:%s|content:%s, string:%s\n", name, content, cmd->string[i]);
 		if (check_var(name, content, cmd->string[i]))
-			add_back(&g_list_env, clean_cmd(name),
-				clean_cmd(content), clean_cmd(cmd->string[i]));
+			add_back(&g_list_env, name,
+				content, cmd->string[i]);
 	}
 }
 
