@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:32:40 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/02 19:24:54 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/03/03 17:12:03 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void	exec_cmd(t_command_info *cmd, int i, int last)
 			cmd->string[0] = ft_strjoin(search_lgnam(), (*cmd->string) + 1);
 		if (chdir(cmd->string[0]) < 0)
 			ft_printf("cd: can't cd to %s\n", cmd->string[0]);
+		add_last_cmd("cd");
 	}
 	else if (cmd->tests.export_t)
 		ft_export(cmd);

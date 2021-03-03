@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cat_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:21:41 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/02 19:20:59 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/03/03 17:10:50 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,24 @@ int	check_first_char(char **args, int *i, int *j)
 	return (0);
 }
 
+void	change_one_two(char a)
+{
+	if (a == '\'')
+	{
+		if (g_one)
+			g_one = 0;
+		else
+			g_one = 2;
+	}
+	if (a == '"')
+	{
+		if (g_two)
+			g_two = 0;
+		else
+			g_two = 2;
+	}
+}
+
 void	to_while(char **args, int i, int *s)
 {
 	int	j;
@@ -115,7 +133,6 @@ void	to_while(char **args, int i, int *s)
 
 	j = 0;
 	f = 0;
-	g_cmd->indice[*s] = 0;
 	while (args[i][j])
 	{
 		if (check_first_char(args, &i, &j) == 1)
@@ -123,9 +140,8 @@ void	to_while(char **args, int i, int *s)
 			j = first_condition(j, args, i, s);
 			if (args[i][j] == '"' || args[i][j] == '\'')
 			{
-				printf("HERE\n");
 				f = 1;
-				fill_command_string(args[i][j], *s);
+				change_one_two(args[i][j]);
 			}
 			g_cmd->indice[*s] = 1;
 		}
@@ -133,9 +149,12 @@ void	to_while(char **args, int i, int *s)
 			fill_command_string(args[i][j], *s);
 		else
 		{
-			printf("|%c|\n", args[i][j]);
-			// if(args[i][j]  != '"' && args[i][j] != '\'')
-			// if (!f)
+			if((args[i][j] == '"' || args[i][j] == '\''))
+			{
+				if((args[i][j] == '"' && g_two != 2) || (args[i][j] == '\'' && g_one != 2))
+					fill_command_string(args[i][j], *s);
+			}
+			else
 				fill_command_string(args[i][j], *s);
 		}
 		if (args[i][j] && (args[i][j] != '$'
@@ -153,6 +172,7 @@ int	cat_command_string(char **args, int *s)
 	i = 0;
 	while (args[i])
 	{
+		g_cmd->indice[*s] = 0;
 		j = 0;
 		if (args[i] && (args[i][j] == '<' || args[i][j] == '>'))
 			if (redirection(args, i) < 0)
@@ -170,5 +190,6 @@ int	cat_command_string(char **args, int *s)
 		i++;
 	}
 	g_cmd->string[*s] = NULL;
+	add_last_cmd(g_cmd->string[*s - 1]);
 	return (1);
 }

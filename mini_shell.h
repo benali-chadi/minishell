@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/02 19:07:37 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/03/03 17:07:23 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,9 @@ char						g_next;
 /*
 	**Utils
 */
+void						add_last_cmd(char *s);
+int							condition1(char a1, char a2);
+void						change_one_two(char a);
 int							check_special_char(char a);
 int							ft_print_error(char a, t_command_info *cmd, int i);
 int							is_min(char a);

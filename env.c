@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:54 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/02 17:05:25 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/03/03 17:06:39 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,26 @@ void	ft_export(t_command_info *cmd)
 			add_back(&g_list_env, name,
 				content, cmd->string[i]);
 	}
+}
+
+void	add_last_cmd(char *s)
+{
+	char *name;
+	char *content;
+	char *name_content;
+	int i;
+	int j;
+
+	j = -1;
+	i = 0;
+	name = m_malloc(2);
+	ft_strcpy(name, "_");
+	content = malloc(ft_strlen(s) + 1);
+	name_content = m_malloc(2 + ft_strlen(content) + 1);
+	name_content[i++] = '_';
+	name_content[i++] = '=';
+	ft_strcpy(&name_content[i], s);
+	check_var(name, content, name_content);
 }
 
 void	ft_next_node(t_list_env **read_list, t_list_env **prev)
