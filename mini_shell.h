@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/03 17:07:23 by smhah            ###   ########.fr       */
+/*   Updated: 2021/03/03 18:43:35 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_utils
 	char					**env;
 	int						out;
 	struct stat				buf;
+	char 					pwd[100];
 }							t_utils;
 
 /*
@@ -126,6 +127,7 @@ int							g_count_end;
 char						g_case_index[10000];
 int							g_print_next;
 char						g_next;
+int							g_echo;
 /*
 	**Functions
 */
@@ -133,7 +135,7 @@ char						g_next;
 /*
 	**Utils
 */
-void						add_last_cmd(char *s);
+int							add_last_cmd(char *s, char *name);
 int							condition1(char a1, char a2);
 void						change_one_two(char a);
 int							check_special_char(char a);

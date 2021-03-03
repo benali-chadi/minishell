@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:14:40 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/25 18:31:40 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/03/03 18:49:29 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,27 @@ int		mod_strlen(char **s)
 	while (s[i])
 		i++;
 	return (i);
+}
+
+int		add_last_cmd(char *s, char *name)
+{
+	//char *name;
+	char *content;
+	char *name_content;
+	int i;
+	int j;
+
+	j = -1;
+	i = ft_strlen(name);
+	// name = m_malloc(2);
+	// ft_strcpy(name, "_");
+	content = malloc(ft_strlen(s) + 1);
+	ft_strcpy(content, s);
+	name_content = m_malloc(i + ft_strlen(content) + 1);
+	name_content = ft_strcpy(name_content, name);
+	name_content[i++] = '=';
+	ft_strcpy(&name_content[i], s);
+	if(check_var(name, content, name_content))
+		add_back(&g_list_env, name, content, name_content);
+	return (1);
 }

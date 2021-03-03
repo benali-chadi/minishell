@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:08:59 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/25 18:28:06 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/03/03 18:37:22 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@ int		fill_cmd_helper(char **split)
 		ft_strcpy(g_cmd->options, split[i]);
 		i++;
 	}
+	printf("1\n");
+	if(!ft_strcmpr(g_cmd->command, "echo"))
+		add_last_cmd(g_cmd->command, "_");
 	return (i);
 }
 

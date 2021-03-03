@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/26 21:21:48 by macbook          ###   ########.fr       */
+/*   Updated: 2021/03/03 18:00:53 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int		main(int ac, char **av, char **env)
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 	stock_env(env);
+	g_echo = 0;
 	while (1)
 	{
 		if (!g_utils.buf.st_size)

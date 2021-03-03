@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:21:41 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/03 17:10:50 by smhah            ###   ########.fr       */
+/*   Updated: 2021/03/03 18:36:26 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,7 @@ int	cat_command_string(char **args, int *s)
 		i++;
 	}
 	g_cmd->string[*s] = NULL;
-	add_last_cmd(g_cmd->string[*s - 1]);
+	printf("2[%s]\n", g_cmd->string[*s - 1]);
+	add_last_cmd(g_cmd->string[*s - 1], "_");
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:32:40 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/03 17:12:03 by smhah            ###   ########.fr       */
+/*   Updated: 2021/03/03 18:52:39 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	ft_fork(t_command_info *cmd, int n, int last)
 }
 
 void	exec_cmd(t_command_info *cmd, int i, int last)
-{
+{	
 	if (cmd->tests.exit && !cmd->pipe)
 	{
 		to_free();
@@ -93,13 +93,18 @@ void	exec_cmd(t_command_info *cmd, int i, int last)
 	}
 	else if (cmd->tests.cd)
 	{
+		add_last_cmd(getcwd(g_utils.pwd, 100), "OLDPWD");
 		if (!cmd->string[0])
 			cmd->string[0] = search_lgnam();
 		else if (cmd->string[0][0] == '~')
 			cmd->string[0] = ft_strjoin(search_lgnam(), (*cmd->string) + 1);
 		if (chdir(cmd->string[0]) < 0)
 			ft_printf("cd: can't cd to %s\n", cmd->string[0]);
-		add_last_cmd("cd");
+		printf("|%s|\n",cmd->string[0]);
+		add_last_cmd(getcwd(g_utils.pwd, 100), "PWD");
+		add_last_cmd("cd", "_");
+		if(ft_strcmpr(cmd->string[0], ".") || ft_strcmpr(cmd->string[0], ".."))
+			add_last_cmd(cmd->string[0], "_");
 	}
 	else if (cmd->tests.export_t)
 		ft_export(cmd);
