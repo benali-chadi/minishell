@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/04 12:11:17 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/03/04 15:07:52 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,15 @@ int							g_echo;
 	**Functions
 */
 
+/*
+	**cat_command_utils
+*/
+void						fix_quotes_next_to_var(char **args,
+int i, int j, int *s);
+void						change_one_two(char a);
+void						fill_command_string(char a, int i);
+void						init_one_two(void);
+void						replace_var(char **args, int i, int j, int *s);
 /*
 	**Utils
 */

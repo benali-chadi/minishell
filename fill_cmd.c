@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:08:59 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/04 12:08:22 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/03/04 15:10:57 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+int		check_special_char(char a)
+{
+	if (!is_alpha_digit(a) && a != '_' && a != '\''
+		&& a != '\"' && a != '$' && a != '\\' && (g_next = a))
+		return (1);
+	return (0);
+}
 
 int		check_end_1(char **args, char **split, int *i)
 {
@@ -111,7 +119,7 @@ int		fill_cmd(char **split, int p)
 	}
 	if (s)
 		add_last_cmd(g_cmd->string[s - 1], "_");
-	else if (g_cmd->options)	
+	else if (g_cmd->options)
 		add_last_cmd(g_cmd->options, "_");
 	else
 		add_last_cmd(g_cmd->command, "_");

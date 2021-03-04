@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:46:33 by smhah             #+#    #+#             */
-/*   Updated: 2021/03/04 11:49:36 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/03/04 15:10:50 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
-int		check_special_char(char a)
-{
-	if (!is_alpha_digit(a) && a != '_' && a != '\''
-		&& a != '\"' && a != '$' && a != '\\' && (g_next = a))
-		return (1);
-	return (0);
-}
 
 int		first_condition_cmd(int i, char *command)
 {
@@ -70,6 +62,18 @@ int		check_first_char_cmd(char a1, char a2, int *i)
 	return (0);
 }
 
+void	fix_cmd_quotes_next_to_var(char *command, int i)
+{
+	if ((command[i] == '"' || command[i] == '\''))
+	{
+		if ((command[i] == '"' && g_two != 2) ||
+		(command[i] == '\'' && g_one != 2))
+			fill_command(command[i]);
+	}
+	else
+		fill_command(command[i]);
+}
+
 void	to_while_cmd(char *command, int i, int *indice)
 {
 	while (command[i])
@@ -85,16 +89,7 @@ void	to_while_cmd(char *command, int i, int *indice)
 		else if (check_first_char_cmd(command[i], command[i + 1], &i) == 2)
 			fill_command(command[i]);
 		else
-		{
-			if ((command[i] == '"' || command[i] == '\''))
-			{
-				if ((command[i] == '"' && g_two != 2) ||
-				(command[i] == '\'' && g_one != 2))
-					fill_command(command[i]);
-			}
-			else
-				fill_command(command[i]);
-		}
+			fix_cmd_quotes_next_to_var(command, i);
 		if (command[i] && (command[i] != '$' ||
 			(g_one == 1 && command[i] == '$')))
 			i++;

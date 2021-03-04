@@ -3,39 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cat_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:21:41 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/04 14:45:04 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/03/04 15:05:38 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
-void		fill_command_string(char a, int i)
-{
-	g_cmd->string[i][g_cmd->string_len++] = a;
-	if (a == '\'')
-	{
-		if (g_one)
-			g_one = 0;
-		else
-			g_one = 1;
-	}
-	if (a == '"')
-	{
-		if (g_two)
-			g_two = 0;
-		else
-			g_two = 1;
-	}
-}
-
-void		init_one_two(void)
-{
-	g_one = 0;
-	g_two = 0;
-}
 
 int			first_condition(int j, char **args, int i, int *s)
 {
@@ -61,13 +36,7 @@ int			first_condition(int j, char **args, int i, int *s)
 		g_cmd->string[*s][g_cmd->string_len++] = '\0';
 	}
 	else
-	{
-		if (check_special_char(args[i][j]))
-			g_print_next = 1;
-		compare_var(g_str_var, args[i], *s);
-		if (g_print_next)
-			fill_command_string(g_next, *s);
-	}
+		replace_var(args, i, j, s);
 	return (j);
 }
 
@@ -108,24 +77,6 @@ int			check_first_char(char **args, int *i, int *j)
 	return (0);
 }
 
-void		change_one_two(char a)
-{
-	if (a == '\'')
-	{
-		if (g_one)
-			g_one = 0;
-		else
-			g_one = 2;
-	}
-	if (a == '"')
-	{
-		if (g_two)
-			g_two = 0;
-		else
-			g_two = 2;
-	}
-}
-
 void		to_while(char **args, int i, int *s)
 {
 	int	j;
@@ -143,16 +94,7 @@ void		to_while(char **args, int i, int *s)
 		else if (check_first_char(args, &i, &j) == 2)
 			fill_command_string(args[i][j], *s);
 		else
-		{
-			if ((args[i][j] == '"' || args[i][j] == '\''))
-			{
-				if ((args[i][j] == '"' && g_two != 2) ||
-				(args[i][j] == '\'' && g_one != 2))
-					fill_command_string(args[i][j], *s);
-			}
-			else
-				fill_command_string(args[i][j], *s);
-		}
+			fix_quotes_next_to_var(args, i, j, s);
 		if (args[i][j] && (args[i][j] != '$'
 				|| (g_one == 1 && args[i][j] == '$')))
 			j++;
