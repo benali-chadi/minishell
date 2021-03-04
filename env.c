@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:54 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/04 11:37:31 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/03/04 15:21:21 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,12 @@ int		loop_env(int e)
 		if (e)
 			ft_printf("declare -x %s\n", tmp->name_content);
 		else if (tmp->content)
-			ft_printf("%s\n", tmp->name_content);
+		{
+			if (ft_strcmpr(tmp->name_content, "_=env"))
+				ft_printf("_=/usr/bin/env\n");
+			else
+				ft_printf("%s\n", tmp->name_content);
+		}
 		tmp = tmp->next;
 	}
 	return (1);
