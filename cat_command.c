@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:21:41 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/04 11:36:00 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/03/04 14:45:04 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,20 +129,15 @@ void		change_one_two(char a)
 void		to_while(char **args, int i, int *s)
 {
 	int	j;
-	int	f;
 
 	j = 0;
-	f = 0;
 	while (args[i][j])
 	{
 		if (check_first_char(args, &i, &j) == 1)
 		{
 			j = first_condition(j, args, i, s);
 			if (args[i][j] == '"' || args[i][j] == '\'')
-			{
-				f = 1;
 				change_one_two(args[i][j]);
-			}
 			g_cmd->indice[*s] = 1;
 		}
 		else if (check_first_char(args, &i, &j) == 2)
