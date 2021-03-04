@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:32:40 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/04 11:46:16 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/03/04 14:12:16 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void			ft_fork(t_command_info *cmd, int n, int last)
 
 	p = 0;
 	in = n == 0 ? 0 : g_fd[n - 1][0];
-	pipe(g_fd[n]);
+	if (last)
+		pipe(g_fd[n]);
 	if ((f = fork()) == 0)
 	{
 		pipe_or_red(cmd, &in, n, last);
