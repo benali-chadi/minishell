@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mod_split_red_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:04:04 by smhah             #+#    #+#             */
-/*   Updated: 2021/02/26 21:37:52 by macbook          ###   ########.fr       */
+/*   Updated: 2021/03/04 12:02:35 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ int			ft_countlen_red(const char *str, char *c, int *i)
 			*i = *i + 1;
 		if (str[*i] == '\0')
 			return (len);
-		while ((g_var_one == 1 || g_var_two == 1 ||str[*i - 1] == '\\' || !ft_strchr(c, str[*i]))
+		while ((g_var_one == 1 || g_var_two == 1 ||
+		str[*i - 1] == '\\' || !ft_strchr(c, str[*i]))
 			&& str[*i] != '\0' && re_check_quots(str, *i))
 		{
 			*i = *i + 1;

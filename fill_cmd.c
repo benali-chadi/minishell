@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:08:59 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/03 18:37:22 by smhah            ###   ########.fr       */
+/*   Updated: 2021/03/04 12:08:22 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,6 @@ int		fill_cmd_helper(char **split)
 		ft_strcpy(g_cmd->options, split[i]);
 		i++;
 	}
-	printf("1\n");
-	if(!ft_strcmpr(g_cmd->command, "echo"))
-		add_last_cmd(g_cmd->command, "_");
 	return (i);
 }
 
@@ -102,9 +99,7 @@ int		fill_cmd(char **split, int p)
 	int		i;
 	int		s;
 
-	if (!*split)
-		return (0);
-	if ((i = fill_cmd_helper(split)) < 0)
+	if (!*split || (i = fill_cmd_helper(split)) < 0)
 		return (-1);
 	s = 0;
 	while (split[i])
@@ -114,6 +109,12 @@ int		fill_cmd(char **split, int p)
 			return (-1);
 		i++;
 	}
+	if (s)
+		add_last_cmd(g_cmd->string[s - 1], "_");
+	else if (g_cmd->options)	
+		add_last_cmd(g_cmd->options, "_");
+	else
+		add_last_cmd(g_cmd->command, "_");
 	test(g_cmd);
 	g_cmd->pipe = p;
 	cmd_lstadd_back(&g_commands, g_cmd);

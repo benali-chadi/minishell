@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cat_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:21:41 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/03 18:36:26 by smhah            ###   ########.fr       */
+/*   Updated: 2021/03/04 11:36:00 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-void	fill_command_string(char a, int i)
+void		fill_command_string(char a, int i)
 {
 	g_cmd->string[i][g_cmd->string_len++] = a;
 	if (a == '\'')
@@ -31,13 +31,13 @@ void	fill_command_string(char a, int i)
 	}
 }
 
-void	init_one_two(void)
+void		init_one_two(void)
 {
 	g_one = 0;
 	g_two = 0;
 }
 
-int	first_condition(int j, char **args, int i, int *s)
+int			first_condition(int j, char **args, int i, int *s)
 {
 	g_print_next = 0;
 	j++;
@@ -71,7 +71,7 @@ int	first_condition(int j, char **args, int i, int *s)
 	return (j);
 }
 
-int	condition1(char a1, char a2)
+int			condition1(char a1, char a2)
 {
 	if ((a1 == '$' && a2 && g_one != 1 && !is_digit(a2) && a2 != '.')
 		|| (a1 == '$' && a2 && g_one == 1
@@ -80,7 +80,7 @@ int	condition1(char a1, char a2)
 	return (0);
 }
 
-int	check_first_char(char **args, int *i, int *j)
+int			check_first_char(char **args, int *i, int *j)
 {
 	char	a1;
 	char	a2;
@@ -108,7 +108,7 @@ int	check_first_char(char **args, int *i, int *j)
 	return (0);
 }
 
-void	change_one_two(char a)
+void		change_one_two(char a)
 {
 	if (a == '\'')
 	{
@@ -126,7 +126,7 @@ void	change_one_two(char a)
 	}
 }
 
-void	to_while(char **args, int i, int *s)
+void		to_while(char **args, int i, int *s)
 {
 	int	j;
 	int	f;
@@ -149,9 +149,10 @@ void	to_while(char **args, int i, int *s)
 			fill_command_string(args[i][j], *s);
 		else
 		{
-			if((args[i][j] == '"' || args[i][j] == '\''))
+			if ((args[i][j] == '"' || args[i][j] == '\''))
 			{
-				if((args[i][j] == '"' && g_two != 2) || (args[i][j] == '\'' && g_one != 2))
+				if ((args[i][j] == '"' && g_two != 2) ||
+				(args[i][j] == '\'' && g_one != 2))
 					fill_command_string(args[i][j], *s);
 			}
 			else
@@ -164,7 +165,7 @@ void	to_while(char **args, int i, int *s)
 	g_cmd->string[*s][g_cmd->string_len] = '\0';
 }
 
-int	cat_command_string(char **args, int *s)
+int			cat_command_string(char **args, int *s)
 {
 	int	j;
 	int	i;
@@ -190,7 +191,5 @@ int	cat_command_string(char **args, int *s)
 		i++;
 	}
 	g_cmd->string[*s] = NULL;
-	printf("2[%s]\n", g_cmd->string[*s - 1]);
-	add_last_cmd(g_cmd->string[*s - 1], "_");
 	return (1);
 }

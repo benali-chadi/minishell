@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:54 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/03 18:55:04 by smhah            ###   ########.fr       */
+/*   Updated: 2021/03/04 11:37:31 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	stock_env(char **env)
 		}
 		name[j] = '\0';
 		content = &env[i][j] + 1;
-		if(!ft_strcmpr(name, "OLDPWD"))
+		if (!ft_strcmpr(name, "OLDPWD"))
 			add_back(&g_list_env, name, content, name_content);
 		i++;
 	}
@@ -77,7 +77,6 @@ void	ft_export(t_command_info *cmd)
 			name[j] = cmd->string[i][j];
 		name[j] = '\0';
 		content = cmd->string[i][j] == '=' ? &cmd->string[i][++j] : NULL;
-		printf("nameis:%s|content:%s, string:%s\n", name, content, cmd->string[i]);
 		if (check_var(name, content, cmd->string[i]))
 			add_back(&g_list_env, name,
 				content, cmd->string[i]);

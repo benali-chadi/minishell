@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 15:02:50 by smhah             #+#    #+#             */
-/*   Updated: 2021/03/02 17:52:07 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/03/04 11:36:44 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	echo(t_command_info *cmd)
 	force = 0;
 	while (cmd->string[++i])
 	{
-		if(!cmd->indice[i])
+		if (!cmd->indice[i])
 			ft_printf("%s", clean_cmd(cmd->string[i]));
 		else
 			ft_printf("%s", cmd->string[i]);

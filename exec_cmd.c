@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:32:40 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/03 18:52:39 by smhah            ###   ########.fr       */
+/*   Updated: 2021/03/04 11:46:16 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-static void	red_out(t_command_info *cmd, int n)
+static void		red_out(t_command_info *cmd, int n)
 {
 	int	i;
 
@@ -29,7 +29,7 @@ static void	red_out(t_command_info *cmd, int n)
 	dup2(g_fd[n][1], 1);
 }
 
-void	pipe_or_red(t_command_info *cmd, int *in, int n, int last)
+void			pipe_or_red(t_command_info *cmd, int *in, int n, int last)
 {
 	int	i;
 
@@ -52,7 +52,7 @@ void	pipe_or_red(t_command_info *cmd, int *in, int n, int last)
 		dup2(g_fd[n][1], STDOUT_FILENO);
 }
 
-void	ft_fork(t_command_info *cmd, int n, int last)
+void			ft_fork(t_command_info *cmd, int n, int last)
 {
 	int		f;
 	int		in;
@@ -60,10 +60,7 @@ void	ft_fork(t_command_info *cmd, int n, int last)
 	int		p;
 
 	p = 0;
-	if (!n)
-		in = 0;
-	else
-		n = g_fd[n - 1][0];
+	in = n == 0 ? 0 : g_fd[n - 1][0];
 	pipe(g_fd[n]);
 	if ((f = fork()) == 0)
 	{
@@ -83,14 +80,10 @@ void	ft_fork(t_command_info *cmd, int n, int last)
 		close(g_fd[n][1]);
 }
 
-void	exec_cmd(t_command_info *cmd, int i, int last)
-{	
+void			exec_cmd(t_command_info *cmd, int i, int last)
+{
 	if (cmd->tests.exit && !cmd->pipe)
-	{
-		to_free();
-		close(g_utils.out);
-		exit(0);
-	}
+		leave();
 	else if (cmd->tests.cd)
 	{
 		add_last_cmd(getcwd(g_utils.pwd, 100), "OLDPWD");
@@ -100,10 +93,9 @@ void	exec_cmd(t_command_info *cmd, int i, int last)
 			cmd->string[0] = ft_strjoin(search_lgnam(), (*cmd->string) + 1);
 		if (chdir(cmd->string[0]) < 0)
 			ft_printf("cd: can't cd to %s\n", cmd->string[0]);
-		printf("|%s|\n",cmd->string[0]);
 		add_last_cmd(getcwd(g_utils.pwd, 100), "PWD");
 		add_last_cmd("cd", "_");
-		if(ft_strcmpr(cmd->string[0], ".") || ft_strcmpr(cmd->string[0], ".."))
+		if (ft_strcmpr(cmd->string[0], ".") || ft_strcmpr(cmd->string[0], ".."))
 			add_last_cmd(cmd->string[0], "_");
 	}
 	else if (cmd->tests.export_t)

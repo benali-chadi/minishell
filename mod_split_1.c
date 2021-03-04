@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   mod_split_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:31:56 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/26 21:29:29 by macbook          ###   ########.fr       */
+/*   Updated: 2021/03/04 12:01:40 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+int			p_e(char *msg)
+{
+	ft_printf("minishell: syntax error near unexpected token `%s'\n", msg);
+	return (0);
+}
 
 int			skip_repeat(char *str, int *i, char c)
 {
@@ -20,29 +26,16 @@ int			skip_repeat(char *str, int *i, char c)
 	while (str[*i] == c)
 	{
 		if (str[*i - 1] == '|' && str[*i + 1] == '|' && str[*i + 2] == '|')
-		{
-			if(c == '|')
-			{
-				ft_printf("minishell: syntax error near unexpected token `||'\n");
-				return (0);
-			}
-		}
-		if(str[*i - 1] == '|') 
-		{
-			if(c == '|')
-			{
-				ft_printf("minishell: syntax error near unexpected token `|'\n");
-				return (0);
-			}
-		}
+			if (c == '|')
+				return (p_e("||"));
+		if (str[*i - 1] == '|')
+			if (c == '|')
+				return (p_e("|"));
 		if (c == ';')
 		{
 			repeat++;
 			if (repeat > 1)
-			{
-				ft_printf("minishell: syntax error near unexpected token `;;'\n");
-				return (0);
-			}
+				return (p_e(";;"));
 		}
 		*i += 1;
 	}

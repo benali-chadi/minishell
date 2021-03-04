@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/03 18:00:53 by smhah            ###   ########.fr       */
+/*   Updated: 2021/03/04 11:46:32 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,7 @@ int		main(int ac, char **av, char **env)
 			ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m",
 			g_utils.out);
 		if (!(gnl(0, &g_utils.line)))
-		{
-			close(g_utils.out);
-			to_free();
-			exit(0);
-		}
+			leave();
 		if (check_semicolon(g_utils.line))
 			continue ;
 		if (fill_and_execute() < 0)

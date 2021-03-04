@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/03 18:43:35 by smhah            ###   ########.fr       */
+/*   Updated: 2021/03/04 12:11:17 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 	**Envirenment Stucture
 */
 
-typedef struct s_list_env
+typedef struct				s_list_env
 {
 	char					*content;
 	char					*name;
@@ -41,7 +41,7 @@ typedef struct s_list_env
 /*
 	**Commands Structures
 */
-typedef struct s_tests
+typedef struct				s_tests
 {
 	int						echo;
 	int						cd;
@@ -53,13 +53,13 @@ typedef struct s_tests
 	int						ls;
 }							t_tests;
 
-typedef struct s_out
+typedef struct				s_out
 {
 	char					sym[3];
 	char					*file_name;
 }							t_out;
 
-typedef struct s_redirection
+typedef struct				s_redirection
 {
 	char					*in_file_name[100];
 	t_out					out[100];
@@ -67,7 +67,7 @@ typedef struct s_redirection
 	int						out_num;
 }							t_redirection;
 
-typedef struct s_command_info {
+typedef struct				s_command_info {
 	char					*command;
 	char					*options;
 	char					*string[10000];
@@ -83,7 +83,7 @@ typedef struct s_command_info {
 	**Utils Structure
 */
 
-typedef struct s_utils
+typedef struct				s_utils
 {
 	char					*line;
 	char					**m_split;
@@ -95,7 +95,7 @@ typedef struct s_utils
 	char					**env;
 	int						out;
 	struct stat				buf;
-	char 					pwd[100];
+	char					pwd[100];
 }							t_utils;
 
 /*
@@ -168,6 +168,7 @@ int							sing_or_doub_q(char *str,
 								int *k, int quote, char q);
 void						sig_handler(int signum);
 char						*search_lgnam(void);
+void						leave(void);
 
 /*
 	**For freeing

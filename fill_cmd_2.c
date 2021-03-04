@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:46:33 by smhah             #+#    #+#             */
-/*   Updated: 2021/03/03 16:47:21 by smhah            ###   ########.fr       */
+/*   Updated: 2021/03/04 11:49:36 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		first_condition_cmd(int i, char *command)
 	return (i);
 }
 
-int	check_first_char_cmd(char a1, char a2, int *i)
+int		check_first_char_cmd(char a1, char a2, int *i)
 {
 	if (condition1(a1, a2))
 		return (1);
@@ -86,9 +86,10 @@ void	to_while_cmd(char *command, int i, int *indice)
 			fill_command(command[i]);
 		else
 		{
-			if((command[i] == '"' || command[i] == '\''))
+			if ((command[i] == '"' || command[i] == '\''))
 			{
-				if((command[i] == '"' && g_two != 2) || (command[i] == '\'' && g_one != 2))
+				if ((command[i] == '"' && g_two != 2) ||
+				(command[i] == '\'' && g_one != 2))
 					fill_command(command[i]);
 			}
 			else
