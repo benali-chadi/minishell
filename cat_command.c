@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cat_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:21:41 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/04 15:05:38 by smhah            ###   ########.fr       */
+/*   Updated: 2021/03/29 07:16:53 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,17 @@ void		to_while(char **args, int i, int *s)
 	{
 		if (check_first_char(args, &i, &j) == 1)
 		{
+			printf("%d\n", g_two);
 			j = first_condition(j, args, i, s);
+			if(!g_two)
+				g_cmd->indice[*s] = 1;
 			if (args[i][j] == '"' || args[i][j] == '\'')
-				change_one_two(args[i][j]);
-			g_cmd->indice[*s] = 1;
+			{
+				if(g_two == 1)
+					fill_command_string(args[i][j], *s);
+				else
+					change_one_two(args[i][j]);
+			}
 		}
 		else if (check_first_char(args, &i, &j) == 2)
 			fill_command_string(args[i][j], *s);

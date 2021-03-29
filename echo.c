@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 15:02:50 by smhah             #+#    #+#             */
-/*   Updated: 2021/03/04 14:47:55 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/03/29 07:01:45 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ void	echo(t_command_info *cmd)
 	while (cmd->string[++i])
 	{
 		if (!cmd->indice[i])
-			ft_printf("%s", clean_cmd(cmd->string[i]));
-		else
-			ft_printf("%s", cmd->string[i]);
+		 	ft_printf("%s", clean_cmd(cmd->string[i]));
+		//else
+			ft_printf("\n%s", cmd->string[i]);
 		if (cmd->string[i + 1])
 			ft_printf(" ");
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_clean_command.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:29:26 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/25 18:29:34 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/03/29 07:27:59 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,19 @@ int		check_quotes_two1(void)
 	}
 	return (0);
 }
+//‘$’, ‘`’, ‘"’, ‘\’
+
+int		is_special(char a)
+{
+	if (a == '$' || a == '\\' || a == '\"' || a == '`')
+		return (1);
+	return (0);
+}
 
 int		ft_continue1(int *force, int i, char *str)
 {
-	if (str[i] == '\\' && *force != 1
-	&& g_var_one != 1 && g_var_two != 1)
+	if ((str[i] == '\\' && *force != 1
+	&& g_var_one != 1 && g_var_two != 1) || (str[i] == '\\' && *force != 1 && is_special(str[i + 1])))
 	{
 		*force = 1;
 		return (1);

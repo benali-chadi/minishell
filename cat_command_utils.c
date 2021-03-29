@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cat_command_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 15:04:47 by smhah             #+#    #+#             */
-/*   Updated: 2021/03/04 15:07:13 by smhah            ###   ########.fr       */
+/*   Updated: 2021/03/29 07:07:22 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		fix_quotes_next_to_var(char **args, int i, int j, int *s)
 	{
 		if ((args[i][j] == '"' && g_two != 2) ||
 		(args[i][j] == '\'' && g_one != 2))
-			fill_command_string(args[i][j], *s);
+			fill_command_string(args[i][j], *s);		
 	}
 	else
 		fill_command_string(args[i][j], *s);
