@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:00:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/22 15:33:20 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/04/01 18:11:20 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ void	execute_cmd(t_command_info *cmd, char *command)
 		i = 1;
 		j = 0;
 		while (cmd->string[j])
+		{
 			g_utils.args[i++] = clean_cmd(cmd->string[j++]);
+		}
 		g_utils.args[i] = NULL;
 	}
 	if (execve(command, g_utils.args, g_utils.env) < 0)

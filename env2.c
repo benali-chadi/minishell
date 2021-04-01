@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 15:54:19 by smhah             #+#    #+#             */
-/*   Updated: 2021/03/04 14:43:06 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/04/01 17:13:13 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@ int		check_var(char *name, char *content, char *name_content)
 		{
 			if (!ft_strcmpr(read_env->name_content, name_content))
 			{
-				ft_strcpy(read_env->content, content);
-				ft_strcpy(read_env->name_content, name_content);
+				read_env->content = content;
+				read_env->name_content = name_content;
+				// ft_strcpy(read_env->content, content);
+				// ft_strcpy(read_env->name_content, name_content);
 			}
 			return (0);
 		}
