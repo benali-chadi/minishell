@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: smhah <smhah@student.42.fr>                +#+  +:+       +#+         #
+#    By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/28 16:00:43 by cbenali-          #+#    #+#              #
-#    Updated: 2021/03/04 15:08:26 by smhah            ###   ########.fr        #
+#    Updated: 2021/04/06 18:13:31 by cbenali-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS = -Wall -Wextra -Werror -g# -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 
 NAME = minishell
 

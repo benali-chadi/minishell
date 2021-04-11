@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/01 16:29:56 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/04/11 18:36:01 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # include <signal.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <curses.h>
+# include <term.h>
+# include <termios.h>
 
 /*
 	**Envirenment Stucture
@@ -238,7 +241,7 @@ void						to_while(char **args, int i, int *s);
 void						exec_cmd(t_command_info *cmd, int i, int last);
 void						test(t_command_info *cmd);
 int							test_cmds(t_command_info *cmd);
-void						echo(t_command_info *cmd);
+void						ft_echo(t_command_info *cmd);
 
 void						ft_fork(t_command_info *cmd, int n, int last);
 

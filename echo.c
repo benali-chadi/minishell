@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 15:02:50 by smhah             #+#    #+#             */
-/*   Updated: 2021/03/29 07:01:45 by macbook          ###   ########.fr       */
+/*   Updated: 2021/04/08 16:35:18 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		ft_continue(int *force, int i, int j, t_command_info *cmd)
 	return (0);
 }
 
-void	echo(t_command_info *cmd)
+void	ft_echo(t_command_info *cmd)
 {
 	int i;
 	int force;

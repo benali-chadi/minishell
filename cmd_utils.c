@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 18:49:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/03 18:44:24 by smhah            ###   ########.fr       */
+/*   Updated: 2021/04/08 16:35:11 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		test_cmds(t_command_info *cmd)
 		ft_putchar_fd('\n', 1);
 	}
 	else if (cmd->tests.echo)
-		echo(cmd);
+		ft_echo(cmd);
 	else if (cmd->tests.env)
 		loop_env(0);
 	else

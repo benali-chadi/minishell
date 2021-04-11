@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mod_split.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:03 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/04 12:03:58 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/04/01 16:35:49 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			ft_countwords(char *str, char c)
 			break ;
 		compteur++;
 		while ((g_var_one == 1 || g_var_two == 1 ||
-		str[i] != c || str[i - 1] == '\\')
+		str[i] != c || (i && str[i - 1] == '\\'))
 			&& str[i] != '\0' && re_check_quots(str, i))
 			i++;
 		if (str[i] == '\0')
@@ -52,7 +52,7 @@ int			ft_countlen(const char *str, char c, int *i)
 		if (str[*i] == '\0')
 			return (len);
 		while ((g_var_one == 1 || g_var_two == 1 ||
-		str[*i - 1] == '\\' || str[*i] != c)
+		(*i && str[*i - 1] == '\\') || str[*i] != c)
 			&& str[*i] != '\0' && re_check_quots(str, *i))
 		{
 			*i = *i + 1;
@@ -84,7 +84,7 @@ char		**result(char **tab, const char *str, char c)
 		g_case_index[a] = '0';
 		b = 0;
 		while ((g_var_one == 1 || g_var_two == 1
-		|| str[i - 1] == '\\' || str[i] != c)
+		|| (i && str[i - 1] == '\\') || str[i] != c)
 			&& str[i] != '\0' && re_check_quots(str, i))
 			tab[a][b++] = str[i++];
 		tab[a][b] = '\0';

@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:08:59 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/04 15:10:57 by smhah            ###   ########.fr       */
+/*   Updated: 2021/04/01 18:09:33 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int		fill_cmd_helper(char **split)
 	g_cmd->command = m_malloc(ft_strlen(split[i]) + 1);
 	ft_strcpy(g_cmd->command, clean_command_1(split[i]));
 	i++;
+	g_cmd->options = NULL;
 	if (split[i] && split[i][0] == '-')
 	{
 		g_cmd->options = m_malloc(ft_strlen(split[i]) + 1);
@@ -110,6 +111,7 @@ int		fill_cmd(char **split, int p)
 	if (!*split || (i = fill_cmd_helper(split)) < 0)
 		return (-1);
 	s = 0;
+	g_cmd->string[0] = NULL;
 	while (split[i])
 	{
 		args = mod_split_red(split[i], "><");
