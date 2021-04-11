@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:54 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/04 15:21:21 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/04/10 18:44:27 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	stock_env(char **env)
 	}
 }
 
-int		loop_env(int e)
+int	loop_env(int e)
 {
-	t_list_env *tmp;
+	t_list_env	*tmp;
 
 	tmp = g_list_env;
 	while (tmp)
@@ -59,6 +59,18 @@ int		loop_env(int e)
 		tmp = tmp->next;
 	}
 	return (1);
+}
+
+void	loop_env_cmd(void)
+{
+	t_histo	*tmp;
+
+	tmp = g_histo;
+	while (tmp)
+	{
+		ft_printf("%s\n", tmp->command_line);
+		tmp = tmp->next;
+	}
 }
 
 void	ft_export(t_command_info *cmd)
@@ -81,17 +93,13 @@ void	ft_export(t_command_info *cmd)
 		while (cmd->string[i][++j] != '=' && cmd->string[i][j])
 			name[j] = cmd->string[i][j];
 		name[j] = '\0';
-		content = cmd->string[i][j] == '=' ? &cmd->string[i][++j] : NULL;
+		bypass_ternarie_1(cmd, &content, i, j);
 		if (check_var(name, content, cmd->string[i]))
+		{
 			add_back(&g_list_env, name,
 				content, cmd->string[i]);
+		}
 	}
-}
-
-void	ft_next_node(t_list_env **read_list, t_list_env **prev)
-{
-	*prev = *read_list;
-	*read_list = (*read_list)->next;
 }
 
 void	ft_remove_node(t_command_info *cmd)
@@ -108,14 +116,14 @@ void	ft_remove_node(t_command_info *cmd)
 		read_list = g_list_env;
 		if (ft_print_error(cmd->string[i][0], cmd, i))
 			continue ;
-		if (read_list != NULL &&
-			ft_strcmpr(clean_cmd(cmd->string[i]), read_list->name))
+		if (read_list != NULL && ft_strcmpr(clean_cmd(cmd->string[i]),
+				read_list->name))
 		{
 			g_list_env = read_list->next;
 			continue ;
 		}
-		while (read_list &&
-			!ft_strcmpr(clean_cmd(cmd->string[i]), read_list->name))
+		while (read_list && !ft_strcmpr(clean_cmd(cmd->string[i]),
+				read_list->name))
 			ft_next_node(&read_list, &prev);
 		if (read_list != NULL)
 			prev->next = read_list->next;

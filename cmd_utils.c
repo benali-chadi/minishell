@@ -6,13 +6,13 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 18:49:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/03 18:44:24 by smhah            ###   ########.fr       */
+/*   Updated: 2021/04/10 18:18:57 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-int		test_cmds(t_command_info *cmd)
+int	test_cmds(t_command_info *cmd)
 {
 	if (cmd->tests.pwd)
 	{
@@ -20,7 +20,7 @@ int		test_cmds(t_command_info *cmd)
 		ft_putchar_fd('\n', 1);
 	}
 	else if (cmd->tests.echo)
-		echo(cmd);
+		ft_echo(cmd);
 	else if (cmd->tests.env)
 		loop_env(0);
 	else
@@ -30,7 +30,7 @@ int		test_cmds(t_command_info *cmd)
 
 void	close_all(int last)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < last)

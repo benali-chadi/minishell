@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/01 18:06:31 by smhah            ###   ########.fr       */
+/*   Updated: 2021/04/10 19:27:36 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 # include <signal.h>
 # include <errno.h>
 # include <fcntl.h>
-
+# include <curses.h>
+# include <term.h>
 /*
 	**Envirenment Stucture
 */
@@ -38,6 +39,13 @@ typedef struct				s_list_env
 	struct s_list_env		*next;
 }							t_list_env;
 
+typedef struct				s_histo
+{
+	char					*command_line;
+	struct s_histo			*next;
+	struct s_histo			*previous;
+}							t_histo;
+	
 /*
 	**Commands Structures
 */
@@ -105,6 +113,7 @@ typedef struct				s_utils
 t_command_info				*g_cmd;
 t_command_info				*g_commands;
 t_list_env					*g_list_env;
+t_histo						*g_histo;
 t_utils						g_utils;
 int (*g_fd)[2];
 int							g_q;
@@ -136,15 +145,16 @@ int							g_echo;
 	**cat_command_utils
 */
 void						fix_quotes_next_to_var(char **args,
-int i, int j, int *s);
+								int i, int j, int *s);
 void						change_one_two(char a);
 void						fill_command_string(char a, int i);
 void						init_one_two(void);
 void						replace_var(char **args, int i, int j, int *s);
+void						loop_env_cmd(void);
 /*
 	**Utils
 */
-int							add_last_cmd(char *s, char *name);
+int							is_special(char a);
 int							condition1(char a1, char a2);
 void						change_one_two(char a);
 int							check_special_char(char a);
@@ -157,11 +167,18 @@ char						*clean_cmd(char *str);
 int							gnl(int fd, char **line);
 int							check_quots(const char *str, int i);
 int							check_white_spaces(void);
+/*
+	split
+*/
+int							ft_countlen(const char *str, char c, int *i);
+char						**alloc_1(char **tab1, int casee);
+char						*alloc_2(char **tab1, int i, int len);
+int							calcule_len(int *len, char *s, char c, int *p);
 int							re_check_quots(const char *str, int i);
 int							ft_countlen_red(const char *str, char *c, int *i);
 int							ft_countwords_red(const char *str, char *c);
-char						**freetab(char **tab, int i);
-char						**result_red(char **tab, const char *str, char *c);
+char						**freetab(char **tab1, int i);
+char						**result_red(char **tab1, const char *str, char *c);
 char						**mod_split(char *s, char c);
 int							skip_repeat(char *str, int *i, char c);
 int							stock_index(int a);
@@ -201,6 +218,8 @@ void						ft_lstadd_front(t_list_env **alst, t_list_env *new);
 void						ft_lstadd_back(t_list_env **alst, t_list_env *new);
 t_list_env					*ft_lstnew(char *name, char *content,
 								char *name_content);
+void						add_back_cmd(t_histo **head, char *command_line);
+int							add_last_cmd(char *s, char *name);
 
 /*
 	**cmd
@@ -213,7 +232,9 @@ t_command_info				*cmd_lstlast(t_command_info *lst);
 /*
 	**Environment
 */
-
+void						ft_next_node(t_list_env **read_list, t_list_env **prev);
+void						bypass_ternarie_1(t_command_info *cmd, char **content,
+								int i, int j);
 void						ft_export(t_command_info *cmd);
 int							loop_env(int e);
 void						stock_env(char **env);
@@ -226,7 +247,8 @@ int							check_var(char *name, char *content,
 /*
 	**Commands
 */
-
+void						check_quots_after_dollar(char **args,
+								int i, int j, int *s);
 int							fill_cmd(char **split, int p);
 int							cat_command_string(char **args, int *s);
 void						init_one_two(void);
@@ -237,7 +259,7 @@ void						to_while(char **args, int i, int *s);
 void						exec_cmd(t_command_info *cmd, int i, int last);
 void						test(t_command_info *cmd);
 int							test_cmds(t_command_info *cmd);
-void						echo(t_command_info *cmd);
+void						ft_echo(t_command_info *cmd);
 
 void						ft_fork(t_command_info *cmd, int n, int last);
 

@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   cat_command_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 15:04:47 by smhah             #+#    #+#             */
-/*   Updated: 2021/03/29 07:07:22 by macbook          ###   ########.fr       */
+/*   Updated: 2021/04/10 18:32:14 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-void		fix_quotes_next_to_var(char **args, int i, int j, int *s)
+void	fix_quotes_next_to_var(char **args, int i, int j, int *s)
 {
 	if ((args[i][j] == '"' || args[i][j] == '\''))
 	{
-		if ((args[i][j] == '"' && g_two != 2) ||
-		(args[i][j] == '\'' && g_one != 2))
-			fill_command_string(args[i][j], *s);		
+		if ((args[i][j] == '"' && g_two != 2) || (args[i][j] == '\''
+			&& g_one != 2))
+			fill_command_string(args[i][j], *s);
 	}
 	else
 		fill_command_string(args[i][j], *s);
 }
 
-void		change_one_two(char a)
+void	change_one_two(char a)
 {
 	if (a == '\'')
 	{
@@ -42,7 +42,7 @@ void		change_one_two(char a)
 	}
 }
 
-void		fill_command_string(char a, int i)
+void	fill_command_string(char a, int i)
 {
 	g_cmd->string[i][g_cmd->string_len++] = a;
 	if (a == '\'')
@@ -61,13 +61,13 @@ void		fill_command_string(char a, int i)
 	}
 }
 
-void		init_one_two(void)
+void	init_one_two(void)
 {
 	g_one = 0;
 	g_two = 0;
 }
 
-void		replace_var(char **args, int i, int j, int *s)
+void	replace_var(char **args, int i, int j, int *s)
 {
 	if (check_special_char(args[i][j]))
 		g_print_next = 1;

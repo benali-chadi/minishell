@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env_linkedlist.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:51 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/29 15:15:13 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/04/10 17:57:46 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-t_list_env		*ft_lstlast(t_list_env *lst)
+t_list_env	*ft_lstlast(t_list_env *lst)
 {
 	t_list_env	*loop;
 
@@ -23,7 +23,7 @@ t_list_env		*ft_lstlast(t_list_env *lst)
 	return (loop);
 }
 
-void			ft_lstadd_front(t_list_env **alst, t_list_env *new)
+void	ft_lstadd_front(t_list_env **alst, t_list_env *new)
 {
 	if (new)
 	{
@@ -32,7 +32,7 @@ void			ft_lstadd_front(t_list_env **alst, t_list_env *new)
 	}
 }
 
-void			ft_lstadd_back(t_list_env **alst, t_list_env *new)
+void	ft_lstadd_back(t_list_env **alst, t_list_env *new)
 {
 	t_list_env	*temp;
 
@@ -49,7 +49,7 @@ void			ft_lstadd_back(t_list_env **alst, t_list_env *new)
 	}
 }
 
-t_list_env		*ft_lstnew(char *name, char *content, char *name_content)
+t_list_env	*ft_lstnew(char *name, char *content, char *name_content)
 {
 	t_list_env	*list;
 
@@ -65,7 +65,17 @@ t_list_env		*ft_lstnew(char *name, char *content, char *name_content)
 	return (NULL);
 }
 
-void			add_back(t_list_env **head, char *name,
+// t_list	*ft_lstnew_1(void *content)
+// {
+// 	t_list	*node;
+
+// 	if (!(node = (t_list*)malloc(sizeof(t_list))))
+// 		return (0);
+// 	node->content = content;
+// 	node->next = NULL;
+// 	return (node);
+// }
+void	add_back(t_list_env **head, char *name,
 				char *content, char *name_content)
 {
 	ft_lstadd_back(head, ft_lstnew(name, content, name_content));

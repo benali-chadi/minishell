@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:32:40 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/04 14:12:16 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/04/10 18:59:51 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-static void		red_out(t_command_info *cmd, int n)
+static void	red_out(t_command_info *cmd, int n)
 {
 	int	i;
 
@@ -29,7 +29,13 @@ static void		red_out(t_command_info *cmd, int n)
 	dup2(g_fd[n][1], 1);
 }
 
-void			pipe_or_red(t_command_info *cmd, int *in, int n, int last)
+int	open_in(char *file, int *in)
+{
+	*in = open(file, O_RDONLY);
+	return (*in);
+}
+
+void	pipe_or_red(t_command_info *cmd, int *in, int n, int last)
 {
 	int	i;
 
@@ -37,12 +43,14 @@ void			pipe_or_red(t_command_info *cmd, int *in, int n, int last)
 	if (cmd->reds.in_num > 0)
 	{
 		while (i < cmd->reds.in_num)
-			if ((*in = open(cmd->reds.in_file_name[i++], O_RDONLY)) < 0)
+		{
+			if ((open_in(cmd->reds.in_file_name[i++], in) < 0))
 			{
 				ft_printf("%s\n", strerror(errno));
 				exit(1);
 			}
-		dup2(*in, STDIN_FILENO);
+			dup2(*in, STDIN_FILENO);
+		}
 	}
 	else if (*in != 0)
 		dup2(*in, STDIN_FILENO);

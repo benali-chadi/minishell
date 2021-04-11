@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_clean_command.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:29:26 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/29 07:27:59 by macbook          ###   ########.fr       */
+/*   Updated: 2021/04/10 19:13:09 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	fill_command(char a)
 		g_two = g_two == 1 ? 0 : 1;
 }
 
-int		check_quotes_one1(void)
+int	check_quotes_one1(void)
 {
 	if (g_var_one == 0 && g_var_two == 0)
 	{
@@ -36,7 +36,7 @@ int		check_quotes_one1(void)
 	return (0);
 }
 
-int		check_quotes_two1(void)
+int	check_quotes_two1(void)
 {
 	if (g_var_two == 0 && g_var_one == 0)
 	{
@@ -50,19 +50,12 @@ int		check_quotes_two1(void)
 	}
 	return (0);
 }
-//‘$’, ‘`’, ‘"’, ‘\’
 
-int		is_special(char a)
-{
-	if (a == '$' || a == '\\' || a == '\"' || a == '`')
-		return (1);
-	return (0);
-}
-
-int		ft_continue1(int *force, int i, char *str)
+int	ft_continue1(int *force, int i, char *str)
 {
 	if ((str[i] == '\\' && *force != 1
-	&& g_var_one != 1 && g_var_two != 1) || (str[i] == '\\' && *force != 1 && is_special(str[i + 1])))
+			&& g_var_one != 1 && g_var_two != 1)
+		|| (str[i] == '\\' && *force != 1 && is_special(str[i + 1])))
 	{
 		*force = 1;
 		return (1);

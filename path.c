@@ -6,27 +6,32 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:00:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/01 18:11:20 by smhah            ###   ########.fr       */
+/*   Updated: 2021/04/10 19:10:39 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
+void	option_true(int i, int j, t_command_info *cmd)
+{
+	g_utils.args[0] = clean_cmd(cmd->command);
+	g_utils.args[1] = clean_cmd(cmd->options);
+	i = 2;
+	j = 0;
+	while (cmd->string[j])
+		g_utils.args[i++] = clean_cmd(cmd->string[j++]);
+	g_utils.args[i] = NULL;
+}
+
 void	execute_cmd(t_command_info *cmd, char *command)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
+	i = 0;
+	j = 0;
 	if (cmd->options)
-	{
-		g_utils.args[0] = clean_cmd(cmd->command);
-		g_utils.args[1] = clean_cmd(cmd->options);
-		i = 2;
-		j = 0;
-		while (cmd->string[j])
-			g_utils.args[i++] = clean_cmd(cmd->string[j++]);
-		g_utils.args[i] = NULL;
-	}
+		option_true(i, j, cmd);
 	else
 	{
 		g_utils.args[0] = clean_cmd(cmd->command);
@@ -68,7 +73,7 @@ void	find_path(t_command_info *cmd, char *var, int p)
 	{
 		if (stat(cmd->command, &g_utils.buf))
 			ft_printf("minishell: %s: No such file or directory\n",
-			cmd->command);
+				cmd->command);
 		execute_cmd(cmd, var);
 	}
 	while (split[i])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gnl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:19 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/02/18 17:59:01 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/04/07 17:51:10 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 
 char	*ft_stock(char **line, char *buff, int i)
 {
-	char	*newline;
+	char	*new_line;
 	int		len;
 	int		j;
 
 	j = 0;
 	len = (*line ? ft_strlen(*line) : 0);
-	if (!(newline = (char *)malloc(len + i + 1)))
+	if (!(new_line = (char *)malloc(len + i + 1)))
 		return (0);
 	while (j < len)
 	{
-		newline[j] = *(*line + j);
+		new_line[j] = *(*line + j);
 		j++;
 	}
 	if (line)
@@ -35,11 +35,11 @@ char	*ft_stock(char **line, char *buff, int i)
 	}
 	while (j < len + i)
 	{
-		newline[j] = buff[j - len];
+		new_line[j] = buff[j - len];
 		j++;
 	}
-	newline[j] = '\0';
-	return (newline);
+	new_line[j] = '\0';
+	return (new_line);
 }
 
 int		gnl(int fd, char **line)

@@ -1,42 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   to_free.c                                          :+:      :+:    :+:   */
+/*   cat_command_utils2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 15:59:10 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/10 19:05:53 by smhah            ###   ########.fr       */
+/*   Created: 2021/04/10 18:25:55 by smhah             #+#    #+#             */
+/*   Updated: 2021/04/10 18:28:17 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-void	*g_alloc[400];
-int	g_all = 0;
-
-void	*m_malloc(size_t n)
+void	check_quots_after_dollar(char **args, int i, int j, int *s)
 {
-	void	*tmp;
-
-	if (!(tmp = malloc(n)))
-		return (NULL);
-	g_alloc[g_all] = tmp;
-	g_all++;
-	return (tmp);
-}
-
-void	m_free(void *elm)
-{
-	free(elm);
-	g_all--;
-}
-
-void	to_free(void)
-{
-	int	i;
-
-	i = -1;
-	while (++i < g_all)
-		free(g_alloc[i]);
+	if (g_two == 1)
+		fill_command_string(args[i][j], *s);
+	else
+		change_one_two(args[i][j]);
 }
