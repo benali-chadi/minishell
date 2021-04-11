@@ -6,13 +6,13 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:21:41 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/01 18:11:12 by smhah            ###   ########.fr       */
+/*   Updated: 2021/04/10 18:28:10 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-int			first_condition(int j, char **args, int i, int *s)
+int	first_condition(int j, char **args, int i, int *s)
 {
 	g_print_next = 0;
 	j++;
@@ -40,16 +40,16 @@ int			first_condition(int j, char **args, int i, int *s)
 	return (j);
 }
 
-int			condition1(char a1, char a2)
+int	condition1(char a1, char a2)
 {
 	if ((a1 == '$' && a2 && g_one != 1 && !is_digit(a2) && a2 != '.')
 		|| (a1 == '$' && a2 && g_one == 1
-				&& g_two == 1 && !is_digit(a2) && a2 != '.'))
+			&& g_two == 1 && !is_digit(a2) && a2 != '.'))
 		return (1);
 	return (0);
 }
 
-int			check_first_char(char **args, int *i, int *j)
+int	check_first_char(char **args, int *i, int *j)
 {
 	char	a1;
 	char	a2;
@@ -62,14 +62,14 @@ int			check_first_char(char **args, int *i, int *j)
 		return (1);
 	else if ((a1 == '$' && a2 && g_one != 1 && is_digit(a2) && a2 != '.')
 		|| (a1 == '$' && a2 && g_one == 1
-				&& g_two == 1 && is_digit(a2) && a2 != '.'))
+			&& g_two == 1 && is_digit(a2) && a2 != '.'))
 	{
 		*j = *j + 2;
 		return (2);
 	}
 	else if ((a1 == '$' && a2 && g_one != 1 && !is_digit(a2) && a2 == '.')
 		|| (a1 == '$' && a2 && g_one == 1
-				&& g_two == 1 && !is_digit(a2) && a2 == '.'))
+			&& g_two == 1 && !is_digit(a2) && a2 == '.'))
 	{
 		fill_command_string(a1, *i);
 		*j = *j + 1;
@@ -77,7 +77,7 @@ int			check_first_char(char **args, int *i, int *j)
 	return (0);
 }
 
-void		to_while(char **args, int i, int *s)
+void	to_while(char **args, int i, int *s)
 {
 	int	j;
 
@@ -87,15 +87,10 @@ void		to_while(char **args, int i, int *s)
 		if (check_first_char(args, &i, &j) == 1)
 		{
 			j = first_condition(j, args, i, s);
-			if(!g_two)
+			if (!g_two)
 				g_cmd->indice[*s] = 1;
 			if (args[i][j] == '"' || args[i][j] == '\'')
-			{
-				if(g_two == 1)
-					fill_command_string(args[i][j], *s);
-				else
-					change_one_two(args[i][j]);
-			}
+				check_quots_after_dollar(args, i, j, s);
 		}
 		else if (check_first_char(args, &i, &j) == 2)
 			fill_command_string(args[i][j], *s);
@@ -108,7 +103,7 @@ void		to_while(char **args, int i, int *s)
 	g_cmd->string[*s][g_cmd->string_len] = '\0';
 }
 
-int			cat_command_string(char **args, int *s)
+int	cat_command_string(char **args, int *s)
 {
 	int	j;
 	int	i;

@@ -6,13 +6,13 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 18:49:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/08 16:35:11 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/04/11 18:40:37 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-int		test_cmds(t_command_info *cmd)
+int	test_cmds(t_command_info *cmd)
 {
 	if (cmd->tests.pwd)
 	{
@@ -30,7 +30,7 @@ int		test_cmds(t_command_info *cmd)
 
 void	close_all(int last)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < last)

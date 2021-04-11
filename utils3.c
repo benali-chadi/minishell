@@ -6,16 +6,16 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:14:40 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/01 17:05:44 by smhah            ###   ########.fr       */
+/*   Updated: 2021/04/10 19:03:10 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-int		check_white_spaces(void)
+int	check_white_spaces(void)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (g_utils.m_split[i] != NULL)
@@ -25,8 +25,9 @@ int		check_white_spaces(void)
 		{
 			j++;
 		}
-		if ((g_utils.m_split[i][j] == '\0' && g_utils.m_split[i + 1]) ||
-		(g_utils.m_split[i][j] == '\0' && g_case_index[i + 1] == '1' && i > 0))
+		if ((g_utils.m_split[i][j] == '\0' && g_utils.m_split
+			[i + 1]) || (g_utils.m_split[i][j] == '\0' && g_case_index
+			[i + 1] == '1' && i > 0))
 		{
 			ft_printf("minishell: syntax error near unexpected token `;;'\n");
 			g_case_index[i + 1] = 0;
@@ -37,9 +38,9 @@ int		check_white_spaces(void)
 	return (1);
 }
 
-int		mod_strlen(char **s)
+int	mod_strlen(char **s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i])
@@ -47,14 +48,11 @@ int		mod_strlen(char **s)
 	return (i);
 }
 
-int		add_last_cmd(char *s, char *name)
+int	add_last_cmd(char *s, char *name)
 {
 	char	*content;
 	char	*name_content;
 
-	
-	// content = m_malloc(ft_strlen(s) + 1);
-	// ft_strcpy(content, s);
 	content = ft_strjoin("", s);
 	name_content = ft_strjoin(name, "=");
 	name_content = ft_strjoin(name_content, content);

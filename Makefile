@@ -6,11 +6,11 @@
 #    By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/28 16:00:43 by cbenali-          #+#    #+#              #
-#    Updated: 2021/04/06 18:13:31 by cbenali-         ###   ########.fr        #
+#    Updated: 2021/04/11 19:32:04 by cbenali-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+FLAGS = -Wall -Wextra -Werror -lncurses -g -fsanitize=address
 
 NAME = minishell
 
@@ -20,7 +20,10 @@ SRC = mini_shell.c exec_cmd.c \
 	fill_cmd.c cmd_utils.c cat_command.c redirection.c\
 	echo.c path.c utils.c utils2.c utils3.c to_free.c \
 	env.c env_linkedlist.c cmd_linkd_lst.c\
-	gnl.c mod_split_red.c mod_split.c mod_split_red_utils.c fill_cmd_2.c env2.c env3.c mod_split_1.c new_clean_command.c cat_command_utils.c $(NAMELIB)
+	gnl.c mod_split_red.c mod_split.c mod_split_red_utils.c\
+	fill_cmd_2.c env2.c env3.c mod_split_1.c new_clean_command.c cat_command_utils.c\
+	env_linkedlist_cmd.c cat_command_utils2.c new_clean_command_utils.c mod_split_assignment.c \
+	$(NAMELIB) read_cmd.c
 
 all : $(NAME)
 

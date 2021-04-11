@@ -1,42 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   to_free.c                                          :+:      :+:    :+:   */
+/*   new_clean_command_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 15:59:10 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/10 19:05:53 by smhah            ###   ########.fr       */
+/*   Created: 2021/04/10 19:12:57 by smhah             #+#    #+#             */
+/*   Updated: 2021/04/10 19:14:35 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-void	*g_alloc[400];
-int	g_all = 0;
-
-void	*m_malloc(size_t n)
+int	is_special(char a)
 {
-	void	*tmp;
-
-	if (!(tmp = malloc(n)))
-		return (NULL);
-	g_alloc[g_all] = tmp;
-	g_all++;
-	return (tmp);
-}
-
-void	m_free(void *elm)
-{
-	free(elm);
-	g_all--;
-}
-
-void	to_free(void)
-{
-	int	i;
-
-	i = -1;
-	while (++i < g_all)
-		free(g_alloc[i]);
+	if (a == '$' || a == '\\' || a == '\"' || a == '`')
+		return (1);
+	return (0);
 }

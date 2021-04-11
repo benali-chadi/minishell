@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:08 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/03 17:50:50 by smhah            ###   ########.fr       */
+/*   Updated: 2021/04/10 19:03:58 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	sig_handler(int signum)
 		g_utils.line = NULL;
 		if (!g_status)
 			ft_putstr_fd("\n\033[0;32mCS\033[0;31m@minishell \033[0m",
-			g_utils.out);
+				g_utils.out);
 		else
 		{
 			ft_putstr_fd("\n", 0);
@@ -53,7 +53,7 @@ char	*search_lgnam(void)
 
 void	init_stuff(char **env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 128)
@@ -74,10 +74,10 @@ void	init_stuff(char **env)
 	g_utils.env = env;
 }
 
-int		cmpr_maj(char *s1, char *s2)
+int	cmpr_maj(char *s1, char *s2)
 {
-	int i;
-	int diff;
+	int	i;
+	int	diff;
 
 	i = 0;
 	while (s1[i] || s2[i])
@@ -85,7 +85,7 @@ int		cmpr_maj(char *s1, char *s2)
 		if (s1[i] != s2[i])
 		{
 			diff = s1[i] - s2[i];
-			if (diff != 32 || diff != -32)
+			if (diff != 32 && diff != -32)
 				return (0);
 		}
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:14 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/01 17:30:55 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/04/10 19:07:01 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	red_file_names(char *args, int red, int j)
 
 	if (red == 1)
 	{
-		g_cmd->reds.out[g_cmd->reds.out_num].file_name =
-		m_malloc(ft_strlen(&args[j]));
+		g_cmd->reds.out[g_cmd->reds.out_num].file_name = m_malloc
+			(ft_strlen(&args[j]));
 		str = clean_cmd(&args[j]);
 		k = -1;
 		while (str[++k])
@@ -30,8 +30,8 @@ void	red_file_names(char *args, int red, int j)
 	}
 	else
 	{
-		g_cmd->reds.in_file_name[g_cmd->reds.in_num] =
-		m_malloc(ft_strlen(args) + 1);
+		g_cmd->reds.in_file_name[g_cmd->reds.in_num
+		] = m_malloc(ft_strlen(args) + 1);
 		str = clean_cmd(&args[j]);
 		k = -1;
 		while (str[++k])
@@ -41,7 +41,7 @@ void	red_file_names(char *args, int red, int j)
 	}
 }
 
-int		for_norme(int cnt, char c)
+int	for_norme(int cnt, char c)
 {
 	if (cnt > 1)
 	{
@@ -55,9 +55,9 @@ int		for_norme(int cnt, char c)
 	return (1);
 }
 
-int		red_helper(char *arg, int *j, int *red)
+int	red_helper(char *arg, int *j, int *red)
 {
-	int cnt;
+	int	cnt;
 
 	cnt = 0;
 	if (arg[*j] == '>')
@@ -80,10 +80,10 @@ int		red_helper(char *arg, int *j, int *red)
 	return (1);
 }
 
-int		redirection(char **args, int i)
+int	redirection(char **args, int i)
 {
-	int j;
-	int red;
+	int	j;
+	int	red;
 
 	j = 0;
 	if (!red_helper(args[i], &j, &red))

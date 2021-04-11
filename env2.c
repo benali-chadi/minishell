@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 15:54:19 by smhah             #+#    #+#             */
-/*   Updated: 2021/04/01 17:13:13 by smhah            ###   ########.fr       */
+/*   Updated: 2021/04/10 18:43:32 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_cpy_env(t_list_env *read_env, int s)
 {
-	int e;
+	int	e;
 
 	e = 0;
 	while (read_env->content[e])
@@ -32,8 +32,8 @@ void	compare_var(char *var, char *arg, int s)
 		if (ft_strcmpr(read_env->name, var))
 		{
 			g_cmd->string[s] = ft_realloc(g_cmd->string[s],
-			ft_strlen(g_cmd->string[s])
-			+ ft_strlen(arg) + ft_strlen(read_env->content) + 1 + g_two);
+					ft_strlen(g_cmd->string[s]) + ft_strlen(arg) + ft_strlen
+					(read_env->content) + 1 + g_two);
 			ft_cpy_env(read_env, s);
 			break ;
 		}
@@ -43,7 +43,7 @@ void	compare_var(char *var, char *arg, int s)
 
 void	ft_cpy_env_command(t_list_env *read_env)
 {
-	int e;
+	int	e;
 
 	e = 0;
 	while (read_env->content[e])
@@ -51,7 +51,7 @@ void	ft_cpy_env_command(t_list_env *read_env)
 	g_str_command[g_command_len] = '\0';
 }
 
-int		check_var(char *name, char *content, char *name_content)
+int	check_var(char *name, char *content, char *name_content)
 {
 	t_list_env	*read_env;
 
@@ -64,8 +64,6 @@ int		check_var(char *name, char *content, char *name_content)
 			{
 				read_env->content = content;
 				read_env->name_content = name_content;
-				// ft_strcpy(read_env->content, content);
-				// ft_strcpy(read_env->name_content, name_content);
 			}
 			return (0);
 		}
@@ -83,8 +81,9 @@ void	compare_var_command(char *var, char *command)
 	{
 		if (ft_strcmpr(read_env->name, var))
 		{
-			g_str_command = ft_realloc(g_str_command, ft_strlen(g_str_command)
-			+ ft_strlen(command) + ft_strlen(read_env->content) + 1 + g_two);
+			g_str_command = ft_realloc(g_str_command, ft_strlen
+					(g_str_command) + ft_strlen(command) + ft_strlen
+					(read_env->content) + 1 + g_two);
 			ft_cpy_env_command(read_env);
 			break ;
 		}

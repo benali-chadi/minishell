@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_linkd_lst.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:43 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/01/29 15:13:48 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/04/10 18:19:28 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-t_command_info		*cmd_lstlast(t_command_info *lst)
+t_command_info	*cmd_lstlast(t_command_info *lst)
 {
-	t_command_info *tmp;
+	t_command_info	*tmp;
 
 	tmp = lst;
 	if (tmp)
@@ -23,10 +23,10 @@ t_command_info		*cmd_lstlast(t_command_info *lst)
 	return (tmp);
 }
 
-void				cmd_lstadd_back(t_command_info **commands,
+void	cmd_lstadd_back(t_command_info **commands,
 					t_command_info *new)
 {
-	t_command_info *tmp;
+	t_command_info	*tmp;
 
 	if (commands && *commands && new)
 	{

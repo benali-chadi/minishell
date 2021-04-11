@@ -6,15 +6,15 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:12:31 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/01 17:06:39 by smhah            ###   ########.fr       */
+/*   Updated: 2021/04/10 19:05:25 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-int		ft_strcmpr(char *s1, char *s2)
+int	ft_strcmpr(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s1[i] || s2[i])
@@ -28,7 +28,7 @@ int		ft_strcmpr(char *s1, char *s2)
 
 char	*ft_strcpy(char *s1, char *s2)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	if (!s1 || !s2)
@@ -39,15 +39,15 @@ char	*ft_strcpy(char *s1, char *s2)
 	return (s1);
 }
 
-int		is_alpha_digit(char a)
+int	is_alpha_digit(char a)
 {
-	if ((a <= 'Z' && a >= 'A') || (a <= 'z' && a >= 'a') ||
-		(a <= '9' && a >= '0') || a == '?')
+	if ((a <= 'Z' && a >= 'A') || (a <= 'z' && a >= 'a'
+		) || (a <= '9' && a >= '0') || a == '?')
 		return (1);
 	return (0);
 }
 
-int		is_digit(char a)
+int	is_digit(char a)
 {
 	if (a <= '9' && a >= '0')
 		return (1);
@@ -56,7 +56,7 @@ int		is_digit(char a)
 
 void	*ft_realloc(void *ptr, int size)
 {
-	void *tmp;
+	void	*tmp;
 
 	tmp = ptr;
 	ptr = m_malloc(size);

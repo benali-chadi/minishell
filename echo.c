@@ -6,13 +6,13 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 15:02:50 by smhah             #+#    #+#             */
-/*   Updated: 2021/04/08 16:35:18 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/04/11 18:40:41 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-int		check_quotes_one(void)
+int	check_quotes_one(void)
 {
 	if (g_var_one == 0 && g_var_two == 0)
 	{
@@ -27,7 +27,7 @@ int		check_quotes_one(void)
 	return (0);
 }
 
-int		check_quotes_two(void)
+int	check_quotes_two(void)
 {
 	if (g_var_two == 0 && g_var_one == 0)
 	{
@@ -42,7 +42,7 @@ int		check_quotes_two(void)
 	return (0);
 }
 
-int		ft_continue(int *force, int i, int j, t_command_info *cmd)
+int	ft_continue(int *force, int i, int j, t_command_info *cmd)
 {
 	if (cmd->string[i][j] == '\\' && *force != 1
 	&& g_var_one != 1 && g_var_two != 1)
@@ -61,8 +61,8 @@ int		ft_continue(int *force, int i, int j, t_command_info *cmd)
 
 void	ft_echo(t_command_info *cmd)
 {
-	int i;
-	int force;
+	int	i;
+	int	force;
 
 	i = -1;
 	g_var_one = 0;
@@ -71,9 +71,9 @@ void	ft_echo(t_command_info *cmd)
 	while (cmd->string[++i])
 	{
 		if (!cmd->indice[i])
-		 	ft_printf("%s", clean_cmd(cmd->string[i]));
-		//else
-			ft_printf("\n%s", cmd->string[i]);
+			ft_printf("%s", clean_cmd(cmd->string[i]));
+		else
+			ft_printf("%s", cmd->string[i]);
 		if (cmd->string[i + 1])
 			ft_printf(" ");
 	}

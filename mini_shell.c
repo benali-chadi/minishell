@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/01 18:11:17 by smhah            ###   ########.fr       */
+/*   Updated: 2021/04/11 19:31:23 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,28 +102,56 @@ int		check_semicolon(char *str)
 	return (0);
 }
 
-int		main(int ac, char **av, char **env)
+int		check_term()
 {
+	int ret;
+	char *term_type = getenv("TERM");
+	// int column_count;
+	// int line_count;
+	
+	ret = tgetent(NULL, term_type);
+	// char *blink_cmd = tgetstr("mb", NULL);
+	char *af_cmd = tgetstr("AF", NULL);
+	tputs(tparm(af_cmd, COLOR_RED), 1, putchar);
+	// tputs(blink_cmd, 1, putchar);
+	// column_count = tgetnum("co");
+	// line_count = tgetnum("li");
+	//printf("column:%d\n", column_count);
+    return ret;
+}
+
+int	main(int ac, char **av, char **env)
+{
+	int	i;
+
 	(void)ac;
 	(void)av;
+	i = 0;
 	init_stuff(env);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 	stock_env(env);
 	g_echo = 0;
+	g_histo = NULL;
 	while (1)
 	{
 		if (!g_utils.buf.st_size)
 			ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m",
-			g_utils.out);
-		if (!(gnl(0, &g_utils.line)))
+				g_utils.out);
+		// if (!(gnl(0, &g_utils.line)))
+		if (!read_char(0, &g_utils.line))
 			leave();
+		add_back_cmd(&g_histo, ft_strdup(g_utils.line));
 		if (check_semicolon(g_utils.line))
 			continue ;
 		if (fill_and_execute() < 0)
 			g_return = 258;
 		free(g_utils.line);
 		g_utils.line = NULL;
+		i++;
 	}
+	printf("-------\n");
+	loop_env_cmd();
+	printf("---------\n");
 	return (0);
 }
