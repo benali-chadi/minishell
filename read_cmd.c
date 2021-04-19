@@ -190,9 +190,14 @@ char ft_getch(int fd, t_read *reads)
 
 int ft_read_line(int fd, t_read *reads)
 {
-	int				c;
+	int		c;
 
 	c = ft_getch(fd, reads);
+	if (c == 4 && !reads->left && !reads->right)
+	{
+		ft_printf("exit\n");
+		exit(0);
+	}
 	if (c >= 32 && c < 127)
 	{
 		save_and_print(c, reads);
@@ -253,6 +258,7 @@ int read_char(int fd, char **line)
 	tgetent(NULL, term_type);
 	reads.l_len = 0;
 	reads.r_len = 0;
+	reads.count = 0;
 	reads.left = NULL;
 	reads.right = NULL;
 	while (ft_read_line(fd, &reads));
