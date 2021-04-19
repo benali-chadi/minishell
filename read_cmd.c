@@ -6,7 +6,7 @@ char	*ft_join_stacks(t_read reads)
 	t_stack *tmp;
 	int i;
 
-	str = m_malloc(reads.l_len + reads.r_len + 1);
+	str = malloc(reads.l_len + reads.r_len + 1);
 	tmp = reads.left;
 	i = 0;
 	while (tmp)

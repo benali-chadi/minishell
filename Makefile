@@ -6,11 +6,11 @@
 #    By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/28 16:00:43 by cbenali-          #+#    #+#              #
-#    Updated: 2021/04/12 19:23:00 by cbenali-         ###   ########.fr        #
+#    Updated: 2021/04/19 17:11:33 by cbenali-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS = -Wall -Wextra -Werror -lncurses -g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -lncurses -g #-fsanitize=address
 
 NAME = minishell
 
