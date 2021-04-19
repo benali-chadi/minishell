@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:03 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/11 19:32:52 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/04/12 19:21:20 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ char	**mod_split(char *s, char c)
 	p = &casee;
 	while (i < ft_countwords(s, c) && (tab1[i] = (char *)m_malloc(sizeof(char) * (len + 1)))) //calcule_len(&len, s, c, p))
 	{
-		if (!alloc_2(tab1, i, len))
+		if (!(tab1[i] = alloc_2(tab1, i, len))) // w hadi
 			return (freetab(tab1, i));
 		i++;
 	}

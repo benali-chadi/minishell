@@ -45,10 +45,10 @@ void	ft_stcclear(t_stack *st)
 
 void	ft_push_front(char c, t_stack **ri)
 {
-	t_stack *new = m_malloc(sizeof(t_stack));
+	t_stack *new;
 
+	new = m_malloc(sizeof(t_stack));
 	new->c = c;
-
 	if (!*ri)
 		new->next = NULL;
 	else

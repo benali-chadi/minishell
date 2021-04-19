@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/11 19:31:23 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/04/12 19:18:44 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ int	main(int ac, char **av, char **env)
 		// if (!(gnl(0, &g_utils.line)))
 		if (!read_char(0, &g_utils.line))
 			leave();
+		ft_putchar_fd('\n', 1);
 		add_back_cmd(&g_histo, ft_strdup(g_utils.line));
 		if (check_semicolon(g_utils.line))
 			continue ;
