@@ -210,7 +210,7 @@ int ft_read_line(int fd, t_read *reads)
 		c = ft_getch(fd, reads);
 		if (c == 'A') // up
 		{
-
+			
 		}
 		else if (c == 'D') // left
 		{
@@ -263,6 +263,7 @@ int read_char(int fd, char **line)
 	reads.right = NULL;
 	while (ft_read_line(fd, &reads));
 	*line = ft_join_stacks(reads);
+	add_back_cmd(&g_histo, ft_strdup(*line));
 	// printf("stacks\n");
 	// print_stack(reads.left);
 	// print_stack(reads.right);

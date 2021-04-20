@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mod_split.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:03 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/19 17:10:14 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/04/19 17:30:18 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ char	**mod_split(char *s, char c)
 		return (0);
 	casee = 0;
 	p = &casee;
-	while (i < ft_countwords(s, c) && (len = ft_countlen(s, c, p)))
+	while (i < ft_countwords(s, c) && calcule_len(&len, s, c, p))
     {
         if (!(tab1[i] = (char *)m_malloc(sizeof(char) * (len + 1))))
             return (freetab(tab1, i));

@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 19:24:19 by smhah             #+#    #+#             */
-/*   Updated: 2021/04/10 19:24:36 by smhah            ###   ########.fr       */
+/*   Updated: 2021/04/19 17:31:09 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**alloc_1(char **tab1, int casee)
 	return (tab1);
 }
 
-char	*alloc_2(char **tab1, int i, int len)
+char	*alloc_2(char ***tab1, int i, int len)
 {
 	tab1[i] = (char *)m_malloc(sizeof(char) * (len + 1));
 	return (tab1[i]);
