@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/11 19:02:38 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/04/22 17:13:02 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ void						to_free(void);
 /*
 	**Linked List
 */
-
+int							ft_read_line(int fd, t_read *reads, t_histo **read);
 /*
 	**env
 */
@@ -220,6 +220,7 @@ t_list_env					*ft_lstnew(char *name, char *content,
 								char *name_content);
 void						add_back_cmd(t_histo **head, char *command_line);
 int							add_last_cmd(char *s, char *name);
+t_histo						*ft_lstlast_cmd(t_histo *lst);
 
 /*
 	**cmd
