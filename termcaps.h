@@ -25,6 +25,7 @@ typedef struct	s_read {
 	struct termios	init;
 	t_stack *left;
 	t_stack *right;
+	char *current_line;
 	int l_len;
 	int r_len;
 	int count;
