@@ -1,11 +1,10 @@
 #ifndef TERMCAPS_H
 # define TERMCAPS_H
 
-// #include "mini_shell.h"
+//#include "mini_shell.h"
 #include <curses.h>
 #include <term.h>
 #include <termios.h>
-
 # define UP			183
 # define DOWN		184
 # define LEFT 		186
@@ -29,10 +28,10 @@ typedef struct	s_read {
 	int l_len;
 	int r_len;
 	int count;
+	int first;
 }				t_read;
 
 int		read_char(int fd, char **line);
-int		ft_read_line(int fd, t_read *reads);
 char	ft_getch(int fd, t_read *reads);
 void	delete_char(t_read *reads);
 void	cursor_forward(t_read *reads);

@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:21:41 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/10 18:28:10 by smhah            ###   ########.fr       */
+/*   Updated: 2021/04/20 16:35:13 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,19 @@ void	to_while(char **args, int i, int *s)
 	{
 		if (check_first_char(args, &i, &j) == 1)
 		{
-			j = first_condition(j, args, i, s);
-			if (!g_two)
+			if(args[i][j] == '$' && j > 0 && (args[i][j - 1] == '"' || args[i][j - 1] == '\'') && !g_two)
+				g_cmd->indice[*s] = 0;
+			else if (!g_two)
+			{
 				g_cmd->indice[*s] = 1;
+			}
+			//	printf("args[i][j]:%c\n", args[i][j]);
+			j = first_condition(j, args, i, s);
+			// if (!g_two)
+			// {
+			// 	g_cmd->indice[*s] = 1;
+			// 	printf("ENTER\n");
+			// }
 			if (args[i][j] == '"' || args[i][j] == '\'')
 				check_quots_after_dollar(args, i, j, s);
 		}
