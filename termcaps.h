@@ -27,6 +27,7 @@ typedef struct	s_read {
 	int l_len;
 	int r_len;
 	int count;
+	int first;
 }				t_read;
 
 int		read_char(int fd, char **line);
