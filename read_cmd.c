@@ -241,15 +241,22 @@ int ft_read_line(int fd, t_read *reads, t_histo **read)
 			// save line
 			if ((*read)->next != NULL)
 			{
+				tputs(tgetstr("ch", NULL), 1, ft_puts);
+				tputs(tgetstr("dl", NULL), 1, ft_puts);
 				// save line f historique
 				// (*read)->next->command_line = ft_join_stacks(*reads);
-				// clear stacks
+				// Clear Stacks
 				reads->left = NULL;
 				reads->right = NULL;
+				// Renitialize
+				reads->l_len = ft_strlen((*read)->command_line);
+				reads->r_len = 0;
+				reads->count = reads->l_len;
 				// save (*read)->command_line -> left_stack
 				ft_add_line(&reads->left, (*read)->command_line);
 				if (*read != g_histo)
 					*read = (*read)->previous;
+				
 				print_stack(reads->left);
 				// printf("1st\n");
 
@@ -262,6 +269,10 @@ int ft_read_line(int fd, t_read *reads, t_histo **read)
 				reads->left = NULL;
 				reads->right = NULL;
 				// save (*read)->command_line -> left_stack
+				// Renitialize
+				reads->l_len = ft_strlen((*read)->command_line);
+				reads->r_len = 0;
+				reads->count = reads->l_len;
 				ft_add_line(&reads->left, (*read)->command_line);
 				*read = (*read)->previous;
 				print_stack(reads->left);
@@ -288,6 +299,8 @@ int ft_read_line(int fd, t_read *reads, t_histo **read)
 		}
 		else if (c == 'B' && (*read) && (*read)->next != NULL) // down
 		{
+			tputs(tgetstr("ch", NULL), 1, ft_puts);
+			tputs(tgetstr("dl", NULL), 1, ft_puts);
 			// save line f historique
 			// if ((*read) != g_histo)
 			// 	(*read)->previous->command_line = ft_join_stacks(*reads);

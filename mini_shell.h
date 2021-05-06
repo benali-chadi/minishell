@@ -167,6 +167,7 @@ char						*clean_cmd(char *str);
 int							gnl(int fd, char **line);
 int							check_quots(const char *str, int i);
 int							check_white_spaces(void);
+void						print_prompt();
 /*
 	split
 */
