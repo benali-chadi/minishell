@@ -1,4 +1,5 @@
 #include "mini_shell.h"
+
 char	*ft_join_stacks(t_read reads)
 {
 	char *str;
@@ -209,7 +210,7 @@ char ft_getch(int fd, t_read *reads)
 int ft_read_line(int fd, t_read *reads, t_histo **read)
 {
 	int		c;
-	char	*line;
+	// char	*line;
 	char *ce = tgetstr("ce", NULL);
 	//t_histo *tmp;
 
@@ -232,17 +233,23 @@ int ft_read_line(int fd, t_read *reads, t_histo **read)
 		if (c == 'A') // up
 		{
 			//check in line is void
-			if(*read == g_histo)
-				return (1);
+			// if(*read == g_histo)
+			// 	return (1);
+				// *read = (*read)->previous;
+			// printf("%s\n", (*read)->command_line);
+			// line = ft_join_stacks(*reads);
+			if(*read != g_histo)
 				*read = (*read)->previous;
-			if (!reads->first)
-			{
-				line = ft_join_stacks(*reads);
-				reads->first = 1;
-			}
+			// if (!reads->first)
+			// {
+			// 	line = ft_join_stacks(*reads);
+			// 	reads->first = 1;
+			// }
 			// Reinnitialize
-			ft_stcclear(reads->left);
-			ft_stcclear(reads->right);
+			// ft_stcclear(reads->left);
+			// ft_stcclear(reads->right);
+			reads->left = NULL;
+			reads->right = NULL;
 			reads->count = 0;
 			reads->r_len = 0;
 			reads->l_len = 0;
@@ -266,8 +273,8 @@ int ft_read_line(int fd, t_read *reads, t_histo **read)
 		}
 		else if (c == 'B') // down
 		{
-			if ((*read)->next == NULL)
-				return (1);
+			// if ((*read)->next == NULL)
+			// 	return (1);
 			// tmp = g_histo;
 			// while(tmp != NULL)
 			// {
@@ -276,6 +283,7 @@ int ft_read_line(int fd, t_read *reads, t_histo **read)
 			// }
 			// line = ft_join_stacks(*reads);
 			// Reinnitialize
+			// (*read) = (*read)->next;
 			ft_stcclear(reads->left);
 			ft_stcclear(reads->right);
 			reads->count = 0;
