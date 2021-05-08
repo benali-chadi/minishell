@@ -67,3 +67,9 @@ void	leave(void)
 	close(g_utils.out);
 	exit(0);
 }
+
+void	print_prompt()
+{
+	ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m",
+				g_utils.out);
+}

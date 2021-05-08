@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/05/04 16:09:40 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/05/08 15:39:38 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ char						*clean_cmd(char *str);
 int							gnl(int fd, char **line);
 int							check_quots(const char *str, int i);
 int							check_white_spaces(void);
+void						print_prompt();
 /*
 	split
 */
@@ -207,7 +208,7 @@ void						to_free(void);
 	**Linked List
 */
 
-int							ft_read_line(int fd, t_read *reads, t_histo **read);
+int							ft_read_line(int fd, t_read *reads, t_histo **read, char **str);
 
 /*
 	**env
