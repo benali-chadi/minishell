@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:32:40 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/10 18:59:51 by smhah            ###   ########.fr       */
+/*   Updated: 2021/04/20 17:48:51 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	pipe_or_red(t_command_info *cmd, int *in, int n, int last)
 		dup2(g_fd[n][1], STDOUT_FILENO);
 }
 
-void			ft_fork(t_command_info *cmd, int n, int last)
+void	ft_fork(t_command_info *cmd, int n, int last)
 {
 	int		f;
 	int		in;

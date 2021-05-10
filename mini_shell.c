@@ -146,7 +146,7 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		if (fill_and_execute() < 0)
 			g_return = 258;
-		free(g_utils.line);
+		// free(g_utils.line);
 		g_utils.line = NULL;
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/22 17:13:02 by smhah            ###   ########.fr       */
+/*   Updated: 2021/05/08 15:39:38 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,10 +203,13 @@ void						leave(void);
 void						*m_malloc(size_t n);
 void						m_free(void *elm);
 void						to_free(void);
+
 /*
 	**Linked List
 */
+
 int							ft_read_line(int fd, t_read *reads, t_histo **read, char **str);
+
 /*
 	**env
 */

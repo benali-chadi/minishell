@@ -132,6 +132,15 @@ void print_stack(t_stack *st)
 	}
 }
 
+void add_line(char *str, t_stack **st)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		ft_push(str[i++], st);
+}
+
 void save_and_print(char c, t_read *reads)
 {
 	char *cur_pos;
@@ -243,7 +252,7 @@ int ft_read_line(int fd, t_read *reads, t_histo **read, char **str)
 			//printf("\n-------\n[%s][added]\n-------\n", line);
 			//add_back_cmd(&g_histo, ft_strdup(line));
 			// save line
-			if ((*read)->next != NULL)
+			if ((*read)->next)
 			{
 				tputs(tgetstr("ch", NULL), 1, ft_puts);
 				tputs(tgetstr("dl", NULL), 1, ft_puts);
@@ -257,17 +266,20 @@ int ft_read_line(int fd, t_read *reads, t_histo **read, char **str)
 				}
 				if (*read == g_histo)
 				{
-					if(g_flag == 0)
+					if (!g_flag)
 					{
 						(*read)->next->command_line = ft_join_stacks(*reads);
 						g_flag = 1;
 					}
-					else
-						(*read)->command_line = ft_join_stacks(*reads);	
 				}
 				else
-					(*read)->next->command_line = ft_join_stacks(*reads);
-				printf("{saved:%s:\n", (*read)->next->command_line);
+				{
+					if ((*read)->next != NULL)
+						(*read)->next->command_line = ft_join_stacks(*reads);
+					else
+						(*read)->command_line = ft_join_stacks(*reads);
+				}
+				// printf("{saved:%s:\n", (*read)->next->command_line);
 				// else
 				// 	(*read)->command_line = ft_join_stacks(*reads);
 				// Clear Stacks
@@ -286,7 +298,7 @@ int ft_read_line(int fd, t_read *reads, t_histo **read, char **str)
 				// printf("1st\n");
 
 			}
-			else if ((*read))
+			else
 			{
 				// save line f buffer
 				*str = ft_join_stacks(*reads);
