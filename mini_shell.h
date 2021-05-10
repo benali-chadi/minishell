@@ -206,7 +206,7 @@ void						to_free(void);
 /*
 	**Linked List
 */
-int							ft_read_line(int fd, t_read *reads, t_histo **read);
+int							ft_read_line(int fd, t_read *reads, t_histo **read, char **str);
 /*
 	**env
 */
