@@ -1,6 +1,7 @@
 #include "mini_shell.h"
 
 int g_flag = 0;
+int g_flag2 = 0;
 
 char	*ft_join_stacks(t_read reads)
 {
@@ -241,7 +242,7 @@ int ft_read_line(int fd, t_read *reads, t_histo **read, char **str)
 	{
 		c = ft_getch(fd, reads);
 		c = ft_getch(fd, reads);
-		if (c == 'A' && (*read) != NULL) // up
+		if (c == 'A' && (*read)) // up
 		{
 			//check in line is void
 			// if (!reads->first)
@@ -312,6 +313,7 @@ int ft_read_line(int fd, t_read *reads, t_histo **read, char **str)
 				reads->count = reads->l_len;
 				ft_add_line(&reads->left, (*read)->command_line);
 				*read = (*read)->previous;
+				// print_prompt();
 				print_stack(reads->left);
 				// printf("2st\n");
 			}

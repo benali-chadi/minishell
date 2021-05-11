@@ -61,11 +61,48 @@ int	add_last_cmd(char *s, char *name)
 	return (1);
 }
 
-void	leave(void)
+int		check_args(char **strings)
 {
+	int i;
+
+	if (!*strings)
+		return (-1);
+	i = 0;
+	while (strings[0][i])
+		if (ft_isalpha(strings[0][i++]))
+			return (1);
+	if (strings[1])
+		return (2);
+	return (0);
+}
+
+void	leave(char **strings)
+{
+	unsigned char uc;
+	int ret;
+
+	uc = 0;
+	ret = check_args(strings);
+	if (ret >= 0)
+	{
+		if (ret == 0)
+		{
+			uc = ft_atoi(strings[0]);
+		}
+		else if (ret == 1)
+		{
+			uc = 255;
+			ft_printf("exit: %s: numeric argument required\n", strings[0]);
+		}
+		else
+		{
+			ft_printf("exit: too many arguments\n");
+			return;
+		}
+	}
 	to_free();
 	close(g_utils.out);
-	exit(0);
+	exit(uc);
 }
 
 void	print_prompt()

@@ -195,7 +195,7 @@ int							sing_or_doub_q(char *str,
 								int *k, int quote, char q);
 void						sig_handler(int signum);
 char						*search_lgnam(void);
-void						leave(void);
+void						leave(char **strings);
 
 /*
 	**For freeing
