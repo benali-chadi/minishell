@@ -208,12 +208,12 @@ void						to_free(void);
 	**Linked List
 */
 
-int							ft_read_line(int fd, t_read *reads, t_histo **read, char **str);
+int							ft_read_line(int fd, t_read *reads, t_histo **read);
 
 /*
 	**env
 */
-
+void						ft_remove_node_cmd_1(void);
 void						ft_remove_node(t_command_info *cmd);
 void						add_back(t_list_env **head, char *name,
 								char *content, char *name_content);

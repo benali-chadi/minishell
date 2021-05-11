@@ -61,3 +61,38 @@ void	add_back_cmd(t_histo **head, char *command_line)
 {
 	ft_lstadd_back_cmd(head, ft_lstnew_cmd(command_line));
 }
+
+void	ft_remove_node_cmd_1(void)
+{
+	t_histo	*read_list;
+	//t_histo	*prev;
+	int			i;
+
+	read_list = g_histo;
+	i = -1;
+	if (!read_list->command_line)
+		return ;
+	while (read_list)
+	{
+		read_list = read_list->next;
+		if(read_list->next == NULL && (read_list->previous))
+		{
+			read_list->previous->next = NULL;
+			return ;
+		}
+		// read_list = g_list_env;
+		// if (ft_print_error(cmd->string[i][0], cmd, i))
+		// 	continue ;
+		// if (read_list != NULL && ft_strcmpr(clean_cmd(cmd->string[i]),
+		// 		read_list->name))
+		// {
+		// 	g_list_env = read_list->next;
+		// 	continue ;
+		// }
+		// while (read_list && !ft_strcmpr(clean_cmd(cmd->string[i]),
+		// 		read_list->name))
+		// 	ft_next_node(&read_list, &prev);
+		// if (read_list != NULL)
+		// 	prev->next = read_list->next;
+	}
+}
