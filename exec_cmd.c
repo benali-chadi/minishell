@@ -92,7 +92,7 @@ void	ft_fork(t_command_info *cmd, int n, int last)
 void			exec_cmd(t_command_info *cmd, int i, int last)
 {
 	if (cmd->tests.exit && !cmd->pipe)
-		leave();
+		leave(cmd->string);
 	else if (cmd->tests.cd)
 	{
 		add_last_cmd(getcwd(g_utils.pwd, 100), "OLDPWD");

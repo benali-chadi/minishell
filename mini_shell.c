@@ -140,7 +140,7 @@ int	main(int ac, char **av, char **env)
 				g_utils.out);
 		// if (!(gnl(0, &g_utils.line)))
 		if (!read_char(0, &g_utils.line))
-			leave();
+			leave(NULL);
 		ft_putchar_fd('\n', 1);
 		if (check_semicolon(g_utils.line))
 			continue ;
