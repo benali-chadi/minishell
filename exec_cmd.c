@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:32:40 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/20 17:48:51 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/05/13 15:15:00 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,15 @@ void			exec_cmd(t_command_info *cmd, int i, int last)
 		leave(cmd->string);
 	else if (cmd->tests.cd)
 	{
-		add_last_cmd(getcwd(g_utils.pwd, 100), "OLDPWD");
+		add_last_cmd(g_utils.pwd, "OLDPWD");
 		if (!cmd->string[0])
 			cmd->string[0] = search_lgnam();
 		else if (cmd->string[0][0] == '~')
 			cmd->string[0] = ft_strjoin(search_lgnam(), (*cmd->string) + 1);
 		if (chdir(cmd->string[0]) < 0)
 			ft_printf("cd: can't cd to %s\n", cmd->string[0]);
-		add_last_cmd(getcwd(g_utils.pwd, 100), "PWD");
+		getcwd(g_utils.pwd, 100);
+		add_last_cmd(g_utils.pwd, "PWD");
 		add_last_cmd("cd", "_");
 		if (ft_strcmpr(cmd->string[0], ".") || ft_strcmpr(cmd->string[0], ".."))
 			add_last_cmd(cmd->string[0], "_");

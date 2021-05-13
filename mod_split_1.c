@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:31:56 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/03/04 12:01:40 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/05/13 15:10:38 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int			skip_repeat(char *str, int *i, char c)
 	repeat = 0;
 	while (str[*i] == c)
 	{
-		if (str[*i - 1] == '|' && str[*i + 1] == '|' && str[*i + 2] == '|')
+		if (*i && str[*i - 1] == '|' && str[*i + 1] == '|' && str[*i + 2] == '|')
 			if (c == '|')
 				return (p_e("||"));
-		if (str[*i - 1] == '|')
+		if (*i && str[*i - 1] == '|')
 			if (c == '|')
 				return (p_e("|"));
 		if (c == ';')

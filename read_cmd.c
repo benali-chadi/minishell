@@ -224,7 +224,7 @@ int ft_read_line(int fd, t_read *reads, t_histo **read)
 	int		c;
 	// char	*line = NULL;
 	//t_histo *tmp;
-	t_histo *redox;
+	// t_histo *redox;
 
 	c = ft_getch(fd, reads);
 	if (c == 4 && !reads->left && !reads->right)
@@ -244,29 +244,10 @@ int ft_read_line(int fd, t_read *reads, t_histo **read)
 		c = ft_getch(fd, reads);
 		if (c == 'A' && (*read)) // up
 		{
-			//check in line is void
-			// if (!reads->first)
-			// {
-			// 	line = ft_join_stacks(*reads);
-			// 	reads->first = 1;
-			// }
-			//printf("\n-------\n[%s][added]\n-------\n", line);
-			//add_back_cmd(&g_histo, ft_strdup(line));
-			// save line
-			// if ((*read)->next)
-			// {
 				tputs(tgetstr("ch", NULL), 1, ft_puts);
 				tputs(tgetstr("dl", NULL), 1, ft_puts);
 				// save line f historique
-				// if (*read != g_histo)
-				redox = g_histo;
-				printf("----\n");
-				while(redox != NULL)
-				{
-					printf("|%s|\n", redox->command_line);
-					redox = redox->next;
-				}
-				printf("----\n");
+				
 				if((*read)->next == NULL && g_flag == 0)
 				{
 					g_flag = 1;
@@ -277,25 +258,6 @@ int ft_read_line(int fd, t_read *reads, t_histo **read)
 				{
 					(*read)->command_line = ft_join_stacks(*reads);
 				}
-				// if (*read == g_histo)
-				// {
-				// 	if (!g_flag)
-				// 	{
-				// 		(*read)->next->command_line = ft_join_stacks(*reads);
-				// 		g_flag = 1;
-				// 	}
-				// }
-				// else
-				// {
-				// 	if ((*read)->next != NULL)
-				// 		(*read)->next->command_line = ft_join_stacks(*reads);
-				// 	else
-				// 		(*read)->command_line = ft_join_stacks(*reads);
-				// }
-				// printf("{saved:%s:\n", (*read)->next->command_line);
-				// else
-				// 	(*read)->command_line = ft_join_stacks(*reads);
-				// Clear Stacks
 				if (*read != g_histo)
 					*read = (*read)->previous;
 				reads->left = NULL;
@@ -304,37 +266,9 @@ int ft_read_line(int fd, t_read *reads, t_histo **read)
 				reads->l_len = ft_strlen((*read)->command_line);
 				reads->r_len = 0;
 				reads->count = reads->l_len;
-				// save (*read)->command_line -> left_stack
 				ft_add_line(&reads->left, (*read)->command_line);
 				print_prompt();
 				print_stack(reads->left);
-				// printf("1st\n");
-
-			// }
-			// else
-			// {
-			// 	// save line f buffer
-			// 	*str = ft_join_stacks(*reads);
-			// 	// clear stack
-			// 	reads->left = NULL;
-			// 	reads->right = NULL;
-			// 	// save (*read)->command_line -> left_stack
-			// 	// Renitialize
-			// 	reads->l_len = ft_strlen((*read)->command_line);
-			// 	reads->r_len = 0;
-			// 	reads->count = reads->l_len;
-			// 	ft_add_line(&reads->left, (*read)->command_line);
-			// 	*read = (*read)->previous;
-			// 	print_stack(reads->left);
-			// 	// printf("2st\n");
-			// }
-			
-			// if(*read != g_histo)
-			// 	*read = (*read)->previous;
-			
-			// print stack
-			
-			// ft_printf("_%s\n", (*read)->command_line);
 		}
 		else if (c == 'D') // left
 		{
@@ -352,11 +286,6 @@ int ft_read_line(int fd, t_read *reads, t_histo **read)
 			tputs(tgetstr("ch", NULL), 1, ft_puts);
 			tputs(tgetstr("dl", NULL), 1, ft_puts);
 			// save line f historique
-			// if ((*read) != g_histo)
-
-			//	(*read)->previous->command_line = ft_join_stacks(*reads);
-			// clear stacks
-			// save (*read)->command_line -> left_stack
 			if ((*read)->next != NULL)
 			{
 				(*read)->command_line = ft_join_stacks(*reads);
@@ -367,14 +296,6 @@ int ft_read_line(int fd, t_read *reads, t_histo **read)
 			ft_add_line(&reads->left, (*read)->command_line);
 			print_prompt();
 			print_stack(reads->left);
-			redox = g_histo;
-			// printf("\n-----\n");
-			// while(redox != NULL)
-			// {
-			// 	printf("|%s|\n", redox->command_line);
-			// 	redox = redox->next;
-			// }
-			// printf("----\n");
 		}
 		else if (c == 'C') // right
 		{
@@ -422,9 +343,5 @@ int read_char(int fd, char **line)
 	while (ft_read_line(fd, &reads, &read));
 	*line = ft_join_stacks(reads);
 	add_back_cmd(&g_histo, ft_strdup(*line));
-	// printf("stacks\n");
-	// print_stack(reads.left);
-	// print_stack(reads.right);
-	// printf("\n%s\n", *line);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/19 17:33:37 by smhah            ###   ########.fr       */
+/*   Updated: 2021/05/13 15:03:47 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ int	main(int ac, char **av, char **env)
 	stock_env(env);
 	g_echo = 0;
 	g_histo = NULL;
+	getcwd(g_utils.pwd, 100);
 	while (1)
 	{
 		if (!g_utils.buf.st_size)

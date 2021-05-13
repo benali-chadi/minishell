@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 18:49:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/11 18:40:37 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/05/13 15:01:46 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ int	test_cmds(t_command_info *cmd)
 {
 	if (cmd->tests.pwd)
 	{
-		ft_putstr_fd(getcwd(g_utils.pwd, 100), 1);
-		ft_putchar_fd('\n', 1);
+		ft_printf("%s\n", g_utils.pwd);
+		// ft_putstr_fd(getcwd(g_utils.pwd, 100), 1);
+		// ft_putchar_fd('\n', 1);
 	}
 	else if (cmd->tests.echo)
 		ft_echo(cmd);
