@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:14:40 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/10 19:03:10 by smhah            ###   ########.fr       */
+/*   Updated: 2021/05/13 15:39:06 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	check_white_spaces(void)
 		{
 			ft_printf("minishell: syntax error near unexpected token `;;'\n");
 			g_case_index[i + 1] = 0;
+			g_return = 258;
 			return (0);
 		}
 		i++;

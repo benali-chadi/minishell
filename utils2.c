@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:08 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/20 17:45:26 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/05/13 16:14:24 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void	sig_handler(int signum)
 	{
 		if (g_status)
 			ft_putstr_fd("Quit: 3\n", 1);
-		else
-			ft_putstr_fd("\b\b", 1);
 	}
 }
 

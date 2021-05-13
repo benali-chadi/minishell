@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/05/13 15:03:47 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/05/13 18:06:51 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,16 @@ void	execute(int j)
 	}
 	while (wait(&g_return) != -1)
 		;
-	if (g_return)
+	printf("ret1 = %d\n", g_return);
+	if (g_return && g_return < 255)
+		g_return += 128;
+	else if (g_return)
+	{
 		g_return = WEXITSTATUS(g_return);
-	if (g_return == 256)
-		g_return = 1;
-	if (g_return == 255)
-		g_return = 127;
+		if (g_return == 255)
+			g_return = 127;
+		
+	}
 }
 
 int		fill_and_execute(void)
@@ -74,7 +78,7 @@ int		fill_and_execute(void)
 		j = 0;
 		g_utils.p_split = mod_split(g_utils.m_split[i], '|');
 		if (!g_utils.p_split)
-			return (0);
+			return (-1);
 		if (!fill(&j, i))
 			return (-1);
 		execute(j);
@@ -144,7 +148,10 @@ int	main(int ac, char **av, char **env)
 			leave(NULL);
 		ft_putchar_fd('\n', 1);
 		if (check_semicolon(g_utils.line))
+		{
+			g_return = 258;
 			continue ;
+		}
 		if (fill_and_execute() < 0)
 			g_return = 258;
 		// free(g_utils.line);
