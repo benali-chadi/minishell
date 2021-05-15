@@ -6,7 +6,7 @@
 #    By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/28 16:00:43 by cbenali-          #+#    #+#              #
-#    Updated: 2021/05/13 15:48:48 by cbenali-         ###   ########.fr        #
+#    Updated: 2021/05/15 16:10:11 by cbenali-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC = mini_shell.c exec_cmd.c \
 	gnl.c mod_split_red.c mod_split.c mod_split_red_utils.c\
 	fill_cmd_2.c env2.c env3.c mod_split_1.c new_clean_command.c cat_command_utils.c\
 	env_linkedlist_cmd.c cat_command_utils2.c new_clean_command_utils.c mod_split_assignment.c \
-	$(NAMELIB) read_cmd.c
+	$(NAMELIB) termcaps/*.c
 
 all : $(NAME)
 

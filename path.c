@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:00:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/10 19:10:39 by smhah            ###   ########.fr       */
+/*   Updated: 2021/05/15 17:05:50 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,19 @@ void	execute_cmd(t_command_info *cmd, char *command)
 		}
 		g_utils.args[i] = NULL;
 	}
-	if (execve(command, g_utils.args, g_utils.env) < 0)
-		exit(-1);
+	int ret;
+	if (( ret = execve(command, g_utils.args, g_utils.env)) < 0)
+	{
+		DIR *dir = opendir(command);
+		if (opendir(command))
+		{
+			ft_printf("minishell : %s", strerror(12));
+			closedir()
+			exit(12);
+		}
+		ft_printf("minishell : %s\n", strerror(errno));
+		exit(errno);
+	}
 }
 
 char	*search_path(void)
@@ -70,12 +81,7 @@ void	find_path(t_command_info *cmd, char *var, int p)
 	split = mod_split(search_path(), ':');
 	i = 0;
 	if (p)
-	{
-		if (stat(cmd->command, &g_utils.buf))
-			ft_printf("minishell: %s: No such file or directory\n",
-				cmd->command);
 		execute_cmd(cmd, var);
-	}
 	while (split[i])
 	{
 		command = ft_strjoin(split[i], var);

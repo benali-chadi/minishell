@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/05/08 15:39:38 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/05/15 17:06:07 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "ft_printf/libft/libft.h"
 # include "ft_printf/ft_printf.h"
-# include "termcaps.h"
+# include "termcaps/termcaps.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
@@ -26,6 +26,8 @@
 # include <signal.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <dirent.h>
+
 /*
 	**Envirenment Stucture
 */
@@ -287,5 +289,25 @@ void						red_file_names(char *args, int red, int j);
 void						find_path(t_command_info *cmd, char *var, int p);
 char						*search_path(void);
 void						execute_cmd(t_command_info *cmd, char *command);
+
+/*
+	**TermUtils
+*/
+
+char	*ft_join_stacks(t_read reads);
+void	ft_stcclear(t_stack *st);
+void	ft_push_front(char c, t_stack **ri);
+int		ft_pop_front(t_stack **ri);
+void	print_stack(t_stack *st);
+void	ft_push(char c, t_stack **st);
+char	ft_pop(t_stack **st);
+int		ft_puts(int c);
+void	add_line(char *str, t_stack **st);
+void	save_and_print(char c, t_read *reads);
+void	cursor_backward(t_read *reads);
+void	cursor_forward(t_read *reads);
+void	delete_char(t_read *reads);
+char	ft_getch(int fd, t_read *reads);
+void	ft_add_line(t_stack **st, char *str);
 
 #endif

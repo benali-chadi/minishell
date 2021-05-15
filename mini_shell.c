@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/05/13 18:06:51 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/05/15 16:59:14 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,11 @@ void	execute(int j)
 	else if (g_return)
 	{
 		g_return = WEXITSTATUS(g_return);
+		printf("ret2 = %d\n", g_return);
 		if (g_return == 255)
 			g_return = 127;
+		else if (g_return == 13)
+			g_return = 126;
 		
 	}
 }
