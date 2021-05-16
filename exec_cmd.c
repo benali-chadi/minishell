@@ -44,7 +44,8 @@ void	pipe_or_red(t_command_info *cmd, int *in, int n, int last)
 	{
 		while (i < cmd->reds.in_num)
 		{
-			if ((open_in(cmd->reds.in_file_name[i++], in) < 0))
+			*in = open(cmd->reds.in_file_name[i++], O_RDONLY);
+			if (*in < 0)
 			{
 				ft_printf("minishell: %s\n", strerror(errno));
 				exit(1);
@@ -62,16 +63,18 @@ void	pipe_or_red(t_command_info *cmd, int *in, int n, int last)
 
 void	ft_fork(t_command_info *cmd, int n, int last)
 {
-	int		f;
 	int		in;
 	char	*var;
 	int		p;
 
 	p = 0;
-	in = n == 0 ? 0 : g_fd[n - 1][0];
+	if (!n)
+		in = 0;
+	else
+		in = g_fd[n - 1][0];
 	if (last)
 		pipe(g_fd[n]);
-	if ((f = fork()) == 0)
+	if (fork() == 0)
 	{
 		pipe_or_red(cmd, &in, n, last);
 		if (test_cmds(cmd))
@@ -89,7 +92,7 @@ void	ft_fork(t_command_info *cmd, int n, int last)
 		close(g_fd[n][1]);
 }
 
-void			exec_cmd(t_command_info *cmd, int i, int last)
+void	exec_cmd(t_command_info *cmd, int i, int last)
 {
 	if (cmd->tests.exit && !cmd->pipe)
 		leave(cmd->string);
@@ -101,7 +104,10 @@ void			exec_cmd(t_command_info *cmd, int i, int last)
 		else if (cmd->string[0][0] == '~')
 			cmd->string[0] = ft_strjoin(search_lgnam(), (*cmd->string) + 1);
 		if (chdir(cmd->string[0]) < 0)
-			ft_printf("cd: can't cd to %s\n", cmd->string[0]);
+		{
+			ft_printf("minishell: cd: %s: %s\n", cmd->string[0], strerror(errno));
+			g_return = 256;
+		}
 		getcwd(g_utils.pwd, 100);
 		add_last_cmd(g_utils.pwd, "PWD");
 		add_last_cmd("cd", "_");
