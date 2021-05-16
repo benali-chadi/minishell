@@ -16,7 +16,6 @@ void	sig_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		free(g_utils.line);
 		g_utils.line = NULL;
 		if (!g_status)
 			ft_putstr_fd("\n\033[0;32mCS\033[0;31m@minishell \033[0m",

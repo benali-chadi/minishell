@@ -48,16 +48,12 @@ void	execute(int j)
 	}
 	while (wait(&g_return) != -1)
 		;
-	printf("ret1 = %d\n", g_return);
 	if (g_return && g_return < 255)
 		g_return += 128;
 	else if (g_return)
 	{
 		g_return = WEXITSTATUS(g_return);
-		printf("ret2 = %d\n", g_return);
-		if (g_return == 255)
-			g_return = 127;
-		else if (g_return == 13)
+		if (g_return == 13 || g_return == 21)
 			g_return = 126;
 		
 	}
@@ -102,7 +98,6 @@ int		check_semicolon(char *str)
 	{
 		ft_putstr_fd("minishell: syntax error near ", 2);
 		ft_putstr_fd("unexpected token `;'\n", 2);
-		free(g_utils.line);
 		g_utils.line = NULL;
 		return (1);
 	}

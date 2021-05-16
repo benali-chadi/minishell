@@ -46,7 +46,7 @@ void	pipe_or_red(t_command_info *cmd, int *in, int n, int last)
 		{
 			if ((open_in(cmd->reds.in_file_name[i++], in) < 0))
 			{
-				ft_printf("%s\n", strerror(errno));
+				ft_printf("minishell: %s\n", strerror(errno));
 				exit(1);
 			}
 			dup2(*in, STDIN_FILENO);

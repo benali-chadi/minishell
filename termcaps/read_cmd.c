@@ -7,7 +7,6 @@ void reenitialize(t_read **reads, char *cmd)
 {
 	(*reads)->left = NULL;
 	(*reads)->right = NULL;
-	// Renitialize
 	(*reads)->l_len = ft_strlen(cmd);
 	(*reads)->r_len = 0;
 	(*reads)->count = (*reads)->l_len;
