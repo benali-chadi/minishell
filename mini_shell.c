@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/05/15 16:59:14 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/05/18 18:53:31 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	execute(int j)
 	int k;
 
 	g_utils.cmd = g_commands;
-	g_fd = m_malloc(j * sizeof(int *) + 1);
+	g_fd = m_malloc(j * sizeof(int *) + sizeof(int *));
 	k = 0;
 	while (g_utils.cmd != NULL)
 	{
@@ -48,16 +48,12 @@ void	execute(int j)
 	}
 	while (wait(&g_return) != -1)
 		;
-	printf("ret1 = %d\n", g_return);
 	if (g_return && g_return < 255)
 		g_return += 128;
 	else if (g_return)
 	{
 		g_return = WEXITSTATUS(g_return);
-		printf("ret2 = %d\n", g_return);
-		if (g_return == 255)
-			g_return = 127;
-		else if (g_return == 13)
+		if (g_return == 13 || g_return == 21)
 			g_return = 126;
 		
 	}
@@ -102,7 +98,6 @@ int		check_semicolon(char *str)
 	{
 		ft_putstr_fd("minishell: syntax error near ", 2);
 		ft_putstr_fd("unexpected token `;'\n", 2);
-		free(g_utils.line);
 		g_utils.line = NULL;
 		return (1);
 	}

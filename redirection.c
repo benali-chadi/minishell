@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:14 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/10 19:07:01 by smhah            ###   ########.fr       */
+/*   Updated: 2021/05/18 18:39:37 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	red_file_names(char *args, int red, int j)
 	if (red == 1)
 	{
 		g_cmd->reds.out[g_cmd->reds.out_num].file_name = m_malloc
-			(ft_strlen(&args[j]));
+			(ft_strlen(&args[j]) + 1);
 		str = clean_cmd(&args[j]);
 		k = -1;
 		while (str[++k])

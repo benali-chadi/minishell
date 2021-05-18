@@ -87,17 +87,15 @@ void	leave(char **strings)
 	if (ret >= 0)
 	{
 		if (ret == 0)
-		{
 			uc = ft_atoi(strings[0]);
-		}
 		else if (ret == 1)
 		{
 			uc = 255;
-			ft_printf("exit: %s: numeric argument required\n", strings[0]);
+			ft_printf("minishell: exit: %s: numeric argument required\n", strings[0]);
 		}
 		else
 		{
-			ft_printf("exit: too many arguments\n");
+			ft_printf("minishell: exit: too many arguments\n");
 			return;
 		}
 	}

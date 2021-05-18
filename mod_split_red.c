@@ -6,18 +6,23 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:03:11 by smhah             #+#    #+#             */
-/*   Updated: 2021/04/03 16:21:06 by smhah            ###   ########.fr       */
+/*   Updated: 2021/05/18 19:21:42 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-int			ft_stock_red(char **tab1, int a, char o)
-{
-	if (g_var_one == 0 && g_var_two == 0)
-		tab1[a][g_join_red++] = o;
-	return (g_join_red);
-}
+// int			ft_stock_red(char **tab1, int a, char o)
+// {
+
+// 	if (g_var_one == 0 && g_var_two == 0)
+// 	{
+// 		tab1[a][g_join_red++] = o;
+// 		//tab1[a][g_join_red] = '\0';
+// 	}
+// 	printf("tab:|%s|\n", tab1[a]);
+// 	return (g_join_red);
+// }
 
 char		**result_red(char **tab1, const char *str, char *c)
 {
@@ -32,9 +37,14 @@ char		**result_red(char **tab1, const char *str, char *c)
 	while (str[i] != '\0' && ((g_join_red = 0) >= 0))
 	{
 		b = 0;
-		while (ft_strchr(c, str[i]) &&
-			((b = ft_stock_red(tab1, a, str[i])) >= 0))
+		while (str[i] && ft_strchr(c, str[i]))
+		{
+			if (g_var_one == 0 && g_var_two == 0)
+				tab1[a][b++] = str[i++];
 			i++;
+		}// &&
+			//((b = ft_stock_red(tab1, a, str[i])) >= 0))
+			//i++;
 		if (str[i] == '\0')
 			break ;
 		while ((g_var_one == 1 || g_var_two == 1 ||
@@ -56,6 +66,7 @@ char		**mod_split_red(char const *s, char *c)
 	int		*p;
 	int		len;
 
+	printf("String:%s\n", s);
 	i = 0;
 	g_join_red = 0;
 	if (s)
