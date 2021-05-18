@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mod_split_red_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:04:04 by smhah             #+#    #+#             */
-/*   Updated: 2021/04/01 16:37:56 by smhah            ###   ########.fr       */
+/*   Updated: 2021/05/18 18:08:35 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,11 @@ int			ft_countwords_red(const char *str, char *c)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		while (ft_strchr(c, str[i]))
+		while (str[i] && ft_strchr(c, str[i]))
+		{
+			printf("str[i]:|%c|\n", str[i]);
 			i++;
+		}
 		if (str[i] == '\0')
 			break ;
 		compteur++;
@@ -76,7 +79,7 @@ int			ft_countlen_red(const char *str, char *c, int *i)
 	len = 0;
 	while (str[*i] != '\0')
 	{
-		while (ft_strchr(c, str[*i]))
+		while (str[*i] && ft_strchr(c, str[*i]))
 			*i = *i + 1;
 		if (str[*i] == '\0')
 			return (len);
@@ -84,7 +87,7 @@ int			ft_countlen_red(const char *str, char *c, int *i)
 		(*i && str[*i - 1] == '\\') || !ft_strchr(c, str[*i]))
 			&& str[*i] != '\0' && re_check_quots(str, *i))
 		{
-			*i = *i + 1;
+			(*i)++;
 			len++;
 		}
 		return (len);

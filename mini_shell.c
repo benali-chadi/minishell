@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/05/15 16:59:14 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/05/18 18:53:31 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	execute(int j)
 	int k;
 
 	g_utils.cmd = g_commands;
-	g_fd = m_malloc(j * sizeof(int *) + 1);
+	g_fd = m_malloc(j * sizeof(int *) + sizeof(int *));
 	k = 0;
 	while (g_utils.cmd != NULL)
 	{

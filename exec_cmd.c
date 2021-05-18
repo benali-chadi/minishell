@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:32:40 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/05/13 15:15:00 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/05/18 18:53:44 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@ static void	red_out(t_command_info *cmd, int n)
 	while (i < cmd->reds.out_num)
 	{
 		if (ft_strcmpr(cmd->reds.out[i].sym, ">>"))
+		{
+			g_fd[n][1] = 56;
 			g_fd[n][1] = open(cmd->reds.out[i++].file_name,
 					O_CREAT | O_WRONLY | O_APPEND, 0666);
+		}
 		else
 			g_fd[n][1] = open(cmd->reds.out[i++].file_name,
 					O_CREAT | O_WRONLY | O_TRUNC, 0666);
