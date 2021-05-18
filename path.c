@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:00:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/05/15 17:05:50 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/05/15 17:24:04 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ void	execute_cmd(t_command_info *cmd, char *command)
 	int ret;
 	if (( ret = execve(command, g_utils.args, g_utils.env)) < 0)
 	{
-		DIR *dir = opendir(command);
+		//DIR *dir = opendir(command);
 		if (opendir(command))
 		{
 			ft_printf("minishell : %s", strerror(12));
-			closedir()
+			//closedir();
 			exit(12);
 		}
 		ft_printf("minishell : %s\n", strerror(errno));

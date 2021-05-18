@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cat_command_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 15:04:47 by smhah             #+#    #+#             */
-/*   Updated: 2021/04/10 18:32:14 by smhah            ###   ########.fr       */
+/*   Updated: 2021/05/15 22:47:38 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	fix_quotes_next_to_var(char **args, int i, int j, int *s)
 			fill_command_string(args[i][j], *s);
 	}
 	else
+	{
+		//printf("{%c}\n", args[i][j]);
 		fill_command_string(args[i][j], *s);
+	}
 }
 
 void	change_one_two(char a)
@@ -45,6 +48,8 @@ void	change_one_two(char a)
 void	fill_command_string(char a, int i)
 {
 	g_cmd->string[i][g_cmd->string_len++] = a;
+	// g_cmd->string[i][g_cmd->string_len] = '\0';
+	// printf("string:[%s]\n", g_cmd->string[i]); 
 	if (a == '\'')
 	{
 		if (g_one)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:12:31 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/05/13 15:15:32 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/05/15 18:05:03 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_strcmpr(char *s1, char *s2)
 	int	i;
 
 	i = 0;
-	while (s1[i] && s2[i])
+	while (s1[i] || s2[i])
 	{
 		if (s1[i] != s2[i])
 			return (0);
