@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/05/18 19:00:45 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/05/20 19:31:42 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 	**Envirenment Stucture
 */
 
-typedef struct				s_list_env
+typedef struct s_list_env
 {
 	char					*content;
 	char					*name;
@@ -40,17 +40,17 @@ typedef struct				s_list_env
 	struct s_list_env		*next;
 }							t_list_env;
 
-typedef struct				s_histo
+typedef struct s_histo
 {
 	char					*command_line;
 	struct s_histo			*next;
 	struct s_histo			*previous;
 }							t_histo;
-	
+
 /*
 	**Commands Structures
 */
-typedef struct				s_tests
+typedef struct s_tests
 {
 	int						echo;
 	int						cd;
@@ -62,13 +62,13 @@ typedef struct				s_tests
 	int						ls;
 }							t_tests;
 
-typedef struct				s_out
+typedef struct s_out
 {
 	char					sym[3];
 	char					*file_name;
 }							t_out;
 
-typedef struct				s_redirection
+typedef struct s_redirection
 {
 	char					*in_file_name[100];
 	t_out					out[100];
@@ -76,7 +76,7 @@ typedef struct				s_redirection
 	int						out_num;
 }							t_redirection;
 
-typedef struct				s_command_info {
+typedef struct s_command_info {
 	char					*command;
 	char					*options;
 	char					*string[10000];
@@ -92,7 +92,7 @@ typedef struct				s_command_info {
 	**Utils Structure
 */
 
-typedef struct				s_utils
+typedef struct s_utils
 {
 	char					*line;
 	char					**m_split;
@@ -169,7 +169,7 @@ char						*clean_cmd(char *str);
 int							gnl(int fd, char **line);
 int							check_quots(const char *str, int i);
 int							check_white_spaces(void);
-void						print_prompt();
+void						print_prompt(void);
 /*
 	split
 */
@@ -239,9 +239,10 @@ t_command_info				*cmd_lstlast(t_command_info *lst);
 /*
 	**Environment
 */
-void						ft_next_node(t_list_env **read_list, t_list_env **prev);
-void						bypass_ternarie_1(t_command_info *cmd, char **content,
-								int i, int j);
+void						ft_next_node(t_list_env **read_list,
+								t_list_env **prev);
+void						bypass_ternarie_1(t_command_info *cmd,
+								char **content, int i, int j);
 void						ft_export(t_command_info *cmd);
 int							loop_env(int e);
 void						stock_env(char **env);
@@ -289,25 +290,5 @@ void						red_file_names(char *args, int red, int j);
 void						find_path(t_command_info *cmd, char *var, int p);
 char						*search_path(void);
 void						execute_cmd(t_command_info *cmd, char *command);
-
-/*
-	**TermUtils
-*/
-
-char	*ft_join_stacks(t_read reads);
-void	ft_stcclear(t_stack *st);
-void	ft_push_front(char c, t_stack **ri);
-int		ft_pop_front(t_stack **ri);
-void	print_stack(t_stack *st);
-void	ft_push(char c, t_stack **st);
-char	ft_pop(t_stack **st);
-int		ft_puts(int c);
-void	add_line(char *str, t_stack **st);
-void	save_and_print(char c, t_read *reads);
-void	cursor_backward(t_read *reads);
-void	cursor_forward(t_read *reads);
-void	delete_char(t_read *reads);
-char	ft_getch(int fd, t_read *reads);
-void	ft_add_line(t_stack **st, char *str);
 
 #endif

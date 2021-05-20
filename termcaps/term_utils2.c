@@ -1,27 +1,25 @@
 #include "../mini_shell.h"
 
-void ft_push(char c, t_stack **st)
+void	ft_push(char c, t_stack **st)
 {
-	t_stack *tmp;
-	t_stack *new;
+	t_stack	*tmp;
+	t_stack	*new;
 
 	new = m_malloc(sizeof(t_stack));
 	new->c = c;
 	new->next = NULL;
-
 	if (!*st)
 	{
 		*st = new;
-		return;
+		return ;
 	}
 	tmp = *st;
-
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
 }
 
-char ft_pop(t_stack **st)
+char	ft_pop(t_stack **st)
 {
 	t_stack	*tmp;
 	char	c;
@@ -29,39 +27,36 @@ char ft_pop(t_stack **st)
 	tmp = *st;
 	if (!tmp)
 		return (0);
-
 	if (tmp->next == NULL)
 	{
 		c = tmp->c;
 		*st = NULL;
 		return (c);
 	}
-
 	while (tmp->next->next != NULL)
 		tmp = tmp->next;
-
 	c = tmp->next->c;
 	tmp->next = NULL;
 	return (c);
 }
 
-int		ft_puts(int c)
+int	ft_puts(int c)
 {
 	return (write(1, &c, 1));
 }
 
-void add_line(char *str, t_stack **st)
+void	add_line(char *str, t_stack **st)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
 		ft_push(str[i++], st);
 }
 
-void save_and_print(char c, t_read *reads)
+void	save_and_print(char c, t_read *reads)
 {
-	char *cur_pos;
+	char	*cur_pos;
 
 	write(1, &c, 1);
 	ft_push(c, &reads->left);
