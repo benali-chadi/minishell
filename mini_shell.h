@@ -137,7 +137,6 @@ int							g_count_end;
 char						g_case_index[10000];
 int							g_print_next;
 char						g_next;
-int							g_echo;
 
 /*
 	**Functions
@@ -156,6 +155,7 @@ void						loop_env_cmd(void);
 /*
 	**Utils
 */
+
 int							is_special(char a);
 int							condition1(char a1, char a2);
 void						change_one_two(char a);
@@ -170,6 +170,8 @@ int							gnl(int fd, char **line);
 int							check_quots(const char *str, int i);
 int							check_white_spaces(void);
 void						print_prompt(void);
+int							in_value(int n);
+
 /*
 	split
 */
@@ -274,7 +276,7 @@ void						ft_fork(t_command_info *cmd, int n, int last);
 char						*check_cmd(char *command, int *p);
 
 void						close_all(int last);
-
+void						exec_cd(t_command_info *cmd);
 /*
 	**Redirection
 */

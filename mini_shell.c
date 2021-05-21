@@ -12,7 +12,7 @@
 
 #include "mini_shell.h"
 
-int		fill(int *j, int i)
+int	fill(int *j, int i)
 {
 	if (mod_strlen(g_utils.p_split) > 1)
 	{
@@ -35,7 +35,7 @@ int		fill(int *j, int i)
 
 void	execute(int j)
 {
-	int k;
+	int	k;
 
 	g_utils.cmd = g_commands;
 	g_fd = m_malloc(j * sizeof(int *) + sizeof(int *));
@@ -55,16 +55,16 @@ void	execute(int j)
 		g_return = WEXITSTATUS(g_return);
 		if (g_return == 13 || g_return == 21)
 			g_return = 126;
-		
 	}
 }
 
-int		fill_and_execute(void)
+int	fill_and_execute(void)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
-	if (!(g_utils.m_split = mod_split(g_utils.line, ';')))
+	g_utils.m_split = mod_split(g_utils.line, ';');
+	if (!g_utils.m_split)
 		return (0);
 	if (!check_white_spaces())
 		return (0);
@@ -87,9 +87,9 @@ int		fill_and_execute(void)
 	return (1);
 }
 
-int		check_semicolon(char *str)
+int	check_semicolon(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
@@ -104,36 +104,14 @@ int		check_semicolon(char *str)
 	return (0);
 }
 
-int		check_term()
-{
-	int ret;
-	char *term_type = getenv("TERM");
-	// int column_count;
-	// int line_count;
-	
-	ret = tgetent(NULL, term_type);
-	// char *blink_cmd = tgetstr("mb", NULL);
-	char *af_cmd = tgetstr("AF", NULL);
-	tputs(tparm(af_cmd, COLOR_RED), 1, putchar);
-	// tputs(blink_cmd, 1, putchar);
-	// column_count = tgetnum("co");
-	// line_count = tgetnum("li");
-	//printf("column:%d\n", column_count);
-    return ret;
-}
-
 int	main(int ac, char **av, char **env)
 {
-	int	i;
-
 	(void)ac;
 	(void)av;
-	i = 0;
 	init_stuff(env);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 	stock_env(env);
-	g_echo = 0;
 	g_histo = NULL;
 	getcwd(g_utils.pwd, 100);
 	while (1)
@@ -141,10 +119,8 @@ int	main(int ac, char **av, char **env)
 		if (!g_utils.buf.st_size)
 			ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m",
 				g_utils.out);
-		// if (!(gnl(0, &g_utils.line)))
 		if (!read_char(0, &g_utils.line))
 			leave(NULL);
-		ft_putchar_fd('\n', 1);
 		if (check_semicolon(g_utils.line))
 		{
 			g_return = 258;
@@ -152,12 +128,7 @@ int	main(int ac, char **av, char **env)
 		}
 		if (fill_and_execute() < 0)
 			g_return = 258;
-		// free(g_utils.line);
 		g_utils.line = NULL;
-		i++;
 	}
-	printf("-------\n");
-	loop_env_cmd();
-	printf("---------\n");
 	return (0);
 }

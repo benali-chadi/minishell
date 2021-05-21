@@ -21,10 +21,7 @@ void	fix_quotes_next_to_var(char **args, int i, int j, int *s)
 			fill_command_string(args[i][j], *s);
 	}
 	else
-	{
-		//printf("{%c}\n", args[i][j]);
 		fill_command_string(args[i][j], *s);
-	}
 }
 
 void	change_one_two(char a)
@@ -48,8 +45,6 @@ void	change_one_two(char a)
 void	fill_command_string(char a, int i)
 {
 	g_cmd->string[i][g_cmd->string_len++] = a;
-	// g_cmd->string[i][g_cmd->string_len] = '\0';
-	// printf("string:[%s]\n", g_cmd->string[i]); 
 	if (a == '\'')
 	{
 		if (g_one)

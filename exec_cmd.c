@@ -71,10 +71,7 @@ void	ft_fork(t_command_info *cmd, int n, int last)
 	int		p;
 
 	p = 0;
-	if (!n)
-		in = 0;
-	else
-		in = g_fd[n - 1][0];
+	in = in_value(n);
 	if (last)
 		pipe(g_fd[n]);
 	if (fork() == 0)
@@ -100,23 +97,7 @@ void	exec_cmd(t_command_info *cmd, int i, int last)
 	if (cmd->tests.exit && !cmd->pipe)
 		leave(cmd->string);
 	else if (cmd->tests.cd)
-	{
-		add_last_cmd(g_utils.pwd, "OLDPWD");
-		if (!cmd->string[0])
-			cmd->string[0] = search_lgnam();
-		else if (cmd->string[0][0] == '~')
-			cmd->string[0] = ft_strjoin(search_lgnam(), (*cmd->string) + 1);
-		if (chdir(cmd->string[0]) < 0)
-		{
-			ft_printf("minishell: cd: %s: %s\n", cmd->string[0], strerror(errno));
-			g_return = 256;
-		}
-		getcwd(g_utils.pwd, 100);
-		add_last_cmd(g_utils.pwd, "PWD");
-		add_last_cmd("cd", "_");
-		if (ft_strcmpr(cmd->string[0], ".") || ft_strcmpr(cmd->string[0], ".."))
-			add_last_cmd(cmd->string[0], "_");
-	}
+		exec_cd(cmd);
 	else if (cmd->tests.export_t)
 		ft_export(cmd);
 	else if (cmd->tests.unset)

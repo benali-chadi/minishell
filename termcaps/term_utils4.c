@@ -7,14 +7,14 @@ int	save_or_remove(t_read *reads, int c)
 		save_and_print(c, reads);
 		reads->l_len++;
 		reads->count++;
-		return 1;
+		return (1);
 	}
 	if (c == REMOVE && reads->l_len)
 	{
 		delete_char(reads);
 		reads->count--;
 		reads->l_len--;
-		return 1;
+		return (1);
 	}
-	return 0;
+	return (0);
 }

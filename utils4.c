@@ -1,0 +1,33 @@
+#include "mini_shell.h"
+
+void	print_prompt(void)
+{
+	ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m",
+		g_utils.out);
+}
+
+void	exec_cd(t_command_info *cmd)
+{
+	add_last_cmd(g_utils.pwd, "OLDPWD");
+	if (!cmd->string[0])
+		cmd->string[0] = search_lgnam();
+	else if (cmd->string[0][0] == '~')
+		cmd->string[0] = ft_strjoin(search_lgnam(), (*cmd->string) + 1);
+	if (chdir(cmd->string[0]) < 0)
+	{
+		ft_printf("minishell: cd: %s: %s\n", cmd->string[0], strerror(errno));
+		g_return = 256;
+	}
+	getcwd(g_utils.pwd, 100);
+	add_last_cmd(g_utils.pwd, "PWD");
+	add_last_cmd("cd", "_");
+	if (ft_strcmpr(cmd->string[0], ".") || ft_strcmpr(cmd->string[0], ".."))
+		add_last_cmd(cmd->string[0], "_");
+}
+
+int	in_value(int n)
+{
+	if (!n)
+		return (0);
+	return (g_fd[n - 1][0]);
+}

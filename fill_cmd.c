@@ -12,7 +12,7 @@
 
 #include "mini_shell.h"
 
-int		check_special_char(char a)
+int	check_special_char(char a)
 {
 	if (!is_alpha_digit(a) && a != '_' && a != '\''
 		&& a != '\"' && a != '$' && a != '\\' && (g_next = a))
@@ -20,7 +20,7 @@ int		check_special_char(char a)
 	return (0);
 }
 
-int		check_end_1(char **args, char **split, int *i)
+int	check_end_1(char **args, char **split, int *i)
 {
 	char	a1;
 	char	a2;
@@ -47,7 +47,7 @@ int		check_end_1(char **args, char **split, int *i)
 	return (1);
 }
 
-int		fill_cmd_helper(char **split)
+int	fill_cmd_helper(char **split)
 {
 	char	**args;
 	int		i;
@@ -76,7 +76,7 @@ int		fill_cmd_helper(char **split)
 	return (i);
 }
 
-int		check_end_2(char **args, char **split, int *i, int *s)
+int	check_end_2(char **args, char **split, int *i, int *s)
 {
 	char	a1;
 	char	a2;
@@ -86,7 +86,7 @@ int		check_end_2(char **args, char **split, int *i, int *s)
 	if (split[*i + 1])
 		a2 = split[*i + 1][0];
 	if (mod_strlen(args) < 2 && split[*i + 1] && a2 != '>' && a2 != '<'
-	&& (a1 == '>' || a1 == '<'))
+		&& (a1 == '>' || a1 == '<'))
 	{
 		args[0] = ft_strjoin(args[0], split[*i + 1]);
 		*i = *i + 1;
@@ -102,13 +102,14 @@ int		check_end_2(char **args, char **split, int *i, int *s)
 	return (1);
 }
 
-int		fill_cmd(char **split, int p)
+int	fill_cmd(char **split, int p)
 {
 	char	**args;
 	int		i;
 	int		s;
 
-	if (!*split || (i = fill_cmd_helper(split)) < 0)
+	i = fill_cmd_helper(split);
+	if (!*split || i < 0)
 		return (-1);
 	s = 0;
 	g_cmd->string[0] = NULL;

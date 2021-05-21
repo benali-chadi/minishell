@@ -68,6 +68,7 @@ int	ft_read_line(int fd, t_read *reads, t_histo **read)
 	{
 		if ((*read) && (*read)->next != NULL)
 			ft_remove_node_cmd_1();
+		ft_putchar_fd('\n', 1);
 		return (0);
 	}
 	return (1);

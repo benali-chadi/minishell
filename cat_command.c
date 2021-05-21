@@ -21,7 +21,6 @@ int	first_condition(int j, char **args, int i, int *s)
 	while (args[i][j] && (is_alpha_digit(args[i][j]) || args[i][j] == '_'))
 		g_str_var[g_var_k++] = args[i][j++];
 	g_str_var[g_var_k] = '\0';
-	//printf("var:[%s]\n", g_str_var);
 	if (ft_strcmpr(g_str_var, "?"))
 	{
 		g_str_return = ft_itoa(g_return);
@@ -55,12 +54,10 @@ int	check_first_char(char **args, int *i, int *j)
 	char	a1;
 	char	a2;
 
-	//printf("INCREMENT1\n");
 	a1 = args[*i][*j];
 	a2 = '\0';
 	if (args[*i][*j + 1])
 		a2 = args[*i][*j + 1];
-	//printf("a2 is [%c]\n", a2);
 	if (condition1(a1, a2))
 	{
 		if (a1 == '$' && a2 == '"' && !args[*i][*j + 2])
@@ -93,20 +90,13 @@ void	to_while(char **args, int i, int *s)
 	{
 		if (check_first_char(args, &i, &j) == 1)
 		{
-			//printf("INCREMENT1\n");
 			if(args[i][j] == '$' && j > 0 && (args[i][j - 1] == '"' || args[i][j - 1] == '\'') && !g_two)
 				g_cmd->indice[*s] = 0;
 			else if (!g_two)
 			{
 				g_cmd->indice[*s] = 1;
 			}
-			//	printf("args[i][j]:%c\n", args[i][j]);
 			j = first_condition(j, args, i, s);
-			//printf("HERE1\n");
-			// if (!g_two)
-			// {
-			// 	g_cmd->indice[*s] = 1;
-			// }
 			if (args[i][j] == '"' || args[i][j] == '\'')
 				check_quots_after_dollar(args, i, j, s);
 		}
@@ -117,7 +107,6 @@ void	to_while(char **args, int i, int *s)
 		else
 		{
 			fix_quotes_next_to_var(args, i, j, s);
-			// printf("dollar is=%c\n", args[i][j]);
 		}
 		if (args[i][j] && (args[i][j] != '$'
 				|| ((g_one == 1 && args[i][j] == '$') || (args[i][j] == '$' && ((args[i][j + 1] == '"' && args[i][j + 2] == '\0' ) || args[i][j + 1] == '\0')))))
