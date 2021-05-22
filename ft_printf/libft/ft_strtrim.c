@@ -50,7 +50,7 @@ static int	find_first(int i, char const *s1, char const *set)
 	return (res);
 }
 
-char		*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*res;
 	int		i;
@@ -68,7 +68,8 @@ char		*ft_strtrim(char const *s1, char const *set)
 		len = 0;
 	else
 		len = end - start;
-	if (!(res = (char *)malloc(len + 1)))
+	res = (char *)malloc(len + 1);
+	if (!res)
 		return (0);
 	res = ft_substr(s1, start, len);
 	return (res);

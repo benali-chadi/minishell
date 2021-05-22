@@ -105,6 +105,7 @@ typedef struct s_utils
 	int						out;
 	struct stat				buf;
 	char					pwd[100];
+	int						for_ctrl_c;
 }							t_utils;
 
 /*

@@ -36,13 +36,14 @@ static void	give_value(char *res, int l, int x, unsigned int n)
 	}
 }
 
-char		*ft_hextoa(unsigned int n, int x)
+char	*ft_hextoa(unsigned int n, int x)
 {
 	char	*res;
 	int		l;
 
 	l = num_hex(n);
-	if (!(res = (char *)malloc((l + 1))))
+	res = (char *)malloc((l + 1));
+	if (!res)
 		return (0);
 	give_value(res, l, x, n);
 	res[l] = '\0';

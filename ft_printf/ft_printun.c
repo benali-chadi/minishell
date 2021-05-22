@@ -12,11 +12,11 @@
 
 #include "ft_printf.h"
 
-extern int g_count;
+extern int	g_count;
 
 static int	num(unsigned int n)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (n == 0)
@@ -71,7 +71,15 @@ static void	case0_putnbr_lastspaces(int case0, int con, unsigned int ui, int n2)
 	}
 }
 
-void		ft_printun(va_list ap, int k, int k2, int con)
+int	n2_for_norme(int n, int k, int k2)
+{
+	if (k2 > n)
+		return (k - k2);
+	else
+		return (k - n);
+}
+
+void	ft_printun(va_list ap, int k, int k2, int con)
 {
 	unsigned int	ui;
 	int				n;
@@ -83,11 +91,17 @@ void		ft_printun(va_list ap, int k, int k2, int con)
 	if (k < 0 && con != 1 && con != 3)
 	{
 		k = -k;
-		con = (!con ? 4 : 5);
+		if (!con)
+			con = 4;
+		else
+			con = 5;
 	}
-	n2 = (k2 > n ? k - k2 : k - n);
-	case0 = (ui == 0 && (k == 0 || (k2 == 0 && (con == 2 || con == 5)))
-	&& con > 0 ? 1 : 0);
+	n2 = n2_for_norme(n, k, k2);
+	if (ui == 0 && (k == 0 || (k2 == 0 && (con == 2 || con == 5)))
+		&& con > 0)
+		case0 = 1;
+	else
+		case0 = 0;
 	if (k || k2)
 		put_spaces_zeroes(n2, n, con, k2);
 	case0_putnbr_lastspaces(case0, con, ui, n2);

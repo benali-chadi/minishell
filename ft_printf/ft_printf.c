@@ -12,12 +12,12 @@
 
 #include "ft_printf.h"
 
-int g_k;
-int g_k2;
-int g_count;
-int g_forzero;
+int	g_k;
+int	g_k2;
+int	g_count;
+int	g_forzero;
 
-int			ft_check_flags_num(va_list ap, const char *s, int *i, int con)
+int	ft_check_flags_num(va_list ap, const char *s, int *i, int con)
 {
 	if (ft_isdigit(s[*i]))
 	{
@@ -41,7 +41,7 @@ int			ft_check_flags_num(va_list ap, const char *s, int *i, int con)
 	return (con);
 }
 
-int			ft_check_flags(va_list ap, const char *s, int *i, int con)
+int	ft_check_flags(va_list ap, const char *s, int *i, int con)
 {
 	if (s[*i] == '0' || s[*i] == '.' || s[*i] == '*')
 	{
@@ -50,9 +50,12 @@ int			ft_check_flags(va_list ap, const char *s, int *i, int con)
 		if (s[*i] == '*')
 			g_k = va_arg(ap, int);
 		if ((s[*i] == '0' || s[*i] == '.' || s[*i - 1] == '.')
-				&& s[*i - 1] != '-')
+			&& s[*i - 1] != '-')
 			con = 1;
-		g_forzero = (s[*i] == '0' ? 1 : 0);
+		if (s[*i] == '0')
+			g_forzero = 1;
+		else
+			g_forzero = 0;
 		(*i)++;
 	}
 	con = ft_check_flags_num(ap, s, i, con);
@@ -67,10 +70,10 @@ int			ft_check_flags(va_list ap, const char *s, int *i, int con)
 	return (con);
 }
 
-int			ft_flag(va_list ap, const char *s, int *i)
+int	ft_flag(va_list ap, const char *s, int *i)
 {
-	int con;
-	int pos;
+	int	con;
+	int	pos;
 
 	pos = 0;
 	con = 0;
@@ -92,9 +95,9 @@ int			ft_flag(va_list ap, const char *s, int *i)
 	return (con);
 }
 
-void		ft_check(const char *s, va_list ap, int *i)
+void	ft_check(const char *s, va_list ap, int *i)
 {
-	int con;
+	int	con;
 
 	con = 0;
 	if (ft_isdigit(s[*i]) || s[*i] == '.' || s[*i] == '*' || s[*i] == '-')
@@ -106,8 +109,8 @@ void		ft_check(const char *s, va_list ap, int *i)
 	else if (s[*i] == 's')
 		if (con > 2)
 			ft_printstr_mns(ap, g_k, g_k2, con);
-		else
-			ft_printstr(ap, g_k, g_k2, con);
+	else
+		ft_printstr(ap, g_k, g_k2, con);
 	else if (s[*i] == 'd' || s[*i] == 'i')
 		ft_printint(ap, g_k, g_k2, con);
 	else if (s[*i] == 'u')
@@ -120,7 +123,7 @@ void		ft_check(const char *s, va_list ap, int *i)
 		ft_printaddr(ap, g_k, con);
 }
 
-int			ft_printf(const char *s, ...)
+int	ft_printf(const char *s, ...)
 {
 	va_list	ap;
 	int		i;

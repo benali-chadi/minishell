@@ -116,9 +116,7 @@ int	main(int ac, char **av, char **env)
 	getcwd(g_utils.pwd, 100);
 	while (1)
 	{
-		if (!g_utils.buf.st_size)
-			ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m",
-				g_utils.out);
+		print_prompt();
 		if (!read_char(0, &g_utils.line))
 			leave(NULL);
 		if (check_semicolon(g_utils.line))

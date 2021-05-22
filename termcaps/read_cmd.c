@@ -90,10 +90,12 @@ int	read_char(int fd, char **line)
 	reads.first = 0;
 	read = g_histo;
 	read = ft_lstlast_cmd(read);
+	g_utils.for_ctrl_c = 0;
 	g_flag = 0;
 	while (ft_read_line(fd, &reads, &read))
 		;
-	*line = ft_join_stacks(reads);
+	if (!g_utils.for_ctrl_c)
+		*line = ft_join_stacks(reads);
 	add_back_cmd(&g_histo, ft_strdup(*line));
 	return (1);
 }

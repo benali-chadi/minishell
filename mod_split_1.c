@@ -12,20 +12,21 @@
 
 #include "mini_shell.h"
 
-int			p_e(char *msg)
+int	p_e(char *msg)
 {
 	ft_printf("minishell: syntax error near unexpected token `%s'\n", msg);
 	return (0);
 }
 
-int			skip_repeat(char *str, int *i, char c)
+int	skip_repeat(char *str, int *i, char c)
 {
-	int repeat;
+	int	repeat;
 
 	repeat = 0;
 	while (str[*i] == c)
 	{
-		if (*i && str[*i - 1] == '|' && str[*i + 1] == '|' && str[*i + 2] == '|')
+		if (*i && str[*i - 1] == '|' && str[*i + 1] == '|'
+			&& str[*i + 2] == '|')
 			if (c == '|')
 				return (p_e("||"));
 		if (*i && str[*i - 1] == '|')
@@ -42,7 +43,7 @@ int			skip_repeat(char *str, int *i, char c)
 	return (1);
 }
 
-int			stock_index(int a)
+int	stock_index(int a)
 {
 	g_case_index[a] = '1';
 	g_case_index[a + 1] = '\0';

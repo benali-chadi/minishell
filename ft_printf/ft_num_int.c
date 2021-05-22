@@ -14,7 +14,7 @@
 
 int	num_int(int n)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (n <= 0)

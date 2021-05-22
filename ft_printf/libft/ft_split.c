@@ -12,10 +12,10 @@
 
 #include "libft.h"
 
-static int		strl(char const *str, char c)
+static int	strl(char const *str, char c)
 {
-	int		i;
-	int		words;
+	int	i;
+	int	words;
 
 	words = 0;
 	i = 0;
@@ -31,10 +31,10 @@ static int		strl(char const *str, char c)
 	return (words);
 }
 
-static int		wordlen(char const *str, int *p, char c)
+static int	wordlen(char const *str, int *p, char c)
 {
-	int i;
-	int w;
+	int	i;
+	int	w;
 
 	w = 0;
 	i = *p;
@@ -53,9 +53,9 @@ static int		wordlen(char const *str, int *p, char c)
 	return (w);
 }
 
-static void		give_value(char *a_str, char const *str, int *p, int c)
+static void	give_value(char *a_str, char const *str, int *p, int c)
 {
-	int j;
+	int	j;
 
 	j = -1;
 	while (str[*p] != '\0')
@@ -68,7 +68,7 @@ static void		give_value(char *a_str, char const *str, int *p, int c)
 	a_str[++j] = '\0';
 }
 
-static char		**free_tab(char **a_str, int i)
+static char	**free_tab(char **a_str, int i)
 {
 	while (i--)
 		free(a_str[i]);
@@ -77,7 +77,7 @@ static char		**free_tab(char **a_str, int i)
 	return (NULL);
 }
 
-char			**ft_split(char const *str, char c)
+char	**ft_split(char const *str, char c)
 {
 	char	**a_str;
 	int		i;
@@ -91,11 +91,13 @@ char			**ft_split(char const *str, char c)
 	i = -1;
 	k = 0;
 	p = &k;
-	if (!(a_str = (char **)malloc((words + 1) * (sizeof(char *)))))
+	a_str = (char **)malloc((words + 1) * (sizeof(char *)));
+	if (!a_str)
 		return (0);
 	while (++i < words)
 	{
-		if (!(a_str[i] = (char *)malloc(wordlen(str, p, c) + 1)))
+		a_str[i] = (char *)malloc(wordlen(str, p, c) + 1);
+		if (!a_str[i])
 			return (free_tab(a_str, i));
 		give_value(a_str[i], str, p, c);
 	}

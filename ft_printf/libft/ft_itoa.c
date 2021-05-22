@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-static int		num(int n)
+static int	num(int n)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (n <= 0)
@@ -27,9 +27,9 @@ static int		num(int n)
 	return (i);
 }
 
-static void		negative_case(char *res, int n, int k)
+static void	negative_case(char *res, int n, int k)
 {
-	unsigned int ui;
+	unsigned int	ui;
 
 	ui = -n;
 	while (ui)
@@ -41,7 +41,7 @@ static void		negative_case(char *res, int n, int k)
 	res[k] = '-';
 }
 
-char			*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char	*res;
 	int		l;
@@ -49,11 +49,13 @@ char			*ft_itoa(int n)
 
 	l = num(n);
 	k = l - 1;
-	if (!(res = (char *)malloc((l + 1) * sizeof(char))))
+	res = (char *)malloc((l + 1) * sizeof(char));
+	if (!res)
 		return (0);
 	if (n < 0)
 		negative_case(res, n, k);
 	else
+	{
 		while (n || l == 1)
 		{
 			res[k] = n % 10 + '0';
@@ -62,6 +64,7 @@ char			*ft_itoa(int n)
 			if (n == 0)
 				break ;
 		}
+	}
 	res[l] = '\0';
 	return (res);
 }
