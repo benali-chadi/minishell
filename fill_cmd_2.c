@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:46:33 by smhah             #+#    #+#             */
-/*   Updated: 2021/03/04 15:10:50 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/02 08:46:31 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int		first_condition_cmd(int i, char *command)
 	return (i);
 }
 
-int		check_first_char_cmd(char a1, char a2, int *i)
+int		check_first_char_cmd(char a1, char a2, int *i, char *str)
 {
-	if (condition1(a1, a2))
+	if (condition1(a1, a2, str))
 		return (1);
 	else if ((a1 == '$' && a2 && g_one != 1 && is_digit(a2) && a2 != '.')
 		|| (a1 == '$' && a2 && g_one == 1
@@ -78,7 +78,7 @@ void	to_while_cmd(char *command, int i, int *indice)
 {
 	while (command[i])
 	{
-		if (check_first_char_cmd(command[i], command[i + 1], &i) == 1)
+		if (check_first_char_cmd(command[i], command[i + 1], &i, command) == 1)
 		{
 			*indice = 1;
 			g_print_next = 0;
@@ -86,7 +86,7 @@ void	to_while_cmd(char *command, int i, int *indice)
 			if (command[i] == '"' || command[i] == '\'')
 				change_one_two(command[i]);
 		}
-		else if (check_first_char_cmd(command[i], command[i + 1], &i) == 2)
+		else if (check_first_char_cmd(command[i], command[i + 1], &i, command) == 2)
 			fill_command(command[i]);
 		else
 			fix_cmd_quotes_next_to_var(command, i);

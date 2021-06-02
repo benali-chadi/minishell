@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cat_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:21:41 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/05/15 23:01:16 by macbook          ###   ########.fr       */
+/*   Updated: 2021/06/02 08:53:55 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,32 @@ int	first_condition(int j, char **args, int i, int *s)
 	return (j);
 }
 
-int	condition1(char a1, char a2)
+int	check_backslash(char *str)
 {
-	if ((a1 == '$' && a2 && g_one != 1 && !is_digit(a2) && a2 != '.')
-		|| (a1 == '$' && a2 && g_one == 1
-			&& g_two == 1 && !is_digit(a2) && a2 != '.'))
+	int i;
+	int c;
+
+	i = 0;
+	c = 0;
+	while (str[i] && str[i] != '$')
+	{
+		if(str[i] == '\\')
+			c++;
+		i++;				
+	}
+	if (i > 0 && str[i - 1] == '\\')
+	{
+		if (c % 2 == 0)
+			return (0);
+		else
+			return (1);
+	}
+	return (0);
+}
+
+int	condition1(char a1, char a2, char *str)
+{
+	if (a1 == '$' && a2 && g_one != 1 && !is_digit(a2) && a2 != '.' && !check_backslash(str))
 		return (1);
 	return (0);
 }
@@ -58,10 +79,12 @@ int	check_first_char(char **args, int *i, int *j)
 	//printf("INCREMENT1\n");
 	a1 = args[*i][*j];
 	a2 = '\0';
+	// !!!!!!!!!!!!!!!!!!!!!!!!!!! ATTENTION SEGFAULT !!!!!!!!!!!!!!!!!!!!!!!!
+	// ^^^^^^^^^^^^^^^^^^^
 	if (args[*i][*j + 1])
 		a2 = args[*i][*j + 1];
 	//printf("a2 is [%c]\n", a2);
-	if (condition1(a1, a2))
+	if (condition1(a1, a2, args[*i]))
 	{
 		if (a1 == '$' && a2 == '"' && !args[*i][*j + 2])
 			return (0);
@@ -120,7 +143,7 @@ void	to_while(char **args, int i, int *s)
 			// printf("dollar is=%c\n", args[i][j]);
 		}
 		if (args[i][j] && (args[i][j] != '$'
-				|| ((g_one == 1 && args[i][j] == '$') || (args[i][j] == '$' && ((args[i][j + 1] == '"' && args[i][j + 2] == '\0' ) || args[i][j + 1] == '\0')))))
+				|| ((g_one == 1 && args[i][j] == '$') || (args[i][j] == '$' && ((args[i][j + 1] == '"' && args[i][j + 2] == '\0' ) || (args[i][j - 1] && args[i][j - 1] == '\\') || args[i][j + 1] == '\0')))))
 		{
 			j++;
 		}

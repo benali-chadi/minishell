@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:08:59 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/05/13 15:40:52 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/06/02 08:14:46 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,18 @@ int		fill_cmd_helper(char **split)
 	return (i);
 }
 
+int		check_last_char(char *str)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+		i++;
+	if (str[i - 1] && (str[i - 1] == '>' || str[i - 1] == '<'))
+		return (1);
+	return (0);
+}
+
 int		check_end_2(char **args, char **split, int *i, int *s)
 {
 	char	a1;
@@ -85,10 +97,18 @@ int		check_end_2(char **args, char **split, int *i, int *s)
 	a2 = '\0';
 	if (split[*i + 1])
 		a2 = split[*i + 1][0];
-	if (mod_strlen(args) < 2 && split[*i + 1] && a2 != '>' && a2 != '<'
-	&& (a1 == '>' || a1 == '<'))
+	if ((mod_strlen(args) < 3 && split[*i + 1] && a2 != '>' && a2 != '<'
+	&& (a1 == '>' || a1 == '<' )))
 	{
+		printf("ENTER\n");
 		args[0] = ft_strjoin(args[0], split[*i + 1]);
+		*i = *i + 1;
+	}
+	else if ((mod_strlen(args) < 3 && split[*i + 1] && a2 != '>' && a2 != '<'
+		&&  check_last_char(split[*i])))
+	{
+		printf("ENTER2\n");
+		args[1] = ft_strjoin(args[1], split[*i + 1]);
 		*i = *i + 1;
 	}
 	else if (split[*i + 1] && (a1 == '>' || a1 == '<')
@@ -97,6 +117,9 @@ int		check_end_2(char **args, char **split, int *i, int *s)
 		ft_printf("minishell: syntax error near unexpected token `%c'\n", a2);
 		return (0);
 	}
+	int oo = 0;
+	while(args[oo])
+		printf("args->[%s]\n", args[oo++]);
 	if (cat_command_string(args, s) < 0)
 		return (0);
 	return (1);

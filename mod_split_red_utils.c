@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mod_split_red_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:04:04 by smhah             #+#    #+#             */
-/*   Updated: 2021/05/18 18:08:35 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/06/02 07:53:46 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ int			ft_countwords_red(const char *str, char *c)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		while (str[i] && ft_strchr(c, str[i]))
+		while (g_var_one == 0 && g_var_two == 0 && str[i] && ft_strchr(c, str[i]))
 		{
-			printf("str[i]:|%c|\n", str[i]);
+			//printf("str[i]:|%c|\n", str[i]);
 			i++;
 		}
 		if (str[i] == '\0')
@@ -67,7 +67,11 @@ int			ft_countwords_red(const char *str, char *c)
 		if (str[i] == '\0')
 			break ;
 	}
-	return (compteur);
+	if(compteur == 0)
+		compteur = 1;
+	else
+		compteur += compteur - 1;
+	return (compteur + 10);
 }
 
 int			ft_countlen_red(const char *str, char *c, int *i)
@@ -79,7 +83,7 @@ int			ft_countlen_red(const char *str, char *c, int *i)
 	len = 0;
 	while (str[*i] != '\0')
 	{
-		while (str[*i] && ft_strchr(c, str[*i]))
+		while (g_var_one == 0 && g_var_two == 0 && str[*i] && ft_strchr(c, str[*i]))
 			*i = *i + 1;
 		if (str[*i] == '\0')
 			return (len);

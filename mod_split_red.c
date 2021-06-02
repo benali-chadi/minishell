@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:03:11 by smhah             #+#    #+#             */
-/*   Updated: 2021/05/18 19:21:42 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/02 07:54:46 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@
 // 	}
 // 	printf("tab:|%s|\n", tab1[a]);
 // 	return (g_join_red);
-// }
-
+//
 char		**result_red(char **tab1, const char *str, char *c)
 {
 	int a;
@@ -37,11 +36,14 @@ char		**result_red(char **tab1, const char *str, char *c)
 	while (str[i] != '\0' && ((g_join_red = 0) >= 0))
 	{
 		b = 0;
-		while (str[i] && ft_strchr(c, str[i]))
+		while (g_var_one == 0 && g_var_two == 0 && str[i] && ft_strchr(c, str[i]))
 		{
-			if (g_var_one == 0 && g_var_two == 0)
 				tab1[a][b++] = str[i++];
-			i++;
+				tab1[a][b] = '\0';
+				printf("[%s]\n", tab1[a]);
+				if(!str[i])
+					a++;
+				//printf("pa9chta9\n");
 		}// &&
 			//((b = ft_stock_red(tab1, a, str[i])) >= 0))
 			//i++;
@@ -66,7 +68,7 @@ char		**mod_split_red(char const *s, char *c)
 	int		*p;
 	int		len;
 
-	printf("String:%s\n", s);
+	//printf("String:%s\n", s);
 	i = 0;
 	g_join_red = 0;
 	if (s)
@@ -85,5 +87,10 @@ char		**mod_split_red(char const *s, char *c)
 		i++;
 	}
 	tab1 = result_red(tab1, s, c);
+	int pipi = 0;
+	while(tab1[pipi])
+	{
+		printf("--->%s\n", tab1[pipi++]);
+	}
 	return (tab1);
 }

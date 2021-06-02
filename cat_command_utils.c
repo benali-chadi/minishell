@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cat_command_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 15:04:47 by smhah             #+#    #+#             */
-/*   Updated: 2021/05/15 22:47:38 by macbook          ###   ########.fr       */
+/*   Updated: 2021/06/02 08:44:05 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ void	fix_quotes_next_to_var(char **args, int i, int j, int *s)
 
 void	change_one_two(char a)
 {
-	if (a == '\'')
+	if (a == '\'' && g_two != 1)
 	{
 		if (g_one)
 			g_one = 0;
 		else
 			g_one = 2;
 	}
-	if (a == '"')
+	if (a == '"' && g_one != 1)
 	{
 		if (g_two)
 			g_two = 0;
@@ -50,14 +50,14 @@ void	fill_command_string(char a, int i)
 	g_cmd->string[i][g_cmd->string_len++] = a;
 	// g_cmd->string[i][g_cmd->string_len] = '\0';
 	// printf("string:[%s]\n", g_cmd->string[i]); 
-	if (a == '\'')
+	if (a == '\'' && g_two != 1)
 	{
 		if (g_one)
 			g_one = 0;
 		else
 			g_one = 1;
 	}
-	if (a == '"')
+	if (a == '"' && g_one != 1)
 	{
 		if (g_two)
 			g_two = 0;

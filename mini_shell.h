@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/05/18 19:00:45 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/06/02 08:46:00 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int (*g_fd)[2];
 int							g_q;
 int							g_one;
 int							g_two;
+int							g_force;
 int							g_var_one;
 int							g_var_two;
 int							g_status;
@@ -157,7 +158,7 @@ void						loop_env_cmd(void);
 	**Utils
 */
 int							is_special(char a);
-int							condition1(char a1, char a2);
+int							condition1(char a1, char a2, char *str);
 void						change_one_two(char a);
 int							check_special_char(char a);
 int							ft_print_error(char a, t_command_info *cmd, int i);
