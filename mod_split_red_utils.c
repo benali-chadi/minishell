@@ -12,7 +12,7 @@
 
 #include "mini_shell.h"
 
-int			check_quots(const char *str, int i)
+int	check_quots(const char *str, int i)
 {
 	if (str[i] == '"')
 		g_var_two = 1;
@@ -21,7 +21,7 @@ int			check_quots(const char *str, int i)
 	return (1);
 }
 
-int			re_check_quots(const char *str, int i)
+int	re_check_quots(const char *str, int i)
 {
 	if (str[i] == '"')
 	{
@@ -40,7 +40,7 @@ int			re_check_quots(const char *str, int i)
 	return (1);
 }
 
-int			ft_countwords_red(const char *str, char *c)
+int	ft_countwords_red(const char *str, char *c)
 {
 	int i;
 	int compteur;

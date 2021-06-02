@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printhex_bigx.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 14:23:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2019/11/11 18:22:33 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/06/02 21:10:08 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-extern int g_count;
+extern int	g_count;
 
 static void	put_spaces_zeroes(int n2, int n, int con, int k2)
 {
@@ -56,7 +56,15 @@ static void	case0_putstr_lastspaces(int n, int con, char *str, int n2)
 	}
 }
 
-void		ft_printhex_bigx(va_list ap, int k, int k2, int con)
+static int	n2_for_norme(int n, int k, int k2)
+{
+	if (k2 > n)
+		return (k - k2);
+	else
+		return (k - n);
+}
+
+void	ft_printhex_bigx(va_list ap, int k, int k2, int con)
 {
 	unsigned int	d;
 	int				n;
@@ -69,12 +77,18 @@ void		ft_printhex_bigx(va_list ap, int k, int k2, int con)
 	if (k < 0 && con != 1 && con != 3)
 	{
 		k = -k;
-		con = (!con ? 4 : 5);
+		if (!con)
+			con = 4;
+		else
+			con = 5;
 	}
-	n2 = (k2 > n ? k - k2 : k - n);
+	n2 = n2_for_norme(n, k, k2);
 	if (k || k2)
 		put_spaces_zeroes(n2, n, con, k2);
-	n = (d == 0 && (k == 0 || (k2 == 0 && (con == 2 || con == 5)))
-	&& con > 0 ? 1 : 0);
+	if (d == 0 && (k == 0 || (k2 == 0 && (con == 2 || con == 5)))
+		&& con)
+		con = 1;
+	else
+		con = 0;
 	case0_putstr_lastspaces(n, con, str, n2);
 }

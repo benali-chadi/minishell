@@ -12,11 +12,11 @@
 
 #include "ft_printf.h"
 
-extern int g_count;
+extern int	g_count;
 
 static int	num_addr(size_t n)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (n <= 0)
@@ -53,7 +53,7 @@ static void	put_spcae(int n)
 	}
 }
 
-void		ft_printaddr(va_list ap, int k, int con)
+void	ft_printaddr(va_list ap, int k, int con)
 {
 	size_t	p;
 	char	*str;

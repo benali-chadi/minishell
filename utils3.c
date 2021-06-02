@@ -62,9 +62,9 @@ int	add_last_cmd(char *s, char *name)
 	return (1);
 }
 
-int		check_args(char **strings)
+int	check_args(char **strings)
 {
-	int i;
+	int	i;
 
 	if (!*strings)
 		return (-1);
@@ -79,8 +79,8 @@ int		check_args(char **strings)
 
 void	leave(char **strings)
 {
-	unsigned char uc;
-	int ret;
+	unsigned char	uc;
+	int				ret;
 
 	uc = 0;
 	ret = check_args(strings);
@@ -91,21 +91,16 @@ void	leave(char **strings)
 		else if (ret == 1)
 		{
 			uc = 255;
-			ft_printf("minishell: exit: %s: numeric argument required\n", strings[0]);
+			ft_printf("minishell: exit: %s: numeric argument required\n",
+				strings[0]);
 		}
 		else
 		{
 			ft_printf("minishell: exit: too many arguments\n");
-			return;
+			return ;
 		}
 	}
 	to_free();
 	close(g_utils.out);
 	exit(uc);
-}
-
-void	print_prompt()
-{
-	ft_putstr_fd("\033[0;32mCS\033[0;31m@minishell \033[0m",
-				g_utils.out);
 }

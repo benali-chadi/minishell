@@ -12,11 +12,11 @@
 
 #include "ft_printf.h"
 
-extern int g_count;
+extern int	g_count;
 
 void	ft_printchar(va_list ap, int k, int con)
 {
-	char c;
+	char	c;
 
 	if (k < 0)
 	{

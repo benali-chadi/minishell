@@ -24,7 +24,7 @@ static int	is_match(char *s1, char *s2)
 	return (1);
 }
 
-char		*ft_strnstr(const char *haystack, const char *needle, size_t len)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
 	char	*to_find;
 	char	*src;

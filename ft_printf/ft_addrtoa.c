@@ -14,7 +14,7 @@
 
 static int	num_addr(size_t n)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (n <= 0)
@@ -55,13 +55,14 @@ static void	give_value(char *res, int l, int x, size_t n)
 	res[0] = '0';
 }
 
-char		*ft_addrtoa(size_t n, int x)
+char	*ft_addrtoa(size_t n, int x)
 {
 	char	*res;
 	int		l;
 
 	l = num_addr(n) + 2;
-	if (!(res = (char *)malloc((l + 1))))
+	res = (char *)malloc((l + 1));
+	if (!res)
 		return (0);
 	give_value(res, l, x, n);
 	res[l] = '\0';

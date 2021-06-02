@@ -12,8 +12,8 @@
 
 #include "ft_printf.h"
 
-extern int g_count;
-extern int g_forzero;
+extern int	g_count;
+extern int	g_forzero;
 
 static int	negative_d(int d)
 {
@@ -72,22 +72,28 @@ static int	put_spaces_zeroes(int d, int n2, int con, int k2)
 
 static int	assign_for_norm(int *k, int *con, int n, int k2)
 {
-	int n2;
+	int	n2;
 
 	if (*k < 0 && *con != 1 && *con != 3)
 	{
-		*k = -*k;
-		*con = (!*con ? 4 : 5);
+		*k = - *k;
+		if (!*con)
+			*con = 4;
+		else
+			*con = 5;
 	}
-	n2 = (k2 > n ? *k - k2 : *k - n);
+	if (k2 > n)
+		n2 = *k - k2;
+	else
+		n2 = *k - n;
 	return (n2);
 }
 
-void		ft_printint(va_list ap, int k, int k2, int con)
+void	ft_printint(va_list ap, int k, int k2, int con)
 {
-	int d;
-	int n;
-	int n2;
+	int	d;
+	int	n;
+	int	n2;
 
 	d = va_arg(ap, int);
 	n = num_int(d);
@@ -100,7 +106,10 @@ void		ft_printint(va_list ap, int k, int k2, int con)
 			n2++;
 		d = put_spaces_zeroes(d, n2, con, k2);
 	}
-	n = (d == 0 && (k == 0 || (k2 == 0 && (con == 2 || con == 5)))
-			&& con > 0 ? 1 : 0);
+	if (d == 0 && (k == 0 || (k2 == 0 && (con == 2 || con == 5)))
+		&& con > 0)
+		n = 1;
+	else
+		n = 0;
 	case0_putnbr_lastspaces(con, d, n2, n);
 }

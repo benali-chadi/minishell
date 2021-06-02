@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/02 08:46:00 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/02 21:02:04 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 	**Envirenment Stucture
 */
 
-typedef struct				s_list_env
+typedef struct s_list_env
 {
 	char					*content;
 	char					*name;
@@ -40,17 +40,17 @@ typedef struct				s_list_env
 	struct s_list_env		*next;
 }							t_list_env;
 
-typedef struct				s_histo
+typedef struct s_histo
 {
 	char					*command_line;
 	struct s_histo			*next;
 	struct s_histo			*previous;
 }							t_histo;
-	
+
 /*
 	**Commands Structures
 */
-typedef struct				s_tests
+typedef struct s_tests
 {
 	int						echo;
 	int						cd;
@@ -62,13 +62,13 @@ typedef struct				s_tests
 	int						ls;
 }							t_tests;
 
-typedef struct				s_out
+typedef struct s_out
 {
 	char					sym[3];
 	char					*file_name;
 }							t_out;
 
-typedef struct				s_redirection
+typedef struct s_redirection
 {
 	char					*in_file_name[100];
 	t_out					out[100];
@@ -76,7 +76,7 @@ typedef struct				s_redirection
 	int						out_num;
 }							t_redirection;
 
-typedef struct				s_command_info {
+typedef struct s_command_info {
 	char					*command;
 	char					*options;
 	char					*string[10000];
@@ -92,7 +92,7 @@ typedef struct				s_command_info {
 	**Utils Structure
 */
 
-typedef struct				s_utils
+typedef struct s_utils
 {
 	char					*line;
 	char					**m_split;
@@ -105,6 +105,7 @@ typedef struct				s_utils
 	int						out;
 	struct stat				buf;
 	char					pwd[100];
+	int						for_ctrl_c;
 }							t_utils;
 
 /*
@@ -138,7 +139,6 @@ int							g_count_end;
 char						g_case_index[10000];
 int							g_print_next;
 char						g_next;
-int							g_echo;
 
 /*
 	**Functions
@@ -157,6 +157,7 @@ void						loop_env_cmd(void);
 /*
 	**Utils
 */
+
 int							is_special(char a);
 int							condition1(char a1, char a2, char *str);
 void						change_one_two(char a);
@@ -170,7 +171,9 @@ char						*clean_cmd(char *str);
 int							gnl(int fd, char **line);
 int							check_quots(const char *str, int i);
 int							check_white_spaces(void);
-void						print_prompt();
+void						print_prompt(void);
+int							in_value(int n);
+
 /*
 	split
 */
@@ -240,9 +243,10 @@ t_command_info				*cmd_lstlast(t_command_info *lst);
 /*
 	**Environment
 */
-void						ft_next_node(t_list_env **read_list, t_list_env **prev);
-void						bypass_ternarie_1(t_command_info *cmd, char **content,
-								int i, int j);
+void						ft_next_node(t_list_env **read_list,
+								t_list_env **prev);
+void						bypass_ternarie_1(t_command_info *cmd,
+								char **content, int i, int j);
 void						ft_export(t_command_info *cmd);
 int							loop_env(int e);
 void						stock_env(char **env);
@@ -274,7 +278,7 @@ void						ft_fork(t_command_info *cmd, int n, int last);
 char						*check_cmd(char *command, int *p);
 
 void						close_all(int last);
-
+void						exec_cd(t_command_info *cmd);
 /*
 	**Redirection
 */
@@ -290,25 +294,5 @@ void						red_file_names(char *args, int red, int j);
 void						find_path(t_command_info *cmd, char *var, int p);
 char						*search_path(void);
 void						execute_cmd(t_command_info *cmd, char *command);
-
-/*
-	**TermUtils
-*/
-
-char	*ft_join_stacks(t_read reads);
-void	ft_stcclear(t_stack *st);
-void	ft_push_front(char c, t_stack **ri);
-int		ft_pop_front(t_stack **ri);
-void	print_stack(t_stack *st);
-void	ft_push(char c, t_stack **st);
-char	ft_pop(t_stack **st);
-int		ft_puts(int c);
-void	add_line(char *str, t_stack **st);
-void	save_and_print(char c, t_read *reads);
-void	cursor_backward(t_read *reads);
-void	cursor_forward(t_read *reads);
-void	delete_char(t_read *reads);
-char	ft_getch(int fd, t_read *reads);
-void	ft_add_line(t_stack **st, char *str);
 
 #endif

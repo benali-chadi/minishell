@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 15:04:47 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/02 08:44:05 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/02 21:03:03 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ void	fix_quotes_next_to_var(char **args, int i, int j, int *s)
 			fill_command_string(args[i][j], *s);
 	}
 	else
-	{
-		//printf("{%c}\n", args[i][j]);
 		fill_command_string(args[i][j], *s);
-	}
 }
 
 void	change_one_two(char a)

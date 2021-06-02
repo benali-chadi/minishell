@@ -14,8 +14,8 @@
 
 void	*ft_memset(void *str, int c, size_t n)
 {
-	unsigned char *dup;
-	unsigned long i;
+	unsigned char	*dup;
+	unsigned long	i;
 
 	i = 0;
 	dup = str;

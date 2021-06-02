@@ -15,11 +15,7 @@
 int	test_cmds(t_command_info *cmd)
 {
 	if (cmd->tests.pwd)
-	{
 		ft_printf("%s\n", g_utils.pwd);
-		// ft_putstr_fd(getcwd(g_utils.pwd, 100), 1);
-		// ft_putchar_fd('\n', 1);
-	}
 	else if (cmd->tests.echo)
 		ft_echo(cmd);
 	else if (cmd->tests.env)

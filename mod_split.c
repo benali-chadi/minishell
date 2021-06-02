@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:03 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/19 17:30:18 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/02 21:25:03 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,14 @@ char	**result(char **tab1, const char *str, char c)
 
 char	**freetab(char **tab1, int i)
 {
-	while (i >= 0)
-	{
-		free(tab1[i]);
-		i--;
-	}
-	free(tab1);
+	// while (i >= 0)
+	// {
+	// 	free(tab1[i]);
+	// 	i--;
+	// }
+	// free(tab1);
+	tab1 = NULL;
+	(void)i;
 	return (0);
 }
 

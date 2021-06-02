@@ -12,8 +12,8 @@
 
 #include "ft_printf.h"
 
-extern int g_count;
-extern int g_forzero;
+extern int	g_count;
+extern int	g_forzero;
 
 static void	put_space(int k)
 {
@@ -35,7 +35,7 @@ static void	put_zeroes(int k)
 	}
 }
 
-void		ft_printper(int k, int con)
+void	ft_printper(int k, int con)
 {
 	if (k && (con == 0 || (con == 2 && !g_forzero)))
 		put_space(k);

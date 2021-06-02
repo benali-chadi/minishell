@@ -16,7 +16,7 @@ void	sig_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		g_utils.line = NULL;
+		g_utils.for_ctrl_c = 1;
 		if (!g_status)
 			ft_putstr_fd("\n\033[0;32mCS\033[0;31m@minishell \033[0m",
 				g_utils.out);
@@ -92,14 +92,14 @@ int	cmpr_maj(char *s1, char *s2)
 
 void	test(t_command_info *cmd)
 {
-	cmd->tests.echo = cmpr_maj(cmd->command, "echo") ||
-	cmpr_maj(cmd->command, "/bin/echo") ? 1 : 0;
 	cmd->tests.cd = cmpr_maj(cmd->command, "cd");
-	cmd->tests.env = cmpr_maj(cmd->command, "env") ||
-	cmpr_maj(cmd->command, "/usr/bin/env") ? 1 : 0;
 	cmd->tests.exit = cmpr_maj(cmd->command, "exit");
 	cmd->tests.export_t = cmpr_maj(cmd->command, "export");
-	cmd->tests.pwd = cmpr_maj(cmd->command, "pwd") ||
-	cmpr_maj(cmd->command, "/bin/pwd") ? 1 : 0;
 	cmd->tests.unset = cmpr_maj(cmd->command, "unset");
+	if (cmpr_maj(cmd->command, "echo") || cmpr_maj(cmd->command, "/bin/echo"))
+		cmd->tests.echo = 1;
+	if (cmpr_maj(cmd->command, "env") || cmpr_maj(cmd->command, "/usr/bin/env"))
+		cmd->tests.env = 1;
+	if (cmpr_maj(cmd->command, "pwd") || cmpr_maj(cmd->command, "/bin/pwd"))
+		cmd->tests.pwd = 1;
 }

@@ -2,9 +2,9 @@
 
 char	*ft_join_stacks(t_read reads)
 {
-	char *str;
-	t_stack *tmp;
-	int i;
+	char	*str;
+	t_stack	*tmp;
+	int		i;
 
 	str = m_malloc(reads.l_len + reads.r_len + 1);
 	tmp = reads.left;
@@ -21,31 +21,12 @@ char	*ft_join_stacks(t_read reads)
 		tmp = tmp->next;
 	}
 	str[i] = '\0';
-	// ft_stcclear(reads.left);
-	// ft_stcclear(reads.right);
 	return (str);
-}
-
-void	ft_stcclear(t_stack *st)
-{
-	t_stack *pt;
-	t_stack *tmp;
-
-	if (st)
-	{
-		pt = st;
-		while (pt)
-		{
-			tmp = pt->next;
-			free(pt);
-			pt = tmp;
-		}
-	}
 }
 
 void	ft_push_front(char c, t_stack **ri)
 {
-	t_stack *new;
+	t_stack	*new;
 
 	new = m_malloc(sizeof(t_stack));
 	new->c = c;
@@ -56,22 +37,24 @@ void	ft_push_front(char c, t_stack **ri)
 	*ri = new;
 }
 
-int ft_pop_front(t_stack **ri)
+int	ft_pop_front(t_stack **ri)
 {
+	char	c;
+
 	if (!*ri)
 		return (0);
-	
-	char c = (*ri)->c;
-
+	c = (*ri)->c;
 	*ri = (*ri)->next;
 	return (c);
 }
 
-void print_stack(t_stack *st)
+void	print_stack(t_stack *st)
 {
+	char	*ce;
+
 	if (!st)
-		return;
-	char *ce = tgetstr("ce", NULL);
+		return ;
+	ce = tgetstr("ce", NULL);
 	tputs(ce, 1, putchar);
 	while (st)
 	{
