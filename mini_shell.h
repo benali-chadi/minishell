@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/02 21:02:04 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/04 10:57:28 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,9 +157,10 @@ void						loop_env_cmd(void);
 /*
 	**Utils
 */
-
+void						switch_one_two(char a);
+int							check_char_first(char **args, int i, int j);
 int							is_special(char a);
-int							condition1(char a1, char a2, char *str);
+int							condition1(char a1, char a2, char *str, int e);
 void						change_one_two(char a);
 int							check_special_char(char a);
 int							ft_print_error(char a, t_command_info *cmd, int i);

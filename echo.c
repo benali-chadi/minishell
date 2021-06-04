@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 15:02:50 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/04 07:56:01 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/04 12:05:29 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,12 @@ void	ft_echo(t_command_info *cmd)
 	g_var_one = 0;
 	g_var_two = 0;
 	force = 0;
-	printf("%s\n", *cmd->string);
 	while (cmd->string[++i])
 	{
-		printf("HH\n");
 		// if (!cmd->indice[i])
 		// 	printf("%s", clean_cmd(cmd->string[i]));
 		// else
-			printf("%s", cmd->string[i]);
+		printf("%s", cmd->string[i]);
 		if (cmd->string[i + 1])
 			printf(" ");
 	}
