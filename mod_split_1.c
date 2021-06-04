@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mod_split_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:31:56 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/05/13 15:10:38 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/06/04 06:52:25 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	p_e(char *msg)
 {
-	ft_printf("minishell: syntax error near unexpected token `%s'\n", msg);
+	printf("minishell: syntax error near unexpected token `%s'\n", msg);
 	return (0);
 }
 

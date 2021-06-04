@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:54 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/10 18:44:27 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/04 06:52:25 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ int	loop_env(int e)
 	while (tmp)
 	{
 		if (e)
-			ft_printf("declare -x %s\n", tmp->name_content);
+			printf("declare -x %s\n", tmp->name_content);
 		else if (tmp->content)
 		{
 			if (ft_strcmpr(tmp->name_content, "_=env"))
-				ft_printf("_=/usr/bin/env\n");
+				printf("_=/usr/bin/env\n");
 			else
-				ft_printf("%s\n", tmp->name_content);
+				printf("%s\n", tmp->name_content);
 		}
 		tmp = tmp->next;
 	}
@@ -68,7 +68,7 @@ void	loop_env_cmd(void)
 	tmp = g_histo;
 	while (tmp)
 	{
-		ft_printf("%s\n", tmp->command_line);
+		printf("%s\n", tmp->command_line);
 		tmp = tmp->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:29:26 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/02 21:36:55 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/04 06:52:25 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	*clean_cmd(char *str)
 	}
 	str2[j] = '\0';
 	if (g_var_one == 1 || g_var_two == 1)
-		ft_printf("CHNO KATKHWER\n");
+		printf("CHNO KATKHWER\n");
 	printf("||||||%s||||||\n", str2);
 	return (str2);
 }

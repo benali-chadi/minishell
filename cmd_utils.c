@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 18:49:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/05/13 15:01:46 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/06/04 06:52:25 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	test_cmds(t_command_info *cmd)
 {
 	if (cmd->tests.pwd)
-		ft_printf("%s\n", g_utils.pwd);
+		printf("%s\n", g_utils.pwd);
 	else if (cmd->tests.echo)
 		ft_echo(cmd);
 	else if (cmd->tests.env)

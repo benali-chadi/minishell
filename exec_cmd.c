@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:32:40 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/05/18 18:53:44 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/06/04 06:52:25 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	pipe_or_red(t_command_info *cmd, int *in, int n, int last)
 			*in = open(cmd->reds.in_file_name[i++], O_RDONLY);
 			if (*in < 0)
 			{
-				ft_printf("minishell: %s\n", strerror(errno));
+				printf("minishell: %s\n", strerror(errno));
 				exit(1);
 			}
 			dup2(*in, STDIN_FILENO);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:14:40 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/05/13 15:39:06 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/06/04 06:52:25 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_white_spaces(void)
 			[i + 1]) || (g_utils.m_split[i][j] == '\0' && g_case_index
 			[i + 1] == '1' && i > 0))
 		{
-			ft_printf("minishell: syntax error near unexpected token `;;'\n");
+			printf("minishell: syntax error near unexpected token `;;'\n");
 			g_case_index[i + 1] = 0;
 			g_return = 258;
 			return (0);
@@ -91,12 +91,12 @@ void	leave(char **strings)
 		else if (ret == 1)
 		{
 			uc = 255;
-			ft_printf("minishell: exit: %s: numeric argument required\n",
+			printf("minishell: exit: %s: numeric argument required\n",
 				strings[0]);
 		}
 		else
 		{
-			ft_printf("minishell: exit: too many arguments\n");
+			printf("minishell: exit: too many arguments\n");
 			return ;
 		}
 	}

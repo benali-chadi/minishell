@@ -55,7 +55,7 @@ int	ft_read_line(int fd, t_read *reads, t_histo **read)
 	c = ft_getch(fd, reads);
 	if (c == 4 && !reads->left && !reads->right)
 	{
-		ft_printf("exit\n");
+		printf("exit\n");
 		exit(0);
 	}
 	if (save_or_remove(reads, c))

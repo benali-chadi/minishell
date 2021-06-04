@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 15:04:47 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/02 21:03:03 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/04 09:06:45 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	fix_quotes_next_to_var(char **args, int i, int j, int *s)
 {
-	if ((args[i][j] == '"' || args[i][j] == '\''))
-	{
-		if ((args[i][j] == '"' && g_two != 2) || (args[i][j] == '\''
-			&& g_one != 2))
-			fill_command_string(args[i][j], *s);
-	}
-	else
+	// if ((args[i][j] == '"' || args[i][j] == '\''))
+	// {
+	// 	if ((args[i][j] == '"' && g_two != 2) || (args[i][j] == '\''
+	// 		&& g_one != 2))
+	// 		fill_command_string(args[i][j], *s);
+	// }
+	// else
 		fill_command_string(args[i][j], *s);
 }
 
@@ -47,20 +47,20 @@ void	fill_command_string(char a, int i)
 	g_cmd->string[i][g_cmd->string_len++] = a;
 	// g_cmd->string[i][g_cmd->string_len] = '\0';
 	// printf("string:[%s]\n", g_cmd->string[i]); 
-	if (a == '\'' && g_two != 1)
-	{
-		if (g_one)
-			g_one = 0;
-		else
-			g_one = 1;
-	}
-	if (a == '"' && g_one != 1)
-	{
-		if (g_two)
-			g_two = 0;
-		else
-			g_two = 1;
-	}
+	// if (a == '\'' && g_two != 1)
+	// {
+	// 	if (g_one)
+	// 		g_one = 0;
+	// 	else
+	// 		g_one = 1;
+	// }
+	// if (a == '"' && g_one != 1)
+	// {
+	// 	if (g_two)
+	// 		g_two = 0;
+	// 	else
+	// 		g_two = 1;
+	// }
 }
 
 void	init_one_two(void)

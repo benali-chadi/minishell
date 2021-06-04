@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:14 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/05/18 18:39:37 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/06/04 06:52:25 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int	for_norme(int cnt, char c)
 	if (cnt > 1)
 	{
 		if (c == '>')
-			ft_printf("minishell: syntax error near unexpected token `>>'\n");
+			printf("minishell: syntax error near unexpected token `>>'\n");
 		else
-			ft_printf("minishell: syntax error near unexpected token `>'\n");
+			printf("minishell: syntax error near unexpected token `>'\n");
 		g_return = 258;
 		return (0);
 	}

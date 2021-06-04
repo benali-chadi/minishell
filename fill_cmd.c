@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:08:59 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/02 21:01:42 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/04 06:52:25 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	check_end_1(char **args, char **split, int *i)
 	else if (split[*i + 1] && (a1 == '>' || a1 == '<')
 		&& (a2 == '>' || a2 == '<'))
 	{
-		ft_printf("minishell: syntax error near unexpected token `%c'\n", a2);
+		printf("minishell: syntax error near unexpected token `%c'\n", a2);
 		return (0);
 	}
 	if (redirection(args, 0) < 0)
@@ -114,7 +114,7 @@ int		check_end_2(char **args, char **split, int *i, int *s)
 	else if (split[*i + 1] && (a1 == '>' || a1 == '<')
 		&& (a2 == '>' || a2 == '<'))
 	{
-		ft_printf("minishell: syntax error near unexpected token `%c'\n", a2);
+		printf("minishell: syntax error near unexpected token `%c'\n", a2);
 		return (0);
 	}
 	int oo = 0;

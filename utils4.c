@@ -15,7 +15,7 @@ void	exec_cd(t_command_info *cmd)
 		cmd->string[0] = ft_strjoin(search_lgnam(), (*cmd->string) + 1);
 	if (chdir(cmd->string[0]) < 0)
 	{
-		ft_printf("minishell: cd: %s: %s\n", cmd->string[0], strerror(errno));
+		printf("minishell: cd: %s: %s\n", cmd->string[0], strerror(errno));
 		g_return = 256;
 	}
 	getcwd(g_utils.pwd, 100);
