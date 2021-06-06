@@ -6,13 +6,13 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:46:33 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/04 10:59:12 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/06 10:54:00 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-int		first_condition_cmd(int i, char *command)
+int	first_condition_cmd(int i, char *command)
 {
 	i++;
 	g_var_cmd = m_malloc(ft_strlen(command));
@@ -24,13 +24,10 @@ int		first_condition_cmd(int i, char *command)
 	{
 		g_str_return = ft_itoa(g_return);
 		g_str_command = ft_realloc(g_str_command, ft_strlen(g_str_command)
-			+ ft_strlen(command) + ft_strlen(g_str_return) + 1 + g_two);
+				+ ft_strlen(command) + ft_strlen(g_str_return) + 1 + g_two);
 		g_cmd_k = 0;
 		while (g_str_return[g_cmd_k])
-		{
-			printf("HELLO\n");
 			g_str_command[g_command_len++] = g_str_return[g_cmd_k++];
-		}
 		g_str_command[g_command_len] = '\0';
 	}
 	else
@@ -44,20 +41,20 @@ int		first_condition_cmd(int i, char *command)
 	return (i);
 }
 
-int		check_first_char_cmd(char a1, char a2, int *i, char *str)
+int	check_first_char_cmd(char a1, char a2, int *i, char *str)
 {
 	if (condition1(a1, a2, str, *i))
 		return (1);
 	else if ((a1 == '$' && a2 && g_one != 1 && is_digit(a2) && a2 != '.')
 		|| (a1 == '$' && a2 && g_one == 1
-				&& g_two == 1 && is_digit(a2) && a2 != '.'))
+			&& g_two == 1 && is_digit(a2) && a2 != '.'))
 	{
 		*i = *i + 2;
 		return (2);
 	}
 	else if ((a1 == '$' && a2 && g_one != 1 && !is_digit(a2) && a2 == '.')
 		|| (a1 == '$' && a2 && g_one == 1
-				&& g_two == 1 && !is_digit(a2) && a2 == '.'))
+			&& g_two == 1 && !is_digit(a2) && a2 == '.'))
 	{
 		fill_command(a1);
 		*i = *i + 1;
@@ -69,8 +66,8 @@ void	fix_cmd_quotes_next_to_var(char *command, int i)
 {
 	if ((command[i] == '"' || command[i] == '\''))
 	{
-		if ((command[i] == '"' && g_two != 2) ||
-		(command[i] == '\'' && g_one != 2))
+		if ((command[i] == '"' && g_two != 2)
+			|| (command[i] == '\'' && g_one != 2))
 			fill_command(command[i]);
 	}
 	else
@@ -87,24 +84,17 @@ void	to_while_cmd(char *command, int i, int *indice)
 			g_print_next = 0;
 			i = first_condition_cmd(i, command) - 1;
 		}
-		else if (check_first_char_cmd(command[i], command[i + 1], &i, command) == 2)
+		else if (check_first_char_cmd(command[i],
+				command[i + 1], &i, command) == 2)
 			fill_command(command[i]);
 		else
 		{
-			if(check_char_first(&command, 0, i))
+			if (check_char_first(&command, 0, i))
 				fill_command(command[i]);
 			switch_one_two(command[i]);
-				//fix_cmd_quotes_next_to_var(command, i);
-			//check_char_first(&command, 0, i);
 		}
-		// if (command[i] && (command[i] != '$' ||
-		// 	(g_one == 1 && command[i] == '$')))
-		// 	i++;
-			if (command[i] && (command[i] != '$'
-				|| ((g_one == 1 && command[i] == '$') || (command[i] == '$' && ((command[i + 1] && command[i + 2] && command[i + 1] == '"' && command[i + 2] == '\0' ) || (i > 0 && command[i - 1] == '\\') || command[i + 1] == '\0')))))
-		{
+		if (check_if_can_increment(&command, 0, i))
 			i++;
-		}
 		g_str_command[g_command_len] = '\0';
 	}
 }
@@ -126,7 +116,5 @@ char	*clean_command_1(char *command)
 	init_one_two();
 	g_command_len = 0;
 	to_while_cmd(command, i, &indice);
-	//if (indice == 1)
-		return (g_str_command);
-	//return (clean_cmd(g_str_command));
+	return (g_str_command);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/05 21:39:53 by macbook          ###   ########.fr       */
+/*   Updated: 2021/06/06 11:23:13 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,17 @@ void						loop_env_cmd(void);
 /*
 	**Utils
 */
+int							check_backslash(char *str, int e);
+int							check_quotes_and_ret(char a);
+int							check_if_print(char *str, int j);
+int							check_special_char(char a);
+void						join_friendly_red(char **args,
+								char **split, int *i);
+void						join_lonely_red(char **args, char **split, int *i);
+int							check_if_at_the_last(char *str);
+int							check_if_last(char *srch, char **str);
+int							check_last_char(char *str);
+int							check_if_can_increment(char **args, int i, int j);
 void						switch_one_two(char a);
 int							check_char_first(char **args, int i, int j);
 int							is_special(char a);
@@ -179,8 +190,8 @@ int							in_value(int n);
 	split
 */
 int							ft_countlen(const char *str, char c, int *i);
-char						**alloc_1(char **tab1, int casee);
-char						*alloc_2(char **tab1, int i, int len);
+int							alloc_1(char ***tab1, int casee);
+int							alloc_2(char **tab1, int i, int len);
 int							calcule_len(int *len, char *s, char c, int *p);
 int							re_check_quots(const char *str, int i);
 int							ft_countlen_red(const char *str, char *c, int *i);

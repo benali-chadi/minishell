@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:03 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/02 21:25:03 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/06 10:15:24 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,6 @@ char	**result(char **tab1, const char *str, char c)
 
 char	**freetab(char **tab1, int i)
 {
-	// while (i >= 0)
-	// {
-	// 	free(tab1[i]);
-	// 	i--;
-	// }
-	// free(tab1);
 	tab1 = NULL;
 	(void)i;
 	return (0);
@@ -112,7 +106,6 @@ char	**mod_split(char *s, char c)
 	int		i;
 	int		casee;
 	char	**tab1;
-	int		*p;
 	int		len;
 
 	len = 0;
@@ -123,16 +116,15 @@ char	**mod_split(char *s, char c)
 		casee = ft_countwords(s, c);
 	if (!s || casee < 0)
 		return (0);
-	if (!(tab1 = alloc_1(tab1, casee))) // zedt hadi
+	if (!alloc_1(&tab1, casee))
 		return (0);
 	casee = 0;
-	p = &casee;
-	while (i < ft_countwords(s, c) && calcule_len(&len, s, c, p))
-    {
-        if (!(tab1[i] = (char *)m_malloc(sizeof(char) * (len + 1))))
-            return (freetab(tab1, i));
-        i++;
-    }
+	while (i < ft_countwords(s, c) && calcule_len(&len, s, c, &casee))
+	{
+		if (!alloc_2(tab1, i, len))
+			return (freetab(tab1, i));
+		i++;
+	}
 	tab1 = result(tab1, s, c);
 	return (tab1);
 }

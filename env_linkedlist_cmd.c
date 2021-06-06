@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 18:43:22 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/06 07:29:17 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/06 11:03:29 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ void	ft_remove_node_cmd_1(void)
 {
 	t_histo	*read_list;
 	int		i;
-	//t_histo	*prev;
-
 
 	read_list = g_histo;
 	i = -1;
@@ -81,19 +79,5 @@ void	ft_remove_node_cmd_1(void)
 			read_list->previous->next = NULL;
 			return ;
 		}
-		// read_list = g_list_env;
-		// if (ft_print_error(cmd->string[i][0], cmd, i))
-		// 	continue ;
-		// if (read_list != NULL && ft_strcmpr(clean_cmd(cmd->string[i]),
-		// 		read_list->name))
-		// {
-		// 	g_list_env = read_list->next;
-		// 	continue ;
-		// }
-		// while (read_list && !ft_strcmpr(clean_cmd(cmd->string[i]),
-		// 		read_list->name))
-		// 	ft_next_node(&read_list, &prev);
-		// if (read_list != NULL)
-		// 	prev->next = read_list->next;
 	}
 }

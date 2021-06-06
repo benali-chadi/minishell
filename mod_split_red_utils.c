@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:04:04 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/06 08:11:00 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/06 10:15:52 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ft_countwords_red(const char *str, char *c)
 	return (compteur + 10);
 }
 
-int			ft_countlen_red(const char *str, char *c, int *i)
+int	ft_countlen_red(const char *str, char *c, int *i)
 {
 	int	len;
 

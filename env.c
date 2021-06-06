@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:54 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/04 06:52:25 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/06 11:21:11 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	ft_export(t_command_info *cmd)
 		if (ft_print_error(cmd->string[i][0], cmd, i))
 			continue ;
 		name = m_malloc(ft_strlen(cmd->string[i]) + 1);
-		cmd->string[i] = clean_cmd(cmd->string[i]);
 		while (cmd->string[i][++j] != '=' && cmd->string[i][j])
 			name[j] = cmd->string[i][j];
 		name[j] = '\0';
