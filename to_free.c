@@ -6,20 +6,21 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:10 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/04/10 19:05:53 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/06 11:28:30 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
 void	*g_alloc[400];
-int	g_all = 0;
+int		g_all = 0;
 
 void	*m_malloc(size_t n)
 {
 	void	*tmp;
 
-	if (!(tmp = malloc(n)))
+	tmp = malloc(n);
+	if (!tmp)
 		return (NULL);
 	g_alloc[g_all] = tmp;
 	g_all++;
