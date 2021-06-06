@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:00:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/04 06:52:25 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/06 11:46:07 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	is_option(t_command_info *cmd, int op)
 	if (op)
 		g_utils.args[i++] = clean_cmd(cmd->options);
 	while (cmd->string[j])
-		g_utils.args[i++] = clean_cmd(cmd->string[j++]);
+		g_utils.args[i++] = cmd->string[j++];
 	g_utils.args[i] = NULL;
 }
 

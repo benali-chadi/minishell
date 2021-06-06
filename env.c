@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:54 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/06 11:21:11 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/06 11:43:59 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,13 @@ void	ft_remove_node(t_command_info *cmd)
 		read_list = g_list_env;
 		if (ft_print_error(cmd->string[i][0], cmd, i))
 			continue ;
-		if (read_list != NULL && ft_strcmpr(clean_cmd(cmd->string[i]),
+		if (read_list != NULL && ft_strcmpr(cmd->string[i],
 				read_list->name))
 		{
 			g_list_env = read_list->next;
 			continue ;
 		}
-		while (read_list && !ft_strcmpr(clean_cmd(cmd->string[i]),
+		while (read_list && !ft_strcmpr(cmd->string[i],
 				read_list->name))
 			ft_next_node(&read_list, &prev);
 		if (read_list != NULL)
