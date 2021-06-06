@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:21:41 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/04 10:59:52 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/06 07:27:57 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ int	first_condition(int j, char **args, int i, int *s)
 
 int	check_backslash(char *str, int e)
 {
-	int i;
-	int c;
+	int	i;
+	int	c;
 
 	i = 0;
 	c = 0;
 	while (str[i] && i < e)
 	{
-		if(str[i] == '\\')
+		if (str[i] == '\\')
 			c++;
-		i++;				
+		i++;
 	}
 	if (i > 0 && str[i - 1] == '\\')
 	{
@@ -79,11 +79,8 @@ int	check_first_char(char **args, int *i, int *j)
 
 	a1 = args[*i][*j];
 	a2 = '\0';
-	// !!!!!!!!!!!!!!!!!!!!!!!!!!! ATTENTION SEGFAULT !!!!!!!!!!!!!!!!!!!!!!!!
-	// ^^^^^^^^^^^^^^^^^^^
 	if (args[*i][*j + 1])
 		a2 = args[*i][*j + 1];
-	//printf("a2 is [%c]\n", a2);
 	if (condition1(a1, a2, args[*i], *j))
 	{
 		if (a1 == '$' && a2 == '"' && !args[*i][*j + 2])
@@ -94,47 +91,34 @@ int	check_first_char(char **args, int *i, int *j)
 		|| (a1 == '$' && a2 && g_one == 1
 			&& g_two == 1 && is_digit(a2) && a2 != '.'))
 	{
-		printf("ENTER@@@\n");
 		*j = *j + 2;
 		return (2);
 	}
 	else if ((a1 == '$' && a2 && g_one != 1 && !is_digit(a2) && a2 == '.')
 		|| (a1 == '$' && a2 && g_one == 1
 			&& g_two == 1 && !is_digit(a2) && a2 == '.'))
-	{
 		*j = *j + 1;
-	}
 	return (0);
 }
 
 int	check_if_print(char *str, int j)
 {
-	int i;
-	int c;
+	int	i;
+	int	c;
 
 	c = 0;
 	i = 0;
-	printf("backslash_number:%d\n", j);
 	while (str[i])
 	{
 		if (str[i] != '\\')
-		{
-			printf("{%c}\n", str[i]);
 			c = 0;
-		}
 		if (i == j)
 		{
-			if(c == 0)
-			{
-				printf("c[%d] =%d\n", i, c);
+			if (c == 0)
 				return (0);
-			}
 			if (c % 2 == 0)
-			{
-				printf("c[%d] =%d\n", i, c);
 				return (0);
-			}		
-			return (1);	
+			return (1);
 		}
 		if (str[i] == '\\')
 			c++;
@@ -143,42 +127,48 @@ int	check_if_print(char *str, int j)
 	return (0);
 }
 
-int	check_char_first(char **args, int i, int j)
+int check_quotes_and_ret(char a)
 {
-	int e;
-	
-	e = 0;
-	if(args[i][j] == '\\' && g_one != 1 && g_two != 1)
-	{
-		if(j == 0)
-			return (0);
-		if(!check_if_print(args[i], j))	
-				return (0);
-	}
-	else if (args[i][j] == '\\' && g_one != 1)
-	{
-		if(args[i][j + 1] && !is_special(args[i][j + 1]))
-			return (1);
-		if(j > 0 && args[i][j - 1] == '\\' && check_if_print(args[i], j) && args[i][j + 1])
-			return (1);
-		else if (j > 0 && args[i][j - 1] == '\\')
-			return (0);
-		if(args[i][j + 1] && is_special(args[i][j + 1]))
-			return (0);
-	}
-	if(args[i][j] == '"')
+	if (a == '"')
 	{
 		if (g_one == 1)
 			return (1);
 		return (0);
 	}
-	if(args[i][j] == '\'')
+	if (a == '\'')
 	{
 		if (g_two == 1)
 			return (1);
 		return (0);
 	}
 	return (1);
+}
+
+int	check_char_first(char **args, int i, int j)
+{
+	int	e;
+
+	e = 0;
+	if (args[i][j] == '\\' && g_one != 1 && g_two != 1)
+	{
+		if (j == 0)
+			return (0);
+		if (!check_if_print(args[i], j))
+			return (0);
+	}
+	else if (args[i][j] == '\\' && g_one != 1)
+	{
+		if (args[i][j + 1] && !is_special(args[i][j + 1]))
+			return (1);
+		if (j > 0 && args[i][j - 1] == '\\'
+			&& check_if_print(args[i], j) && args[i][j + 1])
+			return (1);
+		else if (j > 0 && args[i][j - 1] == '\\')
+			return (0);
+		if (args[i][j + 1] && is_special(args[i][j + 1]))
+			return (0);
+	}
+	return (check_quotes_and_ret(args[i][j]));
 }
 
 void	switch_one_two(char a)
@@ -199,6 +189,17 @@ void	switch_one_two(char a)
 	}
 }
 
+int	check_if_can_increment(char **args, int i, int j)
+{
+	if (args[i][j] && (args[i][j] != '$'
+		|| ((g_one == 1 && args[i][j] == '$')
+		|| (args[i][j] == '$' && ((args[i][j + 1] && args[i][j + 2]
+		&& args[i][j + 1] == '"' && args[i][j + 2] == '\0' ) || (j > 0
+		&& args[i][j - 1] == '\\') || args[i][j + 1] == '\0')))))
+		return (1);
+	return (0);
+}
+
 void	to_while(char **args, int i, int *s)
 {
 	int	j;
@@ -208,36 +209,23 @@ void	to_while(char **args, int i, int *s)
 	{
 		if (check_first_char(args, &i, &j) == 1)
 		{
-			if(args[i][j] == '$' && j > 0 && (args[i][j - 1] == '"' || args[i][j - 1] == '\'') && !g_two)
+			if (args[i][j] == '$' && j > 0
+				&& (args[i][j - 1] == '"' || args[i][j - 1] == '\'') && !g_two)
 				g_cmd->indice[*s] = 0;
 			else if (!g_two)
-			{
 				g_cmd->indice[*s] = 1;
-			}
 			j = first_condition(j, args, i, s) - 1;
-			// if (args[i][j] == '"' || args[i][j] == '\'')
-			// 	check_quots_after_dollar(args, i, j, s);
 		}
 		else if (check_first_char(args, &i, &j) == 2)
-		{
 			fill_command_string(args[i][j], *s);
-		}
 		else
 		{
-			if(check_char_first(args, i, j))
-			{
-				
-				//printf("--%c--\n", a1);
-				//fix_quotes_next_to_var(args, i, j, s);
+			if (check_char_first(args, i, j))
 				fill_command_string(args[i][j], *s);
-			}
 			switch_one_two(args[i][j]);
 		}
-		if (args[i][j] && (args[i][j] != '$'
-				|| ((g_one == 1 && args[i][j] == '$') || (args[i][j] == '$' && ((args[i][j + 1] && args[i][j + 2] && args[i][j + 1] == '"' && args[i][j + 2] == '\0' ) || (j > 0 && args[i][j - 1] == '\\') || args[i][j + 1] == '\0')))))
-		{
+		if (check_if_can_increment(args, i, j))
 			j++;
-		}
 	}
 	g_cmd->string[*s][g_cmd->string_len] = '\0';
 }

@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 18:43:22 by smhah             #+#    #+#             */
-/*   Updated: 2021/04/10 18:23:16 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/06 07:29:17 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,9 @@ void	add_back_cmd(t_histo **head, char *command_line)
 void	ft_remove_node_cmd_1(void)
 {
 	t_histo	*read_list;
+	int		i;
 	//t_histo	*prev;
-	int			i;
+
 
 	read_list = g_histo;
 	i = -1;
@@ -75,7 +76,7 @@ void	ft_remove_node_cmd_1(void)
 	while (read_list)
 	{
 		read_list = read_list->next;
-		if(read_list->next == NULL && (read_list->previous))
+		if (read_list->next == NULL && (read_list->previous))
 		{
 			read_list->previous->next = NULL;
 			return ;

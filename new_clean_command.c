@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:29:26 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/04 10:59:24 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/06 08:12:37 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 void	fill_command(char a)
 {
 	g_str_command[g_command_len++] = a;
-	if (a == '\'' && g_two != 1)
-		g_one = g_one == 1 ? 0 : 1;
-	if (a == '"' && g_one != 1)
-		g_two = g_two == 1 ? 0 : 1;
+	switch_one_two(a);
 }
 
 int	check_quotes_one1(void)
