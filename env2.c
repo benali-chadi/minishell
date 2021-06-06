@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 15:54:19 by smhah             #+#    #+#             */
-/*   Updated: 2021/05/15 18:03:26 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/06 06:51:43 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	compare_var(char *var, char *arg, int s)
 	{
 		if (ft_strcmpr(read_env->name, var))
 		{
-			printf("name:[%s]|var:[%s]\n", read_env->name, var);
 			g_cmd->string[s] = ft_realloc(g_cmd->string[s],
 					ft_strlen(g_cmd->string[s]) + ft_strlen(arg) + ft_strlen
 					(read_env->content) + 1 + g_two);

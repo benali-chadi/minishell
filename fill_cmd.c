@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:08:59 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/06 02:01:09 by macbook          ###   ########.fr       */
+/*   Updated: 2021/06/06 06:50:34 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,14 +108,12 @@ int		check_if_last(char *srch, char **str)
 
 	i = 0;
 	j = ft_strlen(*str);
-	printf("str=[%s]\n", *str);
 	while((*str)[i] && ft_strchr(srch, (*str)[i]))
 		i++;
 	while((*str)[i])
 	{
 		if((ft_strchr(srch, (*str)[i])))
 		{
-			printf("i is %d|j is %d\n", i, j);
 			if (i == j - 1)
 			{
 				(*str)[i] = '\0'; 
@@ -154,46 +152,29 @@ int		check_end_2(char **args, char **split, int *i, int *s)
 	if (split[*i + 1])
 		a2 = split[*i + 1][0];
 	//--------mod_strlen(args) < 3----
-	printf("split[i]: %s\n", split[*i]);
 	if (( split[*i + 1] && a2 != '>' && a2 != '<'
 	&& (args[0][0] == '>' || args[0][0] == '<' || a1 == '>' || a1 == '<')))//(a1 == '>' || a1 == '<' )))
 	{
-		printf("ENTER1\n");
-		printf("[%s]<==>JOINED\n", split[*i + 1]);
 		args[0] = ft_strjoin(args[0], split[*i + 1]);
-		printf("args[0]={%s}|args[1]={%s}\n", args[0], args[1]);
-		//if(!check_if_last("><", args[0]))
 		ret_slash = check_if_last("><", &args[0]);
 		if(!ret_slash)
 			*i = *i + 1;
 		else
 		{
 			g_move_and_pass = ret_slash;
-			printf("g_move_and_pass_2:%d\n", g_move_and_pass);
-		}
-		// else
-		// {
-		// 	g_move_and_pass = check_if_last("><", args[0]);////
-		// }
-			
+		}		
 	}
 	//--------mod_strlen(args) < 3----
 	else if (( split[*i + 1] && a2 != '>' && a2 != '<'
 		&&  check_last_char(split[*i])))
 	{
-		printf("ENTER2|split[i + 1]=[%s]\n", split[*i + 1]);
 		//printf("split[i]=[%s],arg[i]=[%s]\n", split[*i]);
 		args[1] = ft_strjoin(args[1], split[*i + 1]);
 		ret_slash = check_if_last("><", &args[1]);
-		printf("args[1]: %s\n", args[1]);
-		printf("ret_slash:[%d]\n", ret_slash);
 		if(!ret_slash)
 			*i = *i + 1;
 		else
-		{
 			g_move_and_pass = ret_slash;
-			printf("g_move_and_pass_1:%d\n", g_move_and_pass);
-		}
 		// if(remove_last_char(&args[0]))
 		// {
 			
@@ -206,25 +187,9 @@ int		check_end_2(char **args, char **split, int *i, int *s)
 		printf("minishell: syntax error near unexpected token `%c'\n", a2);
 		return (0);
 	}
-	int xx = 0;
-	while(args[xx])
-	{
-		printf("{%s}\n", args[xx++]);
-	}
 	if (cat_command_string(args, s) < 0)
 		return (0);
 	return (1);
-}
-
-void	move_what(char **split, int i)
-{
-	int j;
-
-	j = 0;
-	while(split[i][j])
-	{
-		
-	}		
 }
 
 int	fill_cmd(char **split, int p)
@@ -241,18 +206,11 @@ int	fill_cmd(char **split, int p)
 	g_move_and_pass = 0;
 	while (split[++i])
 	{
-		// if (g_move_and_pass)
-		// {
-		// 	move_what(split, i);
-		// }
-		printf("split=[%s]\n", split[i]);
 		args = mod_split_red(split[i], "><");
 		if(g_move_and_pass == 1)
 		{
-			printf("%s<--->deleted\n", args[1]);
 			args[0] = ft_strdup(args[1]);
 			args[1] = NULL;
-			printf("check_delete, args[0] = |%s|  |   args[1] = |%s|\n", args[0], args[1]);
 			g_move_and_pass = 0;
 		}
 		if (!check_end_2(args, split, &i, &s))
