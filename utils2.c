@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:08 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/05/13 16:14:24 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/06/05 21:41:20 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	init_stuff(char **env)
 	fstat(0, &g_utils.buf);
 	g_utils.out = open("/dev/tty", O_WRONLY);
 	g_utils.env = env;
+	g_move_and_pass = 0;
 }
 
 int	cmpr_maj(char *s1, char *s2)

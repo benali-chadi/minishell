@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mod_split_red.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:03:11 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/02 07:54:46 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/05 20:23:44 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char		**mod_split_red(char const *s, char *c)
 	int pipi = 0;
 	while(tab1[pipi])
 	{
-		printf("--->%s\n", tab1[pipi++]);
+		printf("--->[%s]\n", tab1[pipi++]);
 	}
 	return (tab1);
 }
