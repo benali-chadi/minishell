@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:08:59 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/06 11:02:14 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/07 21:32:15 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ int	fill_cmd_helper(char **split)
 	g_cmd = m_malloc(sizeof (t_command_info));
 	g_cmd->reds.in_num = 0;
 	g_cmd->reds.out_num = 0;
+	printf("split[%d]=|%s|\n", i, split[i]);
 	while (split[i] && (split[i][0] == '<' || split[i][0] == '>'))
 	{
 		args = mod_split_red(split[i], "><");
+		printf("ENTER\n");
 		if (!check_end_1(args, split, &i))
 			return (-1);
 		i++;
@@ -108,6 +110,32 @@ void	continue_our_road(int s, int p)
 	cmd_lstadd_back(&g_commands, g_cmd);
 }
 
+int		is_red(char a)
+{
+	if (a == '>' || a == '<')
+		return (1);
+	return (0);
+}
+
+
+// void	remove_before_red(char **str)
+// {
+// 	int i;
+
+// 	i = 0;
+// 	while((*str)[i])
+// 	{
+// 		if(is_red((*str)[i] && (*str)[i + 1]))
+// 		{
+// 			ft_strcpy((*str), &(*str)[i]);
+// 			return;
+// 		}
+// 		i++;
+// 	}
+// 	str[0] = ft_strdup(str[1]);
+// 	return;
+// }
+
 int	fill_cmd(char **split, int p)
 {
 	char	**args;
@@ -125,12 +153,15 @@ int	fill_cmd(char **split, int p)
 		args = mod_split_red(split[i], "><");
 		if (g_move_and_pass == 1)
 		{
-			args[0] = ft_strdup(args[1]);
-			args[1] = NULL;
 			g_move_and_pass = 0;
+			if (!check_end_2(&args[1], split, &i, &s))
+				return (-1);
 		}
-		if (!check_end_2(args, split, &i, &s))
-			return (-1);
+		else
+		{
+			if (!check_end_2(args, split, &i, &s))
+				return (-1);
+		}
 	}
 	continue_our_road(s, p);
 	return (1);
