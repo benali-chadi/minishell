@@ -18,3 +18,19 @@ int	save_or_remove(t_read *reads, int c)
 	}
 	return (0);
 }
+
+char	*last_char(t_stack *st)
+{
+	t_stack	*tmp;
+	char	*c;
+
+	tmp = st;
+	c = m_malloc(2);
+	while (tmp->next)
+	{
+		tmp = tmp->next;
+	}
+	c[0] = tmp->c;
+	c[1] = '\0';
+	return (c);
+}

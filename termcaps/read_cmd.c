@@ -82,20 +82,20 @@ int	read_char(int fd, char **line)
 
 	term_type = getenv("TERM");
 	tgetent(NULL, term_type);
-	reads.l_len = 0;
-	reads.r_len = 0;
-	reads.count = 0;
-	reads.left = NULL;
-	reads.right = NULL;
-	reads.first = 0;
+	clear_and_reen(&reads, NULL);
 	read = g_histo;
 	read = ft_lstlast_cmd(read);
 	g_utils.for_ctrl_c = 0;
 	g_flag = 0;
 	while (ft_read_line(fd, &reads, &read))
-		;
-	if (!g_utils.for_ctrl_c)
-		*line = ft_join_stacks(reads);
+	{
+		if (g_utils.for_ctrl_c && reads.left)
+		{
+			clear_and_reen(&reads, last_char(reads.left));
+			g_utils.for_ctrl_c = 0;
+		}
+	}
+	*line = ft_join_stacks(reads);
 	add_back_cmd(&g_histo, ft_strdup(*line));
 	return (1);
 }

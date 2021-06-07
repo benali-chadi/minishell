@@ -27,7 +27,6 @@ typedef struct s_read {
 	int				l_len;
 	int				r_len;
 	int				count;
-	int				first;
 }				t_read;
 
 int		read_char(int fd, char **line);
@@ -45,6 +44,7 @@ void	ft_push_front(char c, t_stack **ri);
 char	*ft_join_stacks(t_read reads);
 void	ft_add_line(t_stack **st, char *str);
 int		save_or_remove(t_read *reads, int c);
+char	*last_char(t_stack *st);
 
 /*
 	** BONUS

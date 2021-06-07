@@ -60,6 +60,8 @@ void	ft_add_line(t_stack **st, char *str)
 {
 	int	i;
 
+	if (!str)
+		return ;
 	i = 0;
 	while (str[i])
 		ft_push(str[i++], st);
