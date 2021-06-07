@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/05/20 19:34:07 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/06/07 20:21:34 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	execute(int j)
 	}
 	while (wait(&g_return) != -1)
 		;
+	printf("return = %d\n", g_return);
 	if (g_return && g_return < 255)
 		g_return += 128;
 	else if (g_return)
