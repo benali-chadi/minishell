@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 11:00:09 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/06 11:00:10 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/07 21:15:13 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,20 @@ int	check_if_last(char *srch, char **str)
 
 	i = 0;
 	j = ft_strlen(*str);
+	printf("str:%s\n", *str);
 	while ((*str)[i] && ft_strchr(srch, (*str)[i]))
 		i++;
 	while ((*str)[i])
 	{
 		if ((ft_strchr(srch, (*str)[i])))
 		{
-			if (i == j - 1)
+			if ((*str)[i + 1] && ft_strchr(srch, (*str)[i + 1]))
 			{
 				(*str)[i] = '\0';
-				return (1);
+				return (2);
 			}
 			(*str)[i] = '\0';
-			return (2);
+			return (1);
 		}
 		i++;
 	}
@@ -72,6 +73,7 @@ void	join_lonely_red(char **args, char **split, int *i)
 
 	args[0] = ft_strjoin(args[0], split[*i + 1]);
 	ret_slash = check_if_last("><", &args[0]);
+	printf("ret_slash:%d\n", ret_slash);
 	if (!ret_slash)
 		*i = *i + 1;
 	else
