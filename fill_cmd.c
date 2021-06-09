@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:08:59 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/09 02:43:43 by macbook          ###   ########.fr       */
+/*   Updated: 2021/06/09 15:21:44 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,39 +37,87 @@ int	check_end_1(char **args, char **split, int *i)
 	return (1);
 }
 
-int	fill_cmd_helper(char **split)
+char	**join_2_tab(char **tab1, char **tab2)
+{
+	char **tabtab;
+	int i;
+	int j;
+
+	j = 0;	
+	i = 0;
+	tabtab = (char **)malloc(mod_strlen(tab1) * sizeof(char *) + mod_strlen(tab2) * sizeof(char *) + sizeof(char *));
+	while(tab1[i] != NULL)
+	{
+		tabtab[i] = ft_strdup(tab1[i]);
+		i++;
+	}
+	while(tab2[j] != NULL)
+	{
+		tabtab[i++] = ft_strdup(tab2[j++]);
+	}
+	tabtab[i] = NULL;
+	return (tabtab);
+}
+
+int	fill_cmd_helper(char ***split)
 {
 	char	**args;
 	int		i;
+	char	**cmd_args;
+	int 	j;
 
+	j = 0;
 	i = 0;
 	g_cmd = m_malloc(sizeof (t_command_info));
 	g_cmd->reds.in_num = 0;
 	g_cmd->reds.out_num = 0;
-	while (split[i] && (split[i][0] == '<' || split[i][0] == '>'))
+	while ((*split)[i] && ((*split)[i][0] == '<' || (*split)[i][0] == '>'))
 	{
-		args = mod_split_red(split[i], "><");
-		if (!check_end_1(args, split, &i))
+		args = mod_split_red((*split)[i], "><");
+		if (!check_end_1(args, (*split), &i))
 			return (-1);
 		i++;
 	}
-	if (!split[i])
+	if (!(*split)[i])
 	{
 		g_cmd->command = ft_strdup("");
 		g_cmd->options = NULL;
 		return (i);
 	}
-	g_cmd->command = m_malloc(ft_strlen(split[i]) + 1);
-	
-	ft_strcpy(g_cmd->command, clean_command_1(split[i]));
-	i++;
-	g_cmd->options = NULL;
-	if (split[i] && split[i][0] == '-')
-	{
-		g_cmd->options = m_malloc(ft_strlen(split[i]) + 1);
-		ft_strcpy(g_cmd->options, split[i]);
+	cmd_args = mod_split(clean_command_1((*split)[i]), ' ');
+	// if (mod_strlen(cmd_args) > 1)
+	// {
+	// 	g_cmd->command = m_malloc(ft_strlen(cmd_args[j]) + 1);
+	// 	ft_strcpy(g_cmd->command, clean_command_1(cmd_args[j]));
+	// 	j++;
+	// 	if (cmd_args[j] && cmd_args[j][0] == '-')
+	// 	{
+	// 		g_cmd->options = m_malloc(ft_strlen(cmd_args[j]) + 1);
+	// 		ft_strcpy(g_cmd->options, cmd_args[j]);
+	// 		i++;
+	// 	}
+	// 	//i++;	
+	// }
+	// else
+	// {
+		if (mod_strlen(cmd_args) > 1)
+		{
+			(*split) = join_2_tab(cmd_args, &(*split)[i + 1]);
+		}
+		g_cmd->command = m_malloc(ft_strlen((*split)[i]) + 1);
+		//printf("str is |%s|\n", (*split)[i]);
+		ft_strcpy(g_cmd->command, (*split)[i]);
+		//printf("--->(*split)[%d]=|%s|\n", i, (*split)[i]);
 		i++;
-	}
+		g_cmd->options = NULL;
+		if ((*split)[i] && (*split)[i][0] == '-')
+		{
+			g_cmd->options = m_malloc(ft_strlen((*split)[i]) + 1);
+			ft_strcpy(g_cmd->options, (*split)[i]);
+			i++;
+		}
+		
+	// }
 	return (i);
 }
 
@@ -78,7 +126,6 @@ int	check_end_2(char **args, char **split, int *i, int *s)
 	char	a1;
 	char	a2;
 
-	//printf("str is[%s]\n", str);
 	a1 = split[*i][0];
 	a2 = '\0';
 	if (split[*i + 1])
@@ -144,7 +191,7 @@ int	fill_cmd(char **split, int p)
 	int		i;
 	int		s;
 
-	i = fill_cmd_helper(split) - 1;
+	i = fill_cmd_helper(&split) - 1;
 	if (!*split || i < 0)
 		return (-1);
 	s = 0;
@@ -152,6 +199,7 @@ int	fill_cmd(char **split, int p)
 	g_move_and_pass = 0;
 	while (split[++i])
 	{
+		//printf("second_check:split[i]=%s\n", split[i]);
 		args = mod_split_red(split[i], "><");
 		if (g_move_and_pass == 1 || g_move_and_pass == 2)
 		{

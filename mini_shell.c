@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/09 01:45:41 by macbook          ###   ########.fr       */
+/*   Updated: 2021/06/09 12:08:33 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,22 @@ void	execute(int j)
 	}
 }
 
+int	check_solo_at_the_first(char *str)
+{
+	//printf("check:[%s]\n", str);
+	int i;
+
+	i = 0;
+	while(str[i] && str[i] == ' ')
+		i++;
+	if (str[i] == '|')
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+		return (1);
+	}
+	return (0);
+}
+
 int	fill_and_execute(void)
 {
 	int	i;
@@ -75,8 +91,12 @@ int	fill_and_execute(void)
 		g_commands = NULL;
 		g_fd = NULL;
 		j = 0;
+		// if(check_solo_at_the_first(g_utils.m_split[i]))
+		// 	return (-1);
 		g_utils.p_split = mod_split(g_utils.m_split[i], '|');
 		if (!g_utils.p_split)
+			return (-1);
+		if(check_solo_at_the_first(g_utils.m_split[i]))
 			return (-1);
 		if (!fill(&j, i))
 			return (-1);

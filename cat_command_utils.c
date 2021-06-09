@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 15:04:47 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/06 11:04:49 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/09 08:38:35 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,4 @@ void	replace_var(char **args, int i, int j, int *s)
 	if (check_special_char(args[i][j]))
 		g_print_next = 1;
 	compare_var(g_str_var, args[i], *s);
-	if (g_print_next)
-		fill_command_string(g_next, *s);
 }

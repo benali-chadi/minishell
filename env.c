@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:54 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/06 11:43:59 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/09 13:49:33 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,15 @@ void	loop_env_cmd(void)
 	}
 }
 
+char	*join_name_content(char *name, char *content)
+{
+	char *buffer;
+
+	buffer = ft_strjoin(name, "=");
+	buffer = ft_strjoin(buffer, content);
+	return(buffer);
+}
+
 void	ft_export(t_command_info *cmd)
 {
 	char	*name;
@@ -93,10 +102,10 @@ void	ft_export(t_command_info *cmd)
 			name[j] = cmd->string[i][j];
 		name[j] = '\0';
 		bypass_ternarie_1(cmd, &content, i, j);
-		if (check_var(name, content, cmd->string[i]))
+		if (check_var(name, content, join_name_content(name, content)))
 		{
 			add_back(&g_list_env, name,
-				content, cmd->string[i]);
+				content, join_name_content(name, content));
 		}
 	}
 }

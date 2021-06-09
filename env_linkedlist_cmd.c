@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 18:43:22 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/06 11:03:29 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/09 08:54:55 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ void	ft_remove_node_cmd_1(void)
 		return ;
 	while (read_list)
 	{
-		read_list = read_list->next;
-		if (read_list->next == NULL && (read_list->previous))
+		if (read_list->next == NULL)
 		{
-			read_list->previous->next = NULL;
+			read_list = NULL;
 			return ;
 		}
+		read_list = read_list->next;
 	}
 }

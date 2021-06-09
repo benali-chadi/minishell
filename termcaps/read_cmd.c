@@ -80,6 +80,7 @@ int	read_char(int fd, char **line)
 	t_histo		*read;
 	const char	*term_type;
 
+	// check if NULL;
 	term_type = getenv("TERM");
 	tgetent(NULL, term_type);
 	clear_and_reen(&reads, NULL);
