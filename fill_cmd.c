@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:08:59 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/09 15:21:44 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/09 16:55:36 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,16 @@ int	fill_cmd_helper(char ***split)
 	g_cmd = m_malloc(sizeof (t_command_info));
 	g_cmd->reds.in_num = 0;
 	g_cmd->reds.out_num = 0;
+	
+	cmd_args = mod_split(clean_command_1((*split)[i]), ' ');
+	(*split) = join_2_tab(cmd_args, &(*split)[i + 1]);
+	// if (!(*split)[i + 1])
+	// {
+	// 	g_cmd->command = ft_strdup("");
+	// 	g_cmd->options = NULL;
+	// 	//printf("ENTER2\n");
+	// 	return (i);
+	// }
 	while ((*split)[i] && ((*split)[i][0] == '<' || (*split)[i][0] == '>'))
 	{
 		args = mod_split_red((*split)[i], "><");
@@ -80,11 +90,12 @@ int	fill_cmd_helper(char ***split)
 	}
 	if (!(*split)[i])
 	{
+		printf("ENTER\n");
 		g_cmd->command = ft_strdup("");
 		g_cmd->options = NULL;
 		return (i);
 	}
-	cmd_args = mod_split(clean_command_1((*split)[i]), ' ');
+	//cmd_args = mod_split(clean_command_1((*split)[i]), ' ');
 	// if (mod_strlen(cmd_args) > 1)
 	// {
 	// 	g_cmd->command = m_malloc(ft_strlen(cmd_args[j]) + 1);
@@ -100,10 +111,19 @@ int	fill_cmd_helper(char ***split)
 	// }
 	// else
 	// {
-		if (mod_strlen(cmd_args) > 1)
-		{
-			(*split) = join_2_tab(cmd_args, &(*split)[i + 1]);
-		}
+		// if (mod_strlen(cmd_args) > 1)
+		// {
+			// (*split) = join_2_tab(cmd_args, &(*split)[i + 1]);
+			// if (!(*split)[i + 1])
+			// {
+			// 	g_cmd->command = ft_strdup("");
+			// 	g_cmd->options = NULL;
+			// 	//printf("ENTER2\n");
+			// 	return (i);
+			// }
+			// else
+			// 	printf("why:[%s]\n", (*split)[i + 1]);
+		// }
 		g_cmd->command = m_malloc(ft_strlen((*split)[i]) + 1);
 		//printf("str is |%s|\n", (*split)[i]);
 		ft_strcpy(g_cmd->command, (*split)[i]);
