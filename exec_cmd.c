@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:32:40 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/04 06:52:25 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/09 01:13:27 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	ft_fork(t_command_info *cmd, int n, int last)
 		pipe_or_red(cmd, &in, n, last);
 		if (test_cmds(cmd))
 			;
-		else
+		else if (!ft_strcmpr(cmd->command, ""))
 		{
 			var = check_cmd(cmd->command, &p);
 			find_path(cmd, var, p);

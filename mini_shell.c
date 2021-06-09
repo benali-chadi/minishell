@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/07 20:21:34 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/06/09 01:45:41 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	execute(int j)
 	}
 	while (wait(&g_return) != -1)
 		;
-	printf("return = %d\n", g_return);
 	if (g_return && g_return < 255)
 		g_return += 128;
 	else if (g_return)

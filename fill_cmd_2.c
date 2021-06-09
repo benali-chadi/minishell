@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:46:33 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/07 21:29:09 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/09 01:44:50 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	to_while_cmd(char *command, int i, int *indice)
 {
 	while (command[i])
 	{
-		printf("char is:%c\n", command[i]);
 		if (check_first_char_cmd(command[i], command[i + 1], &i, command) == 1)
 		{
 			*indice = 1;
@@ -93,7 +92,6 @@ void	to_while_cmd(char *command, int i, int *indice)
 			if (check_char_first(&command, 0, i))
 				fill_command(command[i]);
 			switch_one_two(command[i]);
-			printf("WHAT???2\n");
 		}
 		if (check_if_can_increment(&command, 0, i))
 			i++;
@@ -117,7 +115,6 @@ char	*clean_command_1(char *command)
 	ft_strcpy(g_str_command, command);
 	init_one_two();
 	g_command_len = 0;
-	printf("commad[%d]=|%c|", i, command[i]);
 	to_while_cmd(command, i, &indice);
 	return (g_str_command);
 }
