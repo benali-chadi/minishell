@@ -98,8 +98,6 @@ void	exec_cmd(t_command_info *cmd, int i, int last)
 		leave(cmd->string);
 	else if (cmd->tests.cd)
 		exec_cd(cmd);
-	else if (cmd->tests.export_t)
-		ft_export(cmd);
 	else if (cmd->tests.unset)
 		ft_remove_node(cmd);
 	else

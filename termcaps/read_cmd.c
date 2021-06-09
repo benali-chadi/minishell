@@ -10,14 +10,18 @@ void	reenitialize(t_read **reads, char *cmd)
 	(*reads)->r_len = 0;
 	(*reads)->count = (*reads)->l_len;
 	ft_add_line(&(*reads)->left, cmd);
-	print_prompt();
+	if (cmd)
+		print_prompt();
 	print_stack((*reads)->left);
 }
 
 void	clear_and_reen(t_read *reads, char *command_line)
 {
-	tputs(tgetstr("ch", NULL), 1, ft_puts);
-	tputs(tgetstr("dl", NULL), 1, ft_puts);
+	if (command_line)
+	{
+		tputs(tgetstr("ch", NULL), 1, ft_puts);
+		tputs(tgetstr("dl", NULL), 1, ft_puts);
+	}
 	reenitialize(&reads, command_line);
 }
 
