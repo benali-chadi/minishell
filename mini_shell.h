@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/09 15:28:21 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/09 19:30:58 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ char						g_case_index[10000];
 int							g_print_next;
 char						g_next;
 int							g_move_and_pass;
+char						*env_tab[10000];
 /*
 	**Functions
 */

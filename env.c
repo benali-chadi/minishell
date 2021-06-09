@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:54 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/09 18:23:13 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/09 19:48:27 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,52 @@ void	stock_env(char **env)
 		i++;
 	}
 }
+void swap(int j, int i)
+{
+    char *temp;
+
+	temp = env_tab[j];
+    env_tab[j] = env_tab[i];
+    env_tab[i] = temp;
+}
+
+void bubbleSort(void)
+{
+   int i;
+   int j;
+
+   i = 0;
+   while (env_tab[i])
+   {
+	   j = 0;
+       while(env_tab[j])
+	   {
+           if (ft_strncmp(env_tab[i], env_tab[j], 5000) < 0)
+              swap(j, i);
+			j++;
+	   }
+	   i++;
+   }
+   i = -1;
+   
+   while(env_tab[++i])
+		printf("declare -x %s\n", env_tab[i]);
+}
 
 int	loop_env(int e)
 {
 	t_list_env	*tmp;
+	int i;
 
+	i = 0;
 	tmp = g_list_env;
 	while (tmp)
 	{
 		if (e)
-			printf("declare -x %s\n", tmp->name_content);
+		{
+			//ft_strcpy(env_tab[i++], tmp->name_content);
+			env_tab[i++] = tmp->name_content;
+		}
 		else if (tmp->content)
 		{
 			if (ft_strcmpr(tmp->name_content, "_=env"))
@@ -58,6 +94,9 @@ int	loop_env(int e)
 		}
 		tmp = tmp->next;
 	}
+   env_tab[i] = NULL;
+	if(e)
+		bubbleSort();
 	return (1);
 }
 
