@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:54 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/09 13:49:33 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/09 18:23:13 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void	ft_export(t_command_info *cmd)
 		name = m_malloc(ft_strlen(cmd->string[i]) + 1);
 		while (cmd->string[i][++j] != '=' && cmd->string[i][j])
 			name[j] = cmd->string[i][j];
+		if(cmd->string[i][j] != '=')
+			return ;
 		name[j] = '\0';
 		bypass_ternarie_1(cmd, &content, i, j);
 		if (check_var(name, content, join_name_content(name, content)))
