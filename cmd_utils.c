@@ -18,7 +18,7 @@ int	test_cmds(t_command_info *cmd)
 		printf("%s\n", g_utils.pwd);
 	else if (cmd->tests.echo)
 		ft_echo(cmd);
-	else if (cmd->tests.export_t)
+	else if (cmd->tests.export_t && !cmd->string[0])
 		ft_export(cmd);
 	else if (cmd->tests.env)
 		loop_env(0);

@@ -57,11 +57,17 @@ void	pipe_or_red(t_command_info *cmd, int *in, int n, int last)
 		}
 	}
 	else if (*in != 0)
+	{
 		dup2(*in, STDIN_FILENO);
+		close(*in);
+	}
 	if (cmd->reds.out_num > 0)
 		red_out(cmd, n);
 	else if (n != last - 1 && n != last)
+	{
 		dup2(g_fd[n][1], STDOUT_FILENO);
+		close(g_fd[n][1]);
+	}
 }
 
 void	ft_fork(t_command_info *cmd, int n, int last)
@@ -76,6 +82,7 @@ void	ft_fork(t_command_info *cmd, int n, int last)
 		pipe(g_fd[n]);
 	if (fork() == 0)
 	{
+		close(g_fd[n][0]);
 		pipe_or_red(cmd, &in, n, last);
 		if (test_cmds(cmd))
 			;
@@ -98,6 +105,8 @@ void	exec_cmd(t_command_info *cmd, int i, int last)
 		leave(cmd->string);
 	else if (cmd->tests.cd)
 		exec_cd(cmd);
+	else if (cmd->tests.export_t && cmd->string[0])
+		ft_export(cmd);
 	else if (cmd->tests.unset)
 		ft_remove_node(cmd);
 	else
