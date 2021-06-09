@@ -3,6 +3,6 @@
  cat /dev/random | head -n 10 | wc
 control + c --> echo $? -> return should be 1;
 export | grep something...
-export pop="echo jiji"
+//export pop="echo jiji"
 echo \"
-export test="bn     bn"	
+//export test="bn     bn"	

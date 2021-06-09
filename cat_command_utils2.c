@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:25:55 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/09 09:41:08 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/09 15:29:02 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,17 @@ int	check_if_print(char *str, int j)
 	return (0);
 }
 
-int	check_quotes_and_ret(char a)
+int	check_quotes_and_ret(char **args, int i, int j)
 {
-	if (a == '"')
+	if (g_one != 1 && g_two != 1 && j > 0 && args[i][j - 1] == '\\')
+		return (1);
+	if (args[i][j] == '"')
 	{
 		if (g_one == 1)
 			return (1);
 		return (0);
 	}
-	if (a == '\'')
+	if (args[i][j] == '\'')
 	{
 		if (g_two == 1)
 			return (1);
@@ -87,7 +89,7 @@ int	check_char_first(char **args, int i, int j)
 		if (args[i][j + 1] && is_special(args[i][j + 1]))
 			return (0);
 	}
-	return (check_quotes_and_ret(args[i][j]));
+	return (check_quotes_and_ret(args, i, j));
 }
 
 void	switch_one_two(char a)

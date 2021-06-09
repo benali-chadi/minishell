@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/06 11:23:13 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/09 15:28:21 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ void						loop_env_cmd(void);
 	**Utils
 */
 int							check_backslash(char *str, int e);
-int							check_quotes_and_ret(char a);
+int							check_quotes_and_ret(char **args, int i, int j);
 int							check_if_print(char *str, int j);
 int							check_special_char(char a);
 void						join_friendly_red(char **args,
