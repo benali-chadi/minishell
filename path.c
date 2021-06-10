@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:00:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/09 02:10:32 by macbook          ###   ########.fr       */
+/*   Updated: 2021/06/10 11:27:27 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ void	find_path(t_command_info *cmd, char *var, int p)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd->command, 2);
 		ft_putstr_fd(" command not found\n", 2);
-		
 	}
-		// printf("minishell: %s: command not found\n", cmd->command);
 	exit(127);
 }

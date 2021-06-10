@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 15:02:50 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/09 15:18:16 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 11:49:12 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,24 +63,16 @@ void	ft_echo(t_command_info *cmd)
 {
 	int	i;
 	int	force;
-	int s;
+	int	s;
 
 	s = 0;
 	i = -1;
 	g_var_one = 0;
 	g_var_two = 0;
 	force = 0;
-	//printf("ENTER\n");
-	//printf("str is:%s\n", cmd->string[++i]);
-	// while(g_cmd->string[++oo])
-	// 	printf("s[%d]=|%s|\n", oo, g_cmd->string[oo]);
 	while (cmd->string[++i])
 	{
-		//printf("check if printable:|%s|\n", cmd->string[i]);
-		//printf("%s", cmd->string[i]);
 		ft_putstr_fd(cmd->string[i], 1);
-		//ft_putstr_fd(cmd->string[i], 1);
-		//printf("%s", cmd->string[i]);
 		if (cmd->string[i + 1])
 			ft_putstr_fd(" ", 1);
 	}

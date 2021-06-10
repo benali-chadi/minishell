@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:21:41 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/09 15:21:13 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 11:54:57 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	to_while(char **args, int i, int *s)
 	j = 0;
 	while (args[i][j])
 	{
-		//printf("char is |%c|\n", args[i][j]);
 		if (check_first_char(args, &i, &j) == 1)
 			j = first_condition(j, args, i, s) - 1;
 		else if (check_first_char(args, &i, &j) == 2)

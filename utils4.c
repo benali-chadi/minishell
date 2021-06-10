@@ -31,3 +31,24 @@ int	in_value(int n)
 		return (0);
 	return (g_fd[n - 1][0]);
 }
+
+int	check_solo_at_the_first(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] == ' ')
+		i++;
+	if (str[i] == '|')
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+		return (1);
+	}
+	return (0);
+}
+
+void	print_error_and_exit(void)
+{
+	printf("minishell: %s\n", strerror(errno));
+	exit(1);
+}

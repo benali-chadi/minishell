@@ -6,7 +6,7 @@
 #    By: smhah <smhah@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/28 16:00:43 by cbenali-          #+#    #+#              #
-#    Updated: 2021/06/10 10:30:28 by smhah            ###   ########.fr        #
+#    Updated: 2021/06/10 11:14:19 by smhah            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC = mini_shell.c exec_cmd.c \
 	env.c env_linkedlist.c cmd_linkd_lst.c\
 	mod_split_red.c mod_split.c mod_split_red_utils.c\
 	fill_cmd_2.c env2.c env3.c mod_split_1.c new_clean_command.c cat_command_utils.c\
-	env_linkedlist_cmd.c cat_command_utils2.c new_clean_command_utils.c mod_split_assignment.c fill_cmd_utils.c fill_cmd_utils2.c cat_command_utils3.c\
+	env_linkedlist_cmd.c cat_command_utils2.c new_clean_command_utils.c mod_split_assignment.c fill_cmd_utils.c fill_cmd_utils2.c cat_command_utils3.c env4.c\
 	$(NAMELIB) termcaps/*.c
 
 all : $(NAME)

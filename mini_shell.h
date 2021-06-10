@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/09 19:30:58 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 12:08:47 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ char						g_case_index[10000];
 int							g_print_next;
 char						g_next;
 int							g_move_and_pass;
-char						*env_tab[10000];
+char						*g_env_tab[10000];
 /*
 	**Functions
 */
@@ -158,6 +158,13 @@ void						loop_env_cmd(void);
 /*
 	**Utils
 */
+void						print_error_and_exit(void);
+int							fill_cmd_helper(char ***split);
+int							init_fill_cmd(char **split, int *i, int *s);
+void						continue_our_road(int s, int p);
+char						**join_2_tab(char **tab1, char **tab2);
+int							is_red(char a);
+int							check_solo_at_the_first(char *str);
 int							check_backslash(char *str, int e);
 int							check_quotes_and_ret(char **args, int i, int j);
 int							check_if_print(char *str, int j);
@@ -232,6 +239,7 @@ int							ft_read_line(int fd, t_read *reads, t_histo **read);
 /*
 	**env
 */
+
 void						ft_remove_node_cmd_1(void);
 void						ft_remove_node(t_command_info *cmd);
 void						add_back(t_list_env **head, char *name,

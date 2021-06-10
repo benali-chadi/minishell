@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 11:00:09 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/09 02:49:43 by macbook          ###   ########.fr       */
+/*   Updated: 2021/06/10 12:00:24 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	check_if_at_the_last(char *str)
 	int	i;
 
 	i = 0;
-	
 	while (str[i])
 		i++;
 	if (i > 2)
@@ -82,10 +81,10 @@ void	join_lonely_red(char **args, char **split, int *i)
 void	join_friendly_red(char **args, char **split, int *i)
 {
 	int	ret_slash;
-	int j;
+	int	j;
 
 	j = 0;
-	while(args[j])
+	while (args[j])
 		j++;
 	args[j - 1] = ft_strjoin(args[j - 1], split[*i + 1]);
 	ret_slash = check_if_last("><", &args[j - 1]);

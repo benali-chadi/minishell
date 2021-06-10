@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_cmd.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/10 12:07:37 by smhah             #+#    #+#             */
+/*   Updated: 2021/06/10 12:07:49 by smhah            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../mini_shell.h"
 
 int	g_flag = 0;
@@ -84,7 +96,6 @@ int	read_char(int fd, char **line)
 	t_histo		*read;
 	const char	*term_type;
 
-	// check if NULL;
 	term_type = getenv("TERM");
 	tgetent(NULL, term_type);
 	clear_and_reen(&reads, NULL);
