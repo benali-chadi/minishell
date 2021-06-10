@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cat_command_utils2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:25:55 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/09 15:29:02 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 08:36:14 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ int	check_if_print(char *str, int j)
 
 	c = 0;
 	i = 0;
+
 	while (str[i])
 	{
-		if (str[i] != '\\')
-			c = 0;
 		if (i == j)
 		{
 			if (c == 0)
@@ -39,6 +38,8 @@ int	check_if_print(char *str, int j)
 				return (0);
 			return (1);
 		}
+		if (str[i] != '\\')
+			c = 0;
 		if (str[i] == '\\')
 			c++;
 		i++;
@@ -48,7 +49,8 @@ int	check_if_print(char *str, int j)
 
 int	check_quotes_and_ret(char **args, int i, int j)
 {
-	if (g_one != 1 && g_two != 1 && j > 0 && args[i][j - 1] == '\\')
+
+	if (g_one != 1 && j > 0 && check_if_print(args[i], j))
 		return (1);
 	if (args[i][j] == '"')
 	{
