@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:32:40 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/10 11:59:33 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 17:13:35 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ void	pipe_or_red(t_command_info *cmd, int *in, int n, int last)
 		{
 			*in = open(cmd->reds.in_file_name[i++], O_RDONLY);
 			if (*in < 0)
-			{
-				printf("minishell: %s\n", strerror(errno));
-				exit(1);
-			}
+				print_error_and_exit();
 			dup2(*in, STDIN_FILENO);
 		}
 	}
@@ -76,13 +73,13 @@ void	ft_fork(t_command_info *cmd, int n, int last)
 	char	*var;
 	int		p;
 
-	p = 0;
-	in = in_value(n);
+	in = in_value(n, &p);
 	if (last)
 		pipe(g_fd[n]);
 	if (fork() == 0)
 	{
-		close(g_fd[n][0]);
+		if (last)
+			close(g_fd[n][0]);
 		pipe_or_red(cmd, &in, n, last);
 		if (test_cmds(cmd))
 			;

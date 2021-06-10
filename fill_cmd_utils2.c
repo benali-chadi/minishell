@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 11:00:04 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/10 12:02:17 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 13:36:02 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ void	continue_our_road(int s, int p)
 	cmd_lstadd_back(&g_commands, g_cmd);
 }
 
-int	init_fill_cmd(char **split, int *i, int *s)
+int	init_fill_cmd(char ***split, int *i, int *s)
 {
-	*i = fill_cmd_helper(&split) - 1;
+	*i = fill_cmd_helper(split) - 1;
 	if (!*split || i < 0)
 		return (0);
 	*s = 0;

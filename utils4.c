@@ -25,8 +25,9 @@ void	exec_cd(t_command_info *cmd)
 		add_last_cmd(cmd->string[0], "_");
 }
 
-int	in_value(int n)
+int	in_value(int n, int *p)
 {
+	*p = 0;
 	if (!n)
 		return (0);
 	return (g_fd[n - 1][0]);

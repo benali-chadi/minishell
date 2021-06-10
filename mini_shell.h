@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/10 12:08:47 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 17:13:54 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ int							g_print_next;
 char						g_next;
 int							g_move_and_pass;
 char						*g_env_tab[10000];
+char						**g_cmd_args;
 /*
 	**Functions
 */
@@ -160,7 +161,7 @@ void						loop_env_cmd(void);
 */
 void						print_error_and_exit(void);
 int							fill_cmd_helper(char ***split);
-int							init_fill_cmd(char **split, int *i, int *s);
+int							init_fill_cmd(char ***split, int *i, int *s);
 void						continue_our_road(int s, int p);
 char						**join_2_tab(char **tab1, char **tab2);
 int							is_red(char a);
@@ -192,7 +193,7 @@ int							gnl(int fd, char **line);
 int							check_quots(const char *str, int i);
 int							check_white_spaces(void);
 void						print_prompt(void);
-int							in_value(int n);
+int							in_value(int n, int *p);
 
 /*
 	split

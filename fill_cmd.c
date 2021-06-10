@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:08:59 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/10 11:44:30 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 16:47:24 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	continue_helper(int i, char ***split)
 		ft_strcpy(g_cmd->options, (*split)[i]);
 		i++;
 	}
+	//printf("g_cmd=|%s|\n", g_cmd->command);
 	return (i);
 }
 
@@ -64,7 +65,6 @@ int	fill_cmd_helper(char ***split)
 {
 	char	**args;
 	int		i;
-	char	**cmd_args;
 	int		j;
 
 	j = 0;
@@ -72,8 +72,14 @@ int	fill_cmd_helper(char ***split)
 	g_cmd = m_malloc(sizeof (t_command_info));
 	g_cmd->reds.in_num = 0;
 	g_cmd->reds.out_num = 0;
-	cmd_args = mod_split(clean_command_1((*split)[i]), ' ');
-	(*split) = join_2_tab(cmd_args, &(*split)[i + 1]);
+	g_cmd_args = m_malloc(sizeof(char *) * 2);
+	g_cmd_args[0] = NULL;
+	(*split)[i] = clean_command_1(*split[i]);
+	// g_cmd_args = mod_split(clean_command_1((*split)[i]), ' ');
+	// while(g_cmd_args[j])
+	// 	printf("args:|%s|\n", g_cmd_args[j++]);
+	if(g_cmd_args[0])
+		(*split) = join_2_tab(g_cmd_args, &(*split)[i + 1]);
 	while ((*split)[i] && ((*split)[i][0] == '<' || (*split)[i][0] == '>'))
 	{
 		args = mod_split_red((*split)[i], "><");
@@ -81,7 +87,8 @@ int	fill_cmd_helper(char ***split)
 			return (-1);
 		i++;
 	}
-	return (continue_helper(i, split));
+	i = continue_helper(i, split);
+	return (i);
 }
 
 int	check_end_2(char **args, char **split, int *i, int *s)
@@ -117,7 +124,7 @@ int	fill_cmd(char **split, int p)
 	int		i;
 	int		s;
 
-	if (!init_fill_cmd(split, &i, &s))
+	if (!init_fill_cmd(&split, &i, &s))
 		return (-1);
 	while (split[++i])
 	{

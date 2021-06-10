@@ -6,11 +6,11 @@
 #    By: smhah <smhah@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/28 16:00:43 by cbenali-          #+#    #+#              #
-#    Updated: 2021/06/10 11:14:19 by smhah            ###   ########.fr        #
+#    Updated: 2021/06/10 16:28:15 by smhah            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS = -Wall -Wextra -Werror -lncurses -g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -lncurses -g #-fsanitize=address
 
 NAME = minishell
 
