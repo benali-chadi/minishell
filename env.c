@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:54 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/09 19:48:27 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 10:58:12 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,20 @@ void bubbleSort(void)
 		printf("declare -x %s\n", env_tab[i]);
 }
 
+int	check_equal_at_the_last(char *str)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+	{
+		if (str[i] == '=')
+			return (1);
+		i++;
+	}
+	return(0);
+}
+
 int	loop_env(int e)
 {
 	t_list_env	*tmp;
@@ -90,7 +104,10 @@ int	loop_env(int e)
 			if (ft_strcmpr(tmp->name_content, "_=env"))
 				printf("_=/usr/bin/env\n");
 			else
-				printf("%s\n", tmp->name_content);
+			{
+				if(!ft_strcmpr("", tmp->content) ||  check_equal_at_the_last(tmp->name_content))
+					printf("%s\n", tmp->name_content);
+			}
 		}
 		tmp = tmp->next;
 	}
@@ -127,6 +144,7 @@ void	ft_export(t_command_info *cmd)
 	char	*content;
 	int		i;
 	int		j;
+	char	*name_content;
 
 	i = -1;
 	if (!cmd->string[0] && loop_env(1))
@@ -139,14 +157,25 @@ void	ft_export(t_command_info *cmd)
 		name = m_malloc(ft_strlen(cmd->string[i]) + 1);
 		while (cmd->string[i][++j] != '=' && cmd->string[i][j])
 			name[j] = cmd->string[i][j];
-		if(cmd->string[i][j] != '=')
-			return ;
 		name[j] = '\0';
-		bypass_ternarie_1(cmd, &content, i, j);
-		if (check_var(name, content, join_name_content(name, content)))
+		if(cmd->string[i][j] != '=')
 		{
-			add_back(&g_list_env, name,
-				content, join_name_content(name, content));
+			if(check_var(name, ft_strdup(""), name))
+				add_back(&g_list_env, name, ft_strdup(""), name);
+			//printf("name=|%s|\n", name);
+			continue ;
+		}
+		bypass_ternarie_1(cmd, &content, i, j);
+		// printf("%s\n", name);
+		// printf("%s\n", content);
+		name_content = join_name_content(name, content);
+		if(name_content)
+		{
+			if (check_var(name, content, name_content))
+			{
+				add_back(&g_list_env, name,
+					content, name_content);
+			}
 		}
 	}
 }

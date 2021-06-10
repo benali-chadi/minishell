@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:08:59 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/09 16:55:36 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 10:10:50 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	**join_2_tab(char **tab1, char **tab2)
 
 	j = 0;	
 	i = 0;
-	tabtab = (char **)malloc(mod_strlen(tab1) * sizeof(char *) + mod_strlen(tab2) * sizeof(char *) + sizeof(char *));
+	tabtab = (char **)m_malloc(mod_strlen(tab1) * sizeof(char *) + mod_strlen(tab2) * sizeof(char *) + sizeof(char *));
 	while(tab1[i] != NULL)
 	{
 		tabtab[i] = ft_strdup(tab1[i]);
