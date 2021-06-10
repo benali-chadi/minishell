@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 11:00:04 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/10 18:07:54 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 19:41:27 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	continue_our_road(int s, int p)
 int	init_fill_cmd(char ***split, int *i, int *s)
 {
 	*i = fill_cmd_helper(split) - 1;
-	if (!*split || i < 0)
+	if (!*split || *i < 0)
 		return (0);
 	*s = 0;
 	g_all.cmd->string[0] = NULL;
