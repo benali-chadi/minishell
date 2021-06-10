@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:14:40 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/10 18:06:29 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 18:57:31 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@ int	check_white_spaces(void)
 	while (g_all.utils.m_split[i] != NULL)
 	{
 		j = 0;
-		while (g_all.utils.m_split[i][j] == ' ' || g_all.utils.m_split[i][j] == '\t')
-		{
+		while (g_all.utils.m_split[i][j] == ' '
+			|| g_all.utils.m_split[i][j] == '\t')
 			j++;
-		}
 		if ((g_all.utils.m_split[i][j] == '\0' && g_all.utils.m_split
 			[i + 1]) || (g_all.utils.m_split[i][j] == '\0' && g_all.case_index
 			[i + 1] == '1' && i > 0))

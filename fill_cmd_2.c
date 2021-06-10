@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:46:33 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/10 18:07:26 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 19:01:10 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int	first_condition_cmd(int i, char *command)
 	g_all.var_cmd[g_all.cmd_k] = '\0';
 	if (ft_strcmpr(g_all.var_cmd, "?"))
 	{
-		g_all.str_return = ft_itoa(g_all.returnn);
-		g_all.str_command = ft_realloc(g_all.str_command, ft_strlen(g_all.str_command)
-				+ ft_strlen(command) + ft_strlen(g_all.str_return) + 1 + g_all.two);
+		g_all.s_ret = ft_itoa(g_all.returnn);
+		g_all.s_cmd = ft_realloc(g_all.s_cmd, ft_strlen(g_all.s_cmd)
+				+ ft_strlen(command) + ft_strlen(g_all.s_ret) + 1 + g_all.two);
 		g_all.cmd_k = 0;
-		while (g_all.str_return[g_all.cmd_k])
-			g_all.str_command[g_all.command_len++] = g_all.str_return[g_all.cmd_k++];
-		g_all.str_command[g_all.command_len] = '\0';
+		while (g_all.s_ret[g_all.cmd_k])
+			g_all.s_cmd[g_all.c_l++] = g_all.s_ret[g_all.cmd_k++];
+		g_all.s_cmd[g_all.c_l] = '\0';
 	}
 	else
 	{
@@ -95,7 +95,7 @@ void	to_while_cmd(char *command, int i, int *indice)
 		}
 		if (check_if_can_increment(&command, 0, i))
 			i++;
-		g_all.str_command[g_all.command_len] = '\0';
+		g_all.s_cmd[g_all.c_l] = '\0';
 	}
 }
 
@@ -111,10 +111,10 @@ char	*clean_command_1(char *command)
 	i = 0;
 	g_all.cmd_k = 0;
 	quote = 0;
-	g_all.str_command = m_malloc(ft_strlen(command) + 1);
-	ft_strcpy(g_all.str_command, command);
+	g_all.s_cmd = m_malloc(ft_strlen(command) + 1);
+	ft_strcpy(g_all.s_cmd, command);
 	init_one_two();
-	g_all.command_len = 0;
+	g_all.c_l = 0;
 	to_while_cmd(command, i, &indice);
-	return (g_all.str_command);
+	return (g_all.s_cmd);
 }

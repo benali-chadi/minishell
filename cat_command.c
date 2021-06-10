@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:21:41 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/10 18:06:59 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 19:01:10 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,15 @@ int	first_condition(int j, char **args, int i, int *s)
 	g_all.str_var[g_all.var_k] = '\0';
 	if (ft_strcmpr(g_all.str_var, "?"))
 	{
-		g_all.str_return = ft_itoa(g_all.returnn);
+		g_all.s_ret = ft_itoa(g_all.returnn);
 		g_all.cmd->string[*s] = ft_realloc(g_all.cmd->string[*s],
 				ft_strlen(g_all.cmd->string[*s]) + ft_strlen(args[i])
-				+ ft_strlen(g_all.str_return) + 1 + g_all.two);
+				+ ft_strlen(g_all.s_ret) + 1 + g_all.two);
 		g_all.var_k = 0;
-		while (g_all.str_return[g_all.var_k])
+		while (g_all.s_ret[g_all.var_k])
 		{
-			g_all.cmd->string[*s][g_all.cmd->string_len++] = g_all.str_return[g_all.var_k];
+			g_all.cmd->string[*s][g_all.cmd->string_len++]
+				= g_all.s_ret[g_all.var_k];
 			g_all.var_k++;
 		}
 		g_all.cmd->string[*s][g_all.cmd->string_len++] = '\0';

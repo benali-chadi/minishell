@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:04:04 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/10 17:58:33 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 18:56:50 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,11 @@ int	ft_countwords_red(const char *str, char *c)
 		if (str[i] == '\0')
 			break ;
 		compteur++;
-		while ((g_all.var_one == 1 || g_all.var_two == 1 || (i && str[i - 1] == '\\')
+		while ((g_all.var_one == 1 || g_all.var_two == 1
+				|| (i && str[i - 1] == '\\')
 				|| !ft_strchr(c, str[i]))
 			&& str[i] != '\0' && re_check_quots(str, i))
-		{
 			i++;
-		}
 		if (str[i] == '\0')
 			break ;
 	}

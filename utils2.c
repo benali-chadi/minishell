@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:08 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/10 18:07:54 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 19:15:41 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	init_stuff(char **env)
 	g_all.utils.out = open("/dev/tty", O_WRONLY);
 	g_all.utils.env = env;
 	g_all.move_and_pass = 0;
+	g_all.all = 0;
 }
 
 int	cmpr_maj(char *s1, char *s2)

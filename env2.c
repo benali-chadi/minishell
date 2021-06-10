@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 15:54:19 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/10 18:09:40 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 19:00:49 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,13 @@ void	ft_cpy_env_command(t_list_env *read_env)
 
 	e = 0;
 	while (read_env->content[e])
-		g_all.str_command[g_all.command_len++] = read_env->content[e++];
-	g_all.str_command[g_all.command_len] = '\0';
-	if (g_all.one == 0 && g_all.two == 0 && mod_strlen(mod_split(read_env->content, ' ')) > 1)
+		g_all.s_cmd[g_all.c_l++] = read_env->content[e++];
+	g_all.s_cmd[g_all.c_l] = '\0';
+	if (g_all.one == 0 && g_all.two == 0
+		&& mod_strlen(mod_split(read_env->content, ' ')) > 1)
 	{
-		g_all.cmd_args = join_2_tab(g_all.cmd_args, mod_split(read_env->content, ' '));
+		g_all.cmd_args
+			= join_2_tab(g_all.cmd_args, mod_split(read_env->content, ' '));
 	}
 }
 
@@ -85,8 +87,8 @@ void	compare_var_command(char *var, char *command)
 	{
 		if (ft_strcmpr(read_env->name, var))
 		{
-			g_all.str_command = ft_realloc(g_all.str_command, ft_strlen
-					(g_all.str_command) + ft_strlen(command) + ft_strlen
+			g_all.s_cmd = ft_realloc(g_all.s_cmd, ft_strlen
+					(g_all.s_cmd) + ft_strlen(command) + ft_strlen
 					(read_env->content) + 1 + g_all.two);
 			ft_cpy_env_command(read_env);
 			break ;

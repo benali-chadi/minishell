@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/10 18:11:48 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 19:27:25 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ typedef struct s_utils
 typedef struct s_all
 {
 	t_command_info				*cmd;
-	void						*alloc[400];
+	void						*alloc[100000];
 	int							all;
 	t_command_info				*commands;
 	t_list_env					*list_env;
@@ -124,12 +124,12 @@ typedef struct s_all
 	int							var_two;
 	int							status;
 	int							returnn;
-	char						*str_return;
+	char						*s_ret;
 	int							join_red;
 	char						*str_var;
 	int							var_k;
-	char						*str_command;
-	int							command_len;
+	char						*s_cmd;
+	int							c_l;
 	char						*var_cmd;
 	int							cmd_k;
 	int							returned;

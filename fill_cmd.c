@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:08:59 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/10 18:09:40 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 18:50:02 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	continue_helper(int i, char ***split)
 		ft_strcpy(g_all.cmd->options, (*split)[i]);
 		i++;
 	}
-	//printf("g_all.cmd=|%s|\n", g_all.cmd->command);
 	return (i);
 }
 
@@ -75,10 +74,7 @@ int	fill_cmd_helper(char ***split)
 	g_all.cmd_args = m_malloc(sizeof(char *) * 2);
 	g_all.cmd_args[0] = NULL;
 	(*split)[i] = clean_command_1(*split[i]);
-	// g_all.cmd_args = mod_split(clean_command_1((*split)[i]), ' ');
-	// while(g_all.cmd_args[j])
-	// 	printf("args:|%s|\n", g_all.cmd_args[j++]);
-	if(g_all.cmd_args[0])
+	if (g_all.cmd_args[0])
 		(*split) = join_2_tab(g_all.cmd_args, &(*split)[i + 1]);
 	while ((*split)[i] && ((*split)[i][0] == '<' || (*split)[i][0] == '>'))
 	{
