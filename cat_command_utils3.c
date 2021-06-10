@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 11:08:56 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/10 11:48:17 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 17:56:52 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	check_if_can_increment(char **args, int i, int j)
 {
 	if (args[i][j] && (args[i][j] != '$'
-		|| ((g_one == 1 && args[i][j] == '$')
+		|| ((g_all.one == 1 && args[i][j] == '$')
 		|| args[i][j] == '$' || (j > 0
 		&& args[i][j - 1] == '\\') || args[i][j + 1] == '\0')))
 		return (1);

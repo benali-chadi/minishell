@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 11:12:51 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/10 12:08:47 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 18:09:02 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	swap(int j, int i)
 {
 	char	*temp;
 
-	temp = g_env_tab[j];
-	g_env_tab[j] = g_env_tab[i];
-	g_env_tab[i] = temp;
+	temp = g_all.env_tab[j];
+	g_all.env_tab[j] = g_all.env_tab[i];
+	g_all.env_tab[i] = temp;
 }
 
 void	bubbleSort(void)
@@ -27,20 +27,20 @@ void	bubbleSort(void)
 	int		j;
 
 	i = 0;
-	while (g_env_tab[i])
+	while (g_all.env_tab[i])
 	{
 		j = 0;
-		while (g_env_tab[j])
+		while (g_all.env_tab[j])
 		{
-			if (ft_strncmp(g_env_tab[i], g_env_tab[j], 5000) < 0)
+			if (ft_strncmp(g_all.env_tab[i], g_all.env_tab[j], 5000) < 0)
 				swap(j, i);
 			j++;
 		}
 		i++;
 	}
 	i = -1;
-	while (g_env_tab[++i])
-		printf("declare -x %s\n", g_env_tab[i]);
+	while (g_all.env_tab[++i])
+		printf("declare -x %s\n", g_all.env_tab[i]);
 }
 
 int	check_equal_at_the_last(char *str)
@@ -63,11 +63,11 @@ int	loop_env(int e)
 	int			i;
 
 	i = 0;
-	tmp = g_list_env;
+	tmp = g_all.list_env;
 	while (tmp)
 	{
 		if (e)
-			g_env_tab[i++] = tmp->name_content;
+			g_all.env_tab[i++] = tmp->name_content;
 		else if (tmp->content)
 		{
 			if (ft_strcmpr(tmp->name_content, "_=env"))
@@ -78,7 +78,7 @@ int	loop_env(int e)
 		}
 		tmp = tmp->next;
 	}
-	g_env_tab[i] = NULL;
+	g_all.env_tab[i] = NULL;
 	if (e)
 		bubbleSort();
 	return (1);
@@ -88,7 +88,7 @@ void	loop_env_cmd(void)
 {
 	t_histo	*tmp;
 
-	tmp = g_histo;
+	tmp = g_all.histo;
 	while (tmp)
 	{
 		printf("%s\n", tmp->command_line);

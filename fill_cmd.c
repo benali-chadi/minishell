@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:08:59 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/10 16:47:24 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 18:09:40 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,21 @@ int	continue_helper(int i, char ***split)
 {
 	if (!(*split)[i])
 	{
-		g_cmd->command = ft_strdup("");
-		g_cmd->options = NULL;
+		g_all.cmd->command = ft_strdup("");
+		g_all.cmd->options = NULL;
 		return (i);
 	}
-	g_cmd->command = m_malloc(ft_strlen((*split)[i]) + 1);
-	ft_strcpy(g_cmd->command, (*split)[i]);
+	g_all.cmd->command = m_malloc(ft_strlen((*split)[i]) + 1);
+	ft_strcpy(g_all.cmd->command, (*split)[i]);
 	i++;
-	g_cmd->options = NULL;
+	g_all.cmd->options = NULL;
 	if ((*split)[i] && (*split)[i][0] == '-')
 	{
-		g_cmd->options = m_malloc(ft_strlen((*split)[i]) + 1);
-		ft_strcpy(g_cmd->options, (*split)[i]);
+		g_all.cmd->options = m_malloc(ft_strlen((*split)[i]) + 1);
+		ft_strcpy(g_all.cmd->options, (*split)[i]);
 		i++;
 	}
-	//printf("g_cmd=|%s|\n", g_cmd->command);
+	//printf("g_all.cmd=|%s|\n", g_all.cmd->command);
 	return (i);
 }
 
@@ -69,17 +69,17 @@ int	fill_cmd_helper(char ***split)
 
 	j = 0;
 	i = 0;
-	g_cmd = m_malloc(sizeof (t_command_info));
-	g_cmd->reds.in_num = 0;
-	g_cmd->reds.out_num = 0;
-	g_cmd_args = m_malloc(sizeof(char *) * 2);
-	g_cmd_args[0] = NULL;
+	g_all.cmd = m_malloc(sizeof (t_command_info));
+	g_all.cmd->reds.in_num = 0;
+	g_all.cmd->reds.out_num = 0;
+	g_all.cmd_args = m_malloc(sizeof(char *) * 2);
+	g_all.cmd_args[0] = NULL;
 	(*split)[i] = clean_command_1(*split[i]);
-	// g_cmd_args = mod_split(clean_command_1((*split)[i]), ' ');
-	// while(g_cmd_args[j])
-	// 	printf("args:|%s|\n", g_cmd_args[j++]);
-	if(g_cmd_args[0])
-		(*split) = join_2_tab(g_cmd_args, &(*split)[i + 1]);
+	// g_all.cmd_args = mod_split(clean_command_1((*split)[i]), ' ');
+	// while(g_all.cmd_args[j])
+	// 	printf("args:|%s|\n", g_all.cmd_args[j++]);
+	if(g_all.cmd_args[0])
+		(*split) = join_2_tab(g_all.cmd_args, &(*split)[i + 1]);
 	while ((*split)[i] && ((*split)[i][0] == '<' || (*split)[i][0] == '>'))
 	{
 		args = mod_split_red((*split)[i], "><");
@@ -129,9 +129,9 @@ int	fill_cmd(char **split, int p)
 	while (split[++i])
 	{
 		args = mod_split_red(split[i], "><");
-		if (g_move_and_pass == 1 || g_move_and_pass == 2)
+		if (g_all.move_and_pass == 1 || g_all.move_and_pass == 2)
 		{
-			g_move_and_pass = 0;
+			g_all.move_and_pass = 0;
 			if (!check_end_2(&args[1], split, &i, &s))
 				return (-1);
 		}

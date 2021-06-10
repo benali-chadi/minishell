@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 18:43:22 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/09 08:54:55 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 17:54:56 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_lstadd_back_cmd(t_histo **alst, t_histo *new)
 	else if (!*alst)
 	{
 		*alst = new;
-		g_histo = new;
+		g_all.histo = new;
 		new->next = NULL;
 		new->previous = NULL;
 	}
@@ -67,7 +67,7 @@ void	ft_remove_node_cmd_1(void)
 	t_histo	*read_list;
 	int		i;
 
-	read_list = g_histo;
+	read_list = g_all.histo;
 	i = -1;
 	if (!read_list->command_line)
 		return ;

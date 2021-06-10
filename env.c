@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:54 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/10 11:53:54 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 17:53:53 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ int	join_name_content(char *name, char *content, char **name_content)
 int	add_solo_var_name(char *name)
 {
 	if (check_var(name, ft_strdup(""), name))
-		add_back(&g_list_env, name, ft_strdup(""), name);
+		add_back(&g_all.list_env, name, ft_strdup(""), name);
 	return (1);
 }
 
 void	fill_var(char **name, int i, int *j)
 {
-	while (g_cmd->string[i][++(*j)] != '=' && g_cmd->string[i][*j])
-		(*name)[*j] = g_cmd->string[i][*j];
+	while (g_all.cmd->string[i][++(*j)] != '=' && g_all.cmd->string[i][*j])
+		(*name)[*j] = g_all.cmd->string[i][*j];
 	(*name)[*j] = '\0';
 }
 
@@ -59,7 +59,7 @@ void	ft_export(t_command_info *cmd)
 		if (!join_name_content(name, content, &name_content))
 			continue ;
 		if (check_var(name, content, name_content))
-			add_back(&g_list_env, name,
+			add_back(&g_all.list_env, name,
 				content, name_content);
 	}
 }
@@ -75,13 +75,13 @@ void	ft_remove_node(t_command_info *cmd)
 		return ;
 	while (cmd->string[++i])
 	{
-		read_list = g_list_env;
+		read_list = g_all.list_env;
 		if (ft_print_error(cmd->string[i][0], cmd, i))
 			continue ;
 		if (read_list != NULL && ft_strcmpr(cmd->string[i],
 				read_list->name))
 		{
-			g_list_env = read_list->next;
+			g_all.list_env = read_list->next;
 			continue ;
 		}
 		while (read_list && !ft_strcmpr(cmd->string[i],

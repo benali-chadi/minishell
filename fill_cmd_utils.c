@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 11:00:09 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/10 12:00:24 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 18:07:54 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	join_lonely_red(char **args, char **split, int *i)
 	if (!ret_slash)
 		*i = *i + 1;
 	else
-		g_move_and_pass = ret_slash;
+		g_all.move_and_pass = ret_slash;
 }
 
 void	join_friendly_red(char **args, char **split, int *i)
@@ -91,5 +91,5 @@ void	join_friendly_red(char **args, char **split, int *i)
 	if (!ret_slash)
 		*i = *i + 1;
 	else
-		g_move_and_pass = ret_slash;
+		g_all.move_and_pass = ret_slash;
 }

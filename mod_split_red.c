@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 15:03:11 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/06 10:14:25 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 18:00:53 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	fill_red(char **tab1, int *a, int *b, char *str)
 
 int	init_join_red(void)
 {
-	g_join_red = 0;
+	g_all.join_red = 0;
 	return (1);
 }
 
@@ -38,17 +38,17 @@ char	**result_red(char **tab1, const char *str, char *c)
 
 	i = 0;
 	a = 0;
-	g_var_one = 0;
-	g_var_two = 0;
+	g_all.var_one = 0;
+	g_all.var_two = 0;
 	while (str[i] != '\0' && init_join_red() >= 0)
 	{
 		b = 0;
-		while (g_var_one == 0 && g_var_two == 0
+		while (g_all.var_one == 0 && g_all.var_two == 0
 			&& str[i] && ft_strchr(c, str[i]))
 			i += fill_red(tab1, &a, &b, (char *) &(str[i]));
 		if (str[i] == '\0')
 			break ;
-		while ((g_var_one == 1 || g_var_two == 1
+		while ((g_all.var_one == 1 || g_all.var_two == 1
 				|| (i && str[i - 1] == '\\') || !ft_strchr(c, str[i]))
 			&& str[i] != '\0' && re_check_quots(str, i))
 			tab1[a][b++] = str[i++];
@@ -67,7 +67,7 @@ char	**mod_split_red(char const *s, char *c)
 	int		len;
 
 	i = 0;
-	g_join_red = 0;
+	g_all.join_red = 0;
 	tab1 = NULL;
 	if (s)
 		casee = ft_countwords_red(s, c);

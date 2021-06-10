@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:00:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/10 11:27:27 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 17:55:18 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	is_option(t_command_info *cmd, int op)
 
 	i = 0;
 	j = 0;
-	g_utils.args[i++] = clean_cmd(cmd->command);
+	g_all.utils.args[i++] = clean_cmd(cmd->command);
 	if (op)
-		g_utils.args[i++] = clean_cmd(cmd->options);
+		g_all.utils.args[i++] = clean_cmd(cmd->options);
 	while (cmd->string[j])
-		g_utils.args[i++] = cmd->string[j++];
-	g_utils.args[i] = NULL;
+		g_all.utils.args[i++] = cmd->string[j++];
+	g_all.utils.args[i] = NULL;
 }
 
 void	execute_cmd(t_command_info *cmd, char *command)
@@ -40,7 +40,7 @@ void	execute_cmd(t_command_info *cmd, char *command)
 		is_option(cmd, 1);
 	else
 		is_option(cmd, 0);
-	if (execve(command, g_utils.args, g_utils.env) < 0)
+	if (execve(command, g_all.utils.args, g_all.utils.env) < 0)
 	{
 		error = errno;
 		dir = opendir(command);
@@ -58,7 +58,7 @@ char	*search_path(void)
 {
 	t_list_env	*read_env;
 
-	read_env = g_list_env;
+	read_env = g_all.list_env;
 	while (read_env)
 	{
 		if (ft_strcmpr(read_env->name, "PATH"))
@@ -81,7 +81,7 @@ void	find_path(t_command_info *cmd, char *var, int p)
 	while (split[i])
 	{
 		command = ft_strjoin(split[i], var);
-		if (!stat(command, &g_utils.buf))
+		if (!stat(command, &g_all.utils.buf))
 			execute_cmd(cmd, command);
 		i++;
 	}

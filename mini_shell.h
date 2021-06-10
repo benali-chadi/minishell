@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/10 17:13:54 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 18:11:48 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,40 +108,46 @@ typedef struct s_utils
 	int						for_ctrl_c;
 }							t_utils;
 
+typedef struct s_all
+{
+	t_command_info				*cmd;
+	void						*alloc[400];
+	int							all;
+	t_command_info				*commands;
+	t_list_env					*list_env;
+	t_histo						*histo;
+	t_utils						utils;
+	int 						(*fd)[2];
+	int							one;
+	int							two;
+	int							var_one;
+	int							var_two;
+	int							status;
+	int							returnn;
+	char						*str_return;
+	int							join_red;
+	char						*str_var;
+	int							var_k;
+	char						*str_command;
+	int							command_len;
+	char						*var_cmd;
+	int							cmd_k;
+	int							returned;
+	int							count_end;
+	char						case_index[10000];
+	int							print_next;
+	char						next;
+	int							move_and_pass;
+	char						*env_tab[10000];
+	char						**cmd_args;
+}				t_all;
+
 /*
 	**Global Variables
 */
 
-t_command_info				*g_cmd;
-t_command_info				*g_commands;
-t_list_env					*g_list_env;
-t_histo						*g_histo;
-t_utils						g_utils;
-int (*g_fd)[2];
-int							g_q;
-int							g_one;
-int							g_two;
-int							g_force;
-int							g_var_one;
-int							g_var_two;
-int							g_status;
-int							g_return;
-char						*g_str_return;
-int							g_join_red;
-char						*g_str_var;
-int							g_var_k;
-char						*g_str_command;
-int							g_command_len;
-char						*g_var_cmd;
-int							g_cmd_k;
-int							g_returned;
-int							g_count_end;
-char						g_case_index[10000];
-int							g_print_next;
-char						g_next;
-int							g_move_and_pass;
-char						*g_env_tab[10000];
-char						**g_cmd_args;
+t_all	g_all;
+
 /*
 	**Functions
 */

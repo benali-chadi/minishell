@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:29:26 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/06 08:12:37 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 18:03:05 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 void	fill_command(char a)
 {
-	g_str_command[g_command_len++] = a;
+	g_all.str_command[g_all.command_len++] = a;
 	switch_one_two(a);
 }
 
 int	check_quotes_one1(void)
 {
-	if (g_var_one == 0 && g_var_two == 0)
+	if (g_all.var_one == 0 && g_all.var_two == 0)
 	{
-		g_var_one = 1;
+		g_all.var_one = 1;
 		return (1);
 	}
-	else if (g_var_one == 1 && g_var_two == 0)
+	else if (g_all.var_one == 1 && g_all.var_two == 0)
 	{
-		g_var_one = 0;
+		g_all.var_one = 0;
 		return (1);
 	}
 	return (0);
@@ -35,14 +35,14 @@ int	check_quotes_one1(void)
 
 int	check_quotes_two1(void)
 {
-	if (g_var_two == 0 && g_var_one == 0)
+	if (g_all.var_two == 0 && g_all.var_one == 0)
 	{
-		g_var_two = 1;
+		g_all.var_two = 1;
 		return (1);
 	}
-	else if (g_var_two == 1 && g_var_one == 0)
+	else if (g_all.var_two == 1 && g_all.var_one == 0)
 	{
-		g_var_two = 0;
+		g_all.var_two = 0;
 		return (1);
 	}
 	return (0);
@@ -51,7 +51,7 @@ int	check_quotes_two1(void)
 int	ft_continue1(int *force, int i, char *str)
 {
 	if ((str[i] == '\\' && *force != 1
-			&& g_var_one != 1 && g_var_two != 1)
+			&& g_all.var_one != 1 && g_all.var_two != 1)
 		|| (str[i] == '\\' && *force != 1 && is_special(str[i + 1])))
 	{
 		*force = 1;
@@ -77,8 +77,8 @@ char	*clean_cmd(char *str)
 		return (NULL);
 	str2 = m_malloc(ft_strlen(str) + 1);
 	i = -1;
-	g_var_one = 0;
-	g_var_two = 0;
+	g_all.var_one = 0;
+	g_all.var_two = 0;
 	force = 0;
 	j = 0;
 	while (str[++i])
@@ -89,7 +89,7 @@ char	*clean_cmd(char *str)
 		force = 0;
 	}
 	str2[j] = '\0';
-	if (g_var_one == 1 || g_var_two == 1)
+	if (g_all.var_one == 1 || g_all.var_two == 1)
 		printf("CHNO KATKHWER\n");
 	return (str2);
 }

@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/06 11:00:04 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/10 13:36:02 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 18:07:54 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	check_special_char(char a)
 	if (!is_alpha_digit(a) && a != '_' && a != '\''
 		&& a != '\"' && a != '$' && a != '\\')
 	{
-		g_next = a;
+		g_all.next = a;
 		return (1);
 	}
 	return (0);
@@ -57,14 +57,14 @@ char	**join_2_tab(char **tab1, char **tab2)
 void	continue_our_road(int s, int p)
 {
 	if (s)
-		add_last_cmd(g_cmd->string[s - 1], "_");
-	else if (g_cmd->options)
-		add_last_cmd(g_cmd->options, "_");
+		add_last_cmd(g_all.cmd->string[s - 1], "_");
+	else if (g_all.cmd->options)
+		add_last_cmd(g_all.cmd->options, "_");
 	else
-		add_last_cmd(g_cmd->command, "_");
-	test(g_cmd);
-	g_cmd->pipe = p;
-	cmd_lstadd_back(&g_commands, g_cmd);
+		add_last_cmd(g_all.cmd->command, "_");
+	test(g_all.cmd);
+	g_all.cmd->pipe = p;
+	cmd_lstadd_back(&g_all.commands, g_all.cmd);
 }
 
 int	init_fill_cmd(char ***split, int *i, int *s)
@@ -73,7 +73,7 @@ int	init_fill_cmd(char ***split, int *i, int *s)
 	if (!*split || i < 0)
 		return (0);
 	*s = 0;
-	g_cmd->string[0] = NULL;
-	g_move_and_pass = 0;
+	g_all.cmd->string[0] = NULL;
+	g_all.move_and_pass = 0;
 	return (1);
 }

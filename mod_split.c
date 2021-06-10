@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:03 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/06 10:15:24 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 18:06:29 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	ft_countwords(char *str, char c)
 	int	i;
 	int	compteur;
 
-	g_var_one = 0;
-	g_var_two = 0;
+	g_all.var_one = 0;
+	g_all.var_two = 0;
 	compteur = 0;
 	i = 0;
 	while (str[i] != '\0')
@@ -28,7 +28,7 @@ int	ft_countwords(char *str, char c)
 		if (str[i] == '\0')
 			break ;
 		compteur++;
-		while ((g_var_one == 1 || g_var_two == 1
+		while ((g_all.var_one == 1 || g_all.var_two == 1
 				|| str[i] != c || (i && str[i - 1] == '\\'))
 			&& str[i] != '\0' && re_check_quots(str, i))
 			i++;
@@ -42,8 +42,8 @@ int	ft_countlen(const char *str, char c, int *i)
 {
 	int	len;
 
-	g_var_one = 0;
-	g_var_two = 0;
+	g_all.var_one = 0;
+	g_all.var_two = 0;
 	len = 0;
 	while (str[*i] != '\0')
 	{
@@ -51,7 +51,7 @@ int	ft_countlen(const char *str, char c, int *i)
 			*i = *i + 1;
 		if (str[*i] == '\0')
 			return (len);
-		while ((g_var_one == 1 || g_var_two == 1
+		while ((g_all.var_one == 1 || g_all.var_two == 1
 				|| (*i && str[*i - 1] == '\\') || str[*i] != c)
 			&& str[*i] != '\0' && re_check_quots(str, *i))
 		{
@@ -73,17 +73,17 @@ char	**result(char **tab1, const char *str, char c)
 
 	i = 0;
 	a = 0;
-	g_var_one = 0;
-	g_var_two = 0;
+	g_all.var_one = 0;
+	g_all.var_two = 0;
 	while (str[i] != '\0')
 	{
 		while (str[i] == c)
 			i++;
 		if (str[i] == '\0' && stock_index(a))
 			break ;
-		g_case_index[a] = '0';
+		g_all.case_index[a] = '0';
 		b = 0;
-		while ((g_var_one == 1 || g_var_two == 1
+		while ((g_all.var_one == 1 || g_all.var_two == 1
 				|| (i && str[i - 1] == '\\') || str[i] != c)
 			&& str[i] != '\0' && re_check_quots(str, i))
 			tab1[a][b++] = str[i++];

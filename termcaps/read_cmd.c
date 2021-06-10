@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 12:07:37 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/10 12:07:49 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 17:55:18 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void	up_down(t_read *reads, t_histo ***read, int c)
 		if ((**read)->next == NULL && g_flag == 0)
 		{
 			g_flag = 1;
-			add_back_cmd(&g_histo, ft_join_stacks(*reads));
+			add_back_cmd(&g_all.histo, ft_join_stacks(*reads));
 			(**read) = (**read)->next;
 		}
 		else
 			(**read)->command_line = ft_join_stacks(*reads);
-		if (**read != g_histo)
+		if (**read != g_all.histo)
 			**read = (**read)->previous;
 		clear_and_reen(reads, (**read)->command_line);
 	}
@@ -99,19 +99,19 @@ int	read_char(int fd, char **line)
 	term_type = getenv("TERM");
 	tgetent(NULL, term_type);
 	clear_and_reen(&reads, NULL);
-	read = g_histo;
+	read = g_all.histo;
 	read = ft_lstlast_cmd(read);
-	g_utils.for_ctrl_c = 0;
+	g_all.utils.for_ctrl_c = 0;
 	g_flag = 0;
 	while (ft_read_line(fd, &reads, &read))
 	{
-		if (g_utils.for_ctrl_c && reads.left)
+		if (g_all.utils.for_ctrl_c && reads.left)
 		{
 			clear_and_reen(&reads, last_char(reads.left));
-			g_utils.for_ctrl_c = 0;
+			g_all.utils.for_ctrl_c = 0;
 		}
 	}
 	*line = ft_join_stacks(reads);
-	add_back_cmd(&g_histo, ft_strdup(*line));
+	add_back_cmd(&g_all.histo, ft_strdup(*line));
 	return (1);
 }

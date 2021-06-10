@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:21:41 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/10 11:54:57 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 18:06:59 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,26 @@
 
 int	first_condition(int j, char **args, int i, int *s)
 {
-	g_print_next = 0;
+	g_all.print_next = 0;
 	j++;
-	g_str_var = m_malloc(ft_strlen(args[i]));
-	g_var_k = 0;
+	g_all.str_var = m_malloc(ft_strlen(args[i]));
+	g_all.var_k = 0;
 	while (args[i][j] && (is_alpha_digit(args[i][j]) || args[i][j] == '_'))
-		g_str_var[g_var_k++] = args[i][j++];
-	g_str_var[g_var_k] = '\0';
-	if (ft_strcmpr(g_str_var, "?"))
+		g_all.str_var[g_all.var_k++] = args[i][j++];
+	g_all.str_var[g_all.var_k] = '\0';
+	if (ft_strcmpr(g_all.str_var, "?"))
 	{
-		g_str_return = ft_itoa(g_return);
-		g_cmd->string[*s] = ft_realloc(g_cmd->string[*s],
-				ft_strlen(g_cmd->string[*s]) + ft_strlen(args[i])
-				+ ft_strlen(g_str_return) + 1 + g_two);
-		g_var_k = 0;
-		while (g_str_return[g_var_k])
+		g_all.str_return = ft_itoa(g_all.returnn);
+		g_all.cmd->string[*s] = ft_realloc(g_all.cmd->string[*s],
+				ft_strlen(g_all.cmd->string[*s]) + ft_strlen(args[i])
+				+ ft_strlen(g_all.str_return) + 1 + g_all.two);
+		g_all.var_k = 0;
+		while (g_all.str_return[g_all.var_k])
 		{
-			g_cmd->string[*s][g_cmd->string_len++] = g_str_return[g_var_k];
-			g_var_k++;
+			g_all.cmd->string[*s][g_all.cmd->string_len++] = g_all.str_return[g_all.var_k];
+			g_all.var_k++;
 		}
-		g_cmd->string[*s][g_cmd->string_len++] = '\0';
+		g_all.cmd->string[*s][g_all.cmd->string_len++] = '\0';
 	}
 	else
 		replace_var(args, i, j, s);
@@ -42,7 +42,7 @@ int	first_condition(int j, char **args, int i, int *s)
 
 int	condition1(char a1, char a2, char *str, int e)
 {
-	if (a1 == '$' && a2 && g_one != 1 && !is_digit(a2)
+	if (a1 == '$' && a2 && g_all.one != 1 && !is_digit(a2)
 		&& a2 != '.' && !check_backslash(str, e))
 		return (1);
 	return (0);
@@ -63,16 +63,16 @@ int	check_first_char(char **args, int *i, int *j)
 			return (0);
 		return (1);
 	}
-	else if ((a1 == '$' && a2 && g_one != 1 && is_digit(a2) && a2 != '.')
-		|| (a1 == '$' && a2 && g_one == 1
-			&& g_two == 1 && is_digit(a2) && a2 != '.'))
+	else if ((a1 == '$' && a2 && g_all.one != 1 && is_digit(a2) && a2 != '.')
+		|| (a1 == '$' && a2 && g_all.one == 1
+			&& g_all.two == 1 && is_digit(a2) && a2 != '.'))
 	{
 		*j = *j + 2;
 		return (2);
 	}
-	else if ((a1 == '$' && a2 && g_one != 1 && !is_digit(a2) && a2 == '.')
-		|| (a1 == '$' && a2 && g_one == 1
-			&& g_two == 1 && !is_digit(a2) && a2 == '.'))
+	else if ((a1 == '$' && a2 && g_all.one != 1 && !is_digit(a2) && a2 == '.')
+		|| (a1 == '$' && a2 && g_all.one == 1
+			&& g_all.two == 1 && !is_digit(a2) && a2 == '.'))
 		*j = *j + 1;
 	return (0);
 }
@@ -97,7 +97,7 @@ void	to_while(char **args, int i, int *s)
 		if (check_if_can_increment(args, i, j))
 			j++;
 	}
-	g_cmd->string[*s][g_cmd->string_len] = '\0';
+	g_all.cmd->string[*s][g_all.cmd->string_len] = '\0';
 }
 
 int	cat_command_string(char **args, int *s)
@@ -108,7 +108,7 @@ int	cat_command_string(char **args, int *s)
 	i = 0;
 	while (args[i])
 	{
-		g_cmd->indice[*s] = 0;
+		g_all.cmd->indice[*s] = 0;
 		j = 0;
 		if (args[i] && (args[i][j] == '<' || args[i][j] == '>'))
 			if (redirection(args, i) < 0)
@@ -118,13 +118,13 @@ int	cat_command_string(char **args, int *s)
 		if (!args[i])
 			break ;
 		init_one_two();
-		g_cmd->string[*s] = m_malloc(ft_strlen(args[i]) + 1);
-		g_cmd->string[*s] = ft_strcpy(g_cmd->string[*s], args[i]);
-		g_cmd->string_len = 0;
+		g_all.cmd->string[*s] = m_malloc(ft_strlen(args[i]) + 1);
+		g_all.cmd->string[*s] = ft_strcpy(g_all.cmd->string[*s], args[i]);
+		g_all.cmd->string_len = 0;
 		to_while(args, i, s);
 		(*s)++;
 		i++;
 	}
-	g_cmd->string[*s] = NULL;
+	g_all.cmd->string[*s] = NULL;
 	return (1);
 }

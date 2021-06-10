@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 18:25:55 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/10 11:47:59 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 17:57:12 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	check_quots_after_dollar(char **args, int i, int j, int *s)
 {
-	if (g_two == 1)
+	if (g_all.two == 1)
 		fill_command_string(args[i][j], *s);
 	else
 		change_one_two(args[i][j]);
@@ -48,17 +48,17 @@ int	check_if_print(char *str, int j)
 
 int	check_quotes_and_ret(char **args, int i, int j)
 {
-	if (g_one != 1 && j > 0 && check_if_print(args[i], j))
+	if (g_all.one != 1 && j > 0 && check_if_print(args[i], j))
 		return (1);
 	if (args[i][j] == '"')
 	{
-		if (g_one == 1)
+		if (g_all.one == 1)
 			return (1);
 		return (0);
 	}
 	if (args[i][j] == '\'')
 	{
-		if (g_two == 1)
+		if (g_all.two == 1)
 			return (1);
 		return (0);
 	}
@@ -70,14 +70,14 @@ int	check_char_first(char **args, int i, int j)
 	int	e;
 
 	e = 0;
-	if (args[i][j] == '\\' && g_one != 1 && g_two != 1)
+	if (args[i][j] == '\\' && g_all.one != 1 && g_all.two != 1)
 	{
 		if (j == 0)
 			return (0);
 		if (!check_if_print(args[i], j))
 			return (0);
 	}
-	else if (args[i][j] == '\\' && g_one != 1)
+	else if (args[i][j] == '\\' && g_all.one != 1)
 	{
 		if (args[i][j + 1] && !is_special(args[i][j + 1]))
 			return (1);
@@ -94,18 +94,18 @@ int	check_char_first(char **args, int i, int j)
 
 void	switch_one_two(char a)
 {
-	if (a == '\'' && g_two != 1)
+	if (a == '\'' && g_all.two != 1)
 	{
-		if (g_one)
-			g_one = 0;
+		if (g_all.one)
+			g_all.one = 0;
 		else
-			g_one = 1;
+			g_all.one = 1;
 	}
-	if (a == '"' && g_one != 1)
+	if (a == '"' && g_all.one != 1)
 	{
-		if (g_two)
-			g_two = 0;
+		if (g_all.two)
+			g_all.two = 0;
 		else
-			g_two = 1;
+			g_all.two = 1;
 	}
 }

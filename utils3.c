@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:14:40 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/10 12:06:41 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 18:06:29 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,20 @@ int	check_white_spaces(void)
 	int	j;
 
 	i = 0;
-	while (g_utils.m_split[i] != NULL)
+	while (g_all.utils.m_split[i] != NULL)
 	{
 		j = 0;
-		while (g_utils.m_split[i][j] == ' ' || g_utils.m_split[i][j] == '\t')
+		while (g_all.utils.m_split[i][j] == ' ' || g_all.utils.m_split[i][j] == '\t')
 		{
 			j++;
 		}
-		if ((g_utils.m_split[i][j] == '\0' && g_utils.m_split
-			[i + 1]) || (g_utils.m_split[i][j] == '\0' && g_case_index
+		if ((g_all.utils.m_split[i][j] == '\0' && g_all.utils.m_split
+			[i + 1]) || (g_all.utils.m_split[i][j] == '\0' && g_all.case_index
 			[i + 1] == '1' && i > 0))
 		{
 			printf("minishell: syntax error near unexpected token `;;'\n");
-			g_case_index[i + 1] = 0;
-			g_return = 258;
+			g_all.case_index[i + 1] = 0;
+			g_all.returnn = 258;
 			return (0);
 		}
 		i++;
@@ -58,7 +58,7 @@ int	add_last_cmd(char *s, char *name)
 	name_content = ft_strjoin(name, "=");
 	name_content = ft_strjoin(name_content, content);
 	if (check_var(name, content, name_content))
-		add_back(&g_list_env, name, content, name_content);
+		add_back(&g_all.list_env, name, content, name_content);
 	return (1);
 }
 
@@ -100,6 +100,6 @@ void	leave(char **strings)
 			return ;
 		}
 	}
-	close(g_utils.out);
+	close(g_all.utils.out);
 	exit(uc);
 }

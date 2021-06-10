@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 18:49:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/04 06:52:25 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 17:56:00 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	test_cmds(t_command_info *cmd)
 {
 	if (cmd->tests.pwd)
-		printf("%s\n", g_utils.pwd);
+		printf("%s\n", g_all.utils.pwd);
 	else if (cmd->tests.echo)
 		ft_echo(cmd);
 	else if (cmd->tests.export_t && !cmd->string[0])
@@ -34,8 +34,8 @@ void	close_all(int last)
 	i = 0;
 	while (i < last)
 	{
-		close(g_fd[i][0]);
-		close(g_fd[i][1]);
+		close(g_all.fd[i][0]);
+		close(g_all.fd[i][1]);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 15:57:58 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/10 11:55:21 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 17:53:53 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	stock_env(char **env)
 	int		i;
 	int		j;
 
-	g_list_env = NULL;
+	g_all.list_env = NULL;
 	i = 0;
 	while (env[i])
 	{
@@ -80,7 +80,7 @@ void	stock_env(char **env)
 		name[j] = '\0';
 		content = &env[i][j] + 1;
 		if (!ft_strcmpr(name, "OLDPWD"))
-			add_back(&g_list_env, name, content, name_content);
+			add_back(&g_all.list_env, name, content, name_content);
 		i++;
 	}
 }

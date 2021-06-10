@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:14 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/04 06:52:25 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 17:59:31 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,25 @@ void	red_file_names(char *args, int red, int j)
 
 	if (red == 1)
 	{
-		g_cmd->reds.out[g_cmd->reds.out_num].file_name = m_malloc
+		g_all.cmd->reds.out[g_all.cmd->reds.out_num].file_name = m_malloc
 			(ft_strlen(&args[j]) + 1);
 		str = clean_cmd(&args[j]);
 		k = -1;
 		while (str[++k])
-			g_cmd->reds.out[g_cmd->reds.out_num].file_name[k] = str[k];
-		g_cmd->reds.out[g_cmd->reds.out_num].file_name[k] = '\0';
-		g_cmd->reds.out_num++;
+			g_all.cmd->reds.out[g_all.cmd->reds.out_num].file_name[k] = str[k];
+		g_all.cmd->reds.out[g_all.cmd->reds.out_num].file_name[k] = '\0';
+		g_all.cmd->reds.out_num++;
 	}
 	else
 	{
-		g_cmd->reds.in_file_name[g_cmd->reds.in_num
+		g_all.cmd->reds.in_file_name[g_all.cmd->reds.in_num
 		] = m_malloc(ft_strlen(args) + 1);
 		str = clean_cmd(&args[j]);
 		k = -1;
 		while (str[++k])
-			g_cmd->reds.in_file_name[g_cmd->reds.in_num][k] = str[k];
-		g_cmd->reds.in_file_name[g_cmd->reds.in_num][k] = '\0';
-		g_cmd->reds.in_num++;
+			g_all.cmd->reds.in_file_name[g_all.cmd->reds.in_num][k] = str[k];
+		g_all.cmd->reds.in_file_name[g_all.cmd->reds.in_num][k] = '\0';
+		g_all.cmd->reds.in_num++;
 	}
 }
 
@@ -49,7 +49,7 @@ int	for_norme(int cnt, char c)
 			printf("minishell: syntax error near unexpected token `>>'\n");
 		else
 			printf("minishell: syntax error near unexpected token `>'\n");
-		g_return = 258;
+		g_all.returnn = 258;
 		return (0);
 	}
 	return (1);
@@ -66,7 +66,7 @@ int	red_helper(char *arg, int *j, int *red)
 		{
 			if (!for_norme(cnt, arg[*j + 1]))
 				return (0);
-			g_cmd->reds.out[g_cmd->reds.out_num].sym[*j] = arg[*j];
+			g_all.cmd->reds.out[g_all.cmd->reds.out_num].sym[*j] = arg[*j];
 			(*j)++;
 			cnt++;
 		}

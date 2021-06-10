@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:31:56 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/04 06:52:25 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 18:06:29 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	skip_repeat(char *str, int *i, char c)
 
 int	stock_index(int a)
 {
-	g_case_index[a] = '1';
-	g_case_index[a + 1] = '\0';
+	g_all.case_index[a] = '1';
+	g_all.case_index[a + 1] = '\0';
 	return (1);
 }

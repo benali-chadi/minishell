@@ -6,14 +6,11 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:10 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/06 11:28:30 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/10 17:52:04 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
-
-void	*g_alloc[400];
-int		g_all = 0;
 
 void	*m_malloc(size_t n)
 {
@@ -22,15 +19,15 @@ void	*m_malloc(size_t n)
 	tmp = malloc(n);
 	if (!tmp)
 		return (NULL);
-	g_alloc[g_all] = tmp;
-	g_all++;
+	g_all.alloc[g_all.all] = tmp;
+	g_all.all++;
 	return (tmp);
 }
 
 void	m_free(void *elm)
 {
 	free(elm);
-	g_all--;
+	g_all.all--;
 }
 
 void	to_free(void)
@@ -38,6 +35,6 @@ void	to_free(void)
 	int	i;
 
 	i = -1;
-	while (++i < g_all)
-		free(g_alloc[i]);
+	while (++i < g_all.all)
+		free(g_all.alloc[i]);
 }
