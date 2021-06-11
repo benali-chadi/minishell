@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 11:12:51 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/10 18:09:02 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/11 10:44:48 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	loop_env(int e)
 	while (tmp)
 	{
 		if (e)
-			g_all.env_tab[i++] = tmp->name_content;
+			add_quotes_and_fill(tmp, &i);
 		else if (tmp->content)
 		{
 			if (ft_strcmpr(tmp->name_content, "_=env"))

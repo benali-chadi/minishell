@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/11 05:49:06 by macbook          ###   ########.fr       */
+/*   Updated: 2021/06/11 10:50:07 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,6 @@ void	execute(int j)
 	}
 }
 
-int	check_if_void(char *s)
-{
-	int i;
-	int c;
-
-	i = 0;
-	c = 0;
-	while(s[i] && s[i] == ' ')
-		i++;
-	if(s[i])
-		return (0);
-	return (1);	
-}
-
 int	fill_and_execute(void)
 {
 	int	i;
@@ -83,13 +69,9 @@ int	fill_and_execute(void)
 	g_all.utils.m_split = mod_split(g_all.utils.line, ';');
 	if (!g_all.utils.m_split)
 		return (-1);
-	// if (!check_white_spaces())
-	// 	return (-1);
 	i = -1;
-	while (g_all.utils.m_split[++i])
+	while ((g_all.utils.m_split[++i]) && !check_if_void(g_all.utils.m_split[i]))
 	{
-		if (check_if_void(g_all.utils.m_split[i]))
-			return (-1);
 		g_all.status = 1;
 		g_all.commands = NULL;
 		g_all.fd = NULL;
@@ -114,9 +96,12 @@ int	check_semicolon(char *str)
 	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
 		i++;
 	if (str[i] == ';')
-	{
+	{		
 		ft_putstr_fd("minishell: syntax error near ", 2);
-		ft_putstr_fd("unexpected token `;'\n", 2);
+		if (str[i + 1] && str[i + 1] == ';')
+			ft_putstr_fd("unexpected token `;;'\n", 2);
+		else
+			ft_putstr_fd("unexpected token `;'\n", 2);
 		g_all.utils.line = NULL;
 		return (1);
 	}

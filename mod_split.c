@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mod_split.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 16:01:03 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/11 05:27:54 by macbook          ###   ########.fr       */
+/*   Updated: 2021/06/11 10:16:44 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,8 @@ char	**result(char **tab1, const char *str, char c)
 	{
 		while (str[i] == c)
 			i++;
-		if (str[i] == '\0' && stock_index(a))
+		if (str[i] == '\0')
 			break ;
-		g_all.case_index[a] = '0';
-		g_all.case_index[a + 1] = '\0';
 		b = 0;
 		while ((g_all.var_one == 1 || g_all.var_two == 1
 				|| (i && str[i - 1] == '\\') || str[i] != c)

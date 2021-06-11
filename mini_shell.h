@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/11 05:58:25 by macbook          ###   ########.fr       */
+/*   Updated: 2021/06/11 10:49:57 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,8 @@ void						loop_env_cmd(void);
 /*
 	**Utils
 */
+int							check_if_void(char *s);
+int							check_equal_at_the_last(char *str);
 int							check_white_spc(char *s);
 int							check_if_void(char *s);
 void						print_error_and_exit(void);
@@ -248,6 +250,7 @@ int							ft_read_line(int fd, t_read *reads, t_histo **read);
 /*
 	**env
 */
+void						add_quotes_and_fill(t_list_env *tmp, int *i);
 int							check_var_solo(char *name);
 void						ft_remove_node_cmd_1(void);
 void						ft_remove_node(t_command_info *cmd);
