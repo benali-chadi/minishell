@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/11 13:27:51 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/11 17:48:23 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	execute(int j)
 		g_all.returnn = WEXITSTATUS(g_all.returnn);
 		if (g_all.returnn == 13 || g_all.returnn == 21)
 			g_all.returnn = 126;
+		if (g_all.returnn == 2)
+			g_all.returnn = 127;
 	}
 }
 

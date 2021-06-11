@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 15:02:50 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/11 12:46:15 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/11 17:51:13 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,12 @@ void	ft_echo(t_command_info *cmd)
 	g_all.var_two = 0;
 	force = 0;
 	(void)cmd;
-	// write(1, "---", 3);
 	while (cmd->string[++i])
 	{
-		// printf("%s : %d\n", cmd->string[i], (int)ft_strlen(cmd->string[i]));
 		write(1, cmd->string[i], ft_strlen(cmd->string[i]));
 		if (cmd->string[i + 1])
 			printf(" ");
 	}
 	if (!cmd->options || !ft_strcmpr(cmd->options, "-n"))
 		printf("\n");
-	// write(1, "---", 3);
 }
