@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:54 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/10 17:53:53 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/11 05:58:11 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	join_name_content(char *name, char *content, char **name_content)
 
 int	add_solo_var_name(char *name)
 {
-	if (check_var(name, ft_strdup(""), name))
+	if (check_var_solo(name))
 		add_back(&g_all.list_env, name, ft_strdup(""), name);
 	return (1);
 }

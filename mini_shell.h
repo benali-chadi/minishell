@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/11 05:47:27 by macbook          ###   ########.fr       */
+/*   Updated: 2021/06/11 05:58:25 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,7 +248,7 @@ int							ft_read_line(int fd, t_read *reads, t_histo **read);
 /*
 	**env
 */
-
+int							check_var_solo(char *name);
 void						ft_remove_node_cmd_1(void);
 void						ft_remove_node(t_command_info *cmd);
 void						add_back(t_list_env **head, char *name,

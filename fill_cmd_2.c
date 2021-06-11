@@ -6,7 +6,7 @@
 /*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:46:33 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/11 04:32:13 by macbook          ###   ########.fr       */
+/*   Updated: 2021/06/11 05:59:34 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ char	*clean_command_1(char *command)
 	ft_strcpy(g_all.s_cmd, command);
 	init_one_two();
 	g_all.c_l = 0;
-	printf("cmd->|%s|\n", command);
 	to_while_cmd(command, i, &indice);
 	return (g_all.s_cmd);
 }
