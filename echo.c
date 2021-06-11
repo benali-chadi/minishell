@@ -6,7 +6,7 @@
 /*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 15:02:50 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/11 17:51:13 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/06/11 18:47:09 by cbenali-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_echo(t_command_info *cmd)
 	{
 		write(1, cmd->string[i], ft_strlen(cmd->string[i]));
 		if (cmd->string[i + 1])
-			printf(" ");
+			write(1, " ", 1);
 	}
 	if (!cmd->options || !ft_strcmpr(cmd->options, "-n"))
 		printf("\n");
