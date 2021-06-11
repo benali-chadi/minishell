@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cbenali- <cbenali-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/11 17:48:23 by cbenali-         ###   ########.fr       */
+/*   Updated: 2021/06/11 20:48:37 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	fill(int *j, int i)
 	*j = 0;
 	if (mod_strlen(g_all.utils.p_split) > 1)
 	{
-		while (g_all.utils.p_split[*j])
+		while (g_all.utils.p_split[*j]
+			&& !check_if_void(g_all.utils.p_split[*j]))
 		{
 			g_all.utils.c_split = mod_split(g_all.utils.p_split[*j], ' ');
 			if (fill_cmd(g_all.utils.c_split, 1) < 0)

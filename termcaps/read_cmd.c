@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 12:07:37 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/11 12:09:45 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/11 20:44:18 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void	clear_and_reen(t_read *reads, char *command_line)
 	if (command_line)
 	{
 		write(1, "\r", 1);
-		// tputs(tgetstr("ch", NULL), 1, ft_puts);
-		// tputs(tgetstr("dl", NULL), 1, ft_puts);
 		tputs(tgetstr("ce", NULL), 1, ft_puts);
 	}
 	reenitialize(&reads, command_line);
