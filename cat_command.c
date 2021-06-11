@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:21:41 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/10 19:01:10 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/11 11:05:16 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void	to_while(char **args, int i, int *s)
 		{
 			if (check_char_first(args, i, j))
 				fill_command_string(args[i][j], *s);
-			switch_one_two(args[i][j]);
 		}
 		if (check_if_can_increment(args, i, j))
 			j++;
