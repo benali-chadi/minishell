@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:29:26 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/10 19:00:49 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/11 11:38:42 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	fill_command(char a)
 {
 	g_all.s_cmd[g_all.c_l++] = a;
-	switch_one_two(a);
 }
 
 int	check_quotes_one1(void)

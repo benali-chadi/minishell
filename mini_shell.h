@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/11 10:49:57 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/11 13:40:34 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,9 +165,10 @@ void						loop_env_cmd(void);
 /*
 	**Utils
 */
+void						check_error_type(int i, char *s, char a);
 int							check_if_void(char *s);
 int							check_equal_at_the_last(char *str);
-int							check_white_spc(char *s);
+int							chck_spc(char *s, char a);
 int							check_if_void(char *s);
 void						print_error_and_exit(void);
 int							fill_cmd_helper(char ***split);
@@ -250,6 +251,7 @@ int							ft_read_line(int fd, t_read *reads, t_histo **read);
 /*
 	**env
 */
+void						ft_export(t_command_info *cmd);
 void						add_quotes_and_fill(t_list_env *tmp, int *i);
 int							check_var_solo(char *name);
 void						ft_remove_node_cmd_1(void);
@@ -280,7 +282,7 @@ void						ft_next_node(t_list_env **read_list,
 								t_list_env **prev);
 void						bypass_ternarie_1(t_command_info *cmd,
 								char **content, int i, int j);
-void						ft_export(t_command_info *cmd);
+void						ft_(t_command_info *cmd);
 int							loop_env(int e);
 void						stock_env(char **env);
 void						compare_var(char *var, char *arg, int s);

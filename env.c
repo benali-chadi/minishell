@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 15:59:54 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/11 05:58:11 by macbook          ###   ########.fr       */
+/*   Updated: 2021/06/11 13:06:23 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,20 @@ int	add_solo_var_name(char *name)
 	return (1);
 }
 
-void	fill_var(char **name, int i, int *j)
+int	fill_var(char **name, int i, int *j)
 {
 	while (g_all.cmd->string[i][++(*j)] != '=' && g_all.cmd->string[i][*j])
+	{
 		(*name)[*j] = g_all.cmd->string[i][*j];
+		if ((*name)[*j] == '+' || (*name)[*j] == '-')
+		{
+			printf("minishell: export: `%s': ", g_all.cmd->string[i]);
+			printf("not a valid identifier\n");
+			return (0);
+		}
+	}
 	(*name)[*j] = '\0';
+	return (1);
 }
 
 void	ft_export(t_command_info *cmd)
@@ -52,15 +61,15 @@ void	ft_export(t_command_info *cmd)
 		if (ft_print_error(cmd->string[i][0], cmd, i))
 			continue ;
 		name = m_malloc(ft_strlen(cmd->string[i]) + 1);
-		fill_var(&name, i, &j);
+		if (!fill_var(&name, i, &j))
+			continue ;
 		if (cmd->string[i][j] != '=' && add_solo_var_name(name))
 			continue ;
 		bypass_ternarie_1(cmd, &content, i, j);
 		if (!join_name_content(name, content, &name_content))
 			continue ;
 		if (check_var(name, content, name_content))
-			add_back(&g_all.list_env, name,
-				content, name_content);
+			add_back(&g_all.list_env, name, content, name_content);
 	}
 }
 

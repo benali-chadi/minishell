@@ -6,13 +6,13 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:14:40 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/11 10:51:27 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/11 13:39:47 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
 
-int	check_white_spc(char *s)
+int	chck_spc(char *s, char a)
 {
 	int	i;
 	int	c;
@@ -25,14 +25,11 @@ int	check_white_spc(char *s)
 			i++;
 		if (!s[i])
 			break ;
-		if (s[i] == ';' && c == 0)
+		if (s[i] == a && c == 0)
 			c = 1;
-		else if (s[i] == ';')
+		else if (s[i] == a)
 		{
-			if (i > 0 && s[i - 1] == ';')
-				printf("minishell: syntax error near unexpected token `;;'\n");
-			else
-				printf("minishell: syntax error near unexpected token `;'\n");
+			check_error_type(i, s, a);
 			return (0);
 		}
 		else

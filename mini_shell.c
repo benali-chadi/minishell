@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/11 10:50:07 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/11 13:27:51 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	fill_and_execute(void)
 	int	i;
 	int	j;
 
-	if (!check_white_spc(g_all.utils.line))
+	if (!chck_spc(g_all.utils.line, ';'))
 		return (-1);
 	g_all.utils.m_split = mod_split(g_all.utils.line, ';');
 	if (!g_all.utils.m_split)
@@ -76,7 +76,7 @@ int	fill_and_execute(void)
 		g_all.commands = NULL;
 		g_all.fd = NULL;
 		g_all.utils.p_split = mod_split(g_all.utils.m_split[i], '|');
-		if (!g_all.utils.p_split)
+		if ((!g_all.utils.p_split) || !chck_spc(g_all.utils.m_split[i], '|'))
 			return (-1);
 		if (check_solo_at_the_first(g_all.utils.m_split[i]))
 			return (-1);

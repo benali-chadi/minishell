@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
+/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 18:46:33 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/11 05:59:34 by macbook          ###   ########.fr       */
+/*   Updated: 2021/06/11 11:22:19 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void	to_while_cmd(char *command, int i, int *indice)
 		{
 			if (check_char_first(&command, 0, i))
 				fill_command(command[i]);
-			switch_one_two(command[i]);
 		}
 		if (check_if_can_increment(&command, 0, i))
 			i++;

@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 15:04:47 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/10 18:06:59 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/11 12:31:00 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	change_one_two(char a)
 void	fill_command_string(char a, int i)
 {
 	g_all.cmd->string[i][g_all.cmd->string_len++] = a;
+	g_all.cmd->string[i][g_all.cmd->string_len] = '\0';
 }
 
 void	init_one_two(void)

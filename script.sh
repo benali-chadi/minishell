@@ -8,3 +8,10 @@
 //export test="bn     bn"
 //export a
 //export a=123
+
+//a+=l
+//a-=aaa
+
+mkdir test_dir ; cd test_dir ; rm -rf ../test_dir ; cd . ; pwd ; cd . ; pwd ; cd .. ; pwd
+>lol echo > test>lol>test>>lol>test mdr >lol test >test; cat test
+//echo | |

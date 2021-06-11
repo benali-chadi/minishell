@@ -6,7 +6,7 @@
 /*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 15:57:58 by smhah             #+#    #+#             */
-/*   Updated: 2021/06/10 17:53:53 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/11 13:02:26 by smhah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_print_error(char a, t_command_info *cmd, int i)
 {
-	if (a == '=' || (a >= '0' && a <= '9'))
+	if (a == '=' || (a >= '0' && a <= '9') || a == '+' || a == '-')
 	{
 		printf("minishell: export: `%s': ", cmd->string[i]);
 		printf("not a valid identifier\n");
