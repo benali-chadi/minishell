@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:15:57 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/10 19:14:51 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/11 05:49:06 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,37 @@ void	execute(int j)
 	}
 }
 
+int	check_if_void(char *s)
+{
+	int i;
+	int c;
+
+	i = 0;
+	c = 0;
+	while(s[i] && s[i] == ' ')
+		i++;
+	if(s[i])
+		return (0);
+	return (1);	
+}
+
 int	fill_and_execute(void)
 {
 	int	i;
 	int	j;
 
+	if (!check_white_spc(g_all.utils.line))
+		return (-1);
 	g_all.utils.m_split = mod_split(g_all.utils.line, ';');
 	if (!g_all.utils.m_split)
-		return (0);
-	if (!check_white_spaces())
-		return (0);
+		return (-1);
+	// if (!check_white_spaces())
+	// 	return (-1);
 	i = -1;
 	while (g_all.utils.m_split[++i])
 	{
+		if (check_if_void(g_all.utils.m_split[i]))
+			return (-1);
 		g_all.status = 1;
 		g_all.commands = NULL;
 		g_all.fd = NULL;

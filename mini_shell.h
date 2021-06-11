@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: smhah <smhah@student.42.fr>                +#+  +:+       +#+        */
+/*   By: macbook <macbook@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 19:12:17 by cbenali-          #+#    #+#             */
-/*   Updated: 2021/06/10 19:27:25 by smhah            ###   ########.fr       */
+/*   Updated: 2021/06/11 05:47:27 by macbook          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,8 @@ void						loop_env_cmd(void);
 /*
 	**Utils
 */
+int							check_white_spc(char *s);
+int							check_if_void(char *s);
 void						print_error_and_exit(void);
 int							fill_cmd_helper(char ***split);
 int							init_fill_cmd(char ***split, int *i, int *s);
